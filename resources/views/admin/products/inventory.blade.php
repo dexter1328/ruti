@@ -1,0 +1,279 @@
+@extends('admin.layout.main')
+@section('content')
+<style type="text/css">
+	/*#sidebar-wrapper{
+		display: none;
+	}*/
+	.quantity{
+		width: 100px;
+	}
+	.image{
+		display: none;
+	}
+</style>
+<link href="https://cdn.datatables.net/fixedcolumns/3.3.0/css/fixedColumns.dataTables.min.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.datatables.net/fixedcolumns/3.3.0/js/dataTables.fixedColumns.min.js"></script>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<div class="card-header">
+				<div class="left"><!-- <i class="fa fa-list-alt"></i> --><span>Inventory</span></div>
+			</div>
+			<div class="card-body">
+            <div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-3">
+						<div class="form-group">
+							<label for="vendor_id">Vendor</label>
+							<select name="vendor_id" class="form-control" id="vendor_id">
+								<option value="">Select Vendor</option>
+								@foreach($vendors as $vendor)
+								<option value="{{$vendor->id}}">{{$vendor->name}}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="form-group">
+							<label for="store_id">Store</label>
+							<select name="store_id" class="form-control" id="store_id">
+								<option value="">Select Store</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="form-group">
+							<label for="brand_id">Brand</label>
+							<select name="brand_id" class="form-control" id="brand_id">
+								<option value="">Select Brand</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="form-group">
+							<label for="category_id">Category</label>
+							<select name="category_id" class="form-control" id="category_id">
+								<option value="">Select Category</option>
+							</select>
+						</div>
+					</div>
+		        </div>
+            </div>    
+				<div class="table-responsive">
+					<table id="example" class="table table-bordered display" style="width: 100%">
+						<thead>
+							<!-- <th>Id</th> -->
+							<th>Title</th>
+							<th>Variants</th>
+							<th>SKU</th>
+							<th>Price</th>
+							<th>Discount</th>
+							<th>Quantity</th>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+
+var vendor_id = ""; 
+var store_id = "";
+var brand_id = "";
+var category_id = "";
+
+$(document).ready(function() {
+
+	getProduct();
+
+	$("#vendor_id").change(function() {
+		vendor_id = $(this).val();
+		getStores();
+		getProduct();
+	});
+
+	$("#store_id").change(function() {
+		store_id = $(this).val();
+		getBrands();
+		getCategoriesDropDown();
+		getProduct();
+	});
+
+	$("#brand_id").change(function() {
+		brand_id = $(this).val();
+		getProduct();
+	});
+
+	$("#category_id").change(function() {
+		category_id = $(this).val();
+		getProduct();
+	});
+
+});
+
+function getStores(){
+
+	if(vendor_id != ''){
+
+		$.ajax({
+			type: "get",
+			url: "{{ url('/get-stores') }}/"+vendor_id,
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			dataType: 'json',
+			success: function (data) {
+				$('#store_id').empty();
+				$("#store_id").append('<option value="">Select Store</option>');
+				$.each(data, function(i, val) {
+					$("#store_id").append('<option value="'+val.id+'">'+val.name+'</option>');
+				});
+			},
+			error: function (data) {
+			}
+		});
+	}
+}
+
+function getBrands(){
+
+	if(store_id != ''){
+		$.ajax({
+			type: "get",
+			url: "{{ url('/get-brands') }}/"+store_id,
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			dataType: 'json',
+			success: function (data) {
+				$('#brand_id').empty();
+				$("#brand_id").append('<option value="">Select Brand</option>');
+				$.each(data, function(i, val) {
+					$("#brand_id").append('<option value="'+val.id+'">'+val.name+'</option>');
+				});
+			},
+			error: function (data) {
+			}
+		});
+	}
+}
+
+function getCategoriesDropDown(){
+
+	if(store_id != ''){
+
+		$.ajax({
+			type: "get",
+			url: "{{ url('/get-categories-dropdown') }}/"+store_id,
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			dataType: 'json',
+			success: function (data) {
+				$('#category_id').empty();
+				$("#category_id").append('<option value="">Select Parent</option>');
+				$("#category_id").append(data.categories);
+			},
+			error: function (data) {
+			}
+		});
+	}
+}
+
+function getProduct(){
+
+	$('#example').DataTable().destroy();
+
+	$('#example').removeAttr('width').DataTable({
+		"pageLength": 25,
+		"processing": true,
+		"serverSide": true,
+		"ajax":{
+			"url": "{{ url('admin/products/get-inventory') }}",
+			"dataType": "json",
+			"type": "POST",
+			"data":{ _token: "{{csrf_token()}}", vendor_id:vendor_id, store_id:store_id, brand_id:brand_id, category_id:category_id }
+		},
+		"columns": [
+			//{ "data": "id" },
+			{ "data": "title" },
+			{ "data": "variants" },
+			{ "data": "sku" },
+			{ "data": "price" },
+			{ "data": "discount" },
+			{ "data": "quantity" },
+		],
+		columnDefs: [
+            { width: "30%", targets: 0 },
+            { width: "20%", targets: 1 },
+            { width: "18%", targets: 2 },
+            { width: "10%", targets: 3 },
+            { width: "12%", targets: 4 },
+            { width: "10%", targets: 5 },
+        ],
+        fixedColumns: true
+	});
+}
+
+function updateQuatity(id)
+{
+	var quantity = $('#quantity_'+id).val();
+	$.ajax({
+		type: "post",
+		url: "{{ url('admin/products/update-quantity') }}",
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		data: { id:id, quantity:quantity },
+		dataType: 'json',
+		success: function (data) {
+			console.log(data);
+		},
+		error: function (data) {
+		}
+	});
+}
+
+function updateDiscount(id)
+{
+	var discount = $('#discount_'+id).val();
+	$.ajax({
+		type: "post",
+		url: "{{ url('admin/products/update-discount') }}",
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		data: { id:id, discount:discount },
+		dataType: 'json',
+		success: function (data) {
+			console.log(data);
+		},
+		error: function (data) {
+		}
+	});
+}
+
+function updatePrice(id)
+{
+	var price = $('#price_'+id).val();
+	$.ajax({
+		type: "post",
+		url: "{{ url('admin/products/update-price') }}",
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		data: { id:id, price:price },
+		dataType: 'json',
+		success: function (data) {
+			console.log(data);
+		},
+		error: function (data) {
+		}
+	});
+}
+
+</script>
+@endsection

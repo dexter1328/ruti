@@ -1,0 +1,171 @@
+@extends('admin.layout.main')
+
+@section('content')
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="left"><!-- <i class="fa fa-list"></i> --><span>Add Attribute</span></div>
+            </div>
+            <div class="card-body">
+            	<div class="container-fluid">
+	                <form id="addFrm" method="post" action="{{route('attributes.store')}}" enctype="multipart/form-data"> 
+                    @csrf 
+                    <div class="form-group">
+                        <label for="input-10">Vendor<span class="text-danger">*</span></label>
+                        <select name="vendor_id" class="form-control" id="vendor_id">
+                            <option value="">Select Vendor</option>
+                            @foreach($vendors as $vendor)
+                                <option value="{{$vendor->id}}" {{ (old("vendor_id") == $vendor->id ? "selected":"") }}>{{$vendor->name}}</option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('vendor_id'))
+                            <span class="text-danger">{{ $errors->first('vendor_id') }}</span>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label for="input-11">Store<span class="text-danger">*</span></label>
+                        <select name="store_id" class="form-control" id="vendor_store">
+                            <option value="">Select store</option>
+                        </select>
+                        @if ($errors->has('store_id'))
+                            <span class="text-danger">{{ $errors->first('store_id') }}</span>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{old('name')}}"> 
+                        @if ($errors->has('name')) 
+                            <span class="text-danger">{{ $errors->first('name') }}</span> 
+                        @endif 
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description">{{old('description')}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="float-sm-right">        
+                            <button type="button" id="add_value" class="btn btn-sm btn-primary">
+                                <i class="fa fa-plus"></i> Add Value
+                            </button>
+                            <div style="height: 10px;"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <table class="table table-bordered" width="100%">
+                            <thead>
+                                <tr>
+                                    <th width="10%">Defualt</th>
+                                    <th width="80%">Value</th>
+                                    <th width="10%">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody id="value_rows">
+                                <tr>
+                                    <td>
+                                        <input type="radio" name="defual_value" value="0">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="values[0]" class="form-control value">
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0);" onclick="$(this).closest('tr').remove();">
+                                            <i class="icon-trash icons" style="font-size:18px;"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span id="values_error" class="text-danger"></span>
+                    </div>
+                    <center>
+                        <button type="button" id="submitBtn" class="btn btn-success"><i class="fa fa-check-square-o"></i> SAVE</button>
+                        <a href="{{url('admin/attributes')}}"><button type="button" class="btn btn-danger"><i class="fa fa-times"></i> CANCEL</button></a>
+                    </center>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var vendor_id = "{{old('vendor_id')}}"; 
+    var store_id = "{{old('store_id')}}";
+    $(document).ready(function () {
+
+        setTimeout(function(){ getStores(); }, 500);
+
+        $("#vendor_id").change(function() {
+            vendor_id = $(this).val();
+            getStores();
+        });
+
+        var values_counter = 1;
+        $('#add_value').click(function(){
+            var str = '';
+            str += '<tr>';
+                str += '<td>';
+                    str += '<input type="radio" name="defual_value" value="'+values_counter+'">';
+                str += '</td>';
+                str += '<td>';
+                    str += '<input type="text" name="values['+values_counter+']" class="form-control value">';
+                str += '</td>';
+                str += '<td>';
+                    str += '<a href="javascript:void(0);" onclick="$(this).closest(\'tr\').remove();"><i class="icon-trash icons" style="font-size:18px;"></i></a>';
+                str += '</td>';
+            str += '</tr>';
+            $("#value_rows").append(str);
+            values_counter = values_counter + 1;
+        });
+
+        $('#submitBtn').click(function(){
+
+            $('#values_error').html('');
+            validate = true;
+            values = [];
+            $(".value").each(function() {
+                if(jQuery.inArray($(this).val(), values) !== -1){
+                    validate = false;
+                }else{
+                    values.push($(this).val());
+                }
+            });
+            if(validate){
+                $("#addFrm").submit();
+            }else{
+                $('#values_error').html('The value must be unique.');
+            }
+        });
+    });
+
+    function getStores(){
+
+        if(vendor_id != ''){
+
+            $.ajax({
+                type: "get",
+                url: "{{ url('/get-stores') }}/"+vendor_id,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType: 'json',
+                success: function (data) {
+                    $('#vendor_store').empty();
+                    $("#vendor_store").append('<option value="">Select Store</option>');
+                    $.each(data, function(i, val) {
+                        $("#vendor_store").append('<option value="'+val.id+'">'+val.name+'</option>');
+                    });
+                    if($("#vendor_store option[value='"+store_id+"']").length > 0){
+                        $('#vendor_store').val(store_id);
+                    }
+                },
+                error: function (data) {
+                }
+            });
+        }else{
+    
+            $("#vendor_id").val('');
+        }
+    }
+</script>
+@endsection 
