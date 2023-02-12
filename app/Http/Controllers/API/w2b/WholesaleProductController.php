@@ -185,6 +185,7 @@ class WholesaleProductController extends Controller
             'body' => 'A new Customer named '.$fname.' '.$lname.' has created an order',
             'email' => 'rutiorders@gmail.com'
         ];
+        // for laravel mail job
           // dispatch(new OrderMailJob($details));
         // dispatch(new RutiMailJob($details2));
         Mail::to($user->email)->send(new WbOrderMail($details));
