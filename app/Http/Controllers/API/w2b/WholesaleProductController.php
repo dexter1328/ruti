@@ -185,8 +185,10 @@ class WholesaleProductController extends Controller
             'body' => 'A new Customer named '.$fname.' '.$lname.' has created an order',
             'email' => 'rutiorders@gmail.com'
         ];
-        dispatch(new OrderMailJob($details));
-        dispatch(new RutiMailJob($details2));
+          // dispatch(new OrderMailJob($details));
+        // dispatch(new RutiMailJob($details2));
+        Mail::to($user->email)->send(new WbOrderMail($details));
+        Mail::to('rutiorders@gmail.com')->send(new WbRutiOrderMail($details2));
 
             return $this->sendResponse($success,'Your Order has been created successfully.');
 
@@ -262,8 +264,54 @@ class WholesaleProductController extends Controller
 
 
         // session()->flash('success', 'Payment successful!');
-        return redirect('/thank-you-page');
+        // return redirect('/thank-you-page');
         return ;
+    }
+    public function userOrder($userId)
+    {
+        $orders = W2bOrder::where('user_id', $userId)->get();
+
+        return $this->sendResponse(['orders' => $orders], 'Wholesale2b_user_orders.');
+
+    }
+
+    public function orderedProduct($orderId)
+    {
+        $products = OrderedProduct::where('order_id',$orderId)->get();
+        return $this->sendResponse(['ordered_products' => $products], 'Wholesale2b_user_ordered_products_according_to_order_id.');
+
+    }
+
+    public function singleOrder($orderId)
+    {
+        # code...
+        $order = W2bOrder::where('id', $orderId)->first();
+        return $this->sendResponse(['single_order' => $order], 'single_order_fetched_with_order_id.');
+
+    }
+
+    public function cancelOrder($orderId)
+    {
+        $cancel_order = W2bOrder::where('id', $orderId)
+        ->update(['status' => 'cancelled']);
+        return $this->sendResponse(['cancel_order' => $cancel_order], 'order_cancelled.');
+
+    }
+    public function repeatOrder($orderId)
+    {
+        $old_order = W2bOrder::where('id', $orderId)->first();
+        // ->update(['status' => 'cancelled']);
+        $w2border = W2bOrder::create([
+
+            'total_price' => $old_order->total_price,
+            'user_id' => $old_order->user_id,
+
+            'order_notes' => $old_order->order_notes,
+            'order_id' => $old_order->order_id
+
+        ]);
+        return $this->sendResponse(['order_repeat' => $w2border], 'order_repeat.');
+
     }
 
 }

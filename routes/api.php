@@ -207,6 +207,11 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor-api'], function
     Route::get('product-detail/{sku}','API\w2b\WholesaleProductController@ProductDetail');
     Route::post('post-checkout','API\w2b\WholesaleProductController@postCheckout');
     Route::post('post-checkout2','API\w2b\WholesaleProductController@postCheckout2');
+    Route::get('user_orders/{userId}','API\w2b\WholesaleProductController@userOrder');
+    Route::get('ordered_products/{orderId}','API\w2b\WholesaleProductController@orderedProduct');
+    Route::get('single_order/{orderId}','API\w2b\WholesaleProductController@singleOrder');
+    Route::get('cancel_order/{orderId}','API\w2b\WholesaleProductController@cancelOrder');
+    Route::post('repeat_order/{orderId}','API\w2b\WholesaleProductController@repeatOrder');
 
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {

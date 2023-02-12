@@ -150,7 +150,7 @@
 
 
 <!-- Theme Style -->
-@if (Request::path() == '/home' || Request::path() == 'w2bcustomer/register' || Request::is('thank-you-page'))
+@if (request()->is('home') || Request::path() == 'w2bcustomer/register' || Request::is('thank-you-page'))
 <link href="{{ asset('public/frontend/css/style.css')}}" rel="stylesheet">
 @endif
 <link href="{{ asset('public/frontend/css/responsive.css')}}" rel="stylesheet">
