@@ -341,19 +341,24 @@
                 <p class="category-sub-text"></p>
             </div>
         </div>
-        <div class="row justify-content-center">
+        <div class="owl-carousel cardnew position-relative">
             @foreach ($categories1 as $cat)
                 
-          <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-3 card-wrapper">
+          <!-- <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-3 card-wrapper"> -->
             <div class="card border-0">
-              <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image">
+              <!-- <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image">
                 <img class="w-100 h-100" src="{{asset('public/wb/img/categories/'.$cat->image)}}" alt="Card image cap">
               </div>
               <div class="card-body text-center mt-2">
                 <h3 class="card-title"> <a href="{{route('cat-products', $cat->category1)}}">{{$cat->category1}}</a></h3>
-              </div>
+              </div> -->
+                <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image">
+                    <img class="w-100 h-100" src="{{asset('public/wb/img/categories/'.$cat->image)}}" alt="Card image cap">
+                </div>
+                <div class="card-body text-center mt-2">
+                    <h3 class="card-title"> <a href="{{route('cat-products', $cat->category1)}}">{{$cat->category1}}</a></h3>
+                </div>
             </div>
-          </div>
           @endforeach
 
 

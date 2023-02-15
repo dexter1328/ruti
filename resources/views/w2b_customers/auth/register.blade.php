@@ -107,7 +107,7 @@
     </div>
 </div>
 @endsection --}}
-@extends('front_end.layout')
+@extends('vendor.layout.auth')
 @section('content')
     <style type="text/css">
 
@@ -133,11 +133,9 @@
             font-size: 13px;
         }
         .font-para.SignUPform {
-            border: 2px dotted #d2d2d2;
             padding: 30px 20px;
             margin: 20px 0;
             display: block;
-            width: 90%;
             margin: 10px auto;
         }
         .form-footer {
@@ -172,62 +170,65 @@
             margin-right: 13px;
             z-index: 2;
         }
+        .heading {
+            padding: 20px 17%;
+        }
     </style>
 
     <div style="clear:both;"></div>
 
     <!-- terms-condition start -->
     <section id="inner-main-content">
-        <h2 class="heading">Customer Register</h2>
+        <h2 class="heading">Register your account</h2>
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-10 col-offset-md-1">
-                    <div class="font-para SignUPform">
+            <div class="row align-items-center justify-content-center">
+                <div class=''>
+                    <div class="font-para SignUPform col-lg-12 col-md-12 col-sm-12">
                         <form id="signupForm" method="post" action="{{ url('/w2bcustomer/register') }}" enctype="multipart/form-data">
                             @csrf
-                            <div class="form-group row">
-                                <label for="input-12" class="col-sm-2 col-form-label">First Name<span class="text-danger">*</span></label>
-                                <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="input-12" class="col-form-label">First Name<span class="text-danger">*</span></label>
+                                <div>
                                     <input type="text" name="first_name" class="form-control" value="{{old('first_name')}}" placeholder="Enter First Name">
                                     @if ($errors->has('first_name'))
                                     <span class="text-danger">{{ $errors->first('first_name') }}</span>
                                     @endif
                                 </div>
-                                <label for="input-12" class="col-sm-2 col-form-label">Last Name<span class="text-danger">*</span></label>
-                                <div class="col-sm-4">
+                                <label for="input-12" class="col-form-label">Last Name<span class="text-danger">*</span></label>
+                                <div>
                                     <input type="text" name="last_name" class="form-control" value="{{old('last_name')}}" placeholder="Enter Last Name">
                                     @if ($errors->has('last_name'))
                                     <span class="text-danger">{{ $errors->first('last_name') }}</span>
                                     @endif
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="input-12" class="col-sm-2 col-form-label">Phone No.<span class="text-danger">*</span></label>
-                                <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="input-12" class="col-form-label">Phone No.<span class="text-danger">*</span></label>
+                                <div>
                                     <input type="text" name="mobile" class="form-control" value="{{old('mobile')}}" placeholder="Enter Phone Number">
                                     @if ($errors->has('mobile'))
                                     <span class="text-danger">{{ $errors->first('mobile') }}</span>
                                     @endif
                                 </div>
-                                <label for="input-12" class="col-sm-2 col-form-label">Email<span class="text-danger">*</span></label>
-                                <div class="col-sm-4">
+                                <label for="input-12" class="col-form-label">Email<span class="text-danger">*</span></label>
+                                <div>
                                     <input type="email" name="email" class="form-control" value="{{old('email')}}" placeholder="Enter E-mail">
                                     @if ($errors->has('email'))
                                         <span class="text-danger">{{ $errors->first('email') }}</span>
                                     @endif
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="input-13" class="col-sm-2 col-form-label">Password<span class="text-danger">*</span></label>
-                                <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="input-13" class="col-form-label">Password<span class="text-danger">*</span></label>
+                                <div>
                                     <input type="password" id="password" name="password" class="form-control" value="{{old('password')}}" placeholder="Enter Password">
                                     <span toggle="#password" class="fa fa-eye field-icon toggle-password"></span>
                                     @if ($errors->has('password'))
                                         <span class="text-danger">{{ $errors->first('password') }}</span>
                                     @endif
                                 </div>
-                                <label for="input-13" class="col-sm-2 col-form-label">Confirm Password<span class="text-danger">*</span></label>
-                                <div class="col-sm-4">
+                                <label for="input-13" class="col-form-label">Confirm Password<span class="text-danger">*</span></label>
+                                <div>
                                     <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" value="{{old('password_confirmation')}}" placeholder="Enter Confirm Password">
                                     <span class="confirm-check fa"></span>
                                     @if ($errors->has('password_confirmation'))
@@ -236,9 +237,9 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row AcceptCheckbox">
-                                <div class="col-sm-10" style="margin-top:-23px !important;">
-                                    <input type="checkbox" id="terms_condition" name="terms_condition" value="yes"{{ old('terms_condition') == 'yes' ? 'checked' : '' }} class="form-control">
+                            <div class="form-group AcceptCheckbox">
+                                <div class="">
+                                    <input type="checkbox" id="terms_condition" name="terms_condition" value="yes"{{ old('terms_condition') == 'yes' ? 'checked' : '' }} class="">
 
                                     <label for="terms_condition"> I've read and accept the <a href="{{url('/privacy-policy')}}" style="color:navy !important;text-decoration: revert;">privacy</a> and <a href="{{url('/terms-condition')}}" style="color:navy !important;text-decoration: revert;">terms.</a></label><br>
                                     @if ($errors->has('terms_condition'))
@@ -247,7 +248,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <div class="col-sm-4">
+                                <div class='col-sm-10'>
                                 {!! app('captcha')->display() !!}
                                 @if ($errors->has('g-recaptcha-response'))
                                     <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}
@@ -257,7 +258,7 @@
                             </div>
                             <center>
                                 <div class="form-footer">
-                                    <button type="submit" class="btn btn-success"> SignUp</button>
+                                    <button type="submit" class="btn btn-primary sign_up_btn"> SignUp</button>
                                     <button type="reset" class="btn btn-success"> Reset</button>
                                 </div>
                             </center>

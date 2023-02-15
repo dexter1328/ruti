@@ -5385,7 +5385,13 @@ table.grid td {
 }
 
 .card-authentication1 {
-  max-width: 26rem;
+  max-width: 100vw;
+}
+
+@media screen and  (min-width: 500px) {
+    .card-authentication1 {
+        width: 60vw;
+    }
 }
 
 .card-authentication2 {

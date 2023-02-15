@@ -2231,11 +2231,6 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     display: none;
   }
 }
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
-  .categories_three .categories_menu_toggle > ul > li > a {
-    line-height: 33px;
-  }
-}
 
 .color_three .header_social ul li a:hover {
   color: #e96725;
@@ -10977,7 +10972,8 @@ category-banner-item-first .content .price {
     border-radius: 4px;
     overflow: hidden;
     display: flex;
-    width: 250px !important;
+    width: 100% !important;
+    max-width: 250px;
     height: auto !important;
 }
 .category-banner-item-first .category-thumb img {
@@ -11756,6 +11752,9 @@ shop-product-item .shop-content .progress-bar, .arrivals-add .content .progress-
   .product_details {
     margin-bottom: 20px !important;
   }
+  .category-section .category-heading h1 {
+    font-size: 2rem;
+  }
 }
 @media (max-width: 361px){
   .shop-details-quantity-default {
@@ -11905,5 +11904,97 @@ img, .img {
 
 .cart_info .cart-plus-minus input {
   height: 36px;
+}
+
+.login-dropdown, .Sign_in_dropdown {
+  background-color: #fff !important;
+}
+
+#dropdownMenuLink {
+  color: #000;
+}
+
+.Sign_in_dropdown p {
+  color: #000 !important;
+  padding: 4px 10px !important;
+  text-align: left !important;
+  font-size: 16px !important;
+  margin-bottom: 0 !important;
+}
+
+.Sign_in_dropdown a {
+  padding: 4px 10px !important;
+  text-align: left !important;
+  font-size: 16px !important;
+  margin-bottom: 0 !important;
+}
+
+.dropdown_link {
+  color: green !important;
+} 
+
+.sub_menu_icon {
+  margin-left: 80% !important ;
+}
+
+.dropdown-box {
+  border-bottom: 1px solid #aba2a2 !important;
+  padding-bottom: 10px;
+}
+
+@media screen and (min-width: 992px) {
+  .categories_mega_menu.first_submenu {
+    height: 725px !important;
+    top: -10px !important;
+    position: absolute !important;
+    width: 100%;
+  }
+}
+
+.cards_main_row {
+  display: flex;
+  overflow-x: scroll;
+  width: 80%;
+  flex-wrap: nowrap;
+  margin: auto;
+}
+
+.cards_main_row::-webkit-scrollbar {
+  display: none;
+}
+.card_slider_left {
+  position: absolute;
+  top: 55%;
+  left: 5%;
+  font-size: 24px;
+}
+.card_slider_right {
+  position: absolute;
+  top: 55%;
+  right: 5%;
+  font-size: 24px;
+}
+
+.cardnew .owl-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardnew .owl-prev, .cardnew .owl-next {
+  font-size: 24px !important;
+  position: absolute;
+  top: 150px;
+}
+
+.cardnew .owl-prev {
+left: 0;
+}
+
+.cardnew .owl-next {
+  right: 0;
+}
+
+.sign_up_btn {
+  border-radius: 5px;
 }
 /*Custom css end*/

@@ -349,7 +349,7 @@
                                                 <i class="lnr lnr-user fa-3x d-flex"></i>
                                                 <p class="sign-in-text">Sign in<span>Account</span></p>
                                             </a>
-                                            <div class="dropdown-menu login-dropdown" aria-labelledby="dropdownMenuLink">
+                                            <!-- <div class="dropdown-menu login-dropdown" aria-labelledby="dropdownMenuLink">
                                                 <form class="px-4 py-3" method="POST" action="{{ url('/w2bcustomer/login') }}">
                                                     {{ csrf_field() }}
                                                   <div class="form-group">
@@ -378,7 +378,29 @@
                                                 </form>
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item text-dark" href="{{url('/w2bcustomer/register')}}">New around here? Sign up</a>
-                                              </div>
+                                            </div> -->
+                                            <div class="dropdown-menu login-dropdown" aria-labelledby="dropdownMenuLink">
+                                                <div class="dropdown-content Sign_in_dropdown">
+                                                    <div class="dropdown-box">
+                                                        <p><b>Vendors</b></p>
+                                                        <p>Have an account? Sign in now.</p>
+                                                        <a href="user_account" class="common-link dropdown_link">Sign in</a>
+                                                    </div>
+                                                    <div class="dropdown-box">
+                                                        <p><b>Supplier</b></p>
+                                                        <p>Have an account? Sign in now.</p>
+                                                        <a href="" class="common-link dropdown_link">Sign in</a>
+                                                    </div>
+                                                    <div class="dropdown-box">
+                                                        <p><b>Customers</b></p>
+                                                        <p>Have an account? Sign in now.</p>
+                                                        <a href="" class="common-link dropdown_link">Sign in </a>
+                                                    </div>
+                
+                                                    <div class="dropdown-box2">
+                                                        <p>Scan QR code to install application.</p>
+                                                    </div>
+                                            </div>
                                         </li>
                                         @else
                                         <li class="header-sine-in dropdown">
@@ -502,7 +524,7 @@
                                                 @foreach ($categories as $category)
                                                 @if ($category->parent_id == 0 && !($category->childrens)->isEmpty())
                                                 <li class="menu_item_children"><a href="{{route('cat-products', $category->category1)}}">{{ $category->category1 }}<i class="fa fa-angle-right"></i></a>
-                                                    <ul class="categories_mega_menu" style="width: max-content; display:list-item">
+                                                    <ul class="categories_mega_menu first_submenu" style="width: max-content; display:list-item">
                                                         @foreach ($category->childrens as $subcategory)
                                                             @if ($subcategory->parent_id > 0 && !($subcategory->childrens)->isEmpty())
                                                         <li class="menu_item_children"><a href="{{route('cat-products', $subcategory->category1)}}">{{ $subcategory->category1 }}</a>
