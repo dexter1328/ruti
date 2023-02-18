@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-7 col-md-7">
+            <div class="col-lg-7 col-md-10 mt-4 mt-lg-0">
                 <div class="product_d_right">
                    <form action="#">
                         <span class="shop-details-content"><i class="lnr lnr-checkmark-circle"></i>In Stock</span>

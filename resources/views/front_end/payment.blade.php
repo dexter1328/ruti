@@ -39,11 +39,11 @@
                             data-stripe-publishable-key="pk_test_51IarbDGIhb5eK2lSKrWKttm9gweug3yv8EqP2PoVRAhD6HWsuviQWzKOszgIf7imZZ5sjUXHdQhF759Khm3J3nYF00Ved0Wutj"
                             id="payment-form">
                         @csrf
-            <div class="row">
+            <div class="row justify-content-between">
 
 
-                <div class="col-lg-6 col-md-6" style="border: 1px solid black">
-                    <div class='form-row row'>
+                <div class="col-lg-6 col-md-6 border main_parent_div p-0 mt-2">
+                    <div class='form-row row '>
                         <div class='col-md-12 error form-group d-none'>
                             <div class='alert-danger alert'>Please correct the errors and try
                                 again.</div>
@@ -87,8 +87,8 @@
 
 
 
-                        <h3>Payment Details</h3>
-                        <div class="row" >
+                        <h3 class='sections_coupons_header'>Payment Details</h3>
+                        <div class="row m-auto w-100" >
 
                             <div class="col-lg-12 mb-20  required">
                                 <label>Name on Card <span>*</span></label>
@@ -126,13 +126,13 @@
                         </div>
 
                 </div>
-                <div class="col-lg-6 col-md-6">
+                <div class="col-lg-5 col-md-5 border main_parent_div p-0 mt-2">
                     {{-- <form action="#"> --}}
 
-                        <h3>Your order</h3>
-                        <div class="order_table table-responsive">
+                        <h3 class='sections_coupons_header'>Your order</h3>
+                        <div class="order_table table-responsive mb-0">
                             <table>
-                                <thead>
+                                <thead class='no_bg'>
                                     <tr>
                                         <th>Product</th>
                                         <th>Total</th>
@@ -173,7 +173,7 @@
                                 </tfoot>
                             </table>
                         </div>
-                        <div class="payment_method offset-md-8">
+                        <div class="payment_method d-flex justify-content-end p-3 w-100">
                            {{-- <div class="panel-default">
                                 <input id="payment" name="check_method" type="radio" data-target="createp_account" />
                                 <label for="payment" data-toggle="collapse" data-target="#method" aria-controls="method">Create an account?</label>

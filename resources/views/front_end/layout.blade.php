@@ -524,7 +524,7 @@
                                                 @foreach ($categories as $category)
                                                 @if ($category->parent_id == 0 && !($category->childrens)->isEmpty())
                                                 <li class="menu_item_children"><a href="{{route('cat-products', $category->category1)}}">{{ $category->category1 }}<i class="fa fa-angle-right"></i></a>
-                                                    <ul class="categories_mega_menu first_submenu" style="width: max-content; display:list-item">
+                                                    <ul class="categories_mega_menu first_submenu" style="width: 100%; display:list-item">
                                                         @foreach ($category->childrens as $subcategory)
                                                             @if ($subcategory->parent_id > 0 && !($subcategory->childrens)->isEmpty())
                                                         <li class="menu_item_children"><a href="{{route('cat-products', $subcategory->category1)}}">{{ $subcategory->category1 }}</a>

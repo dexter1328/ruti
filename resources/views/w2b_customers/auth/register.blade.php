@@ -258,10 +258,14 @@
                             </div>
                             <center>
                                 <div class="form-footer">
-                                    <button type="submit" class="btn btn-primary sign_up_btn"> SignUp</button>
-                                    <button type="reset" class="btn btn-success"> Reset</button>
+                                    <button type="submit" class="btn ml-3 btn-primary sign_up_btn"> SignUp<ig/button>
+                                    <button type="reset" class="btn ml-3 btn-success"> Reset</button>
                                 </div>
                             </center>
+                            <div class="form-footer">
+                                <button type="submit" class="btn ml-3 mt-3 btn-light sign_up_btn"> Register with Google<ig/button>
+                                <button type="reset" class="btn ml-3 mt-3 btn-primary"> Register with Facebook</button>
+                            </div>
                         </form>
                     </div>
                 </div>

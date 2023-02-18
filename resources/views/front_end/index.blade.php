@@ -41,7 +41,7 @@
     <!-- Home Banner End -->
 
     <!-- About us start -->
-    <section id="aboutus" class="section aboutus">
+    <section id="aboutus" class="section aboutus mt-4">
         <h2 class="heading">
             {{isset($page_meta['about_title']) && $page_meta['about_title']!='' ? $page_meta['about_title'] : 'About RUTI self checkout'}}
         </h2>

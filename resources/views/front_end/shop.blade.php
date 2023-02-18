@@ -120,7 +120,7 @@
 <section class="countdown-area">
     <div class="container-fluid px-5 mb-5">
         <div class="row">
-            <div class="col-xl-8 counter-wrapper">
+            <div class="col-xl-8 mt-3 counter-wrapper">
                 <div class="product-counter-image float-start banner_thumb">
                     <a href="{{ route('product-detail',$product4->sku) }}"><img style="width:  100%; height: 100%; object-fit: cover;" src="{{$product4->original_image_url}}"></a>
                 </div>
@@ -167,7 +167,7 @@
 
                 </div>
             </div>
-            <div class="col-xl-4 col-md-12 col-sm-12">
+            <div class="col-xl-4 col-md-12 mt-3 col-sm-12">
                 <div class="cb-item-wrap counter-right-banner">
                     <div class="category-banner-item right-top-banner mb-xl-3 mb-lg-0 mb-md-0 mb-0 align-items-center banner_thumb">
                        <div class="content align-self-center">
@@ -223,7 +223,7 @@
                     <div class="product_container">
                         <div class="row">
                                 @foreach ($products as $p)
-                                <div class="col-4" style="padding-bottom: 35px">
+                                <div class="col-lg-4 col-sm-6" style="padding-bottom: 35px">
                                 <article class="single_product">
                                     <figure>
                                         <div class="product_thumb">

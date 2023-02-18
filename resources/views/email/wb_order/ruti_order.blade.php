@@ -49,8 +49,7 @@
           </tr>
           <tr>
             <td colspan="2" style="">
-              We are writing to confirm your recent purchase on our e-commerce
-              website. Thank you for choosing us and we are thrilled to have you
+              We are writing to confirm your recent purchase on our ruti self checkout. Thank you for choosing us and we are thrilled to have you
               as our valued customer.
             </td>
           </tr>
@@ -146,9 +145,9 @@
               <div>
                 We hope to see you again soon. <br />
                 <a
-                  href="#"
+                  href="rutiselfcheckout.com"
                   style="color: black; text-decoration: none; font-weight: bold"
-                  >Ruti.com</a
+                  >rutiselfcheckout.com</a
                 >
               </div>
             </td>
@@ -191,9 +190,9 @@
               <br><br>Your order will be shipped shortly and you will receive a shipment
               confirmation email with the tracking information. If you have any
               questions about your order, please don't hesitate to contact us at
-              {Customer Service Email}. Thank you for choosing our store for
+              <a href='#'>support@rutiselfcheckout.com</a>. Thank you for choosing our store for
               your recent purchase. We hope that you will have a great shopping
-              experience with us.<br><br> Best regards, The <b>{Store_Name}</b> Team
+              experience with us.<br><br> Best regards,<br> The <b>Ruti Self Checkout</b> Team
             </td>
           </tr>
         </thead>
