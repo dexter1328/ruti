@@ -352,6 +352,7 @@
                             <div class='products_title'>
                                 <h5>The Clean Routine Set</h5>
                                 <h5>$ 165</h5>
+                                <div><button class='set-search'><i class="fa fa-search"></i></button> <button class='set-select sold' >Sold Out</button></div>
                             </div>
                         </div>
                         <div class='more_products sets py-2 px-4'>
@@ -359,6 +360,7 @@
                             <div class='products_title'>
                                 <h5>The Clear Sound Set</h5>
                                 <h5>$ 68</h5>
+                                <div><button class='set-search'><i class="fa fa-search"></i></button> <button class='set-select' >Select</button></div>
                             </div>
                         </div>
                         <div class='more_products sets py-2 px-4'>
@@ -366,6 +368,7 @@
                             <div class='products_title'>
                                 <h5>The Car Washing Set</h5>
                                 <h5>$ 83</h5>
+                                <div><button class='set-search'><i class="fa fa-search"></i></button> <button class='set-select' >Select</button></div>
                             </div>
                         </div>
                         </div>

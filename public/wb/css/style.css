@@ -5681,6 +5681,18 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .product_sets::-webkit-scrollbar {
   display: none;
 }
+.set-select {
+  border: none;
+  color: #fff;
+  background-color: #e96725;
+}
+.set-search {
+  border: none;
+}
+.sold {
+  background-color: gainsboro;
+  color: #000;
+}
 @media only screen and (max-width: 767px) {
 .sets_div {
   display: block !important;
