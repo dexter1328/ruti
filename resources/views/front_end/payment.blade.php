@@ -147,7 +147,7 @@
                                     @php $tax = ($details['sales_tax_pct'] / 100) * $total @endphp
                                     @php $total_price = $total + $details['shipping_price'] + $tax @endphp
                                     <tr>
-                                        <td> {{ Str::limit($details['title'], 30) }} <strong> × {{$details['quantity']}}</strong></td>
+                                        <td><a> {{ Str::limit($details['title'], 30) }} </a><strong> × {{$details['quantity']}}</strong></td>
                                         <td> ${{number_format((float)$details['retail_price'] * $details['quantity'], 2, '.', '')}}</td>
                                     </tr>
                                     @endforeach
@@ -201,10 +201,56 @@
                     {{-- </form>          --}}
                 </div>
 
+                <div class='main_parent_div m-0 border col-lg-6 col-sm-12 mt-2 px-0'>
+                        <h3 class='sections_coupons_header like_products_heading p-2' >Last Minute Products</h3>
+                        <div class='p-3 d-flex products_inner'>
+                        <div class='more_products ml-2 py-2 px-4'>
+                            <img src="{{ $details['original_image_url'] }}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>Wireless Headphones with HD Sound</h5>
+                            </div>
+                        </div>
+                        <div class='more_products py-2 px-4'>
+                            <img src="{{ $details['original_image_url'] }}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>Wireless Headphones with HD Sound</h5>
+                            </div>
+                        </div>
+                        <div class='more_products py-2 px-4'>
+                            <img src="{{ $details['original_image_url'] }}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>Wireless Headphones with HD Sound</h5>
+                            </div>
+                        </div>
+                        <div class='more_products py-2 px-4'>
+                            <img src="{{ $details['original_image_url'] }}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>Wireless Headphones with HD Sound</h5>
+                            </div>
+                        </div>
+                        <div class='more_products py-2 px-4'>
+                            <img src="{{ $details['original_image_url'] }}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>Wireless Headphones with HD Sound</h5>
+                            </div>
+                        </div>
+                        <div class='more_products py-2 px-4'>
+                            <img src="{{ $details['original_image_url'] }}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>Wireless Headphones with HD Sound</h5>
+                            </div>
+                        </div>
+                        <div class='more_products py-2 px-4'>
+                            <img src="{{ $details['original_image_url'] }}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>Wireless Headphones with HD Sound</h5>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
-
-        </div>
     </div>
 </div>
 <!--Checkout page section end-->

@@ -87,7 +87,7 @@
             <form action="{{route('post-checkout')}}" method="POST">
                 @csrf
             <div class="row">
-                <div class="col-lg-6 main_parent_div border col-md-6 p-0">
+                <div class="col-lg-6 main_parent_div mt-4 border col-md-6 p-0">
 
                         <h3 class='sections_coupons_header w-100'>Billing and Shipping Details</h3>
                         <div class="row p-3">
@@ -314,9 +314,12 @@
                                     </div>
                                 </div>
                             </div> --}}
-                            <div class="order_button">
-                                <button class='mt-2' type="submit">Proceed to Payment</button>
-                                <button class='paypal_button mt-2' type="submit"><img class='paypal_btn_image' src="public\images\paypal.png" alt=""></button>
+                            <div class="order_button d-flex">
+                                <button class='mt-2 w-50' type="submit">Payment from Digital Wallet</button>
+                                <button class='paypal_button ml-2 mt-2 w-50' type="submit"><img class='paypal_btn_image' src="public\images\paypal.png" alt=""></button>
+                            </div>
+                            <div class='order_button'>
+                                <button class='mt-2 w-100' type="submit">Proceed to Payment</button>
                             </div>
                         </div>
                     {{-- </form>          --}}

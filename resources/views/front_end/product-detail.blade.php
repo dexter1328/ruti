@@ -342,6 +342,36 @@
         </div>
     </div>
 </div>
+<section class='w-100 d-flex mb-3 justify-content-center'>
+<div class='m-0 border product_sets mt-2 px-0'>
+                        <h3 class='like_products_heading text-center p-2' >Most Popular Sets</h3>
+                        <hr>
+                        <div class='p-3 d-flex sets_div justify-content-center main_parent_div'>
+                        <div class='more_products sets ml-2 py-2 px-4'>
+                            <img src="{{$product->original_image_url}}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>The Clean Routine Set</h5>
+                                <h5>$ 165</h5>
+                            </div>
+                        </div>
+                        <div class='more_products sets py-2 px-4'>
+                            <img src="{{$product->original_image_url}}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>The Clear Sound Set</h5>
+                                <h5>$ 68</h5>
+                            </div>
+                        </div>
+                        <div class='more_products sets py-2 px-4'>
+                            <img src="{{$product->original_image_url}}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>The Car Washing Set</h5>
+                                <h5>$ 83</h5>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+</section>
 <!--product info end-->
 <!--product area start-->
 <section class="product_area related_products">
@@ -355,7 +385,7 @@
         </div>
         <div class="row">
             @foreach ($related_products as $p)
-            <div class="col-3">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
             <article class="single_product">
                 <figure>
                     <div class="product_thumb">

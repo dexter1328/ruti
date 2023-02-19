@@ -3317,6 +3317,8 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .product_thumb {
   position: relative;
   overflow: hidden;
+  width: 250px !important;
+  height: 250px !important;
 }
 .product_thumb a.secondary_img {
   position: absolute;
@@ -5671,10 +5673,31 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .product_list_item .product_ratting {
   margin-bottom: 10px;
 }
+.product_sets {
+  overflow-x: scroll;
+  width: 80%;
+  background-color: #efefed !important;
+}
+.product_sets::-webkit-scrollbar {
+  display: none;
+}
+@media only screen and (max-width: 767px) {
+.sets_div {
+  display: block !important;
+}
+.sets {
+  width: 150px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 0.5rem !important;
 
+}
+}
 @media only screen and (max-width: 767px) {
   .pagination {
     margin-top: 19px;
+    width: 100%;
+    overflow: auto;
   }
 }
 .pagination ul li {
@@ -10974,7 +10997,7 @@ category-banner-item-first .content .price {
     display: flex;
     width: 100% !important;
     max-width: 250px;
-    height: auto !important;
+    height: 300px !important;
 }
 .category-banner-item-first .category-thumb img {
     transform: scale(1);
@@ -10995,7 +11018,7 @@ category-banner-item-first .content .price {
     margin-left: auto;
 }
 .banner-content .title {
-    font-size: 40px !important;
+    font-size: 30px !important;
     font-weight: 700;
     margin-bottom: 5px;
 }
@@ -11077,6 +11100,7 @@ category-banner-item-first .content .price {
 .product-counter-image {
     width: 270px;
     margin-right: 35px;
+    height: 450px;
 }
 .countdown-wrap {
 
@@ -12070,7 +12094,7 @@ left: 0;
 }
 .paypal_btn_image {
   height: 100%;
-  width: 80%;
+  width: 50%;
 }
 #available_offers {
   width: 100%;
@@ -12114,6 +12138,39 @@ left: 0;
   width: 200px;
   min-width: 200px;
   margin-left: 20px;
+  background-color: #fff !important;
+}
+.order_details_button {
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  border-radius: 5px;
+  color: #000 !important;
+}
+.main_button {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+.yellow_btn {
+  background-color: #e96725 !important;
+}
+.sets {
+  width: 300px;
+  max-width: 300px;
+  text-align: center;
+}
+@media screen and (max-width: 700px){
+  .main_button {
+    width: 100% !important;
+    margin-top: 20px;
+  }
+  .main_order {
+    width: 100% !important;
+    align-items: start;
+  }
 }
 @media screen and (max-width: 600px){
   .category-banner-item-first {

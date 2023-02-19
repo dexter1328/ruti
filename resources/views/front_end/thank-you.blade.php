@@ -83,7 +83,7 @@
         <div class="product_container">
            <div class="row">
                 @foreach ($products as $p)
-                <div class="col-3">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                     <article class="single_product">
                         <figure>
                             <div class="product_thumb">
