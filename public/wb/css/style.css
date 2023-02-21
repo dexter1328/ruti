@@ -5681,6 +5681,19 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .product_sets::-webkit-scrollbar {
   display: none;
 }
+.width-20 {
+  width: 20% !important;
+}
+.sign_in_links a{
+  background-color: #e96725;
+  font-size: 20px !important;
+  justify-content: center ;
+}
+.sign_in_links a:hover{
+  background-color: #063464;
+  font-size: 20px;
+  color: #fff;
+}
 .set-select {
   border: none;
   color: #fff;

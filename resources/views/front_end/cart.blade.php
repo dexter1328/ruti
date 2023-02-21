@@ -81,50 +81,45 @@
 <div class='row w-100 justify-content-between ml-0 p-5'>
     <div class="col-12 order_main px-0 border">
         <div class='d-flex justify-content-between p-3 border orders_header'>
-            <div class='orders_header1 d-flex justify-content-between w-50'>
-                <div>
-                    Order Placed
-                    <span class='d-block'>January 30, 2023</span>
+            <div class='orders_header1 d-flex justify-content-between w-100'>
+                <div class='width-20'>
+                    Product
                 </div>
-                <div>
-                    Total
-                    <span class='d-block'>$10.83</span>
+                <div class='width-20'>
+                    Product Name
                 </div>
-                <div>
-                    Ship To
-                    <span class='d-block text-primary'>Joseph Larnyoh</span>
+                <div class='width-20'>
+                    Quantity
                 </div>
-            </div>
-            <div class="orders_header2">
-                <div>
-                    Order# <span>134-1519088326428736</span>
+                <div class='width-20'>
+                   Price
                 </div>
-                <div>
-                    <span><a class='text-primary'>View order details</a> | <a class='text-primary'>View Invoice</a></span>
+                <div  class='width-20'>
+                   Total Price
                 </div>
             </div>
         </div>
         <div class="orders_body p-3">
-            <div class='text-success font-weight-bold'>Arriving today by 10 PM</div>
-            <div>Shipped</div>
+            <!-- <div class='text-success font-weight-bold'>Arriving today by 10 PM</div>
+            <div>Shipped</div> -->
             <div class='w-100 justify-content-between order_tab d-flex mt-4'>
 
-                <div>
+                <div class='width-20'>
                     <a role="button" class="remove-from-cart"><i class="fa fa-trash-o"></i></a>
-                <img src="{{ $details['original_image_url'] }}" class='table_product_image ml-4' alt="">
+                    <img src="{{ $details['original_image_url'] }}" class='table_product_image ml-4' alt="">
                 </div>
-                <div class='px-2 image_title'>
+                <div class='px-2 width-20 image_title'>
                     <span>{{ Str::limit($details['title'], 30) }}</span>
                     <br>
                     <button class='border buy_again'>Buy it again</button>
                 </div>
-                <div>
+                <div class='width-20'>
                     <span><label>Quantity</label> <input min="1" max="100" class="quantity update-cart" value="{{$details['quantity']}}" type="number"></span>
                 </div>
-                <div>
+                <div class='width-20'>
                     <span>${{number_format((float)$details['retail_price'] * $details['quantity'], 2, '.', '')}}</span>
                 </div>
-                <div>
+                <div class='width-20'>
                     <span>${{number_format((float)$details['retail_price'], 2, '.', '')}}</span>
                 </div>
             </div>

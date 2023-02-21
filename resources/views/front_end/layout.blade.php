@@ -349,14 +349,15 @@
                                                 <i class="lnr lnr-user fa-3x d-flex"></i>
                                                 <p class="sign-in-text">Sign in<span>Account</span></p>
                                             </a>
-                                            <!-- <div class="dropdown-menu login-dropdown" aria-labelledby="dropdownMenuLink">
-                                                <form class="px-4 py-3" method="POST" action="{{ url('/w2bcustomer/login') }}">
+                                            <div class="dropdown-menu login-dropdown p-3" aria-labelledby="dropdownMenuLink">
+                                                <!-- <form class="px-4 py-3" method="POST" action="{{ url('/w2bcustomer/login') }}"> -->
                                                     {{ csrf_field() }}
-                                                  <div class="form-group">
+                                                  <!-- <div class="form-group">
                                                     <label for="exampleDropdownFormEmail1">Email address</label>
                                                     <input type="email" class="form-control {{ $errors->has('email') ? 'error' : '' }}" name="email" id="exampleDropdownFormEmail1" placeholder="email@example.com" value="{{ old('email') }}" autofocus>
-                                                  </div>
-                                                  @if ($errors->has('email'))
+                                                  </div> -->
+                                                  
+                                                  <!-- @if ($errors->has('email'))
                                                   <label class="error">{{ $errors->first('email') }}</label>
                                                     @endif
                                                   <div class="form-group">
@@ -374,32 +375,32 @@
                                                       </label>
                                                     </div> --}}
                                                   </div>
-                                                  <button type="submit" class="btn btn-secondary-orange">Sign in</button>
-                                                </form>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item text-dark" href="{{url('/w2bcustomer/register')}}">New around here? Sign up</a>
-                                            </div> -->
-                                            <div class="dropdown-menu login-dropdown" aria-labelledby="dropdownMenuLink">
-                                                <div class="dropdown-content Sign_in_dropdown">
-                                                    <div class="dropdown-box">
-                                                        <p><b>Vendors</b></p>
-                                                        <p>Have an account? Sign in now.</p>
-                                                        <a href="user_account" class="common-link dropdown_link">Sign in</a>
+                                                  <button type="submit" class="btn btn-secondary-orange">Sign in</button> -->
+                                                <!-- </form> -->
+                                                <div class="dropdown-box">
+                                                    <p><b>Vendors</b></p>
+                                                    <p>Sign in or Register as Vendor</p>
+                                                    <div class="sign_in_links">
+                                                        <a href="user_account" class="p-2 w-100 text-center">Sign in</a>
+                                                        <a href="user_account" class="p-2 w-100 mt-2 text-center"> Sign up</a>
                                                     </div>
-                                                    <div class="dropdown-box">
-                                                        <p><b>Supplier</b></p>
-                                                        <p>Have an account? Sign in now.</p>
-                                                        <a href="" class="common-link dropdown_link">Sign in</a>
+                                                </div>
+                                                <div class="dropdown-box">
+                                                    <p><b>Supplier</b></p>
+                                                    <p>Sign in or Register as Supplier</p>
+                                                    <div class="sign_in_links">
+                                                        <a href="user_account" class="p-2 w-100 text-center">Sign in</a>
+                                                        <a href="user_account" class="p-2 w-100 mt-2 text-center"> Sign up</a>
                                                     </div>
-                                                    <div class="dropdown-box">
-                                                        <p><b>Customers</b></p>
-                                                        <p>Have an account? Sign in now.</p>
-                                                        <a href="" class="common-link dropdown_link">Sign in </a>
+                                                </div>
+                                                <div class="dropdown-box">
+                                                    <p><b>Customers</b></p>
+                                                    <p>Sign in or Register as Customer</p>
+                                                    <div class="sign_in_links">
+                                                        <a href="user_account" class="p-2 w-100 text-center">Sign in</a>
+                                                        <a href="user_account" class="p-2 w-100 mt-2 text-center"> Sign up</a>
                                                     </div>
-                
-                                                    <div class="dropdown-box2">
-                                                        <p>Scan QR code to install application.</p>
-                                                    </div>
+                                                </div>
                                             </div>
                                         </li>
                                         @else
