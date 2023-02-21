@@ -3,7 +3,7 @@
 
 <!-- Body Start -->
     <!-- Home Banner Start -->
-    <section id="home" class="home-banner">
+    <!-- <section id="home" class="home-banner">
         <div class="container">
             <div class="row full-screen align-items-center">
                 <div class="col-10 col-sm-7 col-lg-5 col-md-5 pr0">
@@ -37,11 +37,11 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- Home Banner End -->
 
     <!-- About us start -->
-    <section id="aboutus" class="section aboutus">
+    <section id="aboutus" class="section aboutus mt-4">
         <h2 class="heading">
             {{isset($page_meta['about_title']) && $page_meta['about_title']!='' ? $page_meta['about_title'] : 'About RUTI self checkout'}}
         </h2>

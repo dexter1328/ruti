@@ -39,11 +39,11 @@
                             data-stripe-publishable-key="pk_test_51IarbDGIhb5eK2lSKrWKttm9gweug3yv8EqP2PoVRAhD6HWsuviQWzKOszgIf7imZZ5sjUXHdQhF759Khm3J3nYF00Ved0Wutj"
                             id="payment-form">
                         @csrf
-            <div class="row">
+            <div class="row justify-content-between">
 
 
-                <div class="col-lg-6 col-md-6" style="border: 1px solid black">
-                    <div class='form-row row'>
+                <div class="col-lg-6 col-md-6 border main_parent_div p-0 mt-2">
+                    <div class='form-row row '>
                         <div class='col-md-12 error form-group d-none'>
                             <div class='alert-danger alert'>Please correct the errors and try
                                 again.</div>
@@ -87,8 +87,8 @@
 
 
 
-                        <h3>Payment Details</h3>
-                        <div class="row" >
+                        <h3 class='sections_coupons_header'>Payment Details</h3>
+                        <div class="row m-auto w-100" >
 
                             <div class="col-lg-12 mb-20  required">
                                 <label>Name on Card <span>*</span></label>
@@ -126,13 +126,13 @@
                         </div>
 
                 </div>
-                <div class="col-lg-6 col-md-6">
+                <div class="col-lg-5 col-md-5 border main_parent_div p-0 mt-2">
                     {{-- <form action="#"> --}}
 
-                        <h3>Your order</h3>
-                        <div class="order_table table-responsive">
+                        <h3 class='sections_coupons_header'>Your order</h3>
+                        <div class="order_table table-responsive mb-0">
                             <table>
-                                <thead>
+                                <thead class='no_bg'>
                                     <tr>
                                         <th>Product</th>
                                         <th>Total</th>
@@ -147,7 +147,7 @@
                                     @php $tax = ($details['sales_tax_pct'] / 100) * $total @endphp
                                     @php $total_price = $total + $details['shipping_price'] + $tax @endphp
                                     <tr>
-                                        <td> {{ Str::limit($details['title'], 30) }} <strong> × {{$details['quantity']}}</strong></td>
+                                        <td><a> {{ Str::limit($details['title'], 30) }} </a><strong> × {{$details['quantity']}}</strong></td>
                                         <td> ${{number_format((float)$details['retail_price'] * $details['quantity'], 2, '.', '')}}</td>
                                     </tr>
                                     @endforeach
@@ -173,7 +173,7 @@
                                 </tfoot>
                             </table>
                         </div>
-                        <div class="payment_method offset-md-8">
+                        <div class="payment_method d-flex justify-content-end p-3 w-100">
                            {{-- <div class="panel-default">
                                 <input id="payment" name="check_method" type="radio" data-target="createp_account" />
                                 <label for="payment" data-toggle="collapse" data-target="#method" aria-controls="method">Create an account?</label>
@@ -201,10 +201,56 @@
                     {{-- </form>          --}}
                 </div>
 
+                <div class='main_parent_div m-0 border col-lg-6 col-sm-12 mt-2 px-0'>
+                        <h3 class='sections_coupons_header like_products_heading p-2' >Last Minute Products</h3>
+                        <div class='p-3 d-flex products_inner'>
+                        <div class='more_products ml-2 py-2 px-4'>
+                            <img src="{{ $details['original_image_url'] }}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>Wireless Headphones with HD Sound</h5>
+                            </div>
+                        </div>
+                        <div class='more_products py-2 px-4'>
+                            <img src="{{ $details['original_image_url'] }}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>Wireless Headphones with HD Sound</h5>
+                            </div>
+                        </div>
+                        <div class='more_products py-2 px-4'>
+                            <img src="{{ $details['original_image_url'] }}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>Wireless Headphones with HD Sound</h5>
+                            </div>
+                        </div>
+                        <div class='more_products py-2 px-4'>
+                            <img src="{{ $details['original_image_url'] }}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>Wireless Headphones with HD Sound</h5>
+                            </div>
+                        </div>
+                        <div class='more_products py-2 px-4'>
+                            <img src="{{ $details['original_image_url'] }}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>Wireless Headphones with HD Sound</h5>
+                            </div>
+                        </div>
+                        <div class='more_products py-2 px-4'>
+                            <img src="{{ $details['original_image_url'] }}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>Wireless Headphones with HD Sound</h5>
+                            </div>
+                        </div>
+                        <div class='more_products py-2 px-4'>
+                            <img src="{{ $details['original_image_url'] }}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>Wireless Headphones with HD Sound</h5>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
-
-        </div>
     </div>
 </div>
 <!--Checkout page section end-->

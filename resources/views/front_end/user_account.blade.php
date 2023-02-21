@@ -48,7 +48,7 @@
                         <div class="tab-pane fade show active" id="orders">
                             <h3>Orders</h3>
                             <div class="table-responsive">
-                                <table class="table">
+                                <!-- <table class="table">
                                     <thead>
                                         <tr>
                                             <th>Order</th>
@@ -70,7 +70,97 @@
                                         @endforeach
 
                                     </tbody>
-                                </table>
+                                </table> -->
+                                <div class="col-12 order_main px-0 border">
+        <div class='d-flex justify-content-between p-3 border orders_header'>
+            <div class='orders_header1 d-flex justify-content-between w-50'>
+                <div>
+                    Order Placed
+                    <span class='d-block'>January 30, 2023</span>
+                </div>
+                <div>
+                    Total
+                    <span class='d-block'>$10.83</span>
+                </div>
+                <div>
+                    Ship To
+                    <span class='d-block text-primary'>Joseph Larnyoh</span>
+                </div>
+            </div>
+            <div class="orders_header2">
+                <div>
+                    Order# <span>134-1519088326428736</span>
+                </div>
+                <div>
+                    <span><a class='text-primary'>View order details</a> | <a class='text-primary'>View Invoice</a></span>
+                </div>
+            </div>
+        </div>
+        <div class="orders_body p-3">
+            <div class='text-success font-weight-bold'>Arriving today by 10 PM</div>
+            <div>Shipped</div>
+            <div class='w-100 order_tab d-flex mt-4'>
+                <div class='w-50 d-flex main_order'>
+                    <div class='d-flex'>
+                        <a role="button" class="remove-from-cart align-self-center"><i class="fa fa-trash-o"></i></a>
+                        <img src="" class='table_product_image ml-4' alt="">
+                    </div>
+                    <div class='px-2  image_title'>
+                        <span>This is the name of product </span>
+                        <br>
+                        <button class='border buy_again'>Buy it again</button>
+                    </div>
+                </div>
+                <div class='main_button w-50'>
+                    <button class='order_details_button border boder-rounded yellow_btn'>Track Package</button>
+                    <button class='mt-1 order_details_button border boder-rounded'>Share gift receipt</button>
+                    <button class='mt-1 order_details_button border boder-rounded'>Return or Replace Items</button>
+                    <button class='mt-1 order_details_button border boder-rounded'>Write a product review</button>
+                </div>
+            </div>
+            <div class='w-100 order_tab d-flex mt-4'>
+                <div class='w-50 d-flex main_order'>
+                    <div class='d-flex'>
+                        <a role="button" class="remove-from-cart align-self-center"><i class="fa fa-trash-o"></i></a>
+                        <img src="" class='table_product_image ml-4' alt="">
+                    </div>
+                    <div class='px-2  image_title'>
+                        <span>This is the name of product </span>
+                        <br>
+                        <button class='border buy_again'>Buy it again</button>
+                    </div>
+                </div>
+                <div class='main_button w-50'>
+                    <button class='order_details_button border boder-rounded yellow_btn'>Track Package</button>
+                    <button class='mt-1 order_details_button border boder-rounded'>Share gift receipt</button>
+                    <button class='mt-1 order_details_button border boder-rounded'>Return or Replace Items</button>
+                    <button class='mt-1 order_details_button border boder-rounded'>Write a product review</button>
+                </div>
+            </div>
+            <div class='w-100 order_tab d-flex mt-4'>
+                <div class='w-50 d-flex main_order'>
+                    <div class='d-flex'>
+                        <a role="button" class="remove-from-cart align-self-center"><i class="fa fa-trash-o"></i></a>
+                        <img src="" class='table_product_image ml-4' alt="">
+                    </div>
+                    <div class='px-2  image_title'>
+                        <span>This is the name of product </span>
+                        <br>
+                        <button class='border buy_again'>Buy it again</button>
+                    </div>
+                </div>
+                <div class='main_button w-50'>
+                    <button class='order_details_button border boder-rounded yellow_btn'>Track Package</button>
+                    <button class='mt-1 order_details_button border boder-rounded'>Share gift receipt</button>
+                    <button class='mt-1 order_details_button border boder-rounded'>Return or Replace Items</button>
+                    <button class='mt-1 order_details_button border boder-rounded'>Write a product review</button>
+                </div>
+            </div>
+        </div>
+        <div class="orders_footer border-top text-right">
+        <a class='text-danger pr-3' href="">Remove Everything</a>
+        </div>
+    </div>
                             </div>
                         </div>
                         {{-- <div class="tab-pane fade" id="downloads">
