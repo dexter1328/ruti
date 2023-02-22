@@ -259,10 +259,10 @@
                             <center>
                                 <div class="form-footer w-100 px-4">
                                     <button type="submit" class="btn btn-primary sign_up_btn w-100"> SignUp<ig/button>
-                                    <button type="submit" class="btn mt-3 btn-light sign_up_btn w-50"> Register with Google<ig/button>
-                                    <button type="reset" class="btn mt-3 btn-primary w-50"> Register with Facebook</button>
+                                    <button type="button"  class="btn mt-3 btn-light sign_up_btn w-50"> Register with Google<ig/button>
+                                    <button type="button"  class="btn mt-3 btn-primary w-50"> Register with Facebook</button>
                                     <hr>
-                                    <button type="reset" class="btn btn-success w-100"> Sign up as Vendor</button>
+                                    <a  class="btn btn-success w-100" href="{{url('/w2bcustomer/login')}}"> Sign in as Customer</a>
                                 </div>
                             </center>
                         </form>

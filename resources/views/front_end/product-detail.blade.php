@@ -300,7 +300,7 @@
                                                     <label class="star star-2" for="star-2"></label>
                                                     <input class="star star-1" value="1" id="star-1" type="radio" name="star"/>
                                                     <label class="star star-1" for="star-1"></label>
-        
+
                                                 </div>
                                             </div><br>
                                         <div class="product_review_form">
@@ -311,24 +311,24 @@
                                                         <textarea name="comment" required id="review_comment" ></textarea>
                                                     </div>
                                                     @if (Auth::guard('w2bcustomer')->user())
-        
+
                                                         <input id="author"  type="hidden" name="user_name" value="{{Auth::guard('w2bcustomer')->user()->first_name}}">
                                                         <input id="email"  type="hidden" name="user_email" value="{{Auth::guard('w2bcustomer')->user()->email}}">
-        
+
                                                     @else
                                                     <div class="col-lg-6 col-md-6">
                                                         <label for="author">Name</label>
                                                         <input id="author"  type="text" name="user_name">
-        
+
                                                     </div>
                                                     <div class="col-lg-6 col-md-6">
                                                         <label for="email">Email </label>
                                                         <input id="email"  type="text" name="user_email">
                                                     </div>
                                                     @endif
-        
-        
-        
+
+
+
                                                 </div>
                                                 <button type="submit">Submit</button>
                                         </div>
@@ -342,7 +342,7 @@
         </div>
     </div>
 </div>
-<section class='w-100 d-flex mb-3 justify-content-center'>
+{{-- <section class='w-100 d-flex mb-3 justify-content-center'>
 <div class='m-0 border product_sets mt-2 px-0'>
                         <h3 class='like_products_heading text-center p-2' >Most Popular Sets</h3>
                         <hr>
@@ -374,7 +374,7 @@
                         </div>
                     </div>
                 </div>
-</section>
+</section> --}}
 <!--product info end-->
 <!--product area start-->
 <section class="product_area related_products">
@@ -419,7 +419,7 @@
             </article>
             </div>
             @endforeach
-            
+
         </div>
     </div>
 </section>

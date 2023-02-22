@@ -14,7 +14,7 @@
             <img src="{{ asset('public/images/logo-icon-xx.png') }}" alt="logo icon">
         </div>
         <div class="card-title text-uppercase text-center py-3">Customer Sign In</div>
-        
+
         <form class="form-horizontal" method="POST" action="{{ url('/w2bcustomer/login') }}">
             {{ csrf_field() }}
             <div class="form-group">
@@ -53,20 +53,21 @@
                     <a href="{{ url('/vendor/password/reset') }}">Reset Password</a>
                 </div>
             </div>
-        </form>
         <button type="submit" class="btn btn-primary btn-block w-100 m-auto">Sign In</button>
+
+        </form>
         <div class='w-100 my-2 mx-auto d-flex '>
-            <button type="submit" style="background-color:#ee7322;color:#fff !important;" class="btn btn-block w-50">Login with Google</button>
-            <button type="submit" class="btn btn-primary ml-1 w-50">Login with Facebook</button>
+            <button type="button" style="background-color:#ee7322;color:#fff !important;" class="btn btn-block w-50">Login with Google</button>
+            <button type="button" class="btn btn-primary ml-1 w-50">Login with Facebook</button>
         </div>
         <hr>
         <a href="{{url('/')}}" style="background-color:#ee7322;color:#fff !important;" class="btn btn-block">Home</a>
         <div class="form-row mt-2">
             <div class="form-group col-12" style="text-align: center;">
-               Don't have an account? <br> 
+               Don't have an account? <br>
                <a href="{{ url('/w2bcustomer/register') }}">Sign up as Customer  | </a>
-               <a class='ml-2' href="{{ url('/vendor/register') }}">Sign up as Vendor  | </a>
-               <a class='ml-2' href="{{ url('/vendor/register') }}">Sign up as Supplier</a>
+               <a class='ml-2' href="#">Sign up as Vendor  | </a>
+               <a class='ml-2' href="#">Sign up as Supplier</a>
             </div>
         </div>
     </div>

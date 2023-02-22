@@ -72,7 +72,7 @@ class FrontEndController extends Controller
         $categories2 = W2bCategory::inRandomOrder()
         ->whereNotIn('category1', ['others','other'])
         ->paginate(6);
-        
+
     	return view('front_end.dmca',compact('wb_wishlist','categories2'));
     }
 
@@ -292,7 +292,8 @@ class FrontEndController extends Controller
         $categories2 = W2bCategory::inRandomOrder()
         ->whereNotIn('category1', ['others','other'])
         ->paginate(6);
-        return view('front_end.cart',compact('wb_wishlist','categories2'));
+        $suggested_products = W2bProduct::inRandomOrder()->paginate(7);
+        return view('front_end.cart',compact('wb_wishlist','categories2','suggested_products'));
     }
     public function removeEverything()
     {
@@ -516,7 +517,8 @@ class FrontEndController extends Controller
         // $data = session()->get('w2border');
         //  dd($data->order_id);
         # code...
-        return view('front_end.payment',compact('wb_wishlist','categories2'));
+        $suggested_products = W2bProduct::inRandomOrder()->paginate(7);
+        return view('front_end.payment',compact('wb_wishlist','categories2','suggested_products'));
     }
 
     public function orderPayment(Request $request)
