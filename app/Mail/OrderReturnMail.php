@@ -25,7 +25,7 @@ class OrderReturnMail extends Mailable
      * @return void
      */
     public function __construct($order_items)
-    {   
+    {
         $this->order_items = $order_items;
     }
 
@@ -38,7 +38,7 @@ class OrderReturnMail extends Mailable
     {
        // print_r($user);die();
 
-        return $this->subject('RUTI Self Checkout Order: Return Request')->view('/admin/orders_returns/order_return_mail')->with([
+        return $this->subject('Nature Checkout Order: Return Request')->view('/admin/orders_returns/order_return_mail')->with([
                 'order_items' => $this->order_items
             ]);
 

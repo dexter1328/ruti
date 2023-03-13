@@ -121,15 +121,19 @@ Route::get('/state_cities/{state_id}', 'FrontEndController@state')->name('state-
 Route::post('/post-checkout', 'FrontEndController@postCheckout')->name('post-checkout');
 Route::get('/payment-page', 'FrontEndController@paymentPage')->name('payment-page');
 Route::post('/order-payment', 'FrontEndController@orderPayment')->name('order-payment');
+Route::post('/paypal-payment-charge', 'FrontEndController@paypalPayment')->name('paypal-payment');
+Route::get('/paypal-payment-success', 'FrontEndController@paypalPaymentSuccess')->name('paypal-payment-success');
+Route::get('/paypal-payment-error', 'FrontEndController@paypalPaymentError')->name('paypal-payment-error');
 Route::get('/thank-you-page', 'FrontEndController@thankYou')->name('thank-you-page');
-Route::get('/user-account', 'FrontEndController@userAccount')->name('user-account-page');
-Route::get('/user-products/{id}', 'FrontEndController@userProduct')->name('user-product-page');
+Route::get('/user-account', 'W2bCustomerController@userAccount')->name('user-account-page');
+Route::get('/user-products/{id}', 'W2bCustomerController@userProduct')->name('user-product-page');
 Route::get('/dmca', 'FrontEndController@dmca');
 Route::get('/terms-condition', 'FrontEndController@termsCondition');
 Route::get('/privacy-policy', 'FrontEndController@privacyPolicy');
 Route::get('/read-first', 'FrontEndController@readFirst');
 Route::get('/trending-products', 'FrontEndController@trendingProducts')->name('trending-products');
 Route::get('/special-offers', 'FrontEndController@specialOffers')->name('special-offers');
+Route::get('/test-cart-mail', 'FrontEndController@notPaidMail')->name('test.cart.mail');
 
 
 
@@ -548,6 +552,10 @@ Route::group(['prefix' => 'w2bcustomer'], function () {
 
     Route::get('/register', 'W2bCustomerAuth\RegisterController@showRegistrationForm')->name('register');
     Route::post('/register', 'W2bCustomerAuth\RegisterController@register');
+    Route::get('/auth/fb', 'W2bCustomerAuth\LoginController@authFacebook')->name('auth.facebook');
+    Route::get('/auth/google', 'W2bCustomerAuth\LoginController@authGoogle')->name('auth.google');
+    Route::get('/auth/fb/callback', 'W2bCustomerAuth\LoginController@fbCallback')->name('facebook.callback');
+    Route::get('/auth/google/callback', 'W2bCustomerAuth\LoginController@googleCallback')->name('google.callback');
 
     // Route::post('/password/email', 'EmployeeAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
     // Route::post('/password/reset', 'EmployeeAuth\ResetPasswordController@reset')->name('password.email');

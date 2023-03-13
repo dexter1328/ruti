@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Ruti Self Checkout</title>
+    <title>Nature Checkout</title>
 </head>
 <!-- <body>
     <h1>{{ $details['title'] }}</h1><br>
     <p>{{ $details['body'] }}</p><br>
-<h3><a href="http://www.rutiselfcheckout.com/admin/w2b_products/orders">Please Go to Admin Panel to take actions.</a></h3> <br>
+<h3><a href="http://www.naturecheckout.com/admin/w2b_products/orders">Please Go to Admin Panel to take actions.</a></h3> <br>
 
 
 
 <p>Best Regards!</p> <br>
-<p>Ruti Self Checkout</p>
+<p>Nature Checkout</p>
 
 </body> -->
 
@@ -49,7 +49,7 @@
           </tr>
           <tr>
             <td colspan="2" style="">
-              We are writing to confirm your recent purchase on our ruti self checkout. Thank you for choosing us and we are thrilled to have you
+              We are writing to confirm your recent purchase on our Nature checkout. Thank you for choosing us and we are thrilled to have you
               as our valued customer.
             </td>
           </tr>
@@ -145,9 +145,9 @@
               <div>
                 We hope to see you again soon. <br />
                 <a
-                  href="rutiselfcheckout.com"
+                  href="naturecheckout.com"
                   style="color: black; text-decoration: none; font-weight: bold"
-                  >rutiselfcheckout.com</a
+                  >naturecheckout.com</a
                 >
               </div>
             </td>
@@ -190,9 +190,9 @@
               <br><br>Your order will be shipped shortly and you will receive a shipment
               confirmation email with the tracking information. If you have any
               questions about your order, please don't hesitate to contact us at
-              <a href='#'>support@rutiselfcheckout.com</a>. Thank you for choosing our store for
+              <a href='#'>support@naturecheckout.com</a>. Thank you for choosing our store for
               your recent purchase. We hope that you will have a great shopping
-              experience with us.<br><br> Best regards,<br> The <b>Ruti Self Checkout</b> Team
+              experience with us.<br><br> Best regards,<br> The <b>Nature Checkout</b> Team
             </td>
           </tr>
         </thead>

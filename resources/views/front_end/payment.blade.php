@@ -30,15 +30,7 @@
     </div>
     @endif
         <div class="checkout_form">
-            <form
-                            role="form"
-                            action="{{ route('order-payment') }}"
-                            method="post"
-                            class="require-validation"
-                            data-cc-on-file="false"
-                            data-stripe-publishable-key="pk_test_51IarbDGIhb5eK2lSKrWKttm9gweug3yv8EqP2PoVRAhD6HWsuviQWzKOszgIf7imZZ5sjUXHdQhF759Khm3J3nYF00Ved0Wutj"
-                            id="payment-form">
-                        @csrf
+
             <div class="row justify-content-between">
 
 
@@ -49,42 +41,15 @@
                                 again.</div>
                         </div>
                     </div>
-                        {{-- <div class='form-row row'>
-                            <div class='col-xs-12 form-group required'>
-                                <label class='control-label'>Name on Card</label> <input
-                                    class='form-control' size='4' type='text'>
-                            </div>
-                        </div>
-
-                        <div class='form-row row'>
-                            <div class='col-xs-12 form-group card required'>
-                                <label class='control-label'>Card Number</label> <input
-                                    autocomplete='off' class='form-control card-number' size='20'
-                                    type='text'>
-                            </div>
-                        </div>
-
-                        <div class='form-row row'>
-                            <div class='col-xs-12 col-md-4 form-group cvc required'>
-                                <label class='control-label'>CVC</label> <input autocomplete='off'
-                                    class='form-control card-cvc' placeholder='ex. 311' size='4'
-                                    type='text'>
-                            </div>
-                            <div class='col-xs-12 col-md-4 form-group expiration required'>
-                                <label class='control-label'>Expiration Month</label> <input
-                                    class='form-control card-expiry-month' placeholder='MM' size='2'
-                                    type='text'>
-                            </div>
-                            <div class='col-xs-12 col-md-4 form-group expiration required'>
-                                <label class='control-label'>Expiration Year</label> <input
-                                    class='form-control card-expiry-year' placeholder='YYYY' size='4'
-                                    type='text'>
-                            </div>
-                        </div>
-
-
- --}}
-
+                    <form
+                    role="form"
+                    action="{{ route('order-payment') }}"
+                    method="post"
+                    class="require-validation"
+                    data-cc-on-file="false"
+                    data-stripe-publishable-key="pk_test_51IarbDGIhb5eK2lSKrWKttm9gweug3yv8EqP2PoVRAhD6HWsuviQWzKOszgIf7imZZ5sjUXHdQhF759Khm3J3nYF00Ved0Wutj"
+                    id="payment-form">
+                    @csrf
 
 
                         <h3 class='sections_coupons_header'>Payment Details</h3>
@@ -119,11 +84,48 @@
                                 <input class='form-control card-expiry-year' placeholder='YYYY' size='4'
                                     type='text'>
                             </div>
-                            {{-- <div class="col-4 mb-20">
-                                <button class="btn btn-danger btn-lg btn-block" type="submit"></button>
-                            </div> --}}
+                            <div class="order_button">
+                                <button  type="submit">Pay Now</button>
+                            </div>
 
                         </div>
+                    </form>
+                    {{-- <form class="w3-container w3-display-middle w3-card-4 "
+                     method="POST"   action="{{route('paypal-payment')}}">
+                        {{ csrf_field() }}
+                        <h2 class="w3-text-blue">Payment Form</h2>
+                        <input type="text" name="amount">
+
+                        <input type="submit" name="submit" value="Pay Now" />
+                        {{-- <a href="{{ route('paypal-payment') }}" class="btn btn-success">Pay $100 from Paypal</a> --}}
+                        {{-- <button type="submit">Pay with PayPal</button>
+                      </form> --}}
+                      <form class="form-horizontal" method="POST" id="payment-form" role="form" action="{{route('paypal-payment')}}" >
+                        {{ csrf_field() }}
+
+                        <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
+                            <label for="amount" class="col-md-4 control-label">Enter Amount</label>
+
+                            <div class="col-md-6">
+                                <input id="amount" type="text" class="form-control" name="amount" autofocus>
+
+                                @if ($errors->has('amount'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('amount') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Paywith Paypal
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
 
                 </div>
                 <div class="col-lg-5 col-md-5 border main_parent_div p-0 mt-2">
@@ -174,36 +176,16 @@
                             </table>
                         </div>
                         <div class="payment_method d-flex justify-content-end p-3 w-100">
-                           {{-- <div class="panel-default">
-                                <input id="payment" name="check_method" type="radio" data-target="createp_account" />
-                                <label for="payment" data-toggle="collapse" data-target="#method" aria-controls="method">Create an account?</label>
 
-                                <div id="method" class="collapse one" data-parent="#accordion">
-                                    <div class="card-body1">
-                                       <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
-                                    </div>
-                                </div>
-                            </div>  --}}
-                           {{-- <div class="panel-default">
-                                <input id="payment_defult" name="check_method" type="radio" data-target="createp_account" />
-                                <label for="payment_defult" data-toggle="collapse" data-target="#collapsedefult" aria-controls="collapsedefult">PayPal <img src="assets/img/icon/papyel.png" alt=""></label>
-
-                                <div id="collapsedefult" class="collapse one" data-parent="#accordion">
-                                    <div class="card-body1">
-                                       <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            <div class="order_button">
+                            {{-- <div class="order_button">
                                 <button  type="submit">Pay Now ${{number_format((float)$total_price, 2, '.', '')}}</button>
-                            </div>
+                            </div> --}}
                         </div>
-                    {{-- </form>          --}}
+
                 </div>
 
 
             </div>
-        </form>
 
     </div><br><br>
     <div class='main_parent_div border col-lg-8 col-sm-12 m-auto px-0'>

@@ -43,7 +43,7 @@ class VendorSuccess extends Mailable
         // return $this->view('/admin/service_provider/background_check')->with([
         //         'id' => $this->id
         //     ]);
-        return $this->subject('RUTI Self Checkout: Welcome to RUTI Self Checkout')->view('/admin/vendors/vendor_success')->with([
+        return $this->subject('Nature Checkout: Welcome to Nature Checkout')->view('/admin/vendors/vendor_success')->with([
                 'email' => $this->email,
                 'password' => $this->password,
                 'name' => $this->vendor_name

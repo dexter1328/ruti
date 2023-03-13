@@ -11,10 +11,10 @@
         <meta property="og:description" content="We provide convenient and expeditious service to all users (merchants and consumers) in areas of consumer spending. Our service is to improve merchant - customer relations while offering positive contribution to the overall economy." />
         <meta property="og:image" content="{{ asset('images/logo-icon.png') }}" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="http://rutiselfcheckout.com/" />
+        <meta property="og:url" content="http://naturecheckout.com/" />
         <meta property="fb:app_id" content="482623692719207" />
 
-        <title>{{ config('app.name', 'RUTI Self Checkout') }}</title>
+        <title>{{ config('app.name', 'Nature Checkout') }}</title>
         <!--favicon-->
         <link rel="icon" href="{{ asset('images/logo-icon-xx.png') }}" type="image/x-icon">
         <!-- Vector CSS -->
@@ -515,7 +515,7 @@
                 <footer class="footer">
                     <div class="container">
                         <div class="text-center">
-                            RUTI Self Checkout &copy; 2019-2024. All Rights Reserved
+                            Nature Checkout &copy; 2019-2024. All Rights Reserved
                         </div>
                     </div>
                 </footer>

@@ -43,7 +43,7 @@
     <!-- About us start -->
     <section id="aboutus" class="section aboutus mt-4">
         <h2 class="heading">
-            {{isset($page_meta['about_title']) && $page_meta['about_title']!='' ? $page_meta['about_title'] : 'About RUTI self checkout'}}
+            {{isset($page_meta['about_title']) && $page_meta['about_title']!='' ? $page_meta['about_title'] : 'About Nature checkout'}}
         </h2>
         <div class="container">
             <div class="row align-items-center">
@@ -52,8 +52,8 @@
                         @if(isset($page_meta['about_description']) && $page_meta['about_description']!='')
                             {!! $page_meta['about_description'] !!}
                         @else
-                            <p>How many times have  you been in a long checkout line and finally reached the front, only to realize that you forgot the item that brought you to the store in the first place? You're then faced with the decision to waste your time either backtracking and losing your place in line, or coming back to the store at a later time. Time and money are finite resources that everyone wants more of, RUTI self checkout saves both.</p>
-                            <p>RUTI self checkout  is  a  revolutionary  new  mobile  application  which  combines  the  convenience  of  online shopping with the hands-on in store shopping experience. The innovative mobile application, or "app",  is  specially  designed  to  provide  both  merchants  and  consumers  with  an  easier  more efficient purchasing and selling experience by eliminating the need to wait in line.  Consumers will  save  time  by  avoiding  checkout  lines  at  grocery  markets,  retail  stores,  restaurants,  and events such as concerts and plays. Merchants will maximize their profit potential by increasing the amount of transactions they can accommodate, by shortening grocery and retail store lines, quickly turning over restaurant customers, and reaching a wider consumer base.</p>
+                            <p>How many times have  you been in a long checkout line and finally reached the front, only to realize that you forgot the item that brought you to the store in the first place? You're then faced with the decision to waste your time either backtracking and losing your place in line, or coming back to the store at a later time. Time and money are finite resources that everyone wants more of, Nature checkout saves both.</p>
+                            <p>Nature checkout  is  a  revolutionary  new  mobile  application  which  combines  the  convenience  of  online shopping with the hands-on in store shopping experience. The innovative mobile application, or "app",  is  specially  designed  to  provide  both  merchants  and  consumers  with  an  easier  more efficient purchasing and selling experience by eliminating the need to wait in line.  Consumers will  save  time  by  avoiding  checkout  lines  at  grocery  markets,  retail  stores,  restaurants,  and events such as concerts and plays. Merchants will maximize their profit potential by increasing the amount of transactions they can accommodate, by shortening grocery and retail store lines, quickly turning over restaurant customers, and reaching a wider consumer base.</p>
                          @endif
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                     @if(isset($page_meta['vendors_description']) && $page_meta['vendors_description']!='')
                         {!! $page_meta['vendors_description'] !!}
                     @else
-                        <p>RUTI self checkout's Business Philosophy of “Saving Time, Saving Money, and Saving the Environment” is catered to give Vendors Optimal Benefit.</p>
+                        <p>Nature checkout's Business Philosophy of “Saving Time, Saving Money, and Saving the Environment” is catered to give Vendors Optimal Benefit.</p>
                     @endif
                 </div>
                 <div class="col-md-12 vendors-inner">
@@ -139,7 +139,7 @@
     <!-- features Start -->
     <section id="features" class="section features">
         <h2 class="heading">
-            {{isset($page_meta['features_title']) && $page_meta['features_title']!='' ? $page_meta['features_title'] : 'RUTI self checkout Features'}}
+            {{isset($page_meta['features_title']) && $page_meta['features_title']!='' ? $page_meta['features_title'] : 'Nature checkout Features'}}
         </h2>
         <div class="container">
             <div class="row">
@@ -196,13 +196,13 @@
                             <div class="features-text">
                                 <div>
                                     <h3>Pickup</h3>
-                                    <p>Too tired to go for Grocery Shopping? Planning to go somewhere but forgot to refill your groceries? RUTI self checkout will take care of it!!! Visit your Store and Order will be ready for you.</p>
+                                    <p>Too tired to go for Grocery Shopping? Planning to go somewhere but forgot to refill your groceries? Nature checkout will take care of it!!! Visit your Store and Order will be ready for you.</p>
                                 </div>
                             </div>
                             <div class="features-text">
                                 <div>
                                     <h3>Scan &amp; Shop</h3>
-                                    <p>With RUTI self checkout, you can simply scan the Product with our App and add it to your Cart. With seamless cashless transactions on one click you can check out.</p>
+                                    <p>With Nature checkout, you can simply scan the Product with our App and add it to your Cart. With seamless cashless transactions on one click you can check out.</p>
                                 </div>
                             </div>
                             <div class="features-text">
@@ -214,13 +214,13 @@
                             <div class="features-text">
                                 <div>
                                     <h3>Cashless</h3>
-                                    <p>No need to carry cash while going for Shopping when you have RUTI self checkout’s wallet at your Service. You can also transfer money from one wallet to another.</p>
+                                    <p>No need to carry cash while going for Shopping when you have Nature checkout’s wallet at your Service. You can also transfer money from one wallet to another.</p>
                                 </div>
                             </div>
                             <div class="features-text">
                                 <div>
                                     <h3>Coupons &amp; Deals</h3>
-                                    <p>With our thrive to work harder for our users, RUTI self checkout will bring the most lucrative deals by partnering with brands to bring you the maximum discounts and benefits.</p>
+                                    <p>With our thrive to work harder for our users, Nature checkout will bring the most lucrative deals by partnering with brands to bring you the maximum discounts and benefits.</p>
                                 </div>
                             </div>
                             <div class="features-text">
@@ -276,7 +276,7 @@
                             <div class="col-md-4 text-left">
                                 <div class="faq-details">
                                     <h5>How Do I Unlock Store?</h5>
-                                    <p>You can unlock store by clicking centered RUTI self checkout Logo button on Dashboard. When you click on button it will fetch store from your current location.</p>
+                                    <p>You can unlock store by clicking centered Nature checkout Logo button on Dashboard. When you click on button it will fetch store from your current location.</p>
                                 </div>
                             </div>
                             <div class="col-md-4 text-left">
@@ -324,7 +324,7 @@
                     @if(isset($page_meta['downloads_description']) && $page_meta['downloads_description']!='')
                         <p>{!! $page_meta['downloads_description'] !!}</p>
                     @else
-                        <p>A faster way to online shopping with the hands-on in store shopping experience. A quick way to reach out and keep in touch – all on the RUTI self checkout App. The RUTI self checkout mobile app is available for iOS and Android devices.</p>
+                        <p>A faster way to online shopping with the hands-on in store shopping experience. A quick way to reach out and keep in touch – all on the Nature checkout App. The Nature checkout mobile app is available for iOS and Android devices.</p>
                     @endif
                     <ul class="banner-icon">
                         <li class="apple"><a href="{{isset($page_meta['downloads_ios_app_link']) && $page_meta['downloads_ios_app_link']!='' ? $page_meta['downloads_ios_app_link'] : '#'}}" target="_blank"><i class="fa fa-apple"></i><p>ios</p></a></li>
@@ -377,21 +377,21 @@
                                 <div class="feedback-details">
                                     <img src="{{ asset('public/frontend/image/feedback-image-1.png')}}" class="img-fluid" alt="">
                                     <h2>Johnson</h2>
-                                    <p>RUTI self checkout is the future of grocery shopping! The App is very easy to use and the highlight of this whole idea for me is that I do not have to wait in a long queue for the Billing Process. Scan, Confirm, Checkout and  Vola! I am out of the Store. Highly Recommended</p>
+                                    <p>Nature checkout is the future of grocery shopping! The App is very easy to use and the highlight of this whole idea for me is that I do not have to wait in a long queue for the Billing Process. Scan, Confirm, Checkout and  Vola! I am out of the Store. Highly Recommended</p>
                                 </div>
                             </div>
                             <div class="col-md-4 text-center">
                                 <div class="feedback-details">
                                     <img src="{{ asset('public/frontend/image/feedback-image-2.png')}}" class="img-fluid" alt="">
                                     <h2>Sophia</h2>
-                                    <p>Hi Guys, I am sharing my experience with RUTI self checkout. I am a regular user of RUTI self checkout as while going back home from my office, I always order fresh groceries from the Store on my way and ask them for a Pick Up option, so by the time I reach the Store, my order is ready and good to go. It has saved me a lot of time.</p>
+                                    <p>Hi Guys, I am sharing my experience with Nature checkout. I am a regular user of Nature checkout as while going back home from my office, I always order fresh groceries from the Store on my way and ask them for a Pick Up option, so by the time I reach the Store, my order is ready and good to go. It has saved me a lot of time.</p>
                                 </div>
                             </div>
                             <div class="col-md-4 text-center">
                                 <div class="feedback-details">
                                     <img src="{{ asset('public/frontend/image/feedback-image-3.png')}}" class="img-fluid" alt="">
                                     <h2>Hailey</h2>
-                                    <p>Thanks to RUTI self checkout, I can now transfer money from my wallet to my daughter’s wallet for her shopping which helps me keep tab on her expenses. Also, pick up option is something I frequently use</p>
+                                    <p>Thanks to Nature checkout, I can now transfer money from my wallet to my daughter’s wallet for her shopping which helps me keep tab on her expenses. Also, pick up option is something I frequently use</p>
                                 </div>
                             </div>
                         @endif

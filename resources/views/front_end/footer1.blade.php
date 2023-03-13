@@ -64,7 +64,7 @@
                                     @foreach ($categories2 as $cat)
                                     <ul>
                                         <li><a href="{{route('cat-products', $cat->category1)}}">{{$cat->category1}}</a></li>
-                                        
+
                                     </ul>
                                     @endforeach
                                 </div>
@@ -98,14 +98,14 @@
                         <div class="row justify-content-center justify-content-lg-start justify-content-md-start justify-content-sm-start">
                             <div class="col-xl-4 col-lg-6 col-md-12 col-sm-6 col-12 align-self-center mb-4">
                                 <div class="footer-widget">
-                                    <p class="web-address mb-0">@rutiselfcheckout.com/</p>
+                                    <p class="web-address mb-0">@naturecheckout.com/</p>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-5 col-md-6 col-sm-6 col-12 align-self-center mb-md-3 mb-xl-4">
                                 <div class="privacy-terms">
                                     <ul class="d-flex">
-                                        <li>Privacy</li>
-                                        <li>Terms</li>
+                                        <li><a href="{{url('privacy-policy')}}"> Privacy</a></li>
+                                        <li><a href="{{url('terms-condition')}}">Terms</a></li>
                                     </ul>
                                 </div>
                             </div>

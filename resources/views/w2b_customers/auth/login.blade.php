@@ -57,8 +57,8 @@
 
         </form>
         <div class='w-100 my-2 mx-auto d-flex '>
-            <button type="button" style="background-color:#ee7322;color:#fff !important;" class="btn btn-block w-50">Login with Google</button>
-            <button type="button" class="btn btn-primary ml-1 w-50">Login with Facebook</button>
+            <button type="button" onclick="window.location='{{ url("w2bcustomer/auth/google") }}'" style="background-color:#ee7322;color:#fff !important;" class="btn btn-block w-50">Login with Google</button>
+            <button type="button" onclick="window.location='{{ url("w2bcustomer/auth/fb") }}'" class="btn btn-primary ml-1 w-50">Login with Facebook</button>
         </div>
         <hr>
         <a href="{{url('/')}}" style="background-color:#ee7322;color:#fff !important;" class="btn btn-block">Home</a>

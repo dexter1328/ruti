@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>RUTI Self Checkout | One-Stop E-commerce hub for online selling, in-store buying and self-checkout.</title>
-<meta name="description" content="RUTI self checkout, a free mobile app that provides safe and convenient grocery shopping during post pandemic- Smart grocery app - Free delivery RUTI self checkout - buy groceries online – grocery stores online services">
-<meta name="keywords" content="Smart grocery app store near me, Free delivery RUTI self checkout, Closest store near me RUTI self checkout, Shop groceries stores online, Mobile app for grocery shopping, Smart in-store shopping app, Get online coupon from RUTI self checkout, Scan and go mobile app from RUTI self checkout, Smart way to buy and sell online from RUTI self checkout, Smart and convenient shopping mobile app from RUTI self checkout, Best way to sell, Sell online, Online sells, Online seller, E-commerce selling, Ecommerce sells, Sales hub, Where to sell, Sell on instacart, Sell on Etsy, Sell on Amazon, Best place to sell, Where to sell, Best Buy and sell center ">
+<title>Nature Checkout | One-Stop E-commerce hub for online selling, in-store buying and self-checkout.</title>
+<meta name="description" content="Nature checkout, a free mobile app that provides safe and convenient grocery shopping during post pandemic- Smart grocery app - Free delivery Nature checkout - buy groceries online – grocery stores online services">
+<meta name="keywords" content="Smart grocery app store near me, Free delivery Nature checkout, Closest store near me Nature checkout, Shop groceries stores online, Mobile app for grocery shopping, Smart in-store shopping app, Get online coupon from Nature checkout, Scan and go mobile app from Nature checkout, Smart way to buy and sell online from Nature checkout, Smart and convenient shopping mobile app from Nature checkout, Best way to sell, Sell online, Online sells, Online seller, E-commerce selling, Ecommerce sells, Sales hub, Where to sell, Sell on instacart, Sell on Etsy, Sell on Amazon, Best place to sell, Where to sell, Best Buy and sell center ">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
 <!-- <meta http-equiv="Content-type" content="text/html; charset=UTF-8"> -->
 <meta name="theme-color" content="#003366" />
-<meta property="og:title" content="{{ config('app.name', 'RUTI self checkout') }}" />
+<meta property="og:title" content="{{ config('app.name', 'Nature checkout') }}" />
 <meta property="og:description" content="We provide convenient and expeditious service to all users (merchants and consumers) in areas of consumer spending. Our service is to improve merchant - customer relations while offering positive contribution to the overall economy." />
 <meta property="og:image" content="{{ asset('images/logo-icon.png') }}" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://rutiselfcheckout.com/" />
+<meta property="og:url" content="https://naturecheckout.com/" />
 <meta property="fb:app_id" content="482623692719207" />
 <style>
 /*/    .dropbtn {
@@ -326,8 +326,8 @@
                     <div class="container-fluid px-5">
                         <div class="row align-items-end">
                             <div class="col-lg-2 col-md-3 col-sm-3 col-12">
-                                <div class="logo">
-                                    <a href="{{url('/home')}}"><img src="{{asset('public/frontend/image/logo.png')}}" alt=""></a>
+                                <div class="logo logo-new">
+                                    <a href="{{url('/home')}}"><img src="{{asset('public/wb/img/logo/logo.png')}}" alt=""></a>
                                 </div>
                             </div>
                             <div class="col-lg-10 col-md-9 col-sm-9 col-12">
@@ -380,7 +380,11 @@
                                         @else
                                         <li class="header-sine-in dropdown">
                                             <a href="" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                @if (Auth::guard('w2bcustomer')->user()->image)
+                                                <img class="rounded-circle" src="{{asset('public/user_photo/'.Auth::guard('w2bcustomer')->user()->image)}}" style="width: 18%; margin-right: 8px;" alt="">
+                                                @else
                                                 <i class="lnr lnr-user fa-3x d-flex"></i>
+                                                @endif
                                                 <p class="sign-in-text">{{Auth::guard('w2bcustomer')->user()->first_name}} <span>{{Auth::guard('w2bcustomer')->user()->last_name}}</span></p>
                                             </a>
                                             <div class="dropdown-menu login-dropdown" aria-labelledby="dropdownMenuLink">
@@ -389,7 +393,7 @@
                                                 <a class="dropdown-item text-dark" href="{{route('user-account-page')}}" >My Account</a>
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item text-dark" href="" onclick="event.preventDefault(); document.getElementById('logout-form5').submit();">Logout</a>
-                                                <form id="logout-form5" action="{{ url('/w2bcustomer/logout') }}" method="POST" style="display: none;">
+                                                <form id="logout-form5" action="{{ route('w2bcustomer.logout') }}" method="POST" style="display: none;">
                                                     {{ csrf_field() }}
                                                 </form>
                                             </div>

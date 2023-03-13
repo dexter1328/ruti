@@ -159,6 +159,7 @@
 </div>
 <!--product details end-->
 <!--product info start-->
+<section id="reviewspage">
 <div class="product_d_info mb-65">
     <div class="container-fluid">
         <div class="row">
@@ -342,6 +343,7 @@
         </div>
     </div>
 </div>
+</section>
 {{-- <section class='w-100 d-flex mb-3 justify-content-center'>
 <div class='m-0 border product_sets mt-2 px-0'>
                         <h3 class='like_products_heading text-center p-2' >Most Popular Sets</h3>

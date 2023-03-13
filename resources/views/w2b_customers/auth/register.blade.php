@@ -217,6 +217,17 @@
                                         <span class="text-danger">{{ $errors->first('email') }}</span>
                                     @endif
                                 </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="input-12" class="col-form-label">Image<span class="text-danger">*</span></label>
+                                <div class="custom-file">
+                                    <input type="file" name="image" class="form-control custom-file-input" id="customFile" value="{{old('image')}}">
+                                    <label class="custom-file-label" for="customFile">Choose Your Image</label>
+                                    @if ($errors->has('image'))
+                                        <span class="text-danger">{{ $errors->first('image') }}</span>
+                                    @endif
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="input-13" class="col-form-label">Password<span class="text-danger">*</span></label>
@@ -259,8 +270,8 @@
                             <center>
                                 <div class="form-footer w-100 px-4">
                                     <button type="submit" class="btn btn-primary sign_up_btn w-100"> SignUp<ig/button>
-                                    <button type="button"  class="btn mt-3 btn-light sign_up_btn w-50"> Register with Google<ig/button>
-                                    <button type="button"  class="btn mt-3 btn-primary w-50"> Register with Facebook</button>
+                                    <button type="button" onclick="window.location='{{ url("w2bcustomer/auth/google") }}'"  class="btn mt-3 btn-light sign_up_btn w-50"> Register with Google<ig/button>
+                                    <button type="button" onclick="window.location='{{ url("w2bcustomer/auth/fb") }}'"  class="btn mt-3 btn-primary w-50"> Register with Facebook</button>
                                     <hr>
                                     <a  class="btn btn-success w-100" href="{{url('/w2bcustomer/login')}}"> Sign in as Customer</a>
                                 </div>
@@ -271,6 +282,14 @@
             </div>
         </div>
     </section>
+
+    <script>
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function() {
+          var fileName = $(this).val().split("\\").pop();
+          $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+        </script>
 
     <script type="text/javascript">
 

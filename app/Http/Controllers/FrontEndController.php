@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Mail;
 use View;
 use Share;
+use Config;
+use Session;
 use App\City;
 use App\User;
 use App\State;
@@ -13,23 +15,42 @@ use App\Rating;
 use App\UsState;
 use App\PageMeta;
 use App\W2bOrder;
+use Carbon\Carbon;
 use Stripe\Charge;
 use Stripe\Stripe;
+use App\W2bPayment;
 use App\W2bProduct;
 use App\WbWishlist;
 use App\W2bCategory;
+use Omnipay\Omnipay;
+use PayPal\Api\Item;
 use Stripe\Customer;
+use PayPal\Api\Payer;
+use PayPal\Api\Amount;
 use App\OrderedProduct;
+use PayPal\Api\Payment;
+use PayPal\Api\ItemList;
 use App\Jobs\RutiMailJob;
 use App\Mail\WbOrderMail;
 use App\Jobs\OrderMailJob;
+use App\Mail\CartOrderMail;
+use PayPal\Api\Transaction;
+use PayPal\Rest\ApiContext;
 use Illuminate\Http\Request;
+use PayPal\Api\RedirectUrls;
 use App\Mail\WbRutiOrderMail;
+use PayPal\Api\PaymentExecution;
 use Illuminate\Support\Facades\DB;
+use Omnipay\Common\Http\Exception;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
+use PayPal\Auth\OAuthTokenCredential;
+use Illuminate\Support\Facades\Redirect;
+use Stevebauman\Location\Facades\Location;
 
 class FrontEndController extends Controller
 {
+    private $_api_context;
 
 	public function __construct()
 	{
@@ -38,16 +59,17 @@ class FrontEndController extends Controller
 		View::share('page_meta', $page_meta);
         $categories = W2bCategory::with('childrens')->get();
         View::share('categories', $categories);
-        // if (Auth::guard('w2bcustomer')->user()) {
-        //     $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-        //     ->get();
-        //     View::share('wb_wishlist', $wb_wishlist);
-        // }
+
+        $paypal_configuration = Config::get('paypal');
+        $this->_api_context = new ApiContext(new OAuthTokenCredential($paypal_configuration['client_id'], $paypal_configuration['secret']));
+        $this->_api_context->setConfig($paypal_configuration['settings']);
 
 	}
 
-    public function index()
+    public function index(Request $request)
     {
+        $ip = '162.159.24.227'; /* Static IP address */
+        $currentUserInfo =  Location::get($ip);
         $wb_wishlist = null;
         if (Auth::guard('w2bcustomer')->user()) {
             $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
@@ -216,7 +238,7 @@ class FrontEndController extends Controller
         }
 
         $shareComponent = Share::page(
-            'http://www.rutiselfcheckout.com//shop/product_detail/'.$sku,
+            'http://www.naturecheckout.com//shop/product_detail/'.$sku,
             'Your share text comes here',
         )
         ->facebook()
@@ -302,6 +324,12 @@ class FrontEndController extends Controller
     }
     public function addToCart($sku)
     {
+        if (Auth::guard('w2bcustomer')->user()) {
+            $user_id = Auth::guard('w2bcustomer')->user()->id;
+        }
+        else {
+            $user_id = Null;
+        }
         $product = DB::table('w2b_products')
         ->where('sku', $sku)
         ->first();
@@ -327,6 +355,12 @@ class FrontEndController extends Controller
 
     public function addToCart1($sku)
     {
+        if (Auth::guard('w2bcustomer')->user()) {
+            $user_id = Auth::guard('w2bcustomer')->user()->id;
+        }
+        else {
+            $user_id = Null;
+        }
         $product = DB::table('w2b_products')
         ->where('sku', $sku)
         ->first();
@@ -346,7 +380,9 @@ class FrontEndController extends Controller
             ];
         }
 
+
         session()->put('cart', $cart);
+
         return redirect('/cart')->with('success', 'Product added to cart successfully!');
     }
 
@@ -503,6 +539,27 @@ class FrontEndController extends Controller
             // return view('front_end.payment', compact('w2border'));
             return redirect('/payment-page');
     }
+
+    public function notPaidMail()
+    {
+        $not_paid = DB::table('w2b_orders')->
+        join('users', 'users.id', '=', 'w2b_orders.user_id')->
+        where('w2b_orders.is_paid', 'no')
+        ->whereDate( 'w2b_orders.created_at', '<=', now()->subDays(60))
+        ->select('w2b_orders.*','users.email as user_email')
+        ->get();
+        // dd($not_paid);
+        foreach ($not_paid as $np) {
+            $date =  Carbon::parse($np->created_at)->format('d/m/Y');
+            $details = [
+                'title' => 'Your Application was last active ' . $date,
+                'body' => "Hey there you have not orders a while and items are still in cart"
+            ];
+            Mail::to($np->user_email)->send(new CartOrderMail($details));
+        }
+
+
+    }
     public function paymentPage()
     {
         $wb_wishlist = null;
@@ -551,7 +608,7 @@ class FrontEndController extends Controller
 
             "customer" => $customer->id,
 
-            "description" => "Payment from Ruti Self Checkout",
+            "description" => "Payment from Nature Checkout",
 
             "shipping" => [
 
@@ -577,19 +634,19 @@ class FrontEndController extends Controller
         $fname = ucfirst($user->first_name);
         $lname = ucfirst($user->last_name);
         $details = [
-            'title' => 'Ruti Self Checkout Order #'.$w2border->order_id,
+            'title' => 'Nature Checkout Order #'.$w2border->order_id,
             'body' => 'Dear '.$fname.' '.$lname,
             'email' => $user->email
         ];
         $details2 = [
             'title' => 'New Order Received #'.$w2border->order_id,
             'body' => 'A new Customer named '.$fname.' '.$lname.' has created an order',
-            'email' => 'rutiorders@gmail.com'
+            'email' => 'sales@naturecheckout.com'
         ];
         dispatch(new OrderMailJob($details))->delay(now()->addSeconds(30));
         dispatch(new RutiMailJob($details2))->delay(now()->addSeconds(30));
         // Mail::to($user_details->email)->send(new WbOrderMail($details));
-        // Mail::to('rutiorders@gmail.com')->send(new WbRutiOrderMail($details2));
+        // Mail::to('sales@naturecheckout.com')->send(new WbRutiOrderMail($details2));
     }
         // Charge::create ([
         //         "amount" => 100 * 100,
@@ -619,43 +676,11 @@ class FrontEndController extends Controller
         return view('front_end.thank-you',compact('wb_wishlist','products','categories2'));
     }
 
-    public function userAccount()
-    {
-        $wb_wishlist = null;
-
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
-
-        $orders = DB::table('w2b_orders')
-        ->where('w2b_orders.user_id', Auth::guard('w2bcustomer')->user()->id)
-        ->where('w2b_orders.is_paid','yes')
-        ->get();
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
-        return view('front_end.user_account',compact('wb_wishlist','orders','categories2'));
-    }
-    public function userProduct($id)
-    {
-        $wb_wishlist = null;
-
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
-
-        $products = OrderedProduct::where('order_id',$id)->get();
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
-
-        return view('front_end.user_products',compact('wb_wishlist','products','categories2'));
-    }
 
     public function trendingProducts()
     {
+        session()->forget('cart');
+
         $wb_wishlist = null;
 
         if (Auth::guard('w2bcustomer')->user()) {
@@ -671,6 +696,9 @@ class FrontEndController extends Controller
 
     public function specialOffers()
     {
+        $cart = session()->get('cart');
+        // dd(session('lifetime'));
+         dd($cart);
         $wb_wishlist = null;
 
         if (Auth::guard('w2bcustomer')->user()) {
@@ -684,4 +712,88 @@ class FrontEndController extends Controller
         return view('front_end.special_offers',compact('wb_wishlist','products','categories2'));
     }
 
+    public function paypalPayment(Request $request)
+    {
+        $payer = new Payer();
+        $payer->setPaymentMethod('paypal');
+
+    	$item_1 = new Item();
+
+        $item_1->setName('Product 1')
+            ->setCurrency('USD')
+            ->setQuantity(1)
+            ->setPrice($request->get('amount'));
+
+        $item_list = new ItemList();
+        $item_list->setItems(array($item_1));
+
+        $amount = new Amount();
+        $amount->setCurrency('USD')
+            ->setTotal($request->get('amount'));
+
+        $transaction = new Transaction();
+        $transaction->setAmount($amount)
+            ->setItemList($item_list)
+            ->setDescription('Enter Your transaction description');
+
+        $redirect_urls = new RedirectUrls();
+        $redirect_urls->setReturnUrl(URL::route('paypal-payment-success'))
+            ->setCancelUrl(URL::route('paypal-payment-success'));
+
+        $payment = new Payment();
+        $payment->setIntent('Sale')
+            ->setPayer($payer)
+            ->setRedirectUrls($redirect_urls)
+            ->setTransactions(array($transaction));
+        try {
+            $payment->create($this->_api_context);
+        } catch (\PayPal\Exception\PPConnectionException $ex) {
+            if (Config::get('app.debug')) {
+                Session::put('error','Connection timeout');
+                return Redirect::route('paywithpaypal');
+            } else {
+                Session::put('error','Some error occur, sorry for inconvenient');
+                return Redirect::route('paywithpaypal');
+            }
+        }
+
+        foreach($payment->getLinks() as $link) {
+            if($link->getRel() == 'approval_url') {
+                $redirect_url = $link->getHref();
+                break;
+            }
+        }
+
+        Session::put('paypal_payment_id', $payment->getId());
+
+        if(isset($redirect_url)) {
+            return Redirect::away($redirect_url);
+        }
+
+        Session::put('error','Unknown error occurred');
+    	return Redirect::route('paywithpaypal');
+    }
+
+    public function paypalPaymentSuccess(Request $request)
+    {
+        $payment_id = Session::get('paypal_payment_id');
+
+        Session::forget('paypal_payment_id');
+        if (empty($request->input('PayerID')) || empty($request->input('token'))) {
+            Session::put('error','Payment failed');
+            return Redirect::route('paywithpaypal');
+        }
+        $payment = Payment::get($payment_id, $this->_api_context);
+        $execution = new PaymentExecution();
+        $execution->setPayerId($request->input('PayerID'));
+        $result = $payment->execute($execution, $this->_api_context);
+
+        if ($result->getState() == 'approved') {
+            \Session::put('success','Payment success !!');
+            return Redirect::route('paywithpaypal');
+        }
+
+        \Session::put('error','Payment failed !!');
+		return Redirect::route('paywithpaypal');
+    }
 }

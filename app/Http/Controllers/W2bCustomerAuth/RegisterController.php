@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\W2bCustomerAuth;
 
 use App\User;
+use Exception;
 use Validator;
 use App\W2bCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -56,6 +58,7 @@ class RegisterController extends Controller
 			'email' => 'required|email|unique:users',
 			'mobile'=>'required',
             'password' => 'required|min:6|confirmed',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 			'social_id' => 'unique:users'
         ]);
     }
@@ -68,13 +71,54 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $imageName = time().'.'.$data['image']->extension();
+        $data['image']->move(public_path('user_photo'), $imageName);
         return User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'mobile' => $data['mobile'],
             'email' => $data['email'],
+            'image' => $imageName,
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function authFacebook()
+    {
+        # code...
+        return Socialite::driver('facebook')->redirect();
+    }
+    public function fbCallback()
+    {
+        # code...
+        try {
+
+            $user = Socialite::driver('facebook')->user();
+
+            $finduser = User::where('social_id', $user->id)->first();
+
+            if($finduser){
+
+                Auth::guard('w2bcustomer')->login($finduser, true);
+
+                return redirect()->intended('/');
+
+            }else{
+                $newUser = User::updateOrCreate(['email' => $user->email],[
+                        'first_name' => $user->name,
+                        'social_id'=> $user->id,
+                        'social_type'=> 'facebook',
+                        'password' => encrypt('123456dummy')
+                    ]);
+
+                    Auth::guard('w2bcustomer')->login($newUser, true);
+
+                return redirect()->intended('/');
+            }
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
     }
 
     /**

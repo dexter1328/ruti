@@ -1,6 +1,6 @@
 @extends('email.layout')
 
-@section('title', 'RUTI Self Checkout Subscription')
+@section('title', 'Nature Checkout Subscription')
 @section('content')
 	<div>
 		<h3 style="text-align: center;">${{$user->price}} payment for "{{$user->membership_name.' '.$user->billing_period.'ly'}} Subscription" was successful.</h3>
@@ -8,6 +8,6 @@
 		<br>
 		<p>There is an automated notification to let you know that your {{$user->membership_name}} subscription plan has been renewed. Enjoy the subscription plan.</p>
 		<br>
-		<p>Thanks, <br> RUTI Self Checkout Team</p>
+		<p>Thanks, <br> Nature Checkout Team</p>
 	</div>
 @endsection

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\W2bCustomerAuth;
 
+use App\User;
+use Exception;
 use App\W2bCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Hesto\MultiAuth\Traits\LogsoutGuard;
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -60,6 +63,90 @@ class LoginController extends Controller
         $categories = W2bCategory::with('childrens')->get();
         return view('w2b_customers.auth.login',compact('wb_wishlist','categories'));
     }
+    public function authFacebook()
+    {
+        # code...
+        return Socialite::driver('facebook')->redirect();
+    }
+    public function fbCallback()
+    {
+        # code...
+        try {
+
+            $user = Socialite::driver('facebook')->user();
+
+            $finduser = User::where('social_id', $user->id)->first();
+
+            if($finduser){
+
+                Auth::guard('w2bcustomer')->login($finduser);
+
+                return redirect()->intended('/');
+
+            }else{
+                $newUser = User::updateOrCreate(['email' => $user->email],[
+                        'first_name' => $user->name,
+                        'social_id'=> $user->id,
+                        'social_type'=> 'facebook',
+                        'password' => encrypt('123456dummy')
+                    ]);
+
+                    Auth::guard('w2bcustomer')->login($newUser);
+
+                return redirect()->intended('/');
+            }
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+
+
+    public function authGoogle()
+    {
+        # code...
+        return Socialite::driver('google')->redirect();
+    }
+    public function googleCallback()
+    {
+
+        # code...
+        try {
+
+            $user = Socialite::driver('google')->user();
+            $user1 = $user->user;
+            // dd($user);
+            // dd('11223');
+
+            $finduser = User::where('social_id', $user->id)->first();
+            // dd($finduser);
+
+            if($finduser){
+
+                Auth::guard('w2bcustomer')->login($finduser);
+
+                return redirect()->intended('/');
+
+            }else{
+                $newUser = User::updateOrCreate(['email' => $user->email],[
+                        'first_name' => $user->name,
+                        'social_id'=> $user->id,
+                        'social_type'=> 'google',
+                        'password' => encrypt('123456dummy')
+                    ]);
+
+                    Auth::guard('w2bcustomer')->login($newUser);
+
+                return redirect()->intended('/');
+            }
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+
 
     /**
      * Get the guard to be used during authentication.
@@ -70,4 +157,11 @@ class LoginController extends Controller
     {
         return Auth::guard('w2bcustomer');
     }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('w2bcustomer')->logout();
+        return redirect('/');
+    }
+
 }

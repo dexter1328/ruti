@@ -44,7 +44,7 @@
                 @if(isset($page_meta['downloads_description']) && $page_meta['downloads_description']!='')
                     <p>{!! $page_meta['downloads_description'] !!}</p>
                 @else
-                    <p>A faster way to online shopping with the hands-on in store shopping experience. A quick way to reach out and keep in touch – all on the RUTI self checkout App. The RUTI self checkout mobile app is available for iOS and Android devices.</p>
+                    <p>A faster way to online shopping with the hands-on in store shopping experience. A quick way to reach out and keep in touch – all on the Nature checkout App. The Nature checkout mobile app is available for iOS and Android devices.</p>
                 @endif
                 <ul class="banner-icon bni1 banner-icon-new">
                     <li class="apple">
@@ -82,40 +82,48 @@
         </div><br>
         <div class="product_container">
            <div class="row">
-                @foreach ($products as $p)
-                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                    <article class="single_product">
-                        <figure>
-                            <div class="product_thumb">
-                                <a class="primary_img" href="{{ route('product-detail',$p->sku) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a>
-                                <a class="secondary_img" href="{{ route('product-detail',$p->sku) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a>
-                                <div class="label_product" >
-                                    <span class="label_sale" style="background:linear-gradient(to right, rgba(0,51,102,1) 0%, rgba(236,103,36,1) 100%);">Sale</span>
-                                    <span class="label_new" style="background:linear-gradient(to right, rgba(0,51,102,1) 0%, rgba(236,103,36,1) 100%);">New</span>
+            <div class="col-lg-12 col-md-12">
+                <div class="productbg_right_side">
+                    <div class="product_container">
+                        <div class="row">
+                                @foreach ($products as $p)
+                                <div class="col-lg-3 col-sm-6" style="padding-bottom: 35px">
+                                <article class="single_product">
+                                    <figure>
+                                        <div class="product_thumb">
+                                            <a class="primary_img" href="{{ route('product-detail',$p->sku) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a>
+                                            <a class="secondary_img" href="{{ route('product-detail',$p->sku) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a>
+                                            <div class="label_product">
+                                                <span class="label_sale">Sale</span>
+
+                                            </div>
+                                            <div class="action_links">
+                                                <ul>
+                                                    <li class="add_to_cart"><a href="{{ route('add.to.cart1', $p->sku) }}" title="Add to cart"><span class="lnr lnr-cart"></span></a></li>
+                                                    {{-- <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box"  title="quick view"> <span class="lnr lnr-magnifier"></span></a></li> --}}
+                                                    @if(Auth::guard('w2bcustomer')->user())
+                                                    <li class="wishlist"><a href="{{route('wb-wishlist', $p->sku)}}" title="Add to Wishlist"><span class="fa fa-heart"></span></a></li>
+                                                    @endif
+                                                 {{-- <li class="compare"><a href="#" title="Add to Compare"><span class="lnr lnr-sync"></span></a></li> --}}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <figcaption class="product_content d-flex justify-content-between">
+                                            <h4 class="product_name double-lines-ellipsis"><a href="{{ route('product-detail',$p->sku) }}">{{ Str::limit($p->title, 30) }}</a></h4>
+                                            <div class="price_box">
+                                                <span class="current_price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </article>
                                 </div>
-                                <div class="action_links">
-                                    <ul>
-                                        <li class="add_to_cart"><a href="{{ route('add.to.cart1', $p->sku) }}" title="Add to cart"><span class="fa fa-shopping-cart"></span></a></li>
-                                        {{-- <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box"  title="quick view"> <span class="lnr lnr-magnifier"></span></a></li> --}}
-                                        @if(Auth::guard('w2bcustomer')->user())
-                                            <li class="wishlist"><a href="{{route('wb-wishlist', $p->sku)}}" title="Add to Wishlist"><span class="fa fa-heart"></span></a></li>
-                                        @endif
-                                        {{-- <li class="compare"><a href="#" title="Add to Compare"><span class="lnr lnr-sync"></span></a></li> --}}
-                                    </ul>
-                                </div>
+                                @endforeach
+
                             </div>
-                            <figcaption class="product_content">
-                                <h4 class="product_name"><a href="{{ route('product-detail',$p->sku) }}">  {{ Str::limit($p->title, 50) }}</a></h4>
-                                <p class="text-center"><a href="#">{{$p->w2b_category_1}}</a></p>
-                                <div class="price_box">
-                                    <span style="color:#A15739;" class="current_price">${{$p->retail_price}}</span>
-                                    {{-- <span class="old_price">$362.00</span> --}}
-                                </div>
-                            </figcaption>
-                        </figure>
-                    </article>
+
+                        </div>
                 </div>
-                @endforeach
+            </div>
 
             </div>
             <br><br>

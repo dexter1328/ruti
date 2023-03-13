@@ -167,6 +167,7 @@ return [
         Milon\Barcode\BarcodeServiceProvider::class,
         Buzz\LaravelGoogleCaptcha\CaptchaServiceProvider::class,
         Jorenvh\Share\Providers\ShareServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -236,6 +237,8 @@ return [
         'LogActivity' => App\Helpers\LogActivity::class,
         'Captcha' => Buzz\LaravelGoogleCaptcha\CaptchaFacade::class,
         'Share' => Jorenvh\Share\ShareFacade::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+
     ],
 
 ];

@@ -6,7 +6,7 @@ use App\StoresVendor;
 use App\VendorStore;
 use App\VendorPaidModule;
 
-if (!function_exists('admin_modules')) 
+if (!function_exists('admin_modules'))
 {
     function admin_modules()
     {
@@ -59,7 +59,7 @@ if (!function_exists('admin_modules'))
     }
 }
 
-if (!function_exists('vendor_modules')) 
+if (!function_exists('vendor_modules'))
 {
     function vendor_modules()
     {
@@ -88,7 +88,7 @@ if (!function_exists('vendor_modules'))
             'settings'=>'Setting',
         );
         return $modules;
-    }  
+    }
 }
 
 if (!function_exists('vendor_mobile_modules'))
@@ -108,7 +108,7 @@ if (!function_exists('vendor_mobile_modules'))
     }
 }
 
-if (!function_exists('getVendorStore')) 
+if (!function_exists('getVendorStore'))
 {
     function getVendorStore()
     {
@@ -121,11 +121,11 @@ if (!function_exists('getVendorStore'))
             $store_ids = Arr::pluck($store_vendor, 'store_id');
             return $store_ids;
         }
-        
+
     }
 }
 
-if (!function_exists('getSeasons')) 
+if (!function_exists('getSeasons'))
 {
     function getSeasons()
     {
@@ -133,24 +133,24 @@ if (!function_exists('getSeasons'))
             'spring' => array(
                 'title' => 'Spring',
                 'months' => array('March', 'April', 'May')
-            ), 
+            ),
             'summer'=> array(
                 'title' => 'Summer',
                 'months' => array('June', 'July', 'August')
-            ), 
+            ),
             'fall' => array(
                 'title' => 'Fall or Autumn',
                 'months' => array('September', 'October', 'November')
-            ),  
+            ),
             'winter' => array(
                 'title' => 'Winter',
                 'months' => array('December', 'January', 'February')
-            ), 
+            ),
         );
     }
 }
 
-if (!function_exists('getCurrentSeason')) 
+if (!function_exists('getCurrentSeason'))
 {
     function getCurrentSeason($month)
     {
@@ -181,11 +181,11 @@ function has_permission($role_id,$module,$permission)
         return true;
     }else{
         return false;
-    }                     
+    }
 }
 
 
-if (!function_exists('main_vendor_roles')) 
+if (!function_exists('main_vendor_roles'))
 {
     function main_vendor_roles()
     {
@@ -197,10 +197,10 @@ if (!function_exists('main_vendor_roles'))
             'store-floor-staff'=>'Store Floor Staff',
         );
         return $modules;
-    }  
+    }
 }
 
-if (!function_exists('vendor_paid_modules')) 
+if (!function_exists('vendor_paid_modules'))
 {
     function vendor_paid_modules()
     {
@@ -210,7 +210,7 @@ if (!function_exists('vendor_paid_modules'))
             'customer_contact_info'=>'Customer Contact Info',
         );
         return $modules;
-    }  
+    }
 }
 
 function vendor_has_permission($role_id,$module,$permission)
@@ -240,7 +240,7 @@ function vendor_has_permission($role_id,$module,$permission)
         return true;
     }else{
         return false;
-    }                     
+    }
 }
 
 function weekdays()
@@ -248,7 +248,7 @@ function weekdays()
     $weeks = array(
         'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
     );
-    
+
     return $weeks;
 }
 
@@ -263,8 +263,8 @@ function vendor_store_hours()
     return $times;
     // foreach ($times as $time) {
     //     echo '<option>'.$time->format('H:i').'</option>';
-             
-    // }                  
+
+    // }
 }
 
 function vendor_newsletter_permission($id)
@@ -278,7 +278,7 @@ function vendor_newsletter_permission($id)
         }
         // return true;
     }else{
-       
+
         return false;
     }
 }
@@ -294,12 +294,12 @@ function vendor_coupon_permission($id)
         }
         // return true;
     }else{
-       
+
         return false;
     }
 }
 
-if (!function_exists('customer_membership_types')) 
+if (!function_exists('customer_membership_types'))
 {
     function customer_membership_types()
     {
@@ -309,10 +309,10 @@ if (!function_exists('customer_membership_types'))
             'bougie' => 'Bougie'
         );
         return $membership_types;
-    }  
+    }
 }
 
-if (!function_exists('customer_membership_features')) 
+if (!function_exists('customer_membership_features'))
 {
     function customer_membership_features()
     {
@@ -369,10 +369,10 @@ if (!function_exists('customer_membership_features'))
                 ),*/
         );
         return $membership_features;
-    }  
+    }
 }
 
-if (!function_exists('vendor_membership_types')) 
+if (!function_exists('vendor_membership_types'))
 {
     function vendor_membership_types()
     {
@@ -382,10 +382,10 @@ if (!function_exists('vendor_membership_types'))
             'one_time_setup_fee' => 'One Time Setup Fee',
         );
         return $membership_types;
-    }  
+    }
 }
 
-if (!function_exists('vendor_membership_features')) 
+if (!function_exists('vendor_membership_features'))
 {
     function vendor_membership_features()
     {
@@ -433,10 +433,10 @@ if (!function_exists('vendor_membership_features'))
                 )
         );
         return $membership_features;
-    }  
+    }
 }
 
-if (!function_exists('common_membership_coupons')) 
+if (!function_exists('common_membership_coupons'))
 {
     function common_membership_coupons()
     {
@@ -450,10 +450,10 @@ if (!function_exists('common_membership_coupons'))
             $coupons[2] => 'EXE70'
         );
         return $membership_coupons;
-    }  
+    }
 }
 
-if (!function_exists('customer_incentives')) 
+if (!function_exists('customer_incentives'))
 {
     function customer_incentives()
     {
@@ -604,10 +604,10 @@ if (!function_exists('customer_incentives'))
             )
         );*/
         return $customer_incentives;
-    }  
+    }
 }
 
-if (!function_exists('customer_membership_incentives')) 
+if (!function_exists('customer_membership_incentives'))
 {
     function customer_membership_incentives()
     {
@@ -620,10 +620,10 @@ if (!function_exists('customer_membership_incentives'))
             'Earn reward points for every purchase'
         );
         return $membership_incentives;
-    }  
+    }
 }
 
-if (!function_exists('vendor_membership_incentives')) 
+if (!function_exists('vendor_membership_incentives'))
 {
     function vendor_membership_incentives()
     {
@@ -633,10 +633,10 @@ if (!function_exists('vendor_membership_incentives'))
             '15% discount on next payment for vendor referral, when new vendor registers'
         );
         return $membership_incentives;
-    }  
+    }
 }
 
-if (!function_exists('vendor_checklist')) 
+if (!function_exists('vendor_checklist'))
 {
     function vendor_checklist()
     {
@@ -654,10 +654,10 @@ if (!function_exists('vendor_checklist'))
             'review' => 'Review and Go'
         );
         return $vendor_checklist;
-    }  
+    }
 }
 
-if (!function_exists('customer_checklist')) 
+if (!function_exists('customer_checklist'))
 {
     function customer_checklist()
     {
@@ -667,14 +667,14 @@ if (!function_exists('customer_checklist'))
             'maintain_minimum_wallet' => 'Maintain $25 minimum in Wallet',
             'make_store_purchase' => 'Make a Store purchase (at least once a week)',
             'suggest_store' => 'Suggest a Store & Earn when Store Register  (twice a month)',
-            'social_share_ezsiop' => 'Share RUTI Self Checkout on social media (once a week)',
+            'social_share_ezsiop' => 'Share Nature Checkout on social media (once a week)',
             'review' => 'Review and Go'
         );
         return $customer_checklist;
-    }  
+    }
 }
 
-if (!function_exists('customer_incentive_types')) 
+if (!function_exists('customer_incentive_types'))
 {
     function customer_incentive_types()
     {
@@ -685,10 +685,10 @@ if (!function_exists('customer_incentive_types'))
             'tier_3' => 'Tier 3',
         );
         return $customer_incentive_types;
-    }  
+    }
 }
 
-if (!function_exists('customer_incentive_sub_types')) 
+if (!function_exists('customer_incentive_sub_types'))
 {
     function customer_incentive_sub_types()
     {
@@ -705,20 +705,20 @@ if (!function_exists('customer_incentive_sub_types'))
             'tablet' => 'Tablets'
         );
         return $customer_incentive_sub_types;
-    }  
+    }
 }
 
-if (!function_exists('miles2kms')) 
+if (!function_exists('miles2kms'))
 {
     function miles2kms($miles)
     {
         $ratio = 1.609344;
         $kms = $miles * $ratio;
         return $kms;
-    }  
+    }
 }
 
-if (!function_exists('invoiceAmountFormat')) 
+if (!function_exists('invoiceAmountFormat'))
 {
     function invoiceAmountFormat($amount)
     {
@@ -728,5 +728,5 @@ if (!function_exists('invoiceAmountFormat'))
            $amount = '$' . number_format(($amount/100),2,".","");
         }
         return $amount;
-    }  
+    }
 }

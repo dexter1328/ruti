@@ -34,7 +34,7 @@ class WeeklyRetailerRegisterMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('RUTI Self Checkout: Weekly Registered Retailers')->view('email/admin/weekly_register_retailer')->with([
+        return $this->subject('Nature Checkout: Weekly Registered Retailers')->view('email/admin/weekly_register_retailer')->with([
                 'users' => $this->users,
             ]);
     }

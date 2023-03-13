@@ -68,6 +68,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('customer_checklist:reminder')->dailyAt('6:00');
         $schedule->command('participation:expired')->daily();
         $schedule->command('queue:work --daemon')->everyMinute()->withoutOverlapping();
+        $schedule->command('cart_order:mail')->everyFiveMinutes();
+
+        // $schedule->call('App\Http\Controllers\FrontEndController@notPaidMail')->everyFiveMinutes();
     }
 
     /**

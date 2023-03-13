@@ -25,7 +25,7 @@ class VendorInventoryReminderMail extends Mailable
      * @return void
      */
     public function __construct($user)
-    {   
+    {
         $this->user = $user;
     }
 
@@ -38,7 +38,7 @@ class VendorInventoryReminderMail extends Mailable
     {
        // print_r($user);die();
 
-        return $this->subject('RUTI Self Checkout: Inventory Update Reminder')->view('/email/vendor/inventory_update_mail')->with([
+        return $this->subject('Nature Checkout: Inventory Update Reminder')->view('/email/vendor/inventory_update_mail')->with([
                 'user' => $this->user
             ]);
 
