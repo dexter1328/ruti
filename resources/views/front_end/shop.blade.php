@@ -133,8 +133,8 @@
                     <div class="flash-sale-item mb-20">
                         <div class="fs-content">
                             <div class="content-bottom">
-                                <p>Sold 15</p>
-                                <p>Available 85</p>
+                                <p>Sold {{$sold}}</p>
+                                <p>Available {{$available}}</p>
                             </div>
                             <div class="progress">
                                 <div class="progress-bar w-50" role="progressbar" aria-valuenow="75" aria-valuemin="0"
@@ -254,9 +254,9 @@
                                 </article>
                                 </div>
                                 @endforeach
-                                
+
                             </div>
-                           
+
                         </div>
                 </div>
             </div>
@@ -343,7 +343,7 @@
         </div>
         <div class="owl-carousel cardnew position-relative">
             @foreach ($categories1 as $cat)
-                
+
           <!-- <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-3 card-wrapper"> -->
             <div class="card border-0">
               <!-- <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image">
@@ -362,7 +362,7 @@
           @endforeach
 
 
-          
+
         </div>
     </div>
 </section>

@@ -6,10 +6,10 @@
                 <div class="row align-items-center justify-content-center">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-4 left-footer-section">
                         <div class="footer-widget mb-30">
-                            <div class="footer-contact">
+                            {{-- <div class="footer-contact">
                                 <span>CALL US FREE</span>
                                 <a href="tel:+0 (000) 000-0000" class="contact">+0 (000) 000-0000</a>
-                            </div>
+                            </div> --}}
                             <div class="f-logo mb-25">
                                 <a href="index.html"><img src="assets/img/logo/footer-logo.png" alt=""></a>
                             </div>
@@ -113,10 +113,12 @@
                                 <div class="">
                                     <div class="footer-social">
                                         <ul>
-                                            <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                            <li><a  target="_blank" href="https://www.facebook.com/Naturecheckout"><i class="fa fa-facebook-f"></i></a></li>
+                                            <li><a  target="_blank" href="https://www.instagram.com/naturecheckout"><i class="fa fa-instagram"></i></a></li>
+                                            <li><a  target="_blank" href="https://twitter.com/naturecheckout"><i class="fa fa-twitter"></i></a></li>
+                                            <li><a  target="_blank" href="https://tiktok.com/naturecheckout"><i class="fa fa-tiktok"></i></a></li>
+                                            <li><a  target="_blank" href="https://www.pinterest.com/Naturecheckout"><i class="fa fa-pinterest"></i></a></li>
+                                            <li><a  target="_blank" href="https://www.linkedin.com/company/93313174/"><i class="fa fa-linkedin"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>

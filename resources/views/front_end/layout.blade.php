@@ -142,6 +142,7 @@
 <link href="{{ asset('public/wb/css/jquery-ui.min.css')}}" rel="stylesheet">
 <link href="{{ asset('public/wb/css/slinky.menu.css')}}" rel="stylesheet">
 <link href="{{ asset('public/wb/css/plugins.css')}}" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <link href="{{ asset('public/wb/css/style.css')}}" rel="stylesheet">
 {{-- <link href="{{ asset('public/wb/css/style2.css')}}" rel="stylesheet"> --}}
 
@@ -327,7 +328,7 @@
                         <div class="row align-items-end">
                             <div class="col-lg-2 col-md-3 col-sm-3 col-12">
                                 <div class="logo logo-new">
-                                    <a href="{{url('/home')}}"><img src="{{asset('public/wb/img/logo/logo.png')}}" alt=""></a>
+                                    <a href="{{url('/home')}}"><img src="{{asset('public/wb/img/logo/logop.png')}}" alt=""></a>
                                 </div>
                             </div>
                             <div class="col-lg-10 col-md-9 col-sm-9 col-12">
@@ -670,8 +671,10 @@
     <script src="{{asset('public/wb/js/jquery.elevatezoom.js')}}"></script>
     <script src="{{asset('public/wb/js/isotope.pkgd.min.js')}}"></script>
     <script src="{{asset('public/wb/js/slinky.menu.js')}}"></script>
+    <script src="{{asset('public/wb/js/printThis.js')}}"></script>
     <script src="{{asset('public/wb/js/plugins.js')}}"></script>
     <script src="{{asset('public/wb/js/main.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
 </body>
 </html>

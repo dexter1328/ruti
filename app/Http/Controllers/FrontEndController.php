@@ -151,6 +151,10 @@ class FrontEndController extends Controller
         ->paginate(6);
 
 
+        $sold = rand(20, 50);
+        $available = rand(60, 99);
+
+
         $product1 = W2bProduct::inRandomOrder()->first();
         $product2 = W2bProduct::where('sku', 'C122-1191089')->first();
         $product3 = W2bProduct::where('sku', 'Q119-CJNSFJPD00030-Black-6-115')->first();
@@ -166,7 +170,7 @@ class FrontEndController extends Controller
 
         $products = W2bProduct::inRandomOrder()->paginate(6);
         return view('front_end.shop',compact('products','categories','wb_wishlist',
-        'categories1','categories2','product1','product2','product3','product4','product5',
+        'categories1','categories2','sold','available','product1','product2','product3','product4','product5',
         'product6','product7','product8','product9','product10'));
     }
     public function catName($cate)
@@ -459,7 +463,7 @@ class FrontEndController extends Controller
                     $request->validate([
                         'first_name' => 'required',
                         'last_name' => 'required',
-                        'email' => 'required|unique:users',
+                        'email' => 'required|email|unique:users',
                         'zip_code' => 'required',
                         'mobile' => 'required',
                         'state' => 'required',
@@ -468,6 +472,9 @@ class FrontEndController extends Controller
                         'password' => 'required'
                         // 'author.name' => 'required',
                         // 'author.description' => 'required',
+                    ],
+                    [
+                        'email.unique' => 'The Email has already been taken. Please login first to continue',
                     ]);
                     $user = new User;
                     $user->first_name = $request->first_name;
@@ -495,6 +502,9 @@ class FrontEndController extends Controller
                         'address' => 'required'
                         // 'author.name' => 'required',
                         // 'author.description' => 'required',
+                    ],
+                    [
+                        'email.unique' => 'The Email has already been taken. Please login first to continue',
                     ]);
 
                     $user = new User;

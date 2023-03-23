@@ -166,7 +166,7 @@
             <div class="col-12">
                 <div class="product_d_inner">
                     <div class="product_info_button">
-                        <ul class="nav" role="tablist">
+                        <ul class="nav" role="tablist" id="tabb2">
                             <li >
                                 <a class="active" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="false">Description</a>
                             </li>
@@ -460,5 +460,10 @@
     });
 });
 </script>
-
+<script>
+    //redirect to specific tab
+    $(document).ready(function () {
+    $('#tabb2 a[href="#reviews"]').tab('show')
+    });
+    </script>
 @endsection

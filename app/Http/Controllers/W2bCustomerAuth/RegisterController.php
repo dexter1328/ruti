@@ -58,7 +58,7 @@ class RegisterController extends Controller
 			'email' => 'required|email|unique:users',
 			'mobile'=>'required',
             'password' => 'required|min:6|confirmed',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
 			'social_id' => 'unique:users'
         ]);
     }

@@ -126,6 +126,10 @@ Route::get('/paypal-payment-success', 'FrontEndController@paypalPaymentSuccess')
 Route::get('/paypal-payment-error', 'FrontEndController@paypalPaymentError')->name('paypal-payment-error');
 Route::get('/thank-you-page', 'FrontEndController@thankYou')->name('thank-you-page');
 Route::get('/user-account', 'W2bCustomerController@userAccount')->name('user-account-page');
+Route::put('/user-profile-update/{id}', 'W2bCustomerController@userProfileUpdate')->name('user-profile-update');
+Route::get('/order-invoice/{id}', 'W2bCustomerController@orderInvoice')->name('order-invoice');
+Route::get('/gift-receipt/{id}', 'W2bCustomerController@giftReceipt')->name('gift-receipt');
+Route::put('/gift-receipt-update/{id}', 'W2bCustomerController@giftReceiptUpdate')->name('gift-receipt-update');
 Route::get('/user-products/{id}', 'W2bCustomerController@userProduct')->name('user-product-page');
 Route::get('/dmca', 'FrontEndController@dmca');
 Route::get('/terms-condition', 'FrontEndController@termsCondition');

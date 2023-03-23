@@ -11246,8 +11246,8 @@ padding: 10px;
 }
 
 .counter-area-product-heading{
-    font-size: 25px;
-    line-height: 1.2;
+    font-size: 27px;
+    line-height: 1.0;
 }
 .counter-area-product-breadcrumb  {
     color: #000000 !important;
@@ -12239,4 +12239,65 @@ left: 0;
     width: 80vw !important;
   }
 }
-/*Custom css end*/
+
+
+/*Invoice style start*/
+
+
+
+.nature-body{
+    margin-top:20px;
+    background:#eee;
+    }
+
+    .nature-invoice {
+        padding: 30px;
+    }
+
+    .nature-invoice h2 {
+        margin-top: 0px;
+        line-height: 0.8em;
+    }
+
+    .nature-invoice .small {
+        font-weight: 300;
+    }
+
+    .nature-invoice hr {
+        margin-top: 10px;
+        border-color: #ddd;
+    }
+
+    .nature-invoice .table tr.line {
+        border-bottom: 1px solid #ccc;
+    }
+
+    .nature-invoice .table td {
+        border: none;
+    }
+
+    .nature-invoice .identity {
+        margin-top: 10px;
+        font-size: 1.1em;
+        font-weight: 300;
+    }
+
+    .nature-invoice .identity strong {
+        font-weight: 600;
+    }
+
+
+    .nature-grid {
+        position: relative;
+        width: 100%;
+        background: #fff;
+        color: #666666;
+        border-radius: 2px;
+        margin-bottom: 25px;
+        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+    }
+
+/*Invoice style end*/
+
+
+    /*Custom css end*/

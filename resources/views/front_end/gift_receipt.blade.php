@@ -49,38 +49,31 @@
                             <h3>Products</h3>
                             <h5><a href="{{route('user-account-page')}}" style="color:#E96725">Back To Orders</a></h5>
                             <div class="table-responsive">
-
-        @foreach ($ordered_products as $order)
-        <div class="col-12 order_main px-0 border">
-
-                    <div class="orders_body p-3">
-                        {{-- <div class='text-success font-weight-bold'>Arriving Soon</div> --}}
-                        <div>{{$order->p_status}}</div>
-                        <div class='w-100 order_tab d-flex mt-4'>
-                            <div class='w-50 d-flex main_order'>
-                                <div class='d-flex'>
-                                    <img src="{{$order->image}}" class='table_product_image ml-4' alt="">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12  mt-5">
+                                            <div class="card">
+                                                <div class="card-header bg-info">
+                                                    <h6 class="text-white">Share Gift Receipt :</h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <form method="post" action="{{ route('gift-receipt-update',$orderId) }}" enctype="multipart/form-data">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="form-group">
+                                                            <label><strong>Write Your Gift Note :</strong></label>
+                                                            <textarea class="summernote6" name="gift_receipt"></textarea>
+                                                        </div>
+                                                        <div class="form-group text-center">
+                                                            <button type="submit" class="btn btn-success btn-sm">Save</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class='px-2  image_title'>
-                                    <span>{{ Str::limit($order->title, 70) }} </span>
-                                    <br>
-                                    <button type="button" onclick="window.location='{{ route('product-detail',$order->sku) }}'" class='border buy_again'>Buy it again</button>
-                                </div>
-                            </div>
-                            <div class='main_button w-50'>
-                                {{-- <button class='order_details_button border boder-rounded yellow_btn'>Track Package</button> --}}
-                                <button type="button" onclick="window.location='{{ route('gift-receipt',$order->order_id) }}#reviews'" class='mt-1 order_details_button border boder-rounded'>Share gift receipt</button>
-                                <button class='mt-1 order_details_button border boder-rounded'>Return or Replace Items</button>
-                                <button type="button" onclick="window.location='{{ route('product-detail',$order->sku) }}#reviews'" class='mt-1 order_details_button border boder-rounded'>Write a product review</button>
-                                {{-- <button type="button" onclick="reviewFunction()" class='mt-1 order_details_button border boder-rounded'>Write a product review</button> --}}
-                            </div>
-                        </div>
 
-        </div>
-
-    </div>
-
-    @endforeach
                             </div>
                         </div>
 
@@ -98,12 +91,15 @@
 
 @section('scriptss')
 
-{{-- <script>
-    function reviewFunction(){
-
-        $("#review12").removeClass('d-none');
-
-    }
-    </script> --}}
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('.summernote6').summernote({
+      height: 200, // set editor height
+      minHeight: null, // set minimum height of editor
+      maxHeight: null, // set maximum height of editor
+      focus: true // set focus to editable area after initializing summernote
+   });
+    });
+</script>
 
 @endsection
