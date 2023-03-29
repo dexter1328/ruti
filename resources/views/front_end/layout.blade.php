@@ -78,7 +78,6 @@
     right: 20px;
 }
 .dropdown-box{
-    border-bottom: 1px solid #aba2a2;
     padding-bottom: 10px;
 }
 .dropdown-box2{
@@ -310,10 +309,6 @@
 
     <!--modernizr min js here-->
     <script src="{{asset('public/wb/js/modernizr-3.7.1.min.js')}}"></script>
-
-
-
-
 </head>
 <body>
 
@@ -351,29 +346,11 @@
                                                 <p class="sign-in-text">Sign in<span>Account</span></p>
                                             </a>
                                             <div class="dropdown-menu login-dropdown p-3" aria-labelledby="dropdownMenuLink">
-
                                                 <div class="dropdown-box">
-                                                    <p><b>Vendors</b></p>
-                                                    <p>Sign in or Register as Vendor</p>
-                                                    <div class="sign_in_links">
-                                                        <a  href="#" class="p-2 w-100 text-center">Sign in</a>
-                                                        <a  href="#" class="p-2 w-100 mt-2 text-center"> Sign up</a>
-                                                    </div>
-                                                </div>
-                                                <div class="dropdown-box">
-                                                    <p><b>Supplier</b></p>
-                                                    <p>Sign in or Register as Supplier</p>
-                                                    <div class="sign_in_links">
-                                                        <a  href="#" class="p-2 w-100 text-center">Sign in</a>
-                                                        <a  href="#" class="p-2 w-100 mt-2 text-center"> Sign up</a>
-                                                    </div>
-                                                </div>
-                                                <div class="dropdown-box">
-                                                    <p><b>Customers</b></p>
-                                                    <p>Sign in or Register as Customer</p>
-                                                    <div class="sign_in_links">
-                                                        <a  href="{{url('/w2bcustomer/login')}}" class="p-2 w-100 text-center">Sign in</a>
-                                                        <a  href="{{url('/w2bcustomer/register')}}" class="p-2 w-100 mt-2 text-center"> Sign up</a>
+                                                    <p>Sign in or Register</p>
+                                                    <div class="sign_in_links d-flex align-items-center">
+                                                        <a href="{{url('/w2bcustomer/login')}}" class="p-2 btn_height w-50 text-center">Sign in</a>
+                                                        <a href="{{url('/w2bcustomer/register')}}" class="p-2 btn_height w-50 ml-2 text-center"> Sign up</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -501,14 +478,16 @@
                                     <div class="categories_menu_toggle">
                                         <ul>
                                             @if ($categories)
-                                                @foreach ($categories as $category)
+                                                @foreach ($categories as $category) 
+                                                
                                                 @if ($category->parent_id == 0 && !($category->childrens)->isEmpty())
-                                                <li class="menu_item_children"><a href="{{route('cat-products', $category->category1)}}">{{ $category->category1 }}<i class="fa fa-angle-right"></i></a>
-                                                    <ul class="categories_mega_menu first_submenu" style="width: 100%; display:list-item">
+                                                <li class="menu_item_children"><a href="{{route('cat-products', $category->category1)}}"><i class='lnr lnr-heart pr-2'></i>{{ $category->category1 }}<i class="fa fa-angle-right"></i></a>
+                                                    <ul class="categories_mega_menu first_submenu new_sub_menu<?php echo $category->id ?>" style="display:list-item;">
+                                                    <div class='list_nav_menu'>
                                                         @foreach ($category->childrens as $subcategory)
                                                             @if ($subcategory->parent_id > 0 && !($subcategory->childrens)->isEmpty())
-                                                        <li class="menu_item_children"><a href="{{route('cat-products', $subcategory->category1)}}">{{ $subcategory->category1 }}</a>
-                                                            <ul class="categorie_sub_menu">
+                                                        <li class="menu_item_children"><a href="{{route('cat-products', $subcategory->category1)}}">{{ $subcategory->category1 }}</a>    
+                                                        <ul class="categorie_sub_menu ">
                                                                 @foreach ($subcategory->childrens as $subsubcategory)
                                                                         <li><a href="{{route('cat-products', $subsubcategory->category1)}}">{{ $subsubcategory->category1 }}</a></li>
                                                                 @endforeach
@@ -518,6 +497,10 @@
                                                                             <li><a href="{{route('cat-products', $subcategory->category1)}}">{{ $subcategory->category1 }}</a> </li>
                                                                         @endif
                                                                     @endforeach
+                                                    </div>
+                                                                    <div class="nav_menu_image d-flex align-items-center justify-content-end pr-4">
+                                                                        <img class='nav_img' src="https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg" alt="">
+                                                                    </div>
                                                                 </ul>
                                                             </li>
                                                             @elseif ($category->parent_id == 0 && ($category->childrens)->isEmpty())

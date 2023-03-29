@@ -14,6 +14,26 @@
                         <li>My Account</li>
                     </ul>
                 </div>
+                <div class="search-container">
+                    <input type="text" class='search_bar' placeholder="Search...">
+                    <div class="dropdown">
+                        <button class="dropbtn">Filter</button>
+                        <div class="dropdown-content-new">
+                            <label class='border-top border-bottom'>Filter by Order Type</label>
+                            <label><input type="radio" name="filter-option" value="option2">Orders</label>
+                            <label><input type="radio" name="filter-option" value="option1">Not Yet Shipped</label>
+                            <label><input type="radio" name="filter-option" value="option3">Digital Orders</label>
+                            <label><input type="radio" name="filter-option" value="option4">Local Orders</label>
+                            <label><input type="radio" name="filter-option" value="option4">Cancelled Orders</label>
+                            <label class='border-top border-bottom'>Filter by Order Date</label>
+                            <label><input type="radio" name="filter-option" value="option2">Last 30 days</label>
+                            <label><input type="radio" name="filter-option" value="option1">Last 3 months</label>
+                            <label><input type="radio" name="filter-option" value="option3">2023</label>
+                            <label><input type="radio" name="filter-option" value="option4">2022</label>
+                            <label><input type="radio" name="filter-option" value="option4">2019</label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -51,7 +71,7 @@
                                 @foreach ($orders as $order)
                                 <div class="col-12 order_main px-0 border">
                                     <div class='d-flex justify-content-between p-3 border orders_header'>
-                                        <div class='orders_header1 d-flex justify-content-between w-50'>
+                                        <div class='orders_header1 d-flex justify-content-between w-75'>
                                             <div>
                                                 #{{$loop->iteration}}
                                             </div>
@@ -67,8 +87,12 @@
                                                 Status
                                                 <span class='d-block text-primary'>{{ucfirst(trans($order->status))}}</span>
                                             </div>
+                                            <div>
+                                                Order Duration:
+                                                <span class='d-block'>4 days.</span>
+                                            </div>
                                         </div>
-                                        <div class="orders_header2">
+                                        <div class="orders_header2 text-center">
                                             <div>
                                                 Order# <span>{{$order->order_id}}</span>
                                             </div>
