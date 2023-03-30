@@ -14,7 +14,7 @@
             <img src="{{ asset('public/images/logo-icon-xx.png') }}" alt="logo icon">
         </div>
         <div class="card-title text-uppercase text-center py-3">Vendor Sign In</div>
-
+        
         <form class="form-horizontal" method="POST" action="{{ url('/vendor/login') }}">
             {{ csrf_field() }}
             <div class="form-group">
@@ -55,7 +55,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-12" style="text-align: center;">
-                    New to Nature Checkout? <a href="{{ url('/read-first') }}">Create an Account</a>
+                    New to RUTI Self Checkout? <a href="{{ url('/read-first') }}">Create an Account</a>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>

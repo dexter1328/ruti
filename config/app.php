@@ -69,7 +69,7 @@ return [
     |
     */
 
-    'timezone' => env('APP_TIMEZONE', 'UTC'),
+    'timezone' => 'Asia/Dhaka',
 
     /*
     |--------------------------------------------------------------------------
@@ -167,8 +167,6 @@ return [
         Milon\Barcode\BarcodeServiceProvider::class,
         Buzz\LaravelGoogleCaptcha\CaptchaServiceProvider::class,
         Jorenvh\Share\Providers\ShareServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
-        Barryvdh\DomPDF\ServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -238,9 +236,6 @@ return [
         'LogActivity' => App\Helpers\LogActivity::class,
         'Captcha' => Buzz\LaravelGoogleCaptcha\CaptchaFacade::class,
         'Share' => Jorenvh\Share\ShareFacade::class,
-        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
-
     ],
 
 ];

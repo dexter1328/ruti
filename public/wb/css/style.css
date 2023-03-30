@@ -861,7 +861,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 }
 
 .logo img {
-  max-width: 150px;
+  max-width: 200px;
   width: 100%;
 }
 @media only screen and (max-width: 767px) {
@@ -11246,8 +11246,8 @@ padding: 10px;
 }
 
 .counter-area-product-heading{
-    font-size: 27px;
-    line-height: 1.0;
+    font-size: 25px;
+    line-height: 1.2;
 }
 .counter-area-product-breadcrumb  {
     color: #000000 !important;
@@ -11981,7 +11981,7 @@ img, .img {
 
 .dropdown_link {
   color: green !important;
-}
+} 
 
 .sub_menu_icon {
   margin-left: 80% !important ;
@@ -12074,7 +12074,7 @@ left: 0;
   .orders_header1 {
     width: 100% !important;
   }
-
+  
 }
 
 @media screen and (max-width: 700px) {
@@ -12209,7 +12209,7 @@ left: 0;
     display: block;
   }
   .category-banner-item .category-thumb {
-    width: 150px;
+    width: 150px; 
     margin: 0 auto;
     margin-top: 20px;
   }
@@ -12230,7 +12230,7 @@ left: 0;
   }
   .left-footer-section {
     padding: 40px;
-  }
+  } 
   .product_thumb {
     width: 150px;
     height: 150px;
@@ -12239,65 +12239,4 @@ left: 0;
     width: 80vw !important;
   }
 }
-
-
-/*Invoice style start*/
-
-
-
-.nature-body{
-    margin-top:20px;
-    background:#eee;
-    }
-
-    .nature-invoice {
-        padding: 30px;
-    }
-
-    .nature-invoice h2 {
-        margin-top: 0px;
-        line-height: 0.8em;
-    }
-
-    .nature-invoice .small {
-        font-weight: 300;
-    }
-
-    .nature-invoice hr {
-        margin-top: 10px;
-        border-color: #ddd;
-    }
-
-    .nature-invoice .table tr.line {
-        border-bottom: 1px solid #ccc;
-    }
-
-    .nature-invoice .table td {
-        border: none;
-    }
-
-    .nature-invoice .identity {
-        margin-top: 10px;
-        font-size: 1.1em;
-        font-weight: 300;
-    }
-
-    .nature-invoice .identity strong {
-        font-weight: 600;
-    }
-
-
-    .nature-grid {
-        position: relative;
-        width: 100%;
-        background: #fff;
-        color: #666666;
-        border-radius: 2px;
-        margin-bottom: 25px;
-        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
-    }
-
-/*Invoice style end*/
-
-
-    /*Custom css end*/
+/*Custom css end*/

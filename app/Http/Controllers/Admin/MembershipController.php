@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use Auth;
-use Stripe;
 use App\Membership;
 use App\MembershipItem;
 use App\Traits\Permission;
@@ -32,8 +31,6 @@ class MembershipController extends Controller
 
 	/**
 	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
 	 */
 	/*public function index()
 	{
@@ -45,7 +42,7 @@ class MembershipController extends Controller
 	{
 		if($type == 'vendor'){
 
-			$memberships = Membership::select('memberships.*', 'membership_items.price')
+			$memberships = Membership::select(['memberships.*', 'membership_items.price'])
 				->join('membership_items', 'membership_items.membership_id', 'memberships.id')
 				->where('memberships.type', $type)
 				->WhereNull('membership_items.license')
@@ -56,7 +53,7 @@ class MembershipController extends Controller
 				->where('code', '!=', 'one_time_setup_fee')
 				->get();
 		} else {
-			$memberships = Membership::select('memberships.*', 'membership_items.price')
+			$memberships = Membership::select(['memberships.*', 'membership_items.price'])
 				->leftjoin('membership_items', 'membership_items.membership_id', 'memberships.id')
 				->where('memberships.type', $type)
 				->WhereNull('membership_items.license')
@@ -74,8 +71,6 @@ class MembershipController extends Controller
 
 	/**
 	* Show the form for creating a new resource.
-	*
-	* @return \Illuminate\Http\Response
 	*/
 	public function create($type)
 	{
@@ -83,18 +78,20 @@ class MembershipController extends Controller
 			$membership_types = customer_membership_types();
 		}elseif ($type == 'vendor') {
 			$membership_types = vendor_membership_types();
+		}elseif ($type == 'supplier') {
+			$membership_types = supplier_membership_types();
+		}elseif ($type == 'supplier_ruti_fullfill') {
+			$membership_types = supplier_ruti_fullfill();
 		}
 		return view('admin/memberships/create', compact('type', 'membership_types'));
 	}
 
 	/**
 	* Store a newly created resource in storage.
-	*
-	* @param  \Illuminate\Http\Request  $request
-	* @return \Illuminate\Http\Response
 	*/
 	public function store(Request $request)
 	{
+		
 		$request->validate([
 			'membership_type' => 'required|unique:memberships,code',
 			'name' => 'required',
@@ -136,14 +133,14 @@ class MembershipController extends Controller
 			]);
 
 			$membership_item = new MembershipItem;
-			$membership_item->membership_id = $membership->id;
+			$membership_item->membership_id = $membership->id; 
 			$membership_item->stripe_price_id = $price->id;
 			$membership_item->price = $request->price;
 			$membership_item->save();
 		}else{
 
 			foreach ($prices as $key => $value) {
-				
+
 				$interval = ($key == 0 ? 'month' : 'year');
 				$price = \Stripe\Price::create([
 					'product' => $product_id,
@@ -162,15 +159,12 @@ class MembershipController extends Controller
 				$membership_item->save();
 			}
 		}
-		
+
 		return redirect('/admin/membership/list/'.$request->type)->with('success',"Membership has been saved.");
 	}
 
 	/**
 	* Display the specified resource.
-	*
-	* @param  int  $id
-	* @return \Illuminate\Http\Response
 	*/
 	public function show($id)
 	{
@@ -186,11 +180,8 @@ class MembershipController extends Controller
 
 	/**
 	* Show the form for editing the specified resource.
-	* 
-	* @param  int  $id
-	* @return \Illuminate\Http\Response
 	*/
-	public function edit($id)
+	public function edit(Request $request, $id)
 	{
 		$membership = Membership::select('memberships.*', 'membership_items.price')
 			->leftjoin('membership_items', 'membership_items.membership_id', 'memberships.id')
@@ -206,16 +197,12 @@ class MembershipController extends Controller
 		}elseif($membership->type == 'vendor'){
 			$features = vendor_membership_features();
 		}
-		
+
 		return view('/admin/memberships/edit',compact('membership', 'features'));
 	}
 
 	/**
 	* Update the specified resource in storage.
-	*
-	* @param  \Illuminate\Http\Request  $request
-	* @param  int  $id
-	* @return \Illuminate\Http\Response
 	*/
 	public function update(Request $request, $id)
 	{
@@ -225,14 +212,44 @@ class MembershipController extends Controller
 		$membership->updated_by = Auth::user()->id;
 		$membership->save();
 
+		if($membership->type == 'supplier'){
+
+			$prices = [$request->price, $request->price * 12];
+		
+			
+				$membership_items = MembershipItem::where('membership_id',$id)->get();
+				
+				foreach($membership_items as $key => $membership_item){
+					$stripe = new \Stripe\StripeClient(
+						env('STRIPE_SECRET')
+					  );
+					  $stripe->prices->update(
+						$membership_item->stripe_price_id,
+						['metadata' => ['order_id' => '6735']]
+					  );
+					$membership_item->price = $key == 0? $request->price:$request->price*12;
+					$membership_item->update();
+				}
+
+				
+
+				// $membership_item = MembershipItem::where('membership_id',$id)->get();
+				// $stripe = new \Stripe\StripeClient(
+				// 	env('STRIPE_SECRET')
+				//   );
+				//   $stripe->prices->update(
+				// 	$membership_item->stripe_price_id
+				//   );
+				// $membership_item->price =$request->price* 100;
+				// $membership_item->update();
+			// }
+		}
+
 		return redirect('/admin/membership/list/'.$request->type)->with('success',"Membership has been updated.");
 	}
 
 	/**
 	* Remove the specified resource from storage.
-	* @param \App\Membership
-	* @param  int  $id
-	* @return \Illuminate\Http\Response
 	*/
 	public function destroy(Membership $membership)
 	{

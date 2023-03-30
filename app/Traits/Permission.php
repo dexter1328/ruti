@@ -15,17 +15,17 @@ trait Permission {
 		if($user->id == 1){
 			return true;
 		}else{
-			$rotue = \Request::route()->getName();
-			$rotue_array = explode('.', $rotue);
+			$route = \Request::route()->getName();
+			$route_array = explode('.', $route);
 			$role_id = $user->role_id;
-			$module = $rotue_array[0];
+			$module = $route_array[0];
 			if($module == 'admin')
 			{
 				$module = 'admins';
 			}
 
-			//print_r($rotue_array);die();
-			if($rotue_array[1] == 'index'){
+			//print_r($route_array);die();
+			if($route_array[1] == 'index'){
 				$permission = 'read';
 			}else{
 				$permission = 'write';
@@ -38,7 +38,7 @@ trait Permission {
 				->where('admin_roles.status','active')
 				->first();
 
-			if((empty($role) || $role->$permission=='no') && $rotue_array[1] != 'home' ) {
+			if((empty($role) || $role->$permission=='no') && $route_array[1] != 'home' ) {
 				return false;
 			} else {
 				return true;
@@ -48,9 +48,9 @@ trait Permission {
 
 	public function hasVendorPermission($user)
 	{
-		$rotue = \Request::route()->getName();
-		$rotue_array = explode('.', $rotue);
-		$module = $rotue_array[1];
+		$route = \Request::route()->getName();
+		$route_array = explode('.', $route);
+		$module = $route_array[1] ?? $route_array[0];
 
 		$paid_module_arr = vendor_paid_modules();
 
@@ -98,7 +98,7 @@ trait Permission {
 	{
 		$newsletter = DB::table('vendor_paid_modules')
 					->select('status')
-					->where('vendor_id',$vendor_id)
+					->where('vendor_id', $vendor_id)
 					->where('module_name','newsletter')
 					->first();
 		if($newsletter->status == 'yes'){

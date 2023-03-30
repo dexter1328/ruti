@@ -30,14 +30,14 @@
             display: block;
             width: 90%;
             margin: 10px auto;
-        }
+        }        
         .form-footer {
             margin: 30px 0 0px;
             display: block;
         }
-        .form-footer button {
+        .form-footer button {            
             box-shadow: 0 5px 30px 0 rgba(81, 39, 159, .2);
-        }
+        } 
         .form-footer button.btn.btn-success i {
             padding: 0 8px 0 0;
         }
@@ -46,9 +46,9 @@
             outline: 0px auto -webkit-focus-ring-color;
         }
         .AcceptCheckbox input[type="checkbox"] + label:before {
-
+            
             margin-top: 7px;
-        }
+        }       
 
     </style>
 
@@ -61,7 +61,7 @@
             <div class="row align-items-center">
                 <div class="col-md-10 col-offset-md-1">
                     <div class="font-para about-left">
-                        <h4>Welcome to Nature checkout! A convenient self-serve mobile app for smart shopping and quick checkout.</h4>
+                        <h4>Welcome to RUTI self checkout! A convenient self-serve mobile app for smart shopping and quick checkout.</h4>
                         <br>
                         <h5 style="text-align: center;">WHY DO BUSINESS WITH US</h5>
                         <br>
