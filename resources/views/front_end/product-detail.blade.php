@@ -13,7 +13,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-5 col-md-5">
-                <div class="product-details-tab" style="width: 450px">
+                <div class="product-details-tab" style="max-width: 450px; width: 100%;">
                     <div id="img-1" class="zoomWrapper single-zoom">
                         <a href="#">
                             <img id="zoom1" src="{{$product->original_image_url}}" data-zoom-image="{{$product->original_image_url}}" alt="big-1">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-7 col-md-10 mt-4 mt-lg-0">
+            <div class="col-lg-7 col-md-7 mt-4 mt-lg-0">
                 <div class="product_d_right">
                    <form action="#">
                         <span class="shop-details-content"><i class="lnr lnr-checkmark-circle"></i>In Stock</span>
