@@ -14,6 +14,26 @@
                         <li>My Account</li>
                     </ul>
                 </div>
+                <div class="search-container">
+                    <input type="text" class='search_bar' placeholder="Search...">
+                    <div class="dropdown">
+                        <button class="dropbtn">Filter</button>
+                        <div class="dropdown-content-new">
+                            <label class='border-top border-bottom'>Filter by Order Type</label>
+                            <label><input type="radio" name="filter-option" value="option2">Orders</label>
+                            <label><input type="radio" name="filter-option" value="option1">Not Yet Shipped</label>
+                            <label><input type="radio" name="filter-option" value="option3">Digital Orders</label>
+                            <label><input type="radio" name="filter-option" value="option4">Local Orders</label>
+                            <label><input type="radio" name="filter-option" value="option4">Cancelled Orders</label>
+                            <label class='border-top border-bottom'>Filter by Order Date</label>
+                            <label><input type="radio" name="filter-option" value="option2">Last 30 days</label>
+                            <label><input type="radio" name="filter-option" value="option1">Last 3 months</label>
+                            <label><input type="radio" name="filter-option" value="option3">2023</label>
+                            <label><input type="radio" name="filter-option" value="option4">2022</label>
+                            <label><input type="radio" name="filter-option" value="option4">2019</label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -76,91 +96,36 @@
                                             <td><a href="{{route('user-product-page',$order->order_id)}}" class="view">view</a></td>
                                         </tr>
                                         @endforeach
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        {{-- <div class="tab-pane fade" id="downloads">
-                            <h3>Downloads</h3>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Downloads</th>
-                                            <th>Expires</th>
-                                            <th>Download</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Shopnovilla - Free Real Estate PSD Template</td>
-                                            <td>May 10, 2018</td>
-                                            <td><span class="danger">Expired</span></td>
-                                            <td><a href="#" class="view">Click Here To Download Your File</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Organic - ecommerce html template</td>
-                                            <td>Sep 11, 2018</td>
-                                            <td>Never</td>
-                                            <td><a href="#" class="view">Click Here To Download Your File</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="address">
-                           <p>The following addresses will be used on the checkout page by default.</p>
-                            <h4 class="billing-address">Billing address</h4>
-                            <a href="#" class="view">Edit</a>
-                            <p><strong>Bobby Jackson</strong></p>
-                            <address>
-                                House #15<br>
-                                Road #1<br>
-                                Block #C <br>
-                                Banasree <br>
-                                Dhaka <br>
-                                1212
-                            </address>
-                            <p>Bangladesh</p>
-                        </div>
-                        <div class="tab-pane fade" id="account-details">
-                            <h3>Account details </h3>
-                            <div class="login">
-                                <div class="login_form_container">
-                                    <div class="account_login_form">
-                                        <form action="#">
-                                            <p>Already have an account? <a href="#">Log in instead!</a></p>
-                                            <div class="input-radio">
-                                                <span class="custom-radio"><input type="radio" value="1" name="id_gender"> Mr.</span>
-                                                <span class="custom-radio"><input type="radio" value="1" name="id_gender"> Mrs.</span>
-                                            </div> <br>
-                                            <label>First Name</label>
-                                            <input type="text" name="first-name">
-                                            <label>Last Name</label>
-                                            <input type="text" name="last-name">
-                                            <label>Email</label>
-                                            <input type="text" name="email-name">
-                                            <label>Password</label>
-                                            <input type="password" name="user-password">
-                                            <label>Birthdate</label>
-                                            <input type="text" placeholder="MM/DD/YYYY" value="" name="birthday">
-                                            <span class="example">
-                                              (E.g.: 05/31/1970)
-                                            </span>
-                                            <br>
-                                            <span class="custom_checkbox">
-                                                <input type="checkbox" value="1" name="optin">
-                                                <label>Receive offers from our partners</label>
-                                            </span>
-                                            <br>
-                                            <span class="custom_checkbox">
-                                                <input type="checkbox" value="1" name="newsletter">
-                                                <label>Sign up for our newsletter<br><em>You may unsubscribe at any moment. For that purpose, please find our contact info in the legal notice.</em></label>
-                                            </span>
-                                            <div class="save_button primary_btn default_button">
-                                               <button type="submit">Save</button>
+                                @foreach ($orders as $order)
+                                <div class="col-12 order_main px-0 border">
+                                    <div class='d-flex justify-content-between p-3 border orders_header'>
+                                        <div class='orders_header1 d-flex justify-content-between w-75'>
+                                            <div>
+                                                #{{$loop->iteration}}
+                                            </div>
+                                            <div>
+                                                Order Placed
+                                                <span class='d-block'>{{ \Carbon\Carbon::parse($order->created_at)->format('d M, Y')}}</span>
+                                            </div>
+                                            <div>
+                                                Total
+                                                <span class='d-block'>${{$order->total_price}}</span>
+                                            </div>
+                                            <div>
+                                                Status
+                                                <span class='d-block text-primary'>{{ucfirst(trans($order->status))}}</span>
+                                            </div>
+                                            <div>
+                                                Order Duration:
+                                                <span class='d-block'>4 days.</span>
+                                            </div>
+                                        </div>
+                                        <div class="orders_header2 text-center">
+                                            <div>
+                                                Order# <span>{{$order->order_id}}</span>
+                                            </div>
+                                            <div>
+                                                <span><a href="{{route('user-product-page',$order->order_id)}}" class='text-primary'>View order details</a> | <a href="{{route('order-invoice',$order->order_id)}}" class='text-primary'>View Invoice</a></span>
                                             </div>
                                         </form>
                                     </div>

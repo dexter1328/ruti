@@ -22,7 +22,7 @@
 
                         </div>
                         <div class="category-thumb">
-                            <img style="width:  100%; height: 100%; object-fit: cover;" src="{{$product1->original_image_url}}" alt="">
+                            <img style="width:  100%; height: 100%; object-fit: contain;" src="{{$product1->original_image_url}}" alt="">
                         </div>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
         <div class="row">
             <div class="col-xl-8 counter-wrapper">
                 <div class="product-counter-image float-start banner_thumb">
-                    <a href="{{ route('product-detail',$product4->sku) }}"><img style="width:  100%; height: 100%; object-fit: cover;" src="{{$product4->original_image_url}}"></a>
+                    <a href="{{ route('product-detail',$product4->sku) }}"><img style="width:  100%; height: 100%; object-fit: contain;" src="{{$product4->original_image_url}}"></a>
                 </div>
                 <div class="countdown-wrap">
                     <span>DEAL OF THE DAY</span>

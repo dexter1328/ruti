@@ -113,7 +113,7 @@
                                                                                     <td>1</td>
                                                                                     <td><strong>{{ $order->title }}</strong></td>
                                                                                     <td class="text-center">{{$order->quantity}}</td>
-                                                                                    <td class="text-center">${{$order->price}}</td>
+                                                                                    <td class="text-right">${{$order->price}}</td>
                                                                                     <td class="text-right">${{$order->price * $order->quantity}}</td>
                                                                                     <?php $tt = $order->price * $order->quantity ?>
 
@@ -125,8 +125,8 @@
                                                                                 @endforeach
 
                                                                                 <tr>
-                                                                                    <td colspan="3"></td>
-                                                                                    <td class="text-right"><strong>Shipping and Taxes</strong></td>
+                                                                                    <td></td>
+                                                                                    <td colspan="3" class="text-left"><strong>Shipping and Taxes</strong></td>
                                                                                     <td class="text-right"><strong>+</strong></td>
                                                                                 </tr>
                                                                                 <tr>

@@ -1,23 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>RUTI Self Checkout | One-Stop E-commerce hub for online selling, in-store buying and self-checkout.</title>
-    <meta name="description"
-          content="RUTI self checkout, a free mobile app that provides safe and convenient grocery shopping during post pandemic- Smart grocery app - Free delivery RUTI self checkout - buy groceries online – grocery stores online services">
-    <meta name="keywords"
-          content="Smart grocery app store near me, Free delivery RUTI self checkout, Closest store near me RUTI self checkout, Shop groceries stores online, Mobile app for grocery shopping, Smart in-store shopping app, Get online coupon from RUTI self checkout, Scan and go mobile app from RUTI self checkout, Smart way to buy and sell online from RUTI self checkout, Smart and convenient shopping mobile app from RUTI self checkout, Best way to sell, Sell online, Online sells, Online seller, E-commerce selling, Ecommerce sells, Sales hub, Where to sell, Sell on instacart, Sell on Etsy, Sell on Amazon, Best place to sell, Where to sell, Best Buy and sell center ">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
-    <!-- <meta http-equiv="Content-type" content="text/html; charset=UTF-8"> -->
-    <meta name="theme-color" content="#003366"/>
-    <meta property="og:title" content="{{ config('app.name', 'RUTI self checkout') }}"/>
-    <meta property="og:description"
-          content="We provide convenient and expeditious service to all users (merchants and consumers) in areas of consumer spending. Our service is to improve merchant - customer relations while offering positive contribution to the overall economy."/>
-    <meta property="og:image" content="{{ asset('images/logo-icon.png') }}"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:url" content="https://rutiselfcheckout.com/"/>
-    <meta property="fb:app_id" content="482623692719207"/>
+<meta charset="UTF-8">
+<title>Nature Checkout | One-Stop E-commerce hub for online selling, in-store buying and self-checkout.</title>
+<meta name="description" content="Nature checkout, a free mobile app that provides safe and convenient grocery shopping during post pandemic- Smart grocery app - Free delivery Nature checkout - buy groceries online – grocery stores online services">
+<meta name="keywords" content="Smart grocery app store near me, Free delivery Nature checkout, Closest store near me Nature checkout, Shop groceries stores online, Mobile app for grocery shopping, Smart in-store shopping app, Get online coupon from Nature checkout, Scan and go mobile app from Nature checkout, Smart way to buy and sell online from Nature checkout, Smart and convenient shopping mobile app from Nature checkout, Best way to sell, Sell online, Online sells, Online seller, E-commerce selling, Ecommerce sells, Sales hub, Where to sell, Sell on instacart, Sell on Etsy, Sell on Amazon, Best place to sell, Where to sell, Best Buy and sell center ">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
+<!-- <meta http-equiv="Content-type" content="text/html; charset=UTF-8"> -->
+<meta name="theme-color" content="#003366" />
+<meta property="og:title" content="{{ config('app.name', 'Nature checkout') }}" />
+<meta property="og:description" content="We provide convenient and expeditious service to all users (merchants and consumers) in areas of consumer spending. Our service is to improve merchant - customer relations while offering positive contribution to the overall economy." />
+<meta property="og:image" content="{{ asset('images/logo-icon.png') }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://naturecheckout.com/" />
+<meta property="fb:app_id" content="482623692719207" />
+<style>
+/*/    .dropbtn {
+        background-color: #003366;
+        color: #fff;
+        padding: 7px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+}*/
+
+.dropbtn {
+    background-color: #003366;
+    color: #fff;
+    padding: 7px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    position: relative;
+    padding-right: 44px;
+}
+.dropbtn .sign-down {
+    font-size: 20px;
+    position: fixed;
+    margin: 5px 10px;
+}
+/*.dropdown .dropbtn:hover .sign-down:before{
+    content: '\f106';
+    transition: all 0.3s ease;
+
+}*/
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 175px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 5px;
+  margin-left: -147px;
+  padding: 10px;
+  padding-bottom: 15px;
+}
+.dropdown-content-caret{
+    content: '';
+    top: calc(100% + -22.5rem);
+    background-color: #f1f1f1;
+    border-top-left-radius: 0.25rem;
+    width: 1rem;
+    height: 1rem;
+    border-top: 1px solid #aab7c2;
+    border-left: 1px solid #aab7c2;
+    border-bottom-color: transparent;
+    transform: rotateZ(45deg);
+    position: absolute;
+    z-index: 1061;
+    right: 20px;
+}
+.dropdown-box{
+    padding-bottom: 10px;
+}
+.dropdown-box2{
+    margin-top: 8px;
+}
+.dropdown-content .common-link:hover{
+    text-decoration: underline;
+}
+.dropdown-content .common-link
+{
+    color: #09757a!important;
+}
+
+
+.dropdown-content a {
+  color: #000!important;
+  padding: 12px 16px!important;
+  text-decoration: none;
+  display: block!important;
+  padding: 4px 10px !important; text-align: left !important;
+}
+
+/*.dropdown-content a:hover {background-color: #ddd;}*/
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #003366;}
+
+.fa.fa-tiktok {
+    background: url("{{ asset('public/frontend/image/tiktok-white.png')}}") no-repeat;
+    width: 22px;
+    height: 25px;
+}
+.follow a:hover .fa.fa-tiktok {
+    background: url("{{ asset('public/frontend/image/tiktok-blue.png')}}") no-repeat;
+    width: 22px;
+    height: 25px;
+}
+</style>
+
+<link rel="icon" href="{{ asset('public/images/favicon-32x32.png') }}" type="image/x-icon">
+
+<!---Font Icon-->
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<!-- Plugin CSS -->
+<link href="{{asset('public/frontend/css/bootstrap.css')}}" rel="stylesheet">
+<link href="{{ asset('public/frontend/css/slick.css')}}" rel="stylesheet">
+<link href="{{ asset('public/frontend/css/jquery.css')}}" rel="stylesheet">
+ <link href="{{ asset('public/frontend/css/animate.css')}}" rel="stylesheet">
+<link href="{{ asset('public/frontend/css/magnific-popup.css')}}" rel="stylesheet">
+<link href="{{ asset('public/frontend/css/YouTubePopUp.css')}}" rel="stylesheet">
+<link href="{{asset('public/plugins/select2/css/select2.min.css')}}" rel="stylesheet"/>
+
+<!--shop page css-->
+<!--owl carousel min css-->
+<link href="{{ asset('public/wb/css/owl.carousel.min.css')}}" rel="stylesheet">
+<link href="{{ asset('public/wb/css/font.awesome.css')}}" rel="stylesheet">
+<link href="{{ asset('public/wb/css/ionicons.min.css')}}" rel="stylesheet">
+<link href="{{ asset('public/wb/css/linearicons.css')}}" rel="stylesheet">
+<link href="{{ asset('public/wb/css/jquery-ui.min.css')}}" rel="stylesheet">
+<link href="{{ asset('public/wb/css/slinky.menu.css')}}" rel="stylesheet">
+<link href="{{ asset('public/wb/css/plugins.css')}}" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+<link href="{{ asset('public/wb/css/style.css')}}" rel="stylesheet">
+{{-- <link href="{{ asset('public/wb/css/style2.css')}}" rel="stylesheet"> --}}
+
+
+
+
+
+<!-- Theme Style -->
+@if (request()->is('home') || Request::path() == 'w2bcustomer/register' || Request::is('thank-you-page'))
+<link href="{{ asset('public/frontend/css/style.css')}}" rel="stylesheet">
+@endif
+<link href="{{ asset('public/frontend/css/responsive.css')}}" rel="stylesheet">
+
+
+@if (Request::path() == '/home')
     <style>
         /*/    .dropbtn {
                 background-color: #003366;
@@ -345,8 +484,6 @@
 
     <!--modernizr min js here-->
     <script src="{{asset('public/wb/js/modernizr-3.7.1.min.js')}}"></script>
-
-
 </head>
 <body>
 
@@ -363,74 +500,31 @@
                             <div class="logo">
                                 <a href="{{url('/home')}}"><img src="{{asset('public/frontend/image/logo.png')}}" alt=""></a>
                             </div>
-                        </div>
-                        <div class="col-lg-10 col-md-9 col-sm-9 col-12">
-                            <div class="header_right_info">
-                                <div class="search_container">
-                                    <form action="{{route('shop-search')}}" method="get">
-                                        <div class="search_box">
-                                            <input class="typeahead" placeholder="Search product..." type="text" name="query" id="query" value="{{request()->input('query')}}">
-                                            <button type="submit"><span class="lnr lnr-magnifier"></span></button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="header_account_area">
-                                    <div class="header-action">
-                                        <ul>
-                                            @if (!Auth::guard('w2bcustomer')->user())
-                                                <li class="header-sine-in dropdown">
-                                                    <a href="" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="lnr lnr-user fa-3x d-flex"></i>
-                                                        <p class="sign-in-text">Sign in<span>Account</span></p>
-                                                    </a>
-                                                    <div class="dropdown-menu login-dropdown" aria-labelledby="dropdownMenuLink">
-                                                        <form class="px-4 py-3" method="POST" action="{{ url('/w2bcustomer/login') }}">
-                                                            @csrf
-                                                            <div class="form-group">
-                                                                <label for="exampleDropdownFormEmail1">Email address</label>
-                                                                <input type="email" class="form-control {{ $errors->has('email') ? 'error' : '' }}" name="email" id="exampleDropdownFormEmail1"
-                                                                       placeholder="email@example.com" value="{{ old('email') }}" autofocus>
-                                                            </div>
-                                                            @if ($errors->has('email'))
-                                                                <label class="error">{{ $errors->first('email') }}</label>
-                                                            @endif
-                                                            <div class="form-group">
-                                                                <label for="exampleDropdownFormPassword1">Password</label>
-                                                                <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'error' : '' }}"
-                                                                       id="exampleDropdownFormPassword1" placeholder="Password">
-                                                            </div>
-                                                            @if ($errors->has('password'))
-                                                                <label class="error">{{ $errors->first('password') }}</label>
-                                                            @endif
-                                                            <div class="form-group">
-                                                                {{-- <div class="form-check">
-                                                                  <input type="checkbox" class="form-check-input" id="dropdownCheck">
-                                                                  <label class="form-check-label" for="dropdownCheck">
-                                                                    Remember me
-                                                                  </label>
-                                                                </div> --}}
-                                                            </div>
-                                                            <button type="submit" class="btn btn-secondary-orange">Sign in</button>
-                                                        </form>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item text-dark" href="{{url('/w2bcustomer/register')}}">New around here? Sign up</a>
-                                                    </div>
-                                                </li>
-                                            @else
-                                                <li class="header-sine-in dropdown">
-                                                    <a href="" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="lnr lnr-user fa-3x d-flex"></i>
-                                                        <p class="sign-in-text">{{Auth::guard('w2bcustomer')->user()->first_name}} <span>{{Auth::guard('w2bcustomer')->user()->last_name}}</span></p>
-                                                    </a>
-                                                    <div class="dropdown-menu login-dropdown" aria-labelledby="dropdownMenuLink">
-
-
-                                                        <a class="dropdown-item text-dark" href="{{route('user-account-page')}}">My Account</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item text-dark" href="" onclick="event.preventDefault(); document.getElementById('logout-form5').submit();">Logout</a>
-                                                        <form id="logout-form5" action="{{ url('/w2bcustomer/logout') }}" method="POST" style="display: none;">
-                                                            {{ csrf_field() }}
-                                                        </form>
+                            <div class="col-lg-10 col-md-9 col-sm-9 col-12">
+                                <div class="header_right_info">
+                                    <div class="search_container">
+                                       <form action="{{route('shop-search')}}" method="get">
+                                            <div class="search_box">
+                                                <input class="typeahead" placeholder="Search product..." type="text" name="query" id="query" value="{{request()->input('query')}}">
+                                                 <button type="submit"><span class="lnr lnr-magnifier"></span></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="header_account_area">
+                                        <div class="header-action">
+                                    <ul>
+                                        @if (!Auth::guard('w2bcustomer')->user())
+                                        <li class="header-sine-in dropdown">
+                                            <a href="" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="lnr lnr-user fa-3x d-flex"></i>
+                                                <p class="sign-in-text">Sign in<span>Account</span></p>
+                                            </a>
+                                            <div class="dropdown-menu login-dropdown p-3" aria-labelledby="dropdownMenuLink">
+                                                <div class="dropdown-box">
+                                                    <p>Sign in or Register</p>
+                                                    <div class="sign_in_links d-flex align-items-center">
+                                                        <a href="{{url('/w2bcustomer/login')}}" class="p-2 btn_height w-50 text-center">Sign in</a>
+                                                        <a href="{{url('/w2bcustomer/register')}}" class="p-2 btn_height w-50 ml-2 text-center"> Sign up</a>
                                                     </div>
                                                 </li>
                                             @endif
@@ -517,41 +611,49 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="header_bottom sticky-header">
-                <div class="container-fluid px-5">
-                    <div class="row align-items-center justify-content-between">
-                        <div class="col-md-6 col-lg-4 col-xl-3 col-10">
-                            <div class="categories_menu categories_three">
-                                <div class="categories_title">
-                                    <i class="lnr lnr-menu fa-lg"></i>
-                                    <h2 class="categori_toggle">Browse Categories</h2>
-                                    <i class="lnr lnr-chevron-down ms-auto"></i>
-                                </div>
-                                <div class="categories_menu_toggle" style="display: none">
-                                    <ul>
-                                        @if (!empty($categories))
-                                            @foreach ($categories as $category)
+                <div class="header_bottom sticky-header">
+                    <div class="container-fluid px-5">
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-md-6 col-lg-4 col-xl-3 col-10">
+                                <div class="categories_menu categories_three">
+                                    <div class="categories_title">
+                                            <i class="lnr lnr-menu fa-lg"></i>
+                                            <h2 class="categori_toggle">Browse Categories</h2>
+                                            <i class="lnr lnr-chevron-down ms-auto"></i>
+                                    </div>
+                                    <div class="categories_menu_toggle">
+                                        <ul>
+                                            @if ($categories)
+                                                @foreach ($categories as $category) 
+                                                
                                                 @if ($category->parent_id == 0 && !($category->childrens)->isEmpty())
-                                                    <li class="menu_item_children"><a href="{{route('cat-products', $category->category1)}}">{{ $category->category1 }}<i class="fa fa-angle-right"></i></a>
-                                                        <ul class="categories_mega_menu" style="width: max-content; display:list-item">
-                                                            @foreach ($category->childrens as $subcategory)
-                                                                @if ($subcategory->parent_id > 0 && !($subcategory->childrens)->isEmpty())
-                                                                    <li class="menu_item_children"><a href="{{route('cat-products', $subcategory->category1)}}">{{ $subcategory->category1 }}</a>
-                                                                        <ul class="categorie_sub_menu">
-                                                                            @foreach ($subcategory->childrens as $subsubcategory)
-                                                                                <li><a href="{{route('cat-products', $subsubcategory->category1)}}">{{ $subsubcategory->category1 }}</a></li>
-                                                                            @endforeach
-                                                                        </ul>
-                                                                    </li>
-                                                                @elseif ($subcategory->parent_id > 0 && ($subcategory->childrens)->isEmpty())
-                                                                    <li><a href="{{route('cat-products', $subcategory->category1)}}">{{ $subcategory->category1 }}</a></li>
-                                                                @endif
-                                                            @endforeach
-                                                        </ul>
-                                                    </li>
-                                                @elseif ($category->parent_id == 0 && ($category->childrens)->isEmpty())
-                                                    <li><a href="{{route('cat-products', $category->category1)}}"> {{ $category->category1 }}</a></li>
+                                                <li class="menu_item_children"><a href="{{route('cat-products', $category->category1)}}"><i class='lnr lnr-heart pr-2'></i>{{ $category->category1 }}<i class="fa fa-angle-right"></i></a>
+                                                    <ul class="categories_mega_menu first_submenu new_sub_menu<?php echo $category->id ?>" style="display:list-item;">
+                                                    <div class='list_nav_menu'>
+                                                        @foreach ($category->childrens as $subcategory)
+                                                            @if ($subcategory->parent_id > 0 && !($subcategory->childrens)->isEmpty())
+                                                        <li class="menu_item_children"><a href="{{route('cat-products', $subcategory->category1)}}">{{ $subcategory->category1 }}</a>    
+                                                        <ul class="categorie_sub_menu ">
+                                                                @foreach ($subcategory->childrens as $subsubcategory)
+                                                                        <li><a href="{{route('cat-products', $subsubcategory->category1)}}">{{ $subsubcategory->category1 }}</a></li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </li>
+                                                                    @elseif ($subcategory->parent_id > 0 && ($subcategory->childrens)->isEmpty())
+                                                                            <li><a href="{{route('cat-products', $subcategory->category1)}}">{{ $subcategory->category1 }}</a> </li>
+                                                                        @endif
+                                                                    @endforeach
+                                                    </div>
+                                                                    <div class="nav_menu_image d-flex align-items-center justify-content-end pr-4">
+                                                                        <img class='nav_img' src="https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg" alt="">
+                                                                    </div>
+                                                                </ul>
+                                                            </li>
+                                                            @elseif ($category->parent_id == 0 && ($category->childrens)->isEmpty())
+                                                                <li><a href="{{route('cat-products', $category->category1)}}"> {{ $category->category1 }}</a></li>
+                                                            @endif
+
+                                                        @endforeach
                                                 @endif
 
                                             @endforeach
