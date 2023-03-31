@@ -112,19 +112,19 @@ class WholesaleProductController extends Controller
 
                 );
         $details = [
-            'title' => 'Nature Checkout Order #'.$w2border->order_id,
+            'title' => 'Ruti Self Checkout Order #'.$w2border->order_id,
             'body' => 'Dear '.$fname.' '.$lname,
             'email' => $user->email
         ];
         $details2 = [
             'title' => 'New Order Received #'.$w2border->order_id,
             'body' => 'A new Customer named '.$fname.' '.$lname.' has created an order',
-            'email' => 'sales@naturecheckout.com'
+            'email' => 'rutiorders@gmail.com'
         ];
         // dispatch(new OrderMailJob($details));
         // dispatch(new RutiMailJob($details2));
         Mail::to($user->email)->send(new WbOrderMail($details));
-        Mail::to('sales@naturecheckout.com')->send(new WbRutiOrderMail($details2));
+        Mail::to('rutiorders@gmail.com')->send(new WbRutiOrderMail($details2));
 
             return $this->sendResponse($success,'Your Order has been created successfully.');
     }
@@ -176,20 +176,20 @@ class WholesaleProductController extends Controller
 
                 );
         $details = [
-            'title' => 'Nature Checkout Order #'.$w2border->order_id,
+            'title' => 'Ruti Self Checkout Order #'.$w2border->order_id,
             'body' => 'Dear '.$fname.' '.$lname,
             'email' => $user->email
         ];
         $details2 = [
             'title' => 'New Order Received #'.$w2border->order_id,
             'body' => 'A new Customer named '.$fname.' '.$lname.' has created an order',
-            'email' => 'sales@naturecheckout.com'
+            'email' => 'rutiorders@gmail.com'
         ];
         // for laravel mail job
           // dispatch(new OrderMailJob($details));
         // dispatch(new RutiMailJob($details2));
         Mail::to($user->email)->send(new WbOrderMail($details));
-        Mail::to('sales@naturecheckout.com')->send(new WbRutiOrderMail($details2));
+        Mail::to('rutiorders@gmail.com')->send(new WbRutiOrderMail($details2));
 
             return $this->sendResponse($success,'Your Order has been created successfully.');
 
@@ -222,7 +222,7 @@ class WholesaleProductController extends Controller
 
             "customer" => $customer->id,
 
-            "description" => "Payment from Nature Checkout",
+            "description" => "Payment from Ruti Self Checkout",
 
             "shipping" => [
 
@@ -248,19 +248,19 @@ class WholesaleProductController extends Controller
         $fname = ucfirst($user->first_name);
         $lname = ucfirst($user->last_name);
         $details = [
-            'title' => 'Nature Checkout Order #'.$w2border->order_id,
+            'title' => 'Ruti Self Checkout Order #'.$w2border->order_id,
             'body' => 'Dear '.$fname.' '.$lname,
             'email' => $user->email
         ];
         $details2 = [
             'title' => 'New Order Received #'.$w2border->order_id,
             'body' => 'A new Customer named '.$fname.' '.$lname.' has created an order',
-            'email' => 'sales@naturecheckout.com'
+            'email' => 'rutiorders@gmail.com'
         ];
         dispatch(new OrderMailJob($details))->delay(now()->addSeconds(30));
         dispatch(new RutiMailJob($details2))->delay(now()->addSeconds(30));
         // Mail::to($user_details->email)->send(new WbOrderMail($details));
-        // Mail::to('sales@naturecheckout.com')->send(new WbRutiOrderMail($details2));
+        // Mail::to('rutiorders@gmail.com')->send(new WbRutiOrderMail($details2));
     }
 
 

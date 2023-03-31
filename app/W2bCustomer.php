@@ -13,15 +13,11 @@ class W2bCustomer extends Authenticatable
     protected $table = 'w2b_customers';
     /**
      * The attributes that are mass assignable.
-     *
-     * @var array
      */
     protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
-     *
-     * @var array
      */
     protected $hidden = [
         'password', 'remember_token',
@@ -29,9 +25,6 @@ class W2bCustomer extends Authenticatable
 
     /**
      * Send the password reset notification.
-     *
-     * @param  string  $token
-     * @return void
      */
     // public function sendPasswordResetNotification($token)
     // {
@@ -39,11 +32,9 @@ class W2bCustomer extends Authenticatable
     // }
     /**
      * The attributes that should be cast to native types.
-     *
-     * @var array
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
 }

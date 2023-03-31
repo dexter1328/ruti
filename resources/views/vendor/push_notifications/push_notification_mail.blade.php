@@ -4,20 +4,20 @@
 	<head>
 	  <meta charset="UTF-8">
 	  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	  <title>Nature Checkout</title>
+	  <title>RUTI Self Checkout</title>
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	  <style>
 	  .ReadMsgBody {
 	    width: 100%;
 	    background-color: #ffffff;
 	  }
-
+	  
 	  .ExternalClass {
 	    width: 100%;
 	    background-color: #ffffff;
 	  }
 	  /* Windows Phone Viewport Fix */
-
+	  
 	  @-ms-viewport {
 	    width: device-width;
 	  }

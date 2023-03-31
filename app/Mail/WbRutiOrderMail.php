@@ -31,7 +31,7 @@ class WbRutiOrderMail extends Mailable
     public function build()
     {
         // return $this->view('view.name');
-        return $this->subject('Nature Checkout')
+        return $this->subject('Ruti Self Checkout')
                     ->view('email.wb_order.ruti_order');
     }
 }

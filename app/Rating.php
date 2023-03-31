@@ -16,6 +16,6 @@ class Rating extends Model
 
     public function product()
     {
-        return $this->belongsTo('App\W2bProduct');
+        return $this->belongsTo('App\W2bProduct', 'product_id', 'sku');
     }
 }

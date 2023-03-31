@@ -26,6 +26,6 @@
 		<br>
 		<p><!-- We will attempt to charge you again on {{date("jS F Y", strtotime("+1 day"))}}.  -->Please update your payment information if necessary.</p>
 		<br>
-		<p>Thanks, <br> Nature Checkout Team</p>
+		<p>Thanks, <br> RUTI Self Checkout Team</p>
 	</div>
 @endsection

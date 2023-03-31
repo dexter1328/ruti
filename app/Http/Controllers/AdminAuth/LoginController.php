@@ -109,10 +109,10 @@ class LoginController extends Controller
 
                     $errors = [$this->username() => trans('Your account is inactive. Please contact your admin.')];
                 }elseif($user && \Hash::check($request->password, $user->password) && $user->status == 'active'){
-                    $token = Str::random(60);
-                    $this->sendOTP($user->email, $token);
-                    return Redirect::to('admin/submit-otp/'.$token);
-                    // Auth::guard('admin')->loginUsingId($user->id);
+                    // $token = Str::random(60);
+                    // $this->sendOTP($user->email, $token);
+                    // return Redirect::to('admin/submit-otp/'.$token);
+                    Auth::guard('admin')->loginUsingId($user->id);
                     return redirect('admin/home');
                 }
             }else{

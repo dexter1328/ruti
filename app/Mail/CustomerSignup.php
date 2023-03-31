@@ -42,7 +42,7 @@ class CustomerSignup extends Mailable
         // return $this->view('/admin/service_provider/background_check')->with([
         //         'id' => $this->id
         //     ]);
-        return $this->subject('Nature Checkout: Welcome to Nature Checkout')->view('/admin/customers/customer_signup')->with([
+        return $this->subject('RUTI Self Checkout: Welcome to RUTI Self Checkout')->view('/admin/customers/customer_signup')->with([
                 'email' => $this->email,
                 'name' => $this->name
             ]);

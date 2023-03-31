@@ -3,7 +3,7 @@
     <div style="clear:both;"></div>
  <!-- terms-condition start -->
  <section id="inner-main-content">
-    <h2 class="heading" style="margin:25px;">
+    <h2 class="heading">
         {{isset($page_meta['privacy_policy_title']) && $page_meta['privacy_policy_title']!='' ? $page_meta['privacy_policy_title'] : 'Privacy Policy'}}
     </h2>
     <div class="container">
@@ -13,9 +13,9 @@
                     @if(isset($page_meta['privacy_policy_description']) && $page_meta['privacy_policy_description']!='')
                         {!! $page_meta['privacy_policy_description'] !!}
                     @else
-                        <p>The following privacy policy govern all use of the naturecheckout.com website and all content, services and products available through the website, including, but not limited to, the client area (collectively referred to as the Site).</p>
-                        <p>The Site is owned and operated by Nature checkout Inc. The Site is offered subject to your acceptance without modification of all of the terms contained herein and all other operating rules, policies (including, without limitation, Nature checkout Inc's Privacy Policy) and procedures that may be published from time to time on this Site by Nature checkout Inc (collectively, the "Agreement").</p>
-                        <p>Please read this Agreement carefully before accessing or using the Site. By accessing or using any part of the web site, you agree to become bound by the terms of this agreement. If you do not agree to all the terms and conditions of this agreement, then you may not access the Site or use any services. If these terms and conditions are considered an offer by Nature checkout Inc, acceptance is expressly limited to these terms. Nature checkout Inc is available to individuals of all ages provided they are a part of a family.</p>
+                        <p>The following privacy policy govern all use of the rutiselfcheckout.com website and all content, services and products available through the website, including, but not limited to, the client area (collectively referred to as the Site).</p>
+                        <p>The Site is owned and operated by RUTI self checkout Inc. The Site is offered subject to your acceptance without modification of all of the terms contained herein and all other operating rules, policies (including, without limitation, RUTI self checkout Inc's Privacy Policy) and procedures that may be published from time to time on this Site by RUTI self checkout Inc (collectively, the "Agreement").</p>
+                        <p>Please read this Agreement carefully before accessing or using the Site. By accessing or using any part of the web site, you agree to become bound by the terms of this agreement. If you do not agree to all the terms and conditions of this agreement, then you may not access the Site or use any services. If these terms and conditions are considered an offer by RUTI self checkout Inc, acceptance is expressly limited to these terms. RUTI self checkout Inc is available to individuals of all ages provided they are a part of a family.</p>
                     @endif
                     <div id="accordion">
                         @php $result = [];
@@ -25,7 +25,7 @@
                         @endphp
                         @if(!empty($result))
                             @php $i = 1; @endphp
-                            @foreach($result as $row)
+                            @foreach($result as $row)    
                                 <div class="card">
                                     <div class="card-header">
                                         <a class="card-link" data-toggle="collapse" href="#collapse{{$i}}"><i class="fa fa-plus"></i>{{$row->title}}</a>
@@ -35,8 +35,8 @@
                                             {!! $row->description !!}
                                         </div>
                                     </div>
-                                </div>
-                                @php $i++; @endphp
+                                </div> 
+                                @php $i++; @endphp  
                             @endforeach
                         @else
                             <div class="card">
@@ -50,8 +50,8 @@
                                         <p>You have fully complied with any third-party licenses relating to the Content, and have done all things necessary to successfully pass through to end users any required terms</p>
                                         <p>The Content does not contain or install any viruses, worms, malware, trojan horses or other harmful or destructive content The Content is not spam, is not machine or randomly generated, and does not contain unethical or unwanted commercial content designed to drive traffic to third party sites or boost the search engine rankings of third party sites, or to further unlawful acts (such as phishing) or mislead recipients as to the source of the material (such as spoofing)</p>
                                         <p>The Content is not pornographic, libelous or defamatory, does not contain threats or incite violence towards individuals or entities, and does not violate the privacy or publicity rights of any third party</p>
-                                        <p>By submitting Content to Nature checkout Inc for inclusion on our Site, you grant Nature checkout Inc. a world-wide, royalty-free, and non-exclusive license to reproduce, modify, adapt and publish the Content for the purpose of displaying, distributing, promoting, marketing or any other lawful use.</p>
-                                        <p>Without limiting any of those representations or warranties, Nature checkout Inc has the right (though not the obligation) to, in Nature checkout Inc's sole discretion (i) refuse or remove any content that, in Nature checkout Inc's reasonable opinion, violates any policy or is in any way harmful or objectionable, or (ii) terminate or deny access to and use of the Site to any individual or entity for any reason, in Nature checkout Inc's sole discretion. Nature checkout Inc will have no obligation to provide a refund of any amounts previously paid under these circumstances.</p>
+                                        <p>By submitting Content to RUTI self checkout Inc for inclusion on our Site, you grant RUTI self checkout Inc. a world-wide, royalty-free, and non-exclusive license to reproduce, modify, adapt and publish the Content for the purpose of displaying, distributing, promoting, marketing or any other lawful use.</p>
+                                        <p>Without limiting any of those representations or warranties, RUTI self checkout Inc has the right (though not the obligation) to, in RUTI self checkout Inc's sole discretion (i) refuse or remove any content that, in RUTI self checkout Inc's reasonable opinion, violates any policy or is in any way harmful or objectionable, or (ii) terminate or deny access to and use of the Site to any individual or entity for any reason, in RUTI self checkout Inc's sole discretion. RUTI self checkout Inc will have no obligation to provide a refund of any amounts previously paid under these circumstances.</p>
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +102,7 @@
                                 </div>
                                 <div id="collapse6" class="collapse" data-parent="#accordion">
                                     <div class="card-body">
-                                        <p>By operating the Site, Nature checkout Inc does not represent or imply that it endorses any or all of the contributed content, or that it believes such material to be accurate, useful or non-harmful. You are responsible for taking precautions as necessary to protect yourself and your computer systems from viruses, worms, trojan horses, and other harmful or destructive content. The Site may contain content that is offensive, indecent, or otherwise objectionable, as well as content containing technical inaccuracies, typographical mistakes, and other errors. Nature checkout Inc disclaims any responsibility for any harm resulting from the use by visitors of the Site.</p>
+                                        <p>By operating the Site, RUTI self checkout Inc does not represent or imply that it endorses any or all of the contributed content, or that it believes such material to be accurate, useful or non-harmful. You are responsible for taking precautions as necessary to protect yourself and your computer systems from viruses, worms, trojan horses, and other harmful or destructive content. The Site may contain content that is offensive, indecent, or otherwise objectionable, as well as content containing technical inaccuracies, typographical mistakes, and other errors. RUTI self checkout Inc disclaims any responsibility for any harm resulting from the use by visitors of the Site.</p>
                                     </div>
                                 </div>
                             </div>
@@ -122,7 +122,7 @@
                                 </div>
                                 <div id="collapse8" class="collapse" data-parent="#accordion">
                                     <div class="card-body">
-                                        <p>As Nature checkout Inc asks others to respect its intellectual property rights, it respects the intellectual property rights of others. If you believe that material located on or linked to by the Site violates your copyright, you are encouraged to notify Nature checkout Inc in accordance with common DMCA policies. Nature checkout Inc will respond to all such notices, including as required or appropriate by removing the infringing material or disabling all links to the infringing material. In the case of a visitor who may infringe or repeatedly infringes the copyrights or other intellectual property rights of Nature checkout Inc or others, Nature checkout Inc may, in its discretion, terminate or deny access to and use of the Site. In the case of such termination, Nature checkout Inc will have no obligation to provide a refund of any amounts previously paid to Nature checkout Inc. You further agree not to change or delete any proprietary notices from materials downloaded from the site. You must also retain our copyright notice in the privacy policy you create, unless you have purchased a premium membership in which case you may remove our copyright notice from your privacy statement.</p>
+                                        <p>As RUTI self checkout Inc asks others to respect its intellectual property rights, it respects the intellectual property rights of others. If you believe that material located on or linked to by the Site violates your copyright, you are encouraged to notify RUTI self checkout Inc in accordance with common DMCA policies. RUTI self checkout Inc will respond to all such notices, including as required or appropriate by removing the infringing material or disabling all links to the infringing material. In the case of a visitor who may infringe or repeatedly infringes the copyrights or other intellectual property rights of RUTI self checkout Inc or others, RUTI self checkout Inc may, in its discretion, terminate or deny access to and use of the Site. In the case of such termination, RUTI self checkout Inc will have no obligation to provide a refund of any amounts previously paid to RUTI self checkout Inc. You further agree not to change or delete any proprietary notices from materials downloaded from the site. You must also retain our copyright notice in the privacy policy you create, unless you have purchased a premium membership in which case you may remove our copyright notice from your privacy statement.</p>
                                     </div>
                                 </div>
                             </div>
@@ -152,7 +152,7 @@
                                 </div>
                                 <div id="collapse11" class="collapse" data-parent="#accordion">
                                     <div class="card-body">
-                                        <p>This Agreement does not transfer from Nature checkout Inc to you any Nature checkout Inc or third party intellectual property, and all right, title and interest in and to such property will remain (as between the parties) solely with Nature checkout Inc. Nature checkout Inc logo, and all other trademarks, service marks, graphics and logos used in connection with Nature checkout Inc, or the Site are trademarks or registered trademarks of Nature checkout Inc or Nature checkout Inc's licensors. Other trademarks, service marks, graphics and logos used in connection with the Site may be the trademarks of other third parties. Your use of the Site grants you no right or license to reproduce or otherwise use any Nature checkout Inc or third-party trademarks.</p>
+                                        <p>This Agreement does not transfer from RUTI self checkout Inc to you any RUTI self checkout Inc or third party intellectual property, and all right, title and interest in and to such property will remain (as between the parties) solely with RUTI self checkout Inc. RUTI self checkout Inc logo, and all other trademarks, service marks, graphics and logos used in connection with RUTI self checkout Inc, or the Site are trademarks or registered trademarks of RUTI self checkout Inc or RUTI self checkout Inc's licensors. Other trademarks, service marks, graphics and logos used in connection with the Site may be the trademarks of other third parties. Your use of the Site grants you no right or license to reproduce or otherwise use any RUTI self checkout Inc or third-party trademarks.</p>
                                     </div>
                                 </div>
                             </div>
@@ -162,7 +162,7 @@
                                 </div>
                                 <div id="collapse12" class="collapse" data-parent="#accordion">
                                     <div class="card-body">
-                                        <p>Nature checkout Inc reserves the right, at its sole discretion, to modify or replace any part of this Agreement. It is your responsibility to check this Agreement periodically for changes. Your continued use of or access to the Site following the posting of any changes to this Agreement constitutes acceptance of those changes. Nature checkout Inc may also, in the future, offer new services and/or features through the Site (including, the release of new tools and resources). Such new features and/or services shall be subject to the terms and conditions of this Agreement.</p>
+                                        <p>RUTI self checkout Inc reserves the right, at its sole discretion, to modify or replace any part of this Agreement. It is your responsibility to check this Agreement periodically for changes. Your continued use of or access to the Site following the posting of any changes to this Agreement constitutes acceptance of those changes. RUTI self checkout Inc may also, in the future, offer new services and/or features through the Site (including, the release of new tools and resources). Such new features and/or services shall be subject to the terms and conditions of this Agreement.</p>
                                     </div>
                                 </div>
                             </div>
@@ -172,7 +172,7 @@
                                 </div>
                                 <div id="collapse13" class="collapse" data-parent="#accordion">
                                     <div class="card-body">
-                                        <p>In no event will Nature checkout Inc, or its suppliers or licensors, be liable with respect to any subject matter of this agreement under any contract, negligence, strict liability or other legal or equitable theory for: (i) any special, incidental or consequential damages; (ii) the cost of procurement or substitute products or services; (iii) for interruption of use or loss or corruption of data; or (iv) for any amounts that exceed the fees paid by you to Nature checkout Inc under this agreement. Nature checkout Inc shall have no liability for any failure or delay due to matters beyond their reasonable control. The foregoing shall not apply to the extent prohibited by applicable law. Nature checkout Inc shall not be liable for any special or consequential damages that result from the use of, or the inability to use, the services and products offered on this site, or the performance of the services and products.</p>
+                                        <p>In no event will RUTI self checkout Inc, or its suppliers or licensors, be liable with respect to any subject matter of this agreement under any contract, negligence, strict liability or other legal or equitable theory for: (i) any special, incidental or consequential damages; (ii) the cost of procurement or substitute products or services; (iii) for interruption of use or loss or corruption of data; or (iv) for any amounts that exceed the fees paid by you to RUTI self checkout Inc under this agreement. RUTI self checkout Inc shall have no liability for any failure or delay due to matters beyond their reasonable control. The foregoing shall not apply to the extent prohibited by applicable law. RUTI self checkout Inc shall not be liable for any special or consequential damages that result from the use of, or the inability to use, the services and products offered on this site, or the performance of the services and products.</p>
                                     </div>
                                 </div>
                             </div>
@@ -182,7 +182,7 @@
                                 </div>
                                 <div id="collapse14" class="collapse" data-parent="#accordion">
                                     <div class="card-body">
-                                        <p>You represent and warrant that (i) your use of the Site will be in strict accordance with the Nature checkout Inc Privacy Policy, with this Agreement and with all applicable laws and regulations (including without limitation any local laws or regulations in your country, state, city, or other governmental area, regarding online conduct and acceptable content, and including all applicable laws regarding the transmission of technical data exported from the United States or the country in which you reside) and (ii) your use of the Site will not infringe or misappropriate the intellectual property rights of any third party.</p>
+                                        <p>You represent and warrant that (i) your use of the Site will be in strict accordance with the RUTI self checkout Inc Privacy Policy, with this Agreement and with all applicable laws and regulations (including without limitation any local laws or regulations in your country, state, city, or other governmental area, regarding online conduct and acceptable content, and including all applicable laws regarding the transmission of technical data exported from the United States or the country in which you reside) and (ii) your use of the Site will not infringe or misappropriate the intellectual property rights of any third party.</p>
                                     </div>
                                 </div>
                             </div>

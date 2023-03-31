@@ -24,7 +24,7 @@ class InvoiceFailedMail extends Mailable
      * @return void
      */
     public function __construct($user, $card)
-    {
+    {   
         $this->user = $user;
         $this->card = $card;
     }
@@ -36,7 +36,7 @@ class InvoiceFailedMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Nature Checkout Subscription: Payment Failed')->view('/email/invoice_failed_mail')->with([
+        return $this->subject('RUTI Self Checkout Subscription: Payment Failed')->view('/email/invoice_failed_mail')->with([
                 'user' => $this->user,
                 'card' => $this->card
             ]);

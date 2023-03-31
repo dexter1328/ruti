@@ -36,7 +36,7 @@ class AdminOTPMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Nature Checkout: Verify Login')->view('/admin/auth/admin_otp')->with([
+        return $this->subject('RUTI Self Checkout: Verify Login')->view('/admin/auth/admin_otp')->with([
                 'otp' => $this->otp,
             ]);
     }
