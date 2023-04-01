@@ -55,42 +55,84 @@
                         <h3 class='sections_coupons_header'>Payment Details</h3>
                         <div class="row m-auto w-100" >
 
-                            <div class="col-lg-12 mb-20  required">
-                                <label>Name on Card <span>*</span></label>
-                                <input
-                                    class='form-control' size='4' type='text' placeholder='Enter Name on Card'>
+                        <div class="row m-auto w-100" >
+                            <div id="accordion" class='payment_accordion mb-2 mx-auto'>
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                      <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed w-100" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <span class='text-dark d-flex justify-content-between'>Pay with Card <span><i class='fa fa-chevron-down'></i></span></span>
+                                        </button>
+                                      </h5>
+                                    </div>
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                      <div class="card-body">
+                                        <div class="col-lg-12 mb-20  required">
+                                           <label>Name on Card <span>*</span></label>
+                                           <input class='form-control' size='4' type='text' placeholder='Enter Name on Card'>
+                                        </div>
+                                        <div class="col-lg-12 mb-20 card required" style="border: none">
+                                            <label>Card Number  <span>*</span></label>
+                                            <input autocomplete='off' class='form-control card-number' size='20' type='text' placeholder='Enter Card Number'>
+                                        </div>
+                                        <div class="col-6 mb-20 cvc required">
+                                            <label>CVC</label>
+                                            <input autocomplete='off' class='form-control card-cvc' placeholder='e.g 415' size='4'type='text'>
+                                        </div>
+                                        <div class="col-6 mb-20 expiration required">
+                                            <label>Expiration Month  <span>*</span></label>
+                                            <input class='form-control card-expiry-month' placeholder='MM' size='2'type='text'>
+                                        </div>
+                                        <div class="col-6 mb-20 expiration required">
+                                            <label>Expiration Year <span>*</span></label>
+                                            <input class='form-control card-expiry-year' placeholder='YYYY' size='4'type='text'>
+                                        </div>
+                                        <div class="col-6 order_button">
+                                            <button  type="submit">Pay Now</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="card">
+                                    <div class="card-header" id="headingTwo">
+                                      <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed w-100" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <span class='text-dark d-flex justify-content-between'>Pay with PayPal <span><i class='fa fa-chevron-down'></i></span></span>
+                                        </button>
+                                      </h5>
+                                    </div>
+                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                      <div class="card-body">
+                                         <form class="form-horizontal" method="POST" id="payment-form" role="form" action="{{route('paypal-payment')}}" >
+                                            {{ csrf_field() }}
+                                            <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
+                                                <label for="amount" class="col-md-4 control-label">Enter Amount</label>
+                                                <div class="col-md-6">
+                                                    <input id="amount" type="text" class="form-control" name="amount" autofocus>
+                                                        @if ($errors->has('amount'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('amount') }}</strong>
+                                                        </span>
+                                                        @endif
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-6 col-md-offset-4">
+                                                    <button type="submit" class="btn btn-primary">
+                                                      Paywith Paypal
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                      </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-lg-12 mb-20 card required" style="border: none">
-                                <label>Card Number  <span>*</span></label>
-                                <input
-                                    autocomplete='off' class='form-control card-number' size='20'
-                                    type='text' placeholder='Enter Card Number'>
-                            </div>
-                            <div class="col-4 mb-20 cvc required">
-                                <label>CVC</label>
-                                <input autocomplete='off' class='form-control card-cvc' placeholder='e.g 415' size='4'
-                                type='text'>
-                            </div>
-
-
-                            <div class="col-4 mb-20 expiration required">
-                                <label>Expiration Month  <span>*</span></label>
-                                <input class='form-control card-expiry-month' placeholder='MM' size='2'
-                                    type='text'>
-                            </div>
-
-                            <div class="col-4 mb-20 expiration required">
-                                <label>Expiration Year <span>*</span></label>
-                                <input class='form-control card-expiry-year' placeholder='YYYY' size='4'
-                                    type='text'>
-                            </div>
-                            <div class="order_button">
-                                <button  type="submit">Pay Now</button>
-                            </div>
+                        </div>
 
                         </div>
                     </form>
-                    {{-- <form class="w3-container w3-display-middle w3-card-4 "
+                    <!-- {{-- <form class="w3-container w3-display-middle w3-card-4 "
                      method="POST"   action="{{route('paypal-payment')}}">
                         {{ csrf_field() }}
                         <h2 class="w3-text-blue">Payment Form</h2>
@@ -124,7 +166,7 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form> -->
 
 
                 </div>
