@@ -25,19 +25,22 @@
                                 <a href="#" class="elevatezoom-gallery active" data-update="" data-image="{{$product->original_image_url}}" data-zoom-image="{{$product->original_image_url}}">
                                     <img src="{{$product->original_image_url}}" alt="zo-th-1"/>
                                 </a>
+
                             </li>
                             @if ($product->extra_img_1)
                             <li>
                                 <a href="#" class="elevatezoom-gallery active" data-update="" data-image="{{$product->extra_img_1}}" data-zoom-image="{{$product->extra_img_1}}">
                                     <img src="{{$product->extra_img_1}}" alt="zo-th-1"/>
                                 </a>
+
                             </li>
                             @endif
                             @if ($product->extra_img_2)
-                            <li>
+                            <li >
                                 <a href="#" class="elevatezoom-gallery active" data-update="" data-image="{{$product->extra_img_2}}" data-zoom-image="{{$product->extra_img_2}}">
                                     <img src="{{$product->extra_img_2}}" alt="zo-th-1"/>
                                 </a>
+
                             </li>
                             @endif
                             @if ($product->extra_img_3)
@@ -45,6 +48,7 @@
                                 <a href="#" class="elevatezoom-gallery active" data-update="" data-image="{{$product->extra_img_3}}" data-zoom-image="{{$product->extra_img_3}}">
                                     <img src="{{$product->extra_img_3}}" alt="zo-th-1"/>
                                 </a>
+
                             </li>
                             @endif
                         </ul>
@@ -53,6 +57,7 @@
             </div>
             <div class="col-lg-7 col-md-7 mt-4 mt-lg-0">
                 <div class="product_d_right">
+                   <form action="#">
                         <span class="shop-details-content"><i class="lnr lnr-checkmark-circle"></i>In Stock</span>
                         <h1><a href="#">{{$product->title}}</a></h1>
                         <div class=" product_ratting">
@@ -64,6 +69,7 @@
                                <li><a href="#"><i class="icon-star"></i></a></li>
                                 <li class="review"><a href="#"> (customer review ) </a></li>
                             </ul> --}}
+
                         </div>
                         <div class="price_box">
                             <span class="current_price">${{number_format((float)$product->retail_price, 2, '.', '')}}</span>
@@ -111,20 +117,23 @@
                             </ul>
                         </div> --}}
                         <div class="quantity-option">
-                            <form action="{{ route('add.to.cart', $product->sku) }}" id="add_to_cart_form">
-                                <div class="d-flex align-items-center mb-3">
-                                    <strong class="pr-3">Quantity</strong>
-                                    @php($maxQty = $product->stock - (session('cart') ? session('cart')[$product->sku]['quantity'] : 0))
-                                    <input type="number" name="quantity" min="1" max="{{ $maxQty }}" value="1" class="form-control text-center" id="prod_qty" style="width:65px;">
+                            {{-- <div class="">
+                                <span>Quantity</span>
+                                <div class="cart-plus-minus">
+                                    <input type="text" value="1">
+                                    <div class="dec qtybutton">-</div><div class="inc qtybutton">+</div>
                                 </div>
-                                <button class="btn btn-secondary-orange" onclick="window.prod_qty.value <= {{$maxQty}} ? window.add_to_cart_form.submit() : alert('You can not add more than {{$maxQty}}')">Add to Cart</button>
+                            </div> --}}
+                            <div class="">
+                                <a class="btn btn-secondary-orange" href="{{ route('add.to.cart', $product->sku) }}"  >add to cart</a>
                                 <a class="btn btn-primary-blue" href="{{ route('product-shop') }}" >Back To Shopping</a>
-                            </form>
+                            </div>
                         </div>
                         @if (Auth::guard('w2bcustomer')->user())
                        <div class="shop-details-Wishlist">
                             <ul>
                                 <li><a href="{{route('wb-wishlist', $product->sku)}}"><i class="lnr lnr-heart"></i><p>Add to Wishlist</p></a></li>
+                                {{-- <li><a href="#"><i class="lnr lnr-chart-bars"></i><p>Compare</p></a></li> --}}
                             </ul>
                         </div>
                         @else
@@ -135,40 +144,14 @@
                             </ul>
                         </div>
                         @endif
-                        @if($product->seller_type=='supplier' && $product->min_wholesale_qty>0)
-                            <div class="my-3">
-                                <strong class="d-block">Wholesale price</strong>
-                                <h4 class="current_price">${{number_format((float)$product->wholesale, 2, '.', '')}}</h4>
-                                <p>Minimum Wholesale Quantity: {{$product->min_wholesale_qty}}</p>
-
-                                @php($wholesale_price_range = json_decode($product->wholesale_price_range ?? '[]', true))
-                                @if(count($wholesale_price_range)>0)
-                                    <strong class="d-block mt-3">Wholesale Price Ranges</strong>
-                                    <table class="table table-sm table-bordered w-50">
-                                        <tr>
-                                            <td>Min</td>
-                                            <td>Max</td>
-                                            <td>Price</td>
-                                        </tr>
-                                        @foreach($wholesale_price_range as $range)
-                                        <tr>
-                                            <td>{{$range['min_order_qty']}}</td>
-                                            <td>{{$range['max_order_qty']}}</td>
-                                            <td>${{number_format($range['wholesale_price'], 2)}}</td>
-                                        </tr>
-                                        @endforeach
-                                    </table>
-                                @endif
-
-
-                            </div>
-                        @endif
                         <div class=" product_d_action mt-4">
                             <h4>Share This Product</h4>
                          </div>
                         <div class="container mt-4 ">
                             {!! $shareComponent !!}
                         </div>
+
+                    </form>
                 </div>
             </div>
         </div>
@@ -176,13 +159,14 @@
 </div>
 <!--product details end-->
 <!--product info start-->
+<section id="reviewspage">
 <div class="product_d_info mb-65">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="product_d_inner">
                     <div class="product_info_button">
-                        <ul class="nav" role="tablist">
+                        <ul class="nav" role="tablist" id="tabb2">
                             <li >
                                 <a class="active" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="false">Description</a>
                             </li>
@@ -202,12 +186,41 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- <div class="tab-pane fade" id="sheet" role="tabpanel" >
+                           <div class="container">
+                                <div class="product_d_table">
+                                    <form action="#">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="first_child">Compositions</td>
+                                        <td>Polyester</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="first_child">Styles</td>
+                                        <td>Girly</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="first_child">Properties</td>
+                                        <td>Short Dress</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                                </div>
+                            </div>
+                            <div class="product_info_content">
+                                <div class="container">
+                                    <p>Fashion has been creating well-designed collections since 2010. The brand offers feminine designs delivering stylish separates and statement dresses which have since evolved into a full ready-to-wear collection in which every item is a vital part of a woman's wardrobe. The result? Cool, easy, chic looks with youthful elegance and unmistakable signature style. All the beautiful pieces are made in Italy and manufactured with the greatest attention. Now Fashion extends to a range of accessories including shoes, hats, belts and more!</p>
+                                </div>
+                            </div>
+                        </div> --}}
 
                         <div class="tab-pane fade" id="reviews" role="tabpanel" >
                             <div class="reviews_wrapper">
                                 <div class="container">
-                                    <h2>{{$ratings->count()}} review for this product</h2>
-                                    @foreach ($ratings as $rating)
+                                        <h2>{{$ratings->count()}} review for this product</h2>
+                                        @foreach ($ratings as $rating)
                                         <div class="reviews_comment_box">
                                             <div class="comment_thmb">
                                                 <img src="{{asset('public/wb/img/blog/comment2.jpg')}}" alt="">
@@ -266,52 +279,59 @@
                                             </div>
 
                                         </div>
-                                    @endforeach
-                                    <div class="comment_title">
-                                        <h2>Add a review </h2>
-                                        <p>Your email address will not be published.  Required fields are marked </p>
-                                    </div>
-                                    <form class="form-horizontal poststars" action="{{route('user-rating')}}" id="addStar" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{$product->sku}}">
+                                        @endforeach
+                                        <div class="comment_title">
+                                            <h2>Add a review </h2>
+                                            <p>Your email address will not be published.  Required fields are marked </p>
+                                        </div>
+                                        <form class="form-horizontal poststars" action="{{route('user-rating')}}" id="addStar" method="POST">
+
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{$product->sku}}">
                                         <div class="product_ratting mb-10 text-left">
                                             <h3>Your rating</h3>
-                                            <div style="position: absolute">
-                                                <input class="star star-5" value="5" id="star-5" type="radio" required name="star"/>
-                                                <label class="star star-5" for="star-5"></label>
-                                                <input class="star star-4" value="4" id="star-4" type="radio" name="star"/>
-                                                <label class="star star-4" for="star-4"></label>
-                                                <input class="star star-3" value="3" id="star-3" type="radio" name="star"/>
-                                                <label class="star star-3" for="star-3"></label>
-                                                <input class="star star-2" value="2" id="star-2" type="radio" name="star"/>
-                                                <label class="star star-2" for="star-2"></label>
-                                                <input class="star star-1" value="1" id="star-1" type="radio" name="star"/>
-                                                <label class="star star-1" for="star-1"></label>
-                                            </div>
-                                        </div>
-                                        <br>
+                                                <div style="position: absolute">
+                                                    <input class="star star-5" value="5" id="star-5" type="radio" required name="star"/>
+                                                    <label class="star star-5" for="star-5"></label>
+                                                    <input class="star star-4" value="4" id="star-4" type="radio" name="star"/>
+                                                    <label class="star star-4" for="star-4"></label>
+                                                    <input class="star star-3" value="3" id="star-3" type="radio" name="star"/>
+                                                    <label class="star star-3" for="star-3"></label>
+                                                    <input class="star star-2" value="2" id="star-2" type="radio" name="star"/>
+                                                    <label class="star star-2" for="star-2"></label>
+                                                    <input class="star star-1" value="1" id="star-1" type="radio" name="star"/>
+                                                    <label class="star star-1" for="star-1"></label>
+
+                                                </div>
+                                            </div><br>
                                         <div class="product_review_form">
-                                            <br>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <label for="review_comment">Your review </label>
-                                                    <textarea name="comment" required id="review_comment" ></textarea>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <label for="review_comment">Your review </label>
+                                                        <textarea name="comment" required id="review_comment" ></textarea>
+                                                    </div>
+                                                    @if (Auth::guard('w2bcustomer')->user())
+
+                                                        <input id="author"  type="hidden" name="user_name" value="{{Auth::guard('w2bcustomer')->user()->first_name}}">
+                                                        <input id="email"  type="hidden" name="user_email" value="{{Auth::guard('w2bcustomer')->user()->email}}">
+
+                                                    @else
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <label for="author">Name</label>
+                                                        <input id="author"  type="text" name="user_name">
+
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <label for="email">Email </label>
+                                                        <input id="email"  type="text" name="user_email">
+                                                    </div>
+                                                    @endif
+
+
+
                                                 </div>
-                                                @if (Auth::guard('w2bcustomer')->user())
-                                                    <input id="author"  type="hidden" name="user_name" value="{{Auth::guard('w2bcustomer')->user()->first_name}}">
-                                                    <input id="email"  type="hidden" name="user_email" value="{{Auth::guard('w2bcustomer')->user()->email}}">
-                                                @else
-                                                <div class="col-lg-6 col-md-6">
-                                                    <label for="author">Name</label>
-                                                    <input id="author"  type="text" name="user_name">
-                                                </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <label for="email">Email </label>
-                                                    <input id="email"  type="text" name="user_email">
-                                                </div>
-                                                @endif
-                                            </div>
-                                            <button type="submit">Submit</button>
+                                                <button type="submit">Submit</button>
                                         </div>
                                     </form>
                                 </div>
@@ -323,6 +343,40 @@
         </div>
     </div>
 </div>
+</section>
+{{-- <section class='w-100 d-flex mb-3 justify-content-center'>
+<div class='m-0 border product_sets mt-2 px-0'>
+                        <h3 class='like_products_heading text-center p-2' >Most Popular Sets</h3>
+                        <hr>
+                        <div class='p-3 d-flex sets_div justify-content-center main_parent_div'>
+                        <div class='more_products sets ml-2 py-2 px-4'>
+                            <img src="{{$product->original_image_url}}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>The Clean Routine Set</h5>
+                                <h5>$ 165</h5>
+                                <div><button class='set-search'><i class="fa fa-search"></i></button> <button class='set-select sold' >Sold Out</button></div>
+                            </div>
+                        </div>
+                        <div class='more_products sets py-2 px-4'>
+                            <img src="{{$product->original_image_url}}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>The Clear Sound Set</h5>
+                                <h5>$ 68</h5>
+                                <div><button class='set-search'><i class="fa fa-search"></i></button> <button class='set-select' >Select</button></div>
+                            </div>
+                        </div>
+                        <div class='more_products sets py-2 px-4'>
+                            <img src="{{$product->original_image_url}}" class='more_products_img'  alt="">
+                            <div class='products_title'>
+                                <h5>The Car Washing Set</h5>
+                                <h5>$ 83</h5>
+                                <div><button class='set-search'><i class="fa fa-search"></i></button> <button class='set-select' >Select</button></div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+</section> --}}
 <!--product info end-->
 <!--product area start-->
 <section class="product_area related_products">
@@ -336,7 +390,7 @@
         </div>
         <div class="row">
             @foreach ($related_products as $p)
-            <div class="col-3">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
             <article class="single_product">
                 <figure>
                     <div class="product_thumb">
@@ -406,5 +460,10 @@
     });
 });
 </script>
-
+<script>
+    //redirect to specific tab
+    $(document).ready(function () {
+    $('#tabb2 a[href="#reviews"]').tab('show')
+    });
+    </script>
 @endsection

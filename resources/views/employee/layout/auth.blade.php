@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'RUTI Self Checkout') }}</title>
+    <title>{{ config('app.name', 'Nature Checkout') }}</title>
 
     <!--favicon-->
     <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">

@@ -36,8 +36,8 @@ class VendorCouponsController extends Controller
 	}
 
 	public function index()
-	{
-		$vendor_coupans = VendorCoupons::vendor()->leftjoin('vendor_coupons_useds','vendor_coupons_useds.coupon_id','vendor_coupons.id')
+	{   
+		$vendor_coupans = VendorCoupons::leftjoin('vendor_coupons_useds','vendor_coupons_useds.coupon_id','vendor_coupons.id')
 							->join('vendors','vendors.id','=','vendor_coupons.vender_id')
 								->join('vendor_stores','vendor_stores.id','=','vendor_coupons.store_id')
 								->selectRaw('count(vendor_coupons_useds.coupon_id) as count_used_coupon,
@@ -50,7 +50,7 @@ class VendorCouponsController extends Controller
 										vendor_coupons.start_date,
 										vendor_coupons.end_date,
 										vendor_coupons.discount,
-										vendor_coupons.coupon_status')
+										vendor_coupons.coupon_status') 
 								->groupBy('vendor_coupons.id')
 								// ->where('vendor_coupons.coupon_status','verified')
 								->get();
@@ -64,8 +64,8 @@ class VendorCouponsController extends Controller
 	*/
 	public function create()
 	{
-		$vendors = Vendor::vendor()->where('parent_id',0)->get();
-		$vendor_stores = VendorStore::vendor()->get();
+		$vendors = Vendor::where('parent_id',0)->get();
+		$vendor_stores = VendorStore::all();
 		$users = User::all();
 		return view('admin/vendor_coupons/create',compact('vendors','vendor_stores','users'));
 	}
@@ -114,19 +114,19 @@ class VendorCouponsController extends Controller
 		$vendors_coupon->end_date = date("Y-m-d", strtotime($request->input('end_date')));
 		$vendors_coupon->status = $request->input('status');
 		$vendors_coupon->created_by =Auth::user()->id;
-
+		
 
 		if ($files = $request->file('image')){
 			$path = 'public/images/vendors_coupan';
 			$profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-			$files->move($path, $profileImage);
+			$files->move($path, $profileImage);   
 			$vendors_coupon->image = $profileImage;
 		}
 
 		$vendors_coupon->save();
 
 		if($request->users) {
-
+			
             foreach ($request->users as $key => $value) {
 
             	if($this->checkUserApplicable($value, $vendors_coupon->id)){
@@ -150,12 +150,12 @@ class VendorCouponsController extends Controller
 	*/
 	public function show($id)
 	{
-		$vendor_coupon = VendorCoupons::vendor()->find($id);
+		$vendor_coupon = VendorCoupons::find($id);
 		if($vendor_coupon->status == 'enable'){
-			VendorCoupons::vendor()->where('id',$id)->update(array('status' => 'disable'));
+			VendorCoupons::where('id',$id)->update(array('status' => 'disable'));
 			echo json_encode('disable');
 		}else{
-			VendorCoupons::vendor()->where('id',$id)->update(array('status' => 'enable'));
+			VendorCoupons::where('id',$id)->update(array('status' => 'enable'));
 			echo json_encode('enable');
 		}
 	}
@@ -168,8 +168,8 @@ class VendorCouponsController extends Controller
 	*/
 	public function edit(VendorCoupons $vendor_coupon)
 	{
-		$vendors = Vendor::vendor()->where('parent_id',0)->get();
-		$vendor_stores = VendorStore::vendor()->get();
+		$vendors = Vendor::where('parent_id',0)->get();
+		$vendor_stores = VendorStore::all();
 		$vendor_categories = Category::all();
 		$users = User::where('status','active')->get();
         $discount_users = UserCoupon::where('coupon_id',$vendor_coupon->id)->pluck('user_id')->toArray();
@@ -209,7 +209,7 @@ class VendorCouponsController extends Controller
 		}else{
 			$coupon_status = $request->coupon_status;
 		}
-
+		
 		$data = array('vender_id'=> $request->input('vendor_id'),
 					'store_id' => $request->input('store_id'),
 					'brand_id' => $request->input('brand'),
@@ -229,11 +229,11 @@ class VendorCouponsController extends Controller
 		if ($files = $request->file('image')){
 			$path = 'public/images/vendors_coupan';
 			$profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-			$files->move($path, $profileImage);
+			$files->move($path, $profileImage);   
 			$data['image'] = $profileImage;
 		}
-
-		VendorCoupons::vendor()->where('id',$id)->update($data);
+		
+		VendorCoupons::where('id',$id)->update($data);
 
 		UserCoupon::where('coupon_id',$id)->delete();
 
@@ -261,7 +261,7 @@ class VendorCouponsController extends Controller
 	* @return \Illuminate\Http\Response
 	*/
 	public function destroy(VendorCoupons $vendor_coupon)
-	{
+	{	
 		UserCoupon::where('coupon_id',$vendor_coupon->id)->delete();
 		$vendor_coupon->delete();
 		return redirect('/admin/vendor_coupons')->with('success',"Coupon has been deleted.");
@@ -288,12 +288,12 @@ class VendorCouponsController extends Controller
 
 	public function couponStatus($id)
 	{
-		$vendor_coupon = VendorCoupons::vendor()->find($id);
+		$vendor_coupon = VendorCoupons::find($id);
 		if($vendor_coupon->status == 'enable'){
-			VendorCoupons::vendor()->where('id',$id)->update(array('status' => 'disable'));
+			VendorCoupons::where('id',$id)->update(array('status' => 'disable'));
 			echo json_encode('disable');
 		}else{
-			VendorCoupons::vendor()->where('id',$id)->update(array('status' => 'enable'));
+			VendorCoupons::where('id',$id)->update(array('status' => 'enable'));
 			echo json_encode('enable');
 		}
 	}
@@ -310,7 +310,7 @@ class VendorCouponsController extends Controller
 
 	public function unverifiedVendorCoupon()
 	{
-		$vendor_coupans = VendorCoupons::vendor()->leftjoin('vendor_coupons_useds','vendor_coupons_useds.coupon_id','vendor_coupons.id')
+		$vendor_coupans = VendorCoupons::leftjoin('vendor_coupons_useds','vendor_coupons_useds.coupon_id','vendor_coupons.id')
 							->join('vendors','vendors.id','=','vendor_coupons.vender_id')
 								->join('vendor_stores','vendor_stores.id','=','vendor_coupons.store_id')
 								->selectRaw('count(vendor_coupons_useds.coupon_id) as count_used_coupon,
@@ -323,7 +323,7 @@ class VendorCouponsController extends Controller
 										vendor_coupons.start_date,
 										vendor_coupons.end_date,
 										vendor_coupons.discount,
-										vendor_coupons.coupon_status')
+										vendor_coupons.coupon_status') 
 								->groupBy('vendor_coupons.id')
 								->where('vendor_coupons.coupon_status','unverified')
 								->get();
@@ -333,15 +333,15 @@ class VendorCouponsController extends Controller
 	public function verifiedVendorCoupon($id)
 	{
 		$data = array('coupon_status'=> 'verified');
-		VendorCoupons::vendor()->where('id',$id)->update($data);
+		VendorCoupons::where('id',$id)->update($data);
 		return redirect('/admin/vendor_coupons/unverified')->with('success',"Coupon has been Verified.");
 	}
 
 	public function verifiedEditVendorCoupon($id)
 	{
-		$vendor_coupon = VendorCoupons::vendor()->where('id',$id)->first();
-		$vendors = Vendor::vendor()->where('parent_id',0)->get();
-		$vendor_stores = VendorStore::vendor()->get();
+		$vendor_coupon = VendorCoupons::where('id',$id)->first();
+		$vendors = Vendor::where('parent_id',0)->get();
+		$vendor_stores = VendorStore::all();
 		$vendor_categories = Category::all();
 		$users = User::where('status','active')->get();
         $discount_users = UserCoupon::where('coupon_id',$id)->pluck('user_id')->toArray();

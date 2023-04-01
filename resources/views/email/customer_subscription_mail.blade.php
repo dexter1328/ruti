@@ -1,6 +1,6 @@
 @extends('email.layout')
 
-@section('title', 'RUTI Self Checkout Subscription')
+@section('title', 'Nature Checkout Subscription')
 @section('content')
 	<div>
 		<h3 style="text-align: center;">${{$new_subscription->membershipItem->price}} payment for "{{$new_subscription->membership->name.' '.$new_subscription->membershipItem->billing_period.'ly'}} Subscription" was successful.</h3>
@@ -15,6 +15,6 @@
 			<p>We will adjust the proration price in your next billing.</p>
 		@endif
 		<br>
-		<p>Thanks, <br> RUTI Self Checkout Team</p>
+		<p>Thanks, <br> Nature Checkout Team</p>
 	</div>
 @endsection

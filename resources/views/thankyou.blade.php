@@ -6,11 +6,12 @@
 
     <!-- terms-condition start -->
     <section id="inner-main-content">
-        <div class="container my-5">
+        <h4 class="heading" style="font-size: 33px !important;">Thank You For Choosing Nature Checkout. Please check your email for further update.</h4>
+        <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-10 col-offset-md-1">
-                    <div class="font-para text-center">
-                        <h4 style="font-size: 33px !important; line-height: 2">Thank You For Choosing RUTI Self Checkout. <br> Please check your email for further update.</h4>
+                    <div class="font-para">
+                        <p></p>
                     </div>
                 </div>
             </div>

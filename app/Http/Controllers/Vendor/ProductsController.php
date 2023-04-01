@@ -42,7 +42,7 @@ class ProductsController extends Controller
 	}
 
 	public function index()
-	{
+	{   
 		$store_ids = getVendorStore();
 		$vendor_stores = VendorStore::whereIn('id', $store_ids)->get();
 		/*$products = Products::join('vendors','vendors.id','=','products.vendor_id')
@@ -50,17 +50,17 @@ class ProductsController extends Controller
 							->leftJoin('categories','categories.id','=','products.category_id')
 							->leftJoin('brands','brands.id','=','products.brand_id')
 							->select('vendors.name as owner_name','vendor_stores.name as store_name',
-									'categories.name as category_name','brands.name as brand_name','products.id','products.title','products.type','products.status')
+									'categories.name as category_name','brands.name as brand_name','products.id','products.title','products.type','products.status') 
 							->whereIn('vendor_stores.id', $store_ids)
 							->get();*/
-
+		
 		return view('vendor/products/index',compact('vendor_stores'));
 	}
 
 	public function productDatatable(request $request)
-    {
+    { 
     	$store_ids = getVendorStore();
-    	$columns = array(
+    	$columns = array( 
 			0 => 'vendor',
 			1 => 'store',
 			2 => 'title',
@@ -71,16 +71,16 @@ class ProductsController extends Controller
 							->leftJoin('categories','categories.id','=','products.category_id')
 							->leftJoin('brands','brands.id','=','products.brand_id')
 							->select('vendors.name as owner_name','vendor_stores.name as store_name',
-									'categories.name as category_name','brands.name as brand_name','products.id','products.title','products.type','products.status')
+									'categories.name as category_name','brands.name as brand_name','products.id','products.title','products.type','products.status') 
 							->whereIn('vendor_stores.id', $store_ids)
 							->get()
 							->count();
 
-        $totalFiltered = $totalData;
+        $totalFiltered = $totalData; 
 
 		$limit = $request->input('length');
 		$start = $request->input('start');
-
+		
 		$order = $columns[$request->input('order.0.column')];
 		$dir = $request->input('order.0.dir');
 
@@ -92,18 +92,18 @@ class ProductsController extends Controller
 							->leftJoin('categories','categories.id','=','products.category_id')
 							->leftJoin('brands','brands.id','=','products.brand_id')
 							->select('vendors.name as owner_name','vendor_stores.name as store_name',
-									'categories.name as category_name','brands.name as brand_name','products.id','products.title','products.type','products.status')
+									'categories.name as category_name','brands.name as brand_name','products.id','products.title','products.type','products.status') 
 							->whereIn('vendor_stores.id', $store_ids)
 							->offset($start)
 							->limit($limit)
 							->orderBy('products.id','DESC')
 							->get();
-
+			
 		}else{
 
-			$search = $request->input('search.value');
+			$search = $request->input('search.value'); 
 
-
+           
 			$products = Products::join('vendors','vendors.id','=','products.vendor_id')
 							->leftJoin('vendor_stores','vendor_stores.id','=','products.store_id')
 							->leftJoin('categories','categories.id','=','products.category_id')
@@ -119,18 +119,18 @@ class ProductsController extends Controller
 			});
 			//$products = $products->orHavingRaw('Find_In_Set("'.$search.'", attribute_value_names) > 0');
 
-			$totalFiltered = $products;
-			$totalFiltered = $totalFiltered->get()->count();
+			$totalFiltered = $products; 
+			$totalFiltered = $totalFiltered->get()->count(); 
 
 			$products = $products->offset($start)
 				->limit($limit)
 				->orderBy('products.id')
 				->get();
 		}
-
+      
         $data = array();
 		if($products->isNotEmpty())
-		{
+		{	
 			foreach ($products as $key => $product)
 			{
 				// @if($admin->status=='active')color:#009933;@else color: #ff0000;@endif
@@ -140,7 +140,7 @@ class ProductsController extends Controller
 				}else{
 					$color ='color:#ff0000;';
 				}
-
+				
 				$nestedData['vendor'] = $product->owner_name;
 				$nestedData['store'] = $product->store_name;
 				$nestedData['title'] = $product->title;
@@ -153,9 +153,12 @@ class ProductsController extends Controller
 											<a href="javascript:void(0);" onclick="deleteRow('.$product->id.')" data-toggle="tooltip" data-placement="bottom" title="Delete Vendor">
 												<i class="icon-trash icons"></i>
 											</a>
+
 											<a href="javascript:void(0);" onclick="changeStatus('.$product->id.')" >
 										 		<i class="fa fa-circle status_'.$product->id.'" style="'.$color.'" id="enable_'.$product->id.'" data-toggle="tooltip" data-placement="bottom" title="Change Status" ></i>
 											</a>
+
+												
 										</form>';
 				$data[] = $nestedData;
 			}
@@ -163,10 +166,10 @@ class ProductsController extends Controller
 		}
 
 		$json_data = array(
-			"draw"            => intval($request->input('draw')),
-			"recordsTotal"    => intval($totalData),
-			"recordsFiltered" => intval($totalFiltered),
-			"data"            => $data
+			"draw"            => intval($request->input('draw')),  
+			"recordsTotal"    => intval($totalData),  
+			"recordsFiltered" => intval($totalFiltered), 
+			"data"            => $data   
 		);
 
 		echo json_encode($json_data);exit();
@@ -178,7 +181,7 @@ class ProductsController extends Controller
 	* @return \Illuminate\Http\Response
 	*/
 	public function create()
-	{
+	{   
 		$attributes = Attribute::all();
 		$store_ids = getVendorStore();
 		$vendor_stores = VendorStore::whereIn('id', $store_ids)->get();
@@ -192,8 +195,8 @@ class ProductsController extends Controller
 	* @return \Illuminate\Http\Response
 	*/
 	public function store(Request $request)
-	{
-
+	{	
+		
 		$request->validate([
 			'store' => 'required',
 			'title' => 'required',
@@ -204,23 +207,23 @@ class ProductsController extends Controller
 			'lowstock_threshold' => 'required',
 			'image' => 'required'
 		]);
-
+		
 		if($request->attribute)
 		{
 			$type = 'group';
-
+			
 				$attribute = implode(',',$request->attribute);
 				$attribute_value_id = implode(',',$request->attribute_values);
-
-
-
+			
+			
+			
 		}else{
 			$type = 'single';
 			$attribute_value_id = NULL;
 			$attribute = NULL;
 		}
-
-
+		
+		
 		$products = new Products;
 		$products->vendor_id = Auth::user()->id;
 		$products->store_id = $request->input('store');
@@ -240,14 +243,14 @@ class ProductsController extends Controller
 		$product_variants->product_id = $products->id;
 		$product_variants->attribute_id = $attribute;
 		$product_variants->attribute_value_id = $attribute_value_id;
-		$product_variants->sku_uniquecode = $request->sku;
-		$product_variants->quantity = $request->quantity;
-		$product_variants->price = $request->regular_price;
-		$product_variants->discount = $request->discount;
+		$product_variants->sku_uniquecode = $request->sku; 
+		$product_variants->quantity = $request->quantity; 
+		$product_variants->price = $request->regular_price; 
+		$product_variants->discount = $request->discount; 
 		$product_variants->lowstock_threshold = $request->lowstock_threshold;
 		$product_variants->barcode = $products->id;
 		$product_variants->created_by = Auth::user()->id;
-
+	
 		$product_variants->save();
 
 		if($request->file('image')){
@@ -255,7 +258,7 @@ class ProductsController extends Controller
 
 				$path = 'public/images/product_images';
 				$profileImage = date('YmdHis') .$key ."." . $images->getClientOriginalExtension();
-				$images->move($path, $profileImage);
+				$images->move($path, $profileImage); 
 				$product_images = new ProductImages;
 				$product_images->product_id = $products->id;
 				$product_images->variant_id = $product_variants->id;
@@ -284,7 +287,7 @@ class ProductsController extends Controller
 	*/
 	public function show($id)
 	{
-
+		
 	}
 
 	public function addAttributeSet($lngth)
@@ -303,7 +306,7 @@ class ProductsController extends Controller
 			->where('attribute_values.store_id',$attribute->store_id)
 			->get();
 		$first = Arr::first($attribute_values);
-
+		
 		$str = '';
 		$str .= '<div class="row">';
 			$str .= '<div class="col-xs-12 col-md-6">';
@@ -339,10 +342,10 @@ class ProductsController extends Controller
 	*/
 	public function edit(Products $product)
 	{
-
+		
 		$store_ids = getVendorStore();
 		$product_variants = ProductVariants::where('product_id',$product->id)->get();
-
+		
 		$lngth = $product_variants->count();
 		$attributes = Attribute::all();
 		$vendor_stores = VendorStore::whereIn('id', $store_ids)->get();
@@ -373,13 +376,13 @@ class ProductsController extends Controller
 			$type = 'group';
 			$attribute = implode(',',$request->attribute);
 			$attribute_value_id = implode(',',$request->attribute_values);
-
+			
 		}else{
 			$type = 'single';
 			$attribute_value_id = NULL;
 			$attribute = NULL;
 		}
-
+		
 		$product->vendor_id = Auth::user()->id;
 		$product->store_id = $request->input('store');
 		$product->title = $request->input('title');
@@ -419,7 +422,7 @@ class ProductsController extends Controller
 
 				$path = 'public/images/product_images';
 				$profileImage = date('YmdHis') .$key ."." . $images->getClientOriginalExtension();
-				$images->move($path, $profileImage);
+				$images->move($path, $profileImage); 
 				$product_images = new ProductImages;
 				$product_images->product_id = $product->id;
 				$product_images->variant_id = $request->group_product_variants_id;
@@ -428,7 +431,7 @@ class ProductsController extends Controller
 				$product_images->save();
 			}
 		}
-		return redirect('/vendor/products')->with('success',"Product has been updated.");
+		return redirect('/vendor/products')->with('success',"Product has been updated.");		
 	}
 
 	/**
@@ -445,7 +448,7 @@ class ProductsController extends Controller
 	}
 
 	public function inventory()
-	{
+	{ 
 		$store_ids = getVendorStore();
 		$stores = VendorStore::whereIn('id', $store_ids)->get();
 		return view('vendor.products.inventory', compact('stores'));
@@ -453,8 +456,8 @@ class ProductsController extends Controller
 
 	public function getInventory(Request $request)
 	{
-		$columns = array(
-			//0 => 'id',
+		$columns = array( 
+			//0 => 'id', 
 			0 => 'title',
 			1 => 'variants',
 			2 => 'sku',
@@ -465,10 +468,10 @@ class ProductsController extends Controller
 
 		$totalData = ProductVariants::select(
 					'products.title',
-					'product_variants.id',
-					'product_variants.sku_uniquecode',
-					'product_variants.quantity',
-					'product_variants.price',
+					'product_variants.id',  
+					'product_variants.sku_uniquecode', 
+					'product_variants.quantity', 
+					'product_variants.price', 
 					'product_variants.discount',
 					DB::raw("GROUP_CONCAT(attribute_values.name SEPARATOR ' | ') as attribute_value_names")
 				)
@@ -479,7 +482,7 @@ class ProductsController extends Controller
 				->get()
 				->count();
 
-		$totalFiltered = $totalData;
+		$totalFiltered = $totalData; 
 
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -494,10 +497,10 @@ class ProductsController extends Controller
 		if(empty($request->input('search.value')) && $store_id == '' && $brand_id == '' && $category_id == ''){
 			$products = ProductVariants::select(
 					'products.title',
-					'product_variants.id',
-					'product_variants.sku_uniquecode',
-					'product_variants.quantity',
-					'product_variants.price',
+					'product_variants.id',  
+					'product_variants.sku_uniquecode', 
+					'product_variants.quantity', 
+					'product_variants.price', 
 					'product_variants.discount',
 					DB::raw("GROUP_CONCAT(attribute_values.name SEPARATOR ' | ') as attribute_value_names")
 				)
@@ -512,14 +515,14 @@ class ProductsController extends Controller
 
 		}else{
 
-			$search = $request->input('search.value');
+			$search = $request->input('search.value'); 
 
 			$products = ProductVariants::select(
 					'products.title',
-					'product_variants.id',
-					'product_variants.sku_uniquecode',
-					'product_variants.quantity',
-					'product_variants.price',
+					'product_variants.id',  
+					'product_variants.sku_uniquecode', 
+					'product_variants.quantity', 
+					'product_variants.price', 
 					'product_variants.discount',
 					DB::raw("GROUP_CONCAT(attribute_values.name SEPARATOR ' | ') as attribute_value_names")
 				)
@@ -555,8 +558,8 @@ class ProductsController extends Controller
 			$products = $products->groupBy('product_variants.id');
 			//$products = $products->orHavingRaw('Find_In_Set("'.$search.'", attribute_value_names) > 0');
 
-			$totalFiltered = $products;
-			$totalFiltered = $totalFiltered->get()->count();
+			$totalFiltered = $products; 
+			$totalFiltered = $totalFiltered->get()->count(); 
 
 			$products = $products->offset($start)
 				->limit($limit)
@@ -584,10 +587,10 @@ class ProductsController extends Controller
 		}
 
 		$json_data = array(
-			"draw"            => intval($request->input('draw')),
-			"recordsTotal"    => intval($totalData),
-			"recordsFiltered" => intval($totalFiltered),
-			"data"            => $data
+			"draw"            => intval($request->input('draw')),  
+			"recordsTotal"    => intval($totalData),  
+			"recordsFiltered" => intval($totalFiltered), 
+			"data"            => $data   
 		);
 		echo json_encode($json_data);exit();
 	}
@@ -623,7 +626,7 @@ class ProductsController extends Controller
 				$new_price = $product_variant->price;
 				$new_discount = $request->discount;
 				$this->priceDropAlertNotification($id, $title, $old_price, $old_discount, $new_price, $new_discount);
-
+				
 				$product_variant->discount = $request->get('discount');
 				$product_variant->save();
 			}
@@ -664,17 +667,17 @@ class ProductsController extends Controller
 
 			$old_selling_price = $old_price - ($old_price * ($old_discount / 100));
 			$new_selling_price = $new_price - ($new_price * ($new_discount / 100));
-
+			
 			if($new_selling_price < $old_selling_price) {
 
 				$percentChange = (($new_selling_price - $old_selling_price)  / $old_selling_price) * 100;
 				$percentChange = abs(number_format($percentChange, 2));
 
-				$price_drop_prcnt_setting = DB::table('settings')->where('key','price_drop_alert')->first();
+				$price_drop_prcnt_setting = DB::table('settings')->where('key','price_drop_alert')->first(); 
 				if(!empty($price_drop_prcnt_setting) && isset($price_drop_prcnt_setting->value) && $price_drop_prcnt_setting->value <= $percentChange) {
 
 					Notification::updateOrCreate([
-							'reference_id' => $id,
+							'reference_id' => $id, 
 							'type' => 'price_drop',
 						], [
 							'title' => 'Price Drop Alert',
@@ -692,15 +695,15 @@ class ProductsController extends Controller
 		$vendor_stores = VendorStore::whereIn('id', $store_ids)->get();
 		return view('vendor.products.barcode', compact('vendor_stores'));
 	}
-
+	
 	public function getBarcodeProducts(Request $request)
 	{
 		$store_id = ($request->has('store_id') ? $request->store_id : '');
 
 		$store_ids = getVendorStore();
 
-		$columns = array(
-			//0 => 'id',
+		$columns = array( 
+			//0 => 'id', 
 			0 => 'checkbox',
 			1 => 'products',
 			2 => 'quantity',
@@ -712,7 +715,7 @@ class ProductsController extends Controller
 							->get()
 							->count();
 
-		$totalFiltered = $totalData;
+		$totalFiltered = $totalData; 
 
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -735,23 +738,23 @@ class ProductsController extends Controller
 
 		}else{
 
-			$search = $request->input('search.value');
+			$search = $request->input('search.value'); 
 			$products = Products::select('products.id','products.title','product_variants.barcode','product_variants.quantity')
 				->join('product_variants','product_variants.product_id','products.id')
 				->join('vendor_stores','vendor_stores.id','=','products.store_id')
 				->whereIn('vendor_stores.id', $store_ids);
-
+			
 			if($request->store_id != ''){
 				$products = $products->where('products.store_id', $request->store_id);
 			}
-
+			
 			$products = $products->where(function($query) use ($search){
 				$query->where('products.title', 'LIKE', "%{$search}%")
 					->orWhere('product_variants.quantity', 'LIKE', "%{$search}%");
 			});
 
-			$totalFiltered = $products;
-			$totalFiltered = $totalFiltered->get()->count();
+			$totalFiltered = $products; 
+			$totalFiltered = $totalFiltered->get()->count(); 
 
 			$products = $products->offset($start)
 				->limit($limit)
@@ -763,7 +766,7 @@ class ProductsController extends Controller
 		if($products->isNotEmpty())
 		{
 			foreach ($products as $key => $product) {
-
+				
 				$nestedData['checkbox'] = '<input class="check-row" type="checkbox" name="barcode" value="'.$product->barcode.'"/>';
 				$nestedData['products'] = $product->title;
 				$nestedData['quantity'] = $product->quantity;
@@ -773,10 +776,10 @@ class ProductsController extends Controller
 		}
 
 		$json_data = array(
-			"draw"            => intval($request->input('draw')),
-			"recordsTotal"    => intval($totalData),
-			"recordsFiltered" => intval($totalFiltered),
-			"data"            => $data
+			"draw"            => intval($request->input('draw')), 
+			"recordsTotal"    => intval($totalData),  
+			"recordsFiltered" => intval($totalFiltered), 
+			"data"            => $data   
 		);
 
 		echo json_encode($json_data);exit();
@@ -868,8 +871,8 @@ class ProductsController extends Controller
 		        while(!feof($fileD)) {
 
 		            $rowData = fgetcsv($fileD);
-
-					if(!empty($rowData)) {
+		            
+					if(!empty($rowData)) {	
 
 						$row = array(
 							'title' => $rowData[0],
@@ -941,7 +944,7 @@ class ProductsController extends Controller
 			'Attribute Value',
 			'Images'
 		);
-
+		
 		header('Content-type: application/csv');
 		header('Content-Disposition: attachment; filename='.$filename);
 		fputcsv($fp, $header);
@@ -979,7 +982,7 @@ class ProductsController extends Controller
 
 		$image_url = url('/public/images/product_images/');
 		foreach ($products_data as $key => $value) {
-
+			
 			$images = DB::table('product_images')
 				->select(DB::raw("CONCAT('".$image_url."/', image) AS image"))
 				->where('product_id',$value->id)
@@ -1006,11 +1009,11 @@ class ProductsController extends Controller
 				'attribute_value' => $value->attribute_value,
 				'Images' => $images
 			);
-
+			
 			fputcsv($fp, $data);
 		}
 		Helper::addToLog('Export Product',Auth::user()->id);
 		exit();
 	}
-
+	
 }

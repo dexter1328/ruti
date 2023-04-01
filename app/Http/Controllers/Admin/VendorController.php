@@ -42,22 +42,22 @@ class VendorController extends Controller
 
 	public function index()
 	{
-		// $vendors = Vendor::vendor()->get();
+		// $vendors = Vendor::all();
 		return view('admin/vendors/index');
 	}
 
 	public function view(request $request)
     {
-    	$columns = array(
+    	$columns = array( 
 			0 => 'name',
 			1 => 'pincode',
 			2 => 'mobile_number',
 			3 => 'email',
 			4 => 'action'
 		);
-		$totalData = Vendor::vendor()->count();
+		$totalData = Vendor::count();
 
-        $totalFiltered = $totalData;
+        $totalFiltered = $totalData; 
 
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -67,7 +67,7 @@ class VendorController extends Controller
 
 		if(empty($request->input('search.value'))){
 
-			$vendors = Vendor::vendor()->select('vendors.name', 'vendors.pincode', 'vendors.mobile_number', 'vendors.email', 'vendors.id','vendors.status')
+			$vendors = Vendor::select('vendors.name', 'vendors.pincode', 'vendors.mobile_number', 'vendors.email', 'vendors.id','vendors.status')
 				->offset($start)
 				->limit($limit)
 				->orderBy($order,$dir)
@@ -75,10 +75,10 @@ class VendorController extends Controller
 
 		}else{
 
-			$search = $request->input('search.value');
+			$search = $request->input('search.value'); 
 
-
-			$vendors = Vendor::vendor()->select('vendors.name', 'vendors.pincode', 'vendors.mobile_number', 'vendors.email', 'vendors.id','vendors.status');
+           
+			$vendors = Vendor::select('vendors.name', 'vendors.pincode', 'vendors.mobile_number', 'vendors.email', 'vendors.id','vendors.status');
 
 	        	$vendors = $vendors->where(function($query) use ($search){
 				$query->where('vendors.name', 'LIKE',"%{$search}%")
@@ -89,18 +89,18 @@ class VendorController extends Controller
 			});
 			//$products = $products->orHavingRaw('Find_In_Set("'.$search.'", attribute_value_names) > 0');
 
-			$totalFiltered = $vendors;
-			$totalFiltered = $totalFiltered->get()->count();
+			$totalFiltered = $vendors; 
+			$totalFiltered = $totalFiltered->get()->count(); 
 
 			$vendors = $vendors->offset($start)
 				->limit($limit)
 				->orderBy($order,$dir)
 				->get();
 		}
-
+      
         $data = array();
 		if($vendors->isNotEmpty())
-		{
+		{	
 			foreach ($vendors as $key => $vendor)
 			{
 				// @if($admin->status=='active')color:#009933;@else color: #ff0000;@endif
@@ -111,7 +111,7 @@ class VendorController extends Controller
 					$color ='color:#ff0000;';
 				}
 				$cfm_msg = 'Are you sure?';
-
+				
 				$nestedData['name'] = $vendor->name;
 				$nestedData['pincode'] = $vendor->pincode;
 				$nestedData['mobile_number'] = $vendor->mobile_number;
@@ -138,7 +138,7 @@ class VendorController extends Controller
 										 		<i class="fa fa-circle status_'.$vendor->id.'" style="'.$color.'" id="active_'.$vendor->id.'" data-toggle="tooltip" data-placement="bottom" title="Change Status" ></i>
 											</a>
 
-
+												
 										</form>';
 				$data[] = $nestedData;
 			}
@@ -146,10 +146,10 @@ class VendorController extends Controller
 		}
 
 		$json_data = array(
-			"draw"            => intval($request->input('draw')),
-			"recordsTotal"    => intval($totalData),
-			"recordsFiltered" => intval($totalFiltered),
-			"data"            => $data
+			"draw"            => intval($request->input('draw')),  
+			"recordsTotal"    => intval($totalData),  
+			"recordsFiltered" => intval($totalFiltered), 
+			"data"            => $data   
 		);
 
 		echo json_encode($json_data);exit();
@@ -198,7 +198,7 @@ class VendorController extends Controller
 		$sales = Sales::updateOrCreate(
 			['mobile' => $request->sales_person_mobile_number],
 			['name' => $request->sales_person_name]
-		);
+		);  
 
 		$data = array(
 			'sales_id' => $sales->id,
@@ -225,7 +225,7 @@ class VendorController extends Controller
 		if ($files = $request->file('image')){
 			$path = 'public/images/vendors';
 			$profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-			$files->move($path, $profileImage);
+			$files->move($path, $profileImage);   
 			$data['image'] = $profileImage;
 		}
 
@@ -254,9 +254,9 @@ class VendorController extends Controller
 	*/
 	public function show($id)
 	{
-		$vendor = Vendor::vendor()->find($id);
+		$vendor = Vendor::find($id);
 		if($vendor->status == 'active'){
-			Vendor::vendor()->where('id',$id)->update(array('status' => 'deactive'));
+			Vendor::where('id',$id)->update(array('status' => 'deactive'));
 			echo json_encode('deactive');
 		}else{
 			/*if($vendor->verification == 'no'){
@@ -264,7 +264,7 @@ class VendorController extends Controller
 				$name = $vendor->name;
 				Mail::to($email)->send(new VendorVerificationMail($email,$name));
 			}*/
-			Vendor::vendor()->where('id',$id)->update(array('status' => 'active'));
+			Vendor::where('id',$id)->update(array('status' => 'active'));
 			echo json_encode('active');
 		}
 	}
@@ -309,7 +309,7 @@ class VendorController extends Controller
 		$sales = Sales::updateOrCreate(
 			['mobile' => $request->sales_person_mobile_number],
 			['name' => $request->sales_person_name]
-		);
+		);     
 
 		$data = array(
 			'sales_id' => $sales->id,
@@ -333,22 +333,22 @@ class VendorController extends Controller
 		if ($files = $request->file('image')){
 			$path = 'public/images/vendors';
 			$profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-			$files->move($path, $profileImage);
+			$files->move($path, $profileImage);   
 			$data['image'] = $profileImage;
 		}
-
-		Vendor::vendor()->where('id',$id)->update($data);
-
+		
+		Vendor::where('id',$id)->update($data);
+		
 		/*if($request->input('status') == 'active'){
-			$vendor_data = Vendor::vendor()->where('id',$id)->first();
+			$vendor_data = Vendor::where('id',$id)->first();
 			if($vendor_data->verification == 'no'){
 				$email = $vendor_data->email;
 				$name = $vendor_data->name;
 				Mail::to($email)->send(new VendorVerificationMail($email,$name));
-				Vendor::vendor()->where('id',$id)->update(array('verification' => 'yes'));
+				Vendor::where('id',$id)->update(array('verification' => 'yes'));
 			}
 		}*/
-
+		
 		return redirect('/admin/vendor')->with('success',"Vendor has been updated.");
 	}
 
@@ -361,7 +361,7 @@ class VendorController extends Controller
 	public function destroy(Vendor $vendor)
 	{
 		$vendor->delete();
-		return redirect('/admin/vendor')->with('success',"Vendor has been deleted.");
+		return redirect('/admin/vendor')->with('success',"Vendor has been deleted.");   
 	}
 
 	public function addRole(Request $request, $id)
@@ -405,7 +405,7 @@ class VendorController extends Controller
 
 			// $paid_modules = VendorPaidModule::where('vendor_id',$id)->where('status','yes')->get()->pluck('status', 'module_name');
 			$paid_modules = VendorPaidModule::where('vendor_id',$id)->get();
-
+			
 			return view('admin.vendors.paid_modules',compact('id','paid_modules'));
 		}else{
 
@@ -443,7 +443,7 @@ class VendorController extends Controller
 					'status'=>'required',
 					//'module_name'=>'required|unique:vendor_paid_modules,module_name,' . $vendor_module_id->id,
 				]);
-
+			
 			}else{*/
 				$request->validate([
 					'to_date'=>'required',
@@ -471,7 +471,7 @@ class VendorController extends Controller
 
 			return redirect('/admin/vendor/paid_modules/'.$id)->with('success',"Vendor Module has been saved.");
 		}
-
+		
 	}
 
 	public function paidModulesEdit(Request $request, $id)
@@ -531,8 +531,8 @@ class VendorController extends Controller
 		$vendor_id  = VendorRoles::where('id',$id)->first();
 		VendorRoles::where('id',$id)->delete();
 		$data = array('role_id'=>NULL);
-		Vendor::vendor()->where('role_id',$id)->update($data);
-		return redirect('/admin/vendor/add_role/'.$vendor_id->vendor_id)->with('success',"Vendor Role has been deleted.");
+		Vendor::where('role_id',$id)->update($data);
+		return redirect('/admin/vendor/add_role/'.$vendor_id->vendor_id)->with('success',"Vendor Role has been deleted.");   
 	}
 
 	public function otpVendor(Request $request)
@@ -558,7 +558,7 @@ class VendorController extends Controller
 	            $rowData=fgetcsv($fileD);
 	            // print_r($rowData);
 	            if(!empty($rowData))
-	            {
+	            {	
 					$name = $rowData[0];
 					$email = $rowData[1];
 					$password = $rowData[2];
@@ -577,13 +577,13 @@ class VendorController extends Controller
 	                $role = $rowData[15];
 	                $images = $rowData[16];
 
-	                $email_exists = Vendor::vendor()->where('email',$email)->exists();
+	                $email_exists = Vendor::where('email',$email)->exists();
 					// $barcode_exists = ProductVariants::where('barcode',$barcode)->exists();
 
 					if($email_exists){
 						$exists_emails[] = $email;
 					}else{
-
+						
 						$country_id = DB::table('countries')->where('name','like','%'.$country.'%')->first();
 						if(empty($country_id)){
 		                	$countryID = NULL;
@@ -649,7 +649,7 @@ class VendorController extends Controller
 						{
 							// $images_arr = explode(',', $images);
 							$i = 1;
-
+							
 							// foreach ($images_arr as $key => $value) {
 								// $i++;
 								$file1 = public_path('images/vendors').'/'.$images;
@@ -664,7 +664,7 @@ class VendorController extends Controller
 								/*$vendor['image'] = $image1;
 								copy($images, $new_image1);*/
 								if (!@copy($images, $new_image1)) {
-
+									
 								}else{
 									$vendor['image'] = $image1;
 								}
@@ -694,11 +694,11 @@ class VendorController extends Controller
 	        $j = 1;
 	        while(!feof($fileD)){
 	            $rowData = fgetcsv($fileD);
-
+	            
 	            if(!empty($rowData))
-	            {
+	            {	
 	            	$images = $rowData[10];
-
+	    
 	            	$data[] = array(
 	            		'name' => $rowData[0],
 						'email' => $rowData[1],
@@ -741,7 +741,7 @@ class VendorController extends Controller
         	$vendorID = Auth::user()->parent_id;
         }*/
 
-		$vendors = Vendor::vendor()->select(
+		$vendors = Vendor::select(
 				'vendors.*',
 				'countries.name as country_name',
 				'states.name as state_name',
@@ -758,7 +758,7 @@ class VendorController extends Controller
 			// ->where('vendors.parent_id', $vendorID)
 			->groupBy('vendors.id')
 			->get();
-
+					
 		$image_url = url('/');
 
 		foreach ($vendors as $key => $vendor) {
@@ -770,20 +770,20 @@ class VendorController extends Controller
 			}
 
 			$data = array(
-				'Name' => $vendor->name,
-				'Email' => $vendor->email,
-				'Phone Number' => $vendor->phone_number,
-				'Mobile Number' => $vendor->mobile_number,
-				'Address' => $vendor->address,
-				'City' => $vendor->city_name,
-				'State' => $vendor->state_name,
-				'Country' => $vendor->country_name,
-				'Zip Code' => $vendor->pincode,
-				'Store' => $vendor->store_name,
-				'Role' => $vendor->role_name,
+				'Name' => $vendor->name, 
+				'Email' => $vendor->email, 
+				'Phone Number' => $vendor->phone_number, 
+				'Mobile Number' => $vendor->mobile_number, 
+				'Address' => $vendor->address, 
+				'City' => $vendor->city_name, 
+				'State' => $vendor->state_name, 
+				'Country' => $vendor->country_name, 
+				'Zip Code' => $vendor->pincode, 
+				'Store' => $vendor->store_name, 
+				'Role' => $vendor->role_name, 
 				'Image' => $image
 			);
-
+			
 		 	fputcsv($fp, $data);
 		}
 		exit();

@@ -48,13 +48,13 @@ class CustomerDeactivateCron extends Command
                 ->select(
                     'u.id',
                     DB::raw(
-                        "(SELECT COUNT(DISTINCT o.id) 
+                        "(SELECT COUNT(DISTINCT o.id)
                             FROM orders AS o
                             WHERE u.id = o.customer_id
                             AND o.order_status = 'cancelled'
                             AND date(o.updated_at) BETWEEN '".$start_date."' AND '".$end_date."'
                         ) +
-                        (SELECT COUNT(DISTINCT i.id) 
+                        (SELECT COUNT(DISTINCT i.id)
                             FROM order_items AS i
                             WHERE u.id = i.customer_id
                             AND i.status = 'return'
@@ -67,10 +67,10 @@ class CustomerDeactivateCron extends Command
 
             if($users-isNotEmpty()){
                 foreach ($users as $key => $user) {
-                    
+
                     DB::table('users')->where('id', $user->id)->update(['status' => 'deactive']);
                 }
             }
-        }  
+        }
     }
 }

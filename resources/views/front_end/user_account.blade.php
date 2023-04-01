@@ -48,13 +48,11 @@
                 <div class="col-sm-12 col-md-3 col-lg-3">
                     <!-- Nav tabs -->
                     <div class="dashboard_tab_button">
-                        <ul role="tablist" class="nav flex-column dashboard-list">
-                            <li><a href="#dashboard" data-toggle="tab" class="nav-link active">Dashboard</a></li>
-                            <li> <a href="#orders" data-toggle="tab" class="nav-link">Orders</a></li>
-                            {{-- <li><a href="#downloads" data-toggle="tab" class="nav-link">Downloads</a></li>
-                            <li><a href="#address" data-toggle="tab" class="nav-link">Addresses</a></li>
-                            <li><a href="#account-details" data-toggle="tab" class="nav-link">Account details</a></li>
-                            <li><a href="login.html" class="nav-link">logout</a></li> --}}
+                        <ul role="tablist" class="nav flex-column dashboard-list" id="nav-tab2">
+                            <li><a href="#dashboard" data-toggle="tab" class="nav-link ">Dashboard</a></li>
+                            <li> <a href="#profile" data-toggle="tab" class="nav-link">Profile</a></li>
+                            <li> <a href="#orders" data-toggle="tab" class="nav-link active">Orders</a></li>
+
                         </ul>
                     </div>
                 </div>
@@ -65,37 +63,11 @@
                             <h3>Hello {{Auth::guard('w2bcustomer')->user()->first_name}} {{Auth::guard('w2bcustomer')->user()->last_name}} </h3>
                             <p>Click On Orders to check your orders</p>
                         </div>
+                        @include('front_end.user-profile')
                         <div class="tab-pane fade show active" id="orders">
                             <h3>Orders</h3>
                             <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Order</th>
-                                            <th>Date</th>
-                                            <th>Order No</th>
-                                            <th>Total</th>
-                                            <th>Items</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($orders as $order)
-                                        <tr>
-                                            <td style="min-width:75px!important;">{{$loop->iteration}}</td>
-                                            <td>{{date('d-m-Y', strtotime($order->created_at))}}</td>
-                                            <td>
-                                                <span class="success">{{$order->order_id}}</span>
-                                                @if($order->status!=='processing')
-                                                <span class="text-primary">{{ucfirst($order->status)}}</span>
-                                                @else
-                                                <span class="text-info">{{ucfirst($order->status)}}</span>
-                                                <a href="{{route('user-cancel-w2b-order',$order->order_id)}}" onclick="return confirm('Are you sure to cancel the order?')">cancel</a>
-                                                @endif
-                                            </td>
-                                            <td>{{$order->total_price}} </td>
-                                            <td><a href="{{route('user-product-page',$order->order_id)}}" class="view">view</a></td>
-                                        </tr>
-                                        @endforeach
+
                                 @foreach ($orders as $order)
                                 <div class="col-12 order_main px-0 border">
                                     <div class='d-flex justify-content-between p-3 border orders_header'>
@@ -127,11 +99,14 @@
                                             <div>
                                                 <span><a href="{{route('user-product-page',$order->order_id)}}" class='text-primary'>View order details</a> | <a href="{{route('order-invoice',$order->order_id)}}" class='text-primary'>View Invoice</a></span>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
+
                                 </div>
+                                @endforeach
                             </div>
-                        </div> --}}
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -141,4 +116,44 @@
 <!-- my account end   -->
 
 
+@endsection
+
+@section('scriptss')
+    <script>
+        $(function() {
+        $(".toggle-password").click(function() {
+
+$(this).toggleClass("fa-eye fa-eye-slash");
+var input = $($(this).attr("toggle"));
+if (input.attr("type") == "password") {
+    input.attr("type", "text");
+} else {
+    input.attr("type", "password");
+}
+});
+
+$('#password, #password_confirmation').on('keyup', function () {
+if ($('#password').val() == $('#password_confirmation').val()) {
+    $('.confirm-check').removeClass('fa-close');
+    $('.confirm-check').addClass('fa-check').css('color', 'green');
+} else {
+    $('.confirm-check').removeClass('fa-check');
+    $('.confirm-check').addClass('fa-close').css('color', 'red');
+}
+});
+});
+    </script>
+
+<script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function() {
+      var fileName = $(this).val().split("\\").pop();
+      $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#nav-tab2 a[href="#{{ old('tab') }}"]').tab('show')
+        });
+    </script>
 @endsection

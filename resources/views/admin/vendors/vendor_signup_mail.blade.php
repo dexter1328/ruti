@@ -4,7 +4,7 @@
 
 <p>Hi Admin,</p>
 
-<p>New Vendor Signup in RUTI Self Checkout</p>
+<p>New Vendor Signup in Nature Checkout</p>
 <a href="{{ route('vendor.edit', $id) }}" class="edit" data-toggle="tooltip" data-placement="bottom" title="Edit Vendor">
   To view vendor refer this link
 </a>
@@ -61,10 +61,10 @@
 	        <td>{{$pincode}}</td>
       	</tr>
       	@endif
-      
+
     </tbody>
   </table>
   <br><br>
 Regards,<br>
-RUTI Self Checkout Team
+Nature Checkout Team
 

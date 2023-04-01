@@ -25,7 +25,7 @@ class LowstockMail extends Mailable
      * @return void
      */
     public function __construct($product_id_email)
-    {   
+    {
         $this->product_id_email = $product_id_email;
     }
 
@@ -38,7 +38,7 @@ class LowstockMail extends Mailable
     {
        // print_r($user);die();
 
-        return $this->subject('RUTI Self Checkout Order: Lowstock Mail')->view('/admin/products/lowstock_mail')->with([
+        return $this->subject('Nature Checkout Order: Lowstock Mail')->view('/admin/products/lowstock_mail')->with([
                 'product_id_email' => $this->product_id_email
             ]);
 

@@ -1,12 +1,6 @@
 @extends('front_end.layout')
 @section('content')
 
-@if(session('success'))
-<div class="alert alert-success">
-  {{ session('success') }}
-</div>
-@endif
-
 
 <!--breadcrumbs area start-->
 <div class="mt-70">
@@ -14,23 +8,22 @@
         <div class="row">
             <div class="col-12">
                 <div class="breadcrumb_content">
-                   <h3>Ordered Products</h3>
+                   <h3>My Account</h3>
                     <ul>
                         <li><a href="#">home</a></li>
-                        <li>Ordered Products</li>
+                        <li>My Account</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <!--breadcrumbs area end-->
 
-
-<!--wishlist area start -->
-<div class="wishlist_area mt-70">
+<!-- my account start  -->
+<section class="main_content_area">
     <div class="container">
+        <div class="account_dashboard">
             <div class="row">
                 <div class="col-sm-12 col-md-3 col-lg-3">
                     <!-- Nav tabs -->
@@ -92,27 +85,12 @@
                         </div>
 
                     </div>
-                 </div>
-             </div>
-        {{-- <div class="row">
-            <div class="col-12">
-                 <div class="wishlist_share">
-                    <h4>Share on:</h4>
-                    <ul>
-                        <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                        <li><a href="#"><i class="fa fa-vimeo"></i></a></li>
-                        <li><a href="#"><i class="fa fa-tumblr"></i></a></li>
-                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                    </ul>
                 </div>
             </div>
-        </div> --}}
-
+        </div>
     </div>
-</div>
-<!--wishlist area end -->
-
+</section>
+<!-- my account end   -->
 
 
 @endsection
@@ -120,12 +98,12 @@
 
 @section('scriptss')
 
-<script>
-     $("document").ready(function(){
-        setTimeout(function() {
-        $('.alert-success').fadeOut('fast');
-        }, 3000);
+{{-- <script>
+    function reviewFunction(){
 
-    });
-</script>
+        $("#review12").removeClass('d-none');
+
+    }
+    </script> --}}
+
 @endsection

@@ -7,5 +7,5 @@
 <p>{{$name}}  has tried to login after work hours.</p>
 <label>Your Credentials</label>
 <br>
-RUTI Self Checkout Team
+Nature Checkout Team
 

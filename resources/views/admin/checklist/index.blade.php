@@ -18,13 +18,13 @@
 		<div class="card">
 			<div class="card-header">
 				<div class="left"><!-- <i class="fa fa-group"></i> --><span>{{ucfirst($type)}} Checklist</span></div>
-				@php  @endphp
-				<div class="float-sm-right">
+				@php /* @endphp
+				<div class="float-sm-right">        
 					<a style="padding-bottom: 3px; padding-top: 4px;" href="{{ route('checklist.create', $type) }}" class="btn btn-outline-primary btn-sm waves-effect waves-light m-1" title="Add Item">
 						<!-- <i class="fa fa-group" style="font-size: 15px;"></i> --> <span class="name">Add Item</span>
 					</a>
 				</div>
-				@php  @endphp
+				@php */ @endphp
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
@@ -126,7 +126,7 @@ $(document).ready(function() {
 });
 
 function deleteRow(id)
-{
+{   
 	$('#deletefrm_'+id).submit();
 }
 
@@ -145,7 +145,7 @@ function changeStatus(id) {
             if(data == 'active'){
                 status = 'activated';
                 $('.status_'+id).css('color','#009933');
-
+                
             }else{
                 status = 'deactivated';
                 $('.status_'+id).css('color','#ff0000');

@@ -25,7 +25,7 @@ class OrderCancelMail extends Mailable
      * @return void
      */
     public function __construct($order)
-    {   
+    {
         $this->order = $order;
     }
 
@@ -38,7 +38,7 @@ class OrderCancelMail extends Mailable
     {
        // print_r($user);die();
 
-        return $this->subject('RUTI Self Checkout Order: Cancel Order')->view('/admin/orders/order_cancel_mail')->with([
+        return $this->subject('Nature Checkout Order: Cancel Order')->view('/admin/orders/order_cancel_mail')->with([
                 'order' => $this->order
             ]);
 

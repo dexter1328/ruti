@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Ruti Self Checkout</title>
+    <title>Nature Checkout</title>
 </head>
 <body>
     <h1>{{ $details['title'] }}</h1><br>
@@ -13,7 +13,7 @@
 <p>We appreciate your business and are committed to providing you with the best possible service.</p> <br>
 
 <p>Best Regards!</p> <br>
-<p>Ruti Self Checkout</p>
+<p>Nature Checkout</p>
 
 </body>
 </html>
