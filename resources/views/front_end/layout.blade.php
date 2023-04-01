@@ -359,7 +359,7 @@
                                         <li class="header-sine-in dropdown">
                                             <a href="" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 @if (Auth::guard('w2bcustomer')->user()->image)
-                                                <img class="rounded-circle" src="{{asset('public/user_photo/'.Auth::guard('w2bcustomer')->user()->image)}}" style="width: 18%; margin-right: 8px;" alt="">
+                                                <img class="rounded-circle" src="{{asset('public/user_photo/'.Auth::guard('w2bcustomer')->user()->image)}}" style="max-width: 45px; margin-right: 8px;" alt="">
                                                 @else
                                                 <i class="lnr lnr-user fa-3x d-flex"></i>
                                                 @endif
