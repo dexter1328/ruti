@@ -22,7 +22,7 @@
 
                         </div>
                         <div class="category-thumb">
-                            <img style="width:  100%; height: 100%; object-fit: cover;" src="{{$product1->original_image_url}}" alt="">
+                            <img style="width:  100%; height: 100%; object-fit: contain;" src="{{$product1->original_image_url}}" alt="">
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                 <div class="cb-item-wrap">
                     <div class="category-banner-item right-top-banner mb-20 align-items-center banner_thumb">
                        <div class="content align-self-center">
-                            <h5 class="banner-description"><a href="{{ route('product-detail',$product2->sku) }}">{{$product2->title}}</a></h5>
+                            <h5 class="banner-description"><a href="{{ route('product-detail',$product2->sku) }}">{{ Str::limit($product2->title, 45) }}</a></h5>
                             <span class="shop-now">${{number_format((float)$product2->retail_price, 2, '.', '')}}</span>
                         </div>
                         <div class="category-thumb">
@@ -40,7 +40,7 @@
                     </div>
                     <div class="category-banner-item right-bottom-banner mb-20 align-items-center banner_thumb">
                         <div class="content align-self-center">
-                            <h5 class="banner-description"><a href="{{ route('product-detail',$product3->sku) }}">{{$product3->title}}</a></h5>
+                            <h5 class="banner-description"><a href="{{ route('product-detail',$product3->sku) }}">{{ Str::limit($product3->title, 45) }}</a></h5>
                             <span class="shop-now">${{number_format((float)$product3->retail_price, 2, '.', '')}}</span>
                         </div>
                         <div class="category-thumb">
@@ -120,9 +120,9 @@
 <section class="countdown-area">
     <div class="container-fluid px-5 mb-5">
         <div class="row">
-            <div class="col-xl-8 counter-wrapper">
+            <div class="col-xl-8 mt-3 counter-wrapper">
                 <div class="product-counter-image float-start banner_thumb">
-                    <a href="{{ route('product-detail',$product4->sku) }}"><img style="width:  100%; height: 100%; object-fit: cover;" src="{{$product4->original_image_url}}"></a>
+                    <a href="{{ route('product-detail',$product4->sku) }}"><img style="width:  100%; height: 100%; object-fit: contain;" src="{{$product4->original_image_url}}"></a>
                 </div>
                 <div class="countdown-wrap">
                     <span>DEAL OF THE DAY</span>
@@ -133,8 +133,8 @@
                     <div class="flash-sale-item mb-20">
                         <div class="fs-content">
                             <div class="content-bottom">
-                                <p>Sold 15</p>
-                                <p>Available 85</p>
+                                <p>Sold {{$sold}}</p>
+                                <p>Available {{$available}}</p>
                             </div>
                             <div class="progress">
                                 <div class="progress-bar w-50" role="progressbar" aria-valuenow="75" aria-valuemin="0"
@@ -167,11 +167,11 @@
 
                 </div>
             </div>
-            <div class="col-xl-4 col-md-12 col-sm-12">
+            <div class="col-xl-4 col-md-12 mt-3 col-sm-12">
                 <div class="cb-item-wrap counter-right-banner">
                     <div class="category-banner-item right-top-banner mb-xl-3 mb-lg-0 mb-md-0 mb-0 align-items-center banner_thumb">
                        <div class="content align-self-center">
-                            <h2 class="counter-area-product-heading"><a href="{{ route('product-detail',$product5->sku) }}">{{$product5->title}}</a></h2>
+                            <h2 class="counter-area-product-heading"><a href="{{ route('product-detail',$product5->sku) }}">{{ Str::limit($product5->title, 40) }}</a></h2>
                             {{-- <p class="counter-area-product-breadcrumb d-flex"><span>Potato</span>/ <span>Potato</span>/ <span>Potato</span></p> --}}
                             <span class="shop-now">${{number_format((float)$product5->retail_price, 2, '.', '')}}</span>
                         </div>
@@ -181,7 +181,7 @@
                     </div>
                     <div class="category-banner-item right-bottom-banner align-items-center banner_thumb">
                         <div class="content align-self-center">
-                            <h2 class="counter-area-product-heading"><a href="{{ route('product-detail',$product6->sku) }}">{{$product6->title}}</a></h2>
+                            <h2 class="counter-area-product-heading"><a href="{{ route('product-detail',$product6->sku) }}">{{ Str::limit($product6->title, 40) }}</a></h2>
                             {{-- <p class="counter-area-product-breadcrumb d-flex"><span>Potato</span>/ <span>Potato</span>/ <span>Potato</span></p> --}}
                             <span class="shop-now">${{number_format((float)$product6->retail_price, 2, '.', '')}}</span>
                         </div>
@@ -223,7 +223,7 @@
                     <div class="product_container">
                         <div class="row">
                                 @foreach ($products as $p)
-                                <div class="col-4" style="padding-bottom: 35px">
+                                <div class="col-lg-4 col-sm-6" style="padding-bottom: 35px">
                                 <article class="single_product">
                                     <figure>
                                         <div class="product_thumb">
@@ -254,9 +254,9 @@
                                 </article>
                                 </div>
                                 @endforeach
-                                
+
                             </div>
-                           
+
                         </div>
                 </div>
             </div>
@@ -264,11 +264,11 @@
                <div class="productbg_right_left">
                     <div class="arrivals-add">
                         <div class="thumb mb-100">
-                            <a href="{{ route('product-detail',$product8->sku) }}"><img src="{{asset('public/wb/img/banner/product-6.png')}}" alt="img"></a>
+                            <a href="{{ route('product-detail',$product8->sku) }}"><img src="{{$product8->original_image_url}}" alt="img"></a>
                             <h4 class="price text-end"><span>${{number_format((float)$product8->retail_price, 2, '.', '')}}</span></h4>
                         </div>
                         <div class="content">
-                        <h2 class="title"><span><a href="{{ route('product-detail',$product8->sku) }}">{{$product8->title}}</a></span></h2>
+                        <h2 class="title"><span><a href="{{ route('product-detail',$product8->sku) }}">{{ Str::limit($product8->title, 50) }}</a></span></h2>
                         </div>
                         <span class="top-tag">Shop Now</span>
                     </div>
@@ -288,7 +288,7 @@
                         <div class="content align-self-center">
                              <div class="sell-tag mb-3">Sale</div>
                             <h2 class="text-dark mb-4 fw-normal fs-3 lh-sm double-lines-ellipsis">
-                                <a href="{{ route('product-detail',$product9->sku) }}">{{$product9->title}}</a>
+                                <a href="{{ route('product-detail',$product9->sku) }}">{{ Str::limit($product5->title, 50) }}</a>
                             </h2>
                             <p class="text-dark opacity-70 mb-md-3 double-lines-ellipsis">
                                 Your Kitten will love this table stable and beautiful cat tree house
@@ -297,7 +297,7 @@
                         </div>
                         <div class="category-thumb">
                             <a href="{{ route('product-detail',$product9->sku) }}">
-                            <img src="{{asset('public/wb/img/banner/product-7.png')}}" alt="">
+                            <img src="{{$product9->original_image_url}}" alt="">
                             </a>
                         </div>
                     </div>
@@ -309,7 +309,7 @@
                         <div class="content align-self-center">
                             <div class="sell-tag mb-3">Sale</div>
                            <h2 class="text-dark mb-4 fw-normal fs-3 lh-sm double-lines-ellipsis">
-                               <a href="{{ route('product-detail',$product10->sku) }}">{{$product10->title}}</a>
+                               <a href="{{ route('product-detail',$product10->sku) }}">{{ Str::limit($product5->title, 50) }}</a>
                            </h2>
                            <p class="text-dark opacity-70 mb-md-3 double-lines-ellipsis">
                             Joy Fish high quality,
@@ -321,7 +321,7 @@
                        </div>
                        <div class="category-thumb">
                            <a href="{{ route('product-detail',$product10->sku) }}">
-                           <img src="{{asset('public/wb/img/banner/product-8.png')}}" alt="">
+                           <img src="{{$product10->original_image_url}}" alt="">
                            </a>
                        </div>
                     </div>
@@ -341,23 +341,28 @@
                 <p class="category-sub-text"></p>
             </div>
         </div>
-        <div class="row justify-content-center">
+        <div class="owl-carousel cardnew position-relative">
             @foreach ($categories1 as $cat)
-                
-          <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-3 card-wrapper">
+
+          <!-- <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-3 card-wrapper"> -->
             <div class="card border-0">
-              <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image">
+              <!-- <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image">
                 <img class="w-100 h-100" src="{{asset('public/wb/img/categories/'.$cat->image)}}" alt="Card image cap">
               </div>
               <div class="card-body text-center mt-2">
                 <h3 class="card-title"> <a href="{{route('cat-products', $cat->category1)}}">{{$cat->category1}}</a></h3>
-              </div>
+              </div> -->
+                <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image">
+                    <img class="w-100 h-100" src="{{asset('public/wb/img/categories/'.$cat->image)}}" alt="Card image cap">
+                </div>
+                <div class="card-body text-center mt-2">
+                    <h3 class="card-title"> <a href="{{route('cat-products', $cat->category1)}}">{{$cat->category1}}</a></h3>
+                </div>
             </div>
-          </div>
           @endforeach
 
 
-          
+
         </div>
     </div>
 </section>

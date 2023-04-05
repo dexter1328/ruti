@@ -25,7 +25,7 @@ class OrderSuccessVendorMail extends Mailable
      * @return void
      */
     public function __construct($orders)
-    {   
+    {
         $this->orders = $orders;
     }
 
@@ -38,7 +38,7 @@ class OrderSuccessVendorMail extends Mailable
     {
        // print_r($user);die();
 
-        return $this->subject('RUTI Self Checkout Order: Order Success')->view('/admin/orders/order_success_mail')->with([
+        return $this->subject('Nature Checkout Order: Order Success')->view('/admin/orders/order_success_mail')->with([
                 'orders' => $this->orders
             ]);
 

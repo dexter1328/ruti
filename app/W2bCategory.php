@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class W2bCategory extends Model
 {
@@ -18,17 +17,6 @@ class W2bCategory extends Model
     {
         return $this->hasMany('App\W2bCategory', 'parent_id');
     }
-
-    public function source()
-    {
-        return $this->belongsTo(W2bCategory::class, 'source_id');
-    }
-
-    public function supplier()
-    {
-        return $this->belongsTo(Vendor::class, 'supplier_id');
-    }
-
     // public function products()
     // {
     //     return $this->hasMany('App\Product');

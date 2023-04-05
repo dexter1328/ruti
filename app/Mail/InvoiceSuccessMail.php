@@ -23,7 +23,7 @@ class InvoiceSuccessMail extends Mailable
      * @return void
      */
     public function __construct($invoice)
-    {   
+    {
         $this->invoice = $invoice;
     }
 
@@ -34,7 +34,7 @@ class InvoiceSuccessMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('RUTI Self Checkout Invoice: Invoice Success')->view('/email/invoice_success_mail')->with([
+        return $this->subject('Nature Checkout Invoice: Invoice Success')->view('/email/invoice_success_mail')->with([
                 'invoice' => $this->invoice
             ]);
 

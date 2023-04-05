@@ -6,10 +6,10 @@
                 <div class="row align-items-center justify-content-center">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-4 left-footer-section">
                         <div class="footer-widget mb-30">
-                            <div class="footer-contact">
+                            {{-- <div class="footer-contact">
                                 <span>CALL US FREE</span>
                                 <a href="tel:+0 (000) 000-0000" class="contact">+0 (000) 000-0000</a>
-                            </div>
+                            </div> --}}
                             <div class="f-logo mb-25">
                                 <a href="index.html"><img src="assets/img/logo/footer-logo.png" alt=""></a>
                             </div>
@@ -61,14 +61,12 @@
                                     <h2 class="title">TOP CATEGORIES</h2>
                                 </div>
                                 <div class="fw-link">
-                                    @if(!empty($categories2))
                                     @foreach ($categories2 as $cat)
                                     <ul>
                                         <li><a href="{{route('cat-products', $cat->category1)}}">{{$cat->category1}}</a></li>
 
                                     </ul>
                                     @endforeach
-                                    @endif
                                 </div>
                             </div>
                             </div>
@@ -100,14 +98,14 @@
                         <div class="row justify-content-center justify-content-lg-start justify-content-md-start justify-content-sm-start">
                             <div class="col-xl-4 col-lg-6 col-md-12 col-sm-6 col-12 align-self-center mb-4">
                                 <div class="footer-widget">
-                                    <p class="web-address mb-0">@rutiselfcheckout.com/</p>
+                                    <p class="web-address mb-0">@naturecheckout.com/</p>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-5 col-md-6 col-sm-6 col-12 align-self-center mb-md-3 mb-xl-4">
                                 <div class="privacy-terms">
                                     <ul class="d-flex">
-                                        <li>Privacy</li>
-                                        <li>Terms</li>
+                                        <li><a href="{{url('privacy-policy')}}"> Privacy</a></li>
+                                        <li><a href="{{url('terms-condition')}}">Terms</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -115,10 +113,12 @@
                                 <div class="">
                                     <div class="footer-social">
                                         <ul>
-                                            <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                            <li><a  target="_blank" href="https://www.facebook.com/Naturecheckout"><i class="fa fa-facebook-f"></i></a></li>
+                                            <li><a  target="_blank" href="https://www.instagram.com/naturecheckout"><i class="fa fa-instagram"></i></a></li>
+                                            <li><a  target="_blank" href="https://twitter.com/naturecheckout"><i class="fa fa-twitter"></i></a></li>
+                                            <li><a  target="_blank" href="https://tiktok.com/naturecheckout"><i class="fa fa-tiktok"></i></a></li>
+                                            <li><a  target="_blank" href="https://www.pinterest.com/Naturecheckout"><i class="fa fa-pinterest"></i></a></li>
+                                            <li><a  target="_blank" href="https://www.linkedin.com/company/93313174/"><i class="fa fa-linkedin"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>

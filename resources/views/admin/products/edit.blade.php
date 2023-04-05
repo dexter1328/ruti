@@ -129,9 +129,9 @@ button .fa {
                                                 <div class="col-sm-12">
                                                     <label>Title<span class="text-danger">*</span></label>
                                                     <input type="text" name="title" class="form-control" value="{{old('title', $product->title)}}" placeholder="Enter Title">
-                                                    @if ($errors->has('title'))
-                                                        <span class="text-danger">{{ $errors->first('title') }}</span>
-                                                    @endif
+                                                    @if ($errors->has('title')) 
+                                                        <span class="text-danger">{{ $errors->first('title') }}</span> 
+                                                    @endif 
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -147,7 +147,7 @@ button .fa {
                                                     <select name="season" class="form-control" id="season">
                                                         <option value="">Select Season</option>
                                                         @foreach(getSeasons() as $key => $season)
-                                                        <option value="{{$key}}" {{$key==old('season',$product->season) ? 'selected="selected"' : ''}}>{{$season['title'] ?? ''}}</option>
+                                                        <option value="{{$key}}" {{$key==old('season',$product->season) ? 'selected="selected"' : ''}}>{{$season['title']}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -162,9 +162,9 @@ button .fa {
                                                 <div class="col-sm-12">
                                                     <label>Description</label>
                                                     <textarea id="summernoteEditor" name="description">{{old('description', $product->description)}}</textarea>
-                                                    @if ($errors->has('description'))
-                                                        <span class="text-danger"> {{ $errors->first('description') }}</span>
-                                                    @endif
+                                                    @if ($errors->has('description')) 
+                                                        <span class="text-danger"> {{ $errors->first('description') }}</span> 
+                                                    @endif 
                                                 </div>
                                             </div>
                                         </div>
@@ -179,9 +179,9 @@ button .fa {
                                                         <option value="{{$vendor->id}}" {{$selected}}>{{$vendor->name}}</option>
                                                         @endforeach
                                                     </select>
-                                                    @if ($errors->has('vendor'))
+                                                    @if ($errors->has('vendor')) 
                                                         <span class="text-danger">{{ $errors->first('vendor') }}</span>
-                                                    @endif
+                                                    @endif 
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -190,9 +190,9 @@ button .fa {
                                                     <select name="store" id="store" class="form-control">
                                                         <option value="">Select Store</option>
                                                     </select>
-                                                    @if ($errors->has('store'))
-                                                        <span class="text-danger">{{ $errors->first('store') }}</span>
-                                                    @endif
+                                                    @if ($errors->has('store')) 
+                                                        <span class="text-danger">{{ $errors->first('store') }}</span> 
+                                                    @endif 
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -201,9 +201,9 @@ button .fa {
                                                     <select name="brand" id="brand" class="form-control">
                                                         <option value="">Select Brand</option>
                                                     </select>
-                                                    @if ($errors->has('brand'))
-                                                        <span class="text-danger">{{ $errors->first('brand') }}</span>
-                                                    @endif
+                                                    @if ($errors->has('brand')) 
+                                                        <span class="text-danger">{{ $errors->first('brand') }}</span> 
+                                                    @endif 
                                                 </div>
                                             </div>
                                              <div class="form-group row">
@@ -217,14 +217,14 @@ button .fa {
                                                     <label>Categories</label>
                                                     <div id="categories" class="categorydiv">
                                                     </div>
-                                                    @if($errors->has('categories'))
-                                                        <span class="text-danger">{{ $errors->first('categories') }}</span>
+                                                    @if($errors->has('categories')) 
+                                                        <span class="text-danger">{{ $errors->first('categories') }}</span> 
                                                     @endif
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
+                                   
                                     <!-- Tab panes -->
                                     <!-- Tab panes -->
                                            <!--  <button type="button" id="add_attributre_set" class="btn btn-sm btn-primary float-right"><i class="fa fa-plus"></i> Add More Attribute Set</button> -->
@@ -261,7 +261,7 @@ button .fa {
 
                                                     $attribute_values_ids = explode(',', $product_variant->attribute_value_id);
                                                     $attribute_ids = explode(',', $product_variant->attribute_id);
-
+                                                        
                                                         foreach($attribute_ids as $attribute_id){
                                                             $attribute_values = \App\AttributeValue::select('attributes.name as attribute_name', 'attribute_values.id', 'attribute_values.name', 'attribute_values.attribute_id')
                                                                 ->join('attributes', 'attributes.id', 'attribute_values.attribute_id')
@@ -273,9 +273,9 @@ button .fa {
                                                         <div class="row">
                                                             <div class="col-xs-12 col-md-6">
                                                                 <label>&nbsp;</label>
-                                                                <input type="hidden" name="attribute[]" value="{{$first['attribute_id'] ?? ''}}">
-                                                                <select class="form-control attribute{{$first['attribute_name'] ?? ''}}" name="attribute_values[]" >
-                                                                    <option value="">Select {{$first['attribute_name'] ?? ''}}</option>
+                                                                <input type="hidden" name="attribute[]" value="{{$first['attribute_id']}}">
+                                                                <select class="form-control attribute{{$first['attribute_name']}}" name="attribute_values[]" >
+                                                                    <option value="">Select {{$first['attribute_name']}}</option>
                                                                     @foreach ($attribute_values as $attribute_value) {
                                                                         <option value="{{$attribute_value->id}}" @if(in_array($attribute_value->id, $attribute_values_ids)) selected="selected" @endif>{{$attribute_value->name}}</option>
                                                                     @endforeach
@@ -291,7 +291,7 @@ button .fa {
                                                     @php } } @endphp
                                                     <div class="product_attributes"></div>
                                                     <div style="clear: both;"></div>
-                                                    <div class="row">
+                                                    <div class="row">   
                                                         <div class="col-xs-12 col-md-6">
                                                             <label for="input-11" >Regular Price<span class="text-danger">*</span></label>
                                                             <input type="text" name="regular_price" class="form-control" value="{{old('regular_price',$product_variant->price)}}" placeholder="Enter Price">
@@ -340,16 +340,16 @@ button .fa {
                                                                             <img src="{{asset('public/images/product_images').'/'.$product_image->image}}" width="100" height="100">
                                                                         </a>
                                                                     </div>
-
+                                                                   
                                                                 @endforeach
                                                             @endif
-                                                        </div>
+                                                        </div> 
                                                     </div>
                                                 </div>
                                             </div>
                                             @endforeach
                                             <!-- <div id="attribute_set"></div> -->
-
+                                       
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> SAVE</button>
@@ -471,7 +471,7 @@ button .fa {
             dataType: 'json',
             success: function (data) {
                 $("#categories").html(data.categories);
-
+                
                 if(category_id != null){
                     var category_ids = category_id.split(',');
                     category_ids.forEach(function(id){
@@ -530,7 +530,7 @@ button .fa {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (data) {
-
+                
                 e.closest('.image_div').remove();
             }
         });
@@ -558,6 +558,6 @@ button .fa {
             });
         }
     }
-
-</script>
-@endsection
+    
+</script> 
+@endsection 

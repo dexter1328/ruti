@@ -17,14 +17,14 @@
 
 		<!-- CSRF Token -->
 		<meta name="csrf-token" content="{{ csrf_token() }}">
-		<meta property="og:title" content="{{ config('app.name', 'RUTI Self Checkout') }}" />
+		<meta property="og:title" content="{{ config('app.name', 'Nature Checkout') }}" />
 		<meta property="og:description" content="We provide convenient and expeditious service to all users (merchants and consumers) in areas of consumer spending. Our service is to improve merchant - customer relations while offering positive contribution to the overall economy." />
 		<meta property="og:image" content="{{ asset('images/logo-icon.png') }}" />
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content="https://rutiselfcheckout.com/" />
+		<meta property="og:url" content="https://naturecheckout.com/" />
 		<meta property="fb:app_id" content="482623692719207" />
 
-		<title>{{ config('app.name', 'RUTI Self Checkout') }}</title>
+		<title>{{ config('app.name', 'Nature Checkout') }}</title>
 		<!--favicon-->
 		<link rel="icon" href="{{ asset('public/images/logo-icon-xx.png') }}" type="image/x-icon">
 		<!-- Vector CSS -->
@@ -299,16 +299,6 @@
 									<i class="zmdi zmdi-dot-circle-alt"></i>Vendor Membership
 								</a>
 							</li>
-							<li class="{{ (request()->is('admin/membership/list/supplier')) ? 'active' : '' }}">
-								<a href="{{url('admin/membership/list/supplier')}}">
-									<i class="zmdi zmdi-dot-circle-alt"></i>Supplier Membership
-								</a>
-							</li>
-							<li class="{{ (request()->is('admin/membership/list/supplier_ruti_fullfill')) ? 'active' : '' }}">
-								<a href="{{url('admin/membership/list/supplier_ruti_fullfill')}}">
-									<i class="zmdi zmdi-dot-circle-alt"></i>Supplier Ruti_fullfill Membership
-								</a>
-							</li>
 							<li class="{{ (request()->is('admin/membership-coupons')) ? 'active' : '' }}">
 								<a href="{{url('admin/membership-coupons')}}">
 									<i class="zmdi zmdi-dot-circle-alt"></i>Membership Coupons
@@ -389,30 +379,6 @@
 						</ul>
 					</li>
 					@endif
-                    {{-- supplier --}}
-                    @if(has_permission(Auth::user()->role_id,'vendor','read') || has_permission(Auth::user()->role_id,'vendor_store','read') || has_permission(Auth::user()->role_id,'vendor_configuration','read') || has_permission(Auth::user()->role_id,'vendor_coupons','read') || has_permission(Auth::user()->role_id,'vendor_coupons_used','read') )
-                        <li class="{{ (request()->is('admin/supplier/*') or request()->is('admin/supplier_store/*') or request()->is('admin/supplier_configuration/*') or request()->is('admin/supplier_coupons/*') or request()->is('admin/supplier_coupons_used/*') or request()->is('admin/supplier_unverified_coupons/*')) ? 'active menu-open' : '' }}">
-                            <a href="javaScript:void();" class="waves-effect">
-                                <i class="icon-people icons"></i><span>Manage Suppliers Details</span><i class="fa fa-angle-down"></i>
-                            </a>
-                            <ul class="sidebar-submenu">
-                                @if(has_permission(Auth::user()->role_id,'vendor','read'))
-                                    <li class="{{ (request()->is('admin/supplier') or request()->is('admin/supplier/*')) ? 'active' : '' }}">
-                                        <a href="{{url('admin/supplier')}}" class="waves-effect">
-                                            <i class="zmdi zmdi-dot-circle-alt"></i>Manage Suppliers
-                                        </a>
-                                    </li>
-                                @endif
-                                @if(has_permission(Auth::user()->role_id,'vendor','read'))
-                                    <li class="{{ (request()->is('admin/supplier_category') or request()->is('admin/supplier_category/*')) ? 'active' : '' }}">
-                                        <a href="{{url('admin/supplier_category')}}" class="waves-effect">
-                                            <i class="zmdi zmdi-dot-circle-alt"></i>Manage Categories
-                                        </a>
-                                    </li>
-                                @endif
-                            </ul>
-                        </li>
-                    @endif
 					@if(has_permission(Auth::user()->role_id,'products','read') || has_permission(Auth::user()->role_id,'brand','read') || has_permission(Auth::user()->role_id,'categories','read') || has_permission(Auth::user()->role_id,'attributes','read') || has_permission(Auth::user()->role_id,'discount_offers','read')|| has_permission(Auth::user()->role_id,'product_reviews','read') )
 					<li class="{{ (request()->is('admin/products/*') or request()->is('admin/brand/*') or request()->is('admin/categories/*') or request()->is('admin/attributes/*') or request()->is('admin/discount_offers/*') or request()->is('admin/product_reviews/*')) ? 'active menu-open' : '' }}">
 						<a href="javaScript:void();" class="waves-effect">
@@ -495,6 +461,9 @@
 									<i class="zmdi zmdi-dot-circle-alt"></i>Manage Orders
 								</a>
 							</li>
+
+
+
 							@endif
 
 						</ul>
@@ -645,13 +614,6 @@
 						</ul>
 					</li>
 					@endif
-                    @if(has_permission(Auth::user()->role_id,'email_template','read'))
-                        <li class="{{ (request()->is('admin/email_template')) ? 'active' : '' }}">
-                            <a href="{{url('admin/email_template/')}}" class="waves-effect">
-                                <i class="zmdi zmdi-email"></i> <span>Manage Email Templates</span>
-                            </a>
-                        </li>
-                    @endif
 				</ul>
 			</div>
 			<!--Start topbar header-->
@@ -727,7 +689,7 @@
 				<footer class="footer">
 					<div class="container">
 						<div class="text-center">
-							RUTI Self Checkout &copy; 2019-2024. All Rights Reserved
+							Nature Checkout &copy; 2019-2024. All Rights Reserved
 						</div>
 					</div>
 				</footer>

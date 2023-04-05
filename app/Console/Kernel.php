@@ -2,7 +2,6 @@
 
 namespace App\Console;
 
-use App\VendorSetting;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -34,20 +33,18 @@ class Kernel extends ConsoleKernel
         Commands\ParticipationExpired::class,
         Commands\WeeklyRetailerRegister::class,
         Commands\WeeklyCustomerRegister::class,
-        Commands\WeeklySuggestedStore::class,
-        Commands\BuyerReminder::class
+        Commands\WeeklySuggestedStore::class
     ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param Schedule $schedule
+     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-
-        $schedule->command('send_buyer_reminder:cron')->everyMinute();
+        // $schedule->command('store_hours_login:cron')->everyMinute();
 
         $schedule->command('retailer_register:weekly')->weekly();
         $schedule->command('customer_register:weekly')->weekly();
@@ -71,6 +68,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('customer_checklist:reminder')->dailyAt('6:00');
         $schedule->command('participation:expired')->daily();
         $schedule->command('queue:work --daemon')->everyMinute()->withoutOverlapping();
+        $schedule->command('cart_order:mail')->everyFiveMinutes();
+
+        // $schedule->call('App\Http\Controllers\FrontEndController@notPaidMail')->everyFiveMinutes();
     }
 
     /**

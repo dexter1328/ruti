@@ -25,7 +25,7 @@ class CustomerSubscriptionMail extends Mailable
      * @return void
      */
     public function __construct($user, $old_subscription, $new_subscription)
-    {   
+    {
         $this->user = $user;
         $this->old_subscription = $old_subscription;
         $this->new_subscription = $new_subscription;
@@ -38,7 +38,7 @@ class CustomerSubscriptionMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('RUTI Self Checkout Subscription: Thank you for subscribing')->view('/email/customer_subscription_mail')->with([
+        return $this->subject('Nature Checkout Subscription: Thank you for subscribing')->view('/email/customer_subscription_mail')->with([
                 'user' => $this->user,
                 'old_subscription' => $this->old_subscription,
                 'new_subscription' => $this->new_subscription

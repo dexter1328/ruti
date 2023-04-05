@@ -1,4 +1,3 @@
-
 <?php
 
 use App\AdminRolePermission;
@@ -7,19 +6,11 @@ use App\StoresVendor;
 use App\VendorStore;
 use App\VendorPaidModule;
 
-if (!defined('SUPPLIER')){
-    define("SUPPLIER", 'supplier');
-}
-
-if (!defined('VENDOR')){
-    define("VENDOR", 'vendor');
-}
-
 if (!function_exists('admin_modules'))
 {
-    function admin_modules(): array
+    function admin_modules()
     {
-        return array(
+        $modules = array(
             'admins' => 'Admins',
             'admin_roles' => 'Admin Roles',
             'menus' => 'Menus',
@@ -62,22 +53,17 @@ if (!function_exists('admin_modules'))
             'import_product' => 'Import Product',
             'customer_transaction' => 'Customer Transaction',
             'vendor_transaction' => 'Vendor Transaction',
-            'login_history' => 'Login Activity',
-            'supplier'=>'Suppliers',
-            'supplier_store'=>'Supplier Stores',
-            'supplier_configuration'=>'Supplier Configuration',
-            'supplier_coupons'=>'Supplier Coupons',
-            'supplier_coupons_used'=>'Supplier Used Coupons',
-            'email_template' => 'Email Template'
+            'login_history' => 'Login Activity'
         );
+        return $modules;
     }
 }
 
 if (!function_exists('vendor_modules'))
 {
-    function vendor_modules(): array
+    function vendor_modules()
     {
-        return array(
+        $modules = array(
             'vendor_roles' => 'Vendor Roles',
             'vendors'=>'Vendors',
             'stores'=>'Stores',
@@ -101,39 +87,14 @@ if (!function_exists('vendor_modules'))
             'customer_transaction' => 'Customer Transaction',
             'settings'=>'Setting',
         );
-    }
-}
-
-if (!function_exists('supplier_modules'))
-{
-    function supplier_modules(): array
-    {
-        return array(
-            'supplier_roles' => 'Supplier Roles',
-            'suppliers'=>'Suppliers',
-            'supplier_configuration'=>'Supplier Configuration',
-            // 'supplier_coupons'=>'Supplier Coupons',
-            // 'supplier_coupons_used'=>'Supplier Used Coupons',
-            'products'=>'Products',
-            'product_reviews' => 'Product Reviews',
-            'categories'=>'Categories',
-            'brand'=>'Brand',
-            'customer'=>'Customer',
-            'customer_reviews'=>'Customer Reviews',
-            'orders'=>'Orders',
-//            'order_return'=>'Order Return',
-            'cancelled_orders'=>'Cancelled Orders',
-            'customer_transaction' => 'Customer Transaction',
-            'settings'=>'Setting',
-        );
+        return $modules;
     }
 }
 
 if (!function_exists('vendor_mobile_modules'))
 {
-    function vendor_mobile_modules(): array
-    {
-        return array(
+    function vendor_mobile_modules(){
+        $modules = array(
             'mobile_analytics' =>'Analytics',
             'mobile_total_earnings' => 'Total Earnings',
             'mobile_order_transactions' =>'Order Transactions',
@@ -142,34 +103,23 @@ if (!function_exists('vendor_mobile_modules'))
             'mobile_inventory_status' => 'Inventory Status',
             'mobile_verify_scan' => 'Verify & Scan'
         );
+
+        return $modules;
     }
 }
 
 if (!function_exists('getVendorStore'))
 {
-    function getVendorStore(): array
+    function getVendorStore()
     {
         if(auth()->user()->parent_id == 0){
-            $vendor_store = VendorStore::vendor()->select('id')->where('vendor_id',auth()->user()->id)->get();
-            return Arr::pluck($vendor_store,'id');
+            $vendor_store = VendorStore::select('id')->where('vendor_id',auth()->user()->id)->get();
+            $store_ids = Arr::pluck($vendor_store,'id');
+            return $store_ids;
         }else{
             $store_vendor = StoresVendor::select('store_id')->where('vendor_id',auth()->user()->id)->get();
-            return Arr::pluck($store_vendor, 'store_id');
-        }
-
-    }
-}
-
-if (!function_exists('getSupplierStore'))
-{
-    function getSupplierStore(): array
-    {
-        if(auth()->user()->parent_id == 0){
-            $vendor_store = VendorStore::supplier()->select('id')->where('vendor_id',auth()->user()->id)->get();
-            return Arr::pluck($vendor_store,'id');
-        }else{
-            $store_vendor = StoresVendor::select('store_id')->where('vendor_id',auth()->user()->id)->get();
-            return Arr::pluck($store_vendor, 'store_id');
+            $store_ids = Arr::pluck($store_vendor, 'store_id');
+            return $store_ids;
         }
 
     }
@@ -177,7 +127,7 @@ if (!function_exists('getSupplierStore'))
 
 if (!function_exists('getSeasons'))
 {
-    function getSeasons(): array
+    function getSeasons()
     {
         return array(
             'spring' => array(
@@ -219,7 +169,7 @@ if (!function_exists('getCurrentSeason'))
     }
 }
 
-function has_permission($role_id,$module,$permission): bool
+function has_permission($role_id,$module,$permission)
 {
     $role = AdminRolePermission::join('admin_roles','admin_roles.id','=','admin_role_permissions.role_id')
             ->where('admin_role_permissions.role_id',$role_id)
@@ -237,57 +187,33 @@ function has_permission($role_id,$module,$permission): bool
 
 if (!function_exists('main_vendor_roles'))
 {
-    function main_vendor_roles(): array
+    function main_vendor_roles()
     {
-        return array(
-            'administrator'     => 'Administrator',
-            'store-manager'     =>'Store Manager',
-            'store-supervisor'  =>'Store Supervisor',
-            'store-security'    =>'Store Security',
-            'store-floor-staff' =>'Store Floor Staff',
+        $modules = array(
+            'administrator' => 'Administrator',
+            'store-manager'=>'Store Manager',
+            'store-supervisor'=>'Store Supervisor',
+            'store-security'=>'Store Security',
+            'store-floor-staff'=>'Store Floor Staff',
         );
-    }
-}
-
-if (!function_exists('main_supplier_roles'))
-{
-    function main_supplier_roles(): array
-    {
-        return array(
-            'administrator'     => 'Administrator',
-            'store-manager'     =>'Store Manager',
-            'store-supervisor'  =>'Store Supervisor',
-            'store-security'    =>'Store Security',
-            'store-floor-staff' =>'Store Floor Staff',
-        );
+        return $modules;
     }
 }
 
 if (!function_exists('vendor_paid_modules'))
 {
-    function vendor_paid_modules(): array
+    function vendor_paid_modules()
     {
-        return array(
+        $modules = array(
             'newsletters' => 'Newsletters',
             // 'vendor_coupons'=>'Coupons',
             'customer_contact_info'=>'Customer Contact Info',
         );
+        return $modules;
     }
 }
 
-if (!function_exists('supplier_paid_modules'))
-{
-    function supplier_paid_modules(): array
-    {
-        return array(
-            'newsletters' => 'Newsletters',
-            // 'vendor_coupons'=>'Coupons',
-            'customer_contact_info'=>'Customer Contact Info',
-        );
-    }
-}
-
-function vendor_has_permission($role_id,$module,$permission): bool
+function vendor_has_permission($role_id,$module,$permission)
 {
     $user = Auth::user();
     $paid_module_arr = vendor_paid_modules();
@@ -317,28 +243,31 @@ function vendor_has_permission($role_id,$module,$permission): bool
     }
 }
 
-function weekdays(): array
+function weekdays()
 {
-    return array(
+    $weeks = array(
         'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
     );
+
+    return $weeks;
 }
 
-function vendor_store_hours(): DatePeriod
+function vendor_store_hours()
 {
     $begin = new DateTime("0:00");
     $end   = new DateTime("24:00");
 
     $interval = DateInterval::createFromDateString('15 min');
 
-    return new DatePeriod($begin, $interval, $end);
+    $times    = new DatePeriod($begin, $interval, $end);
+    return $times;
     // foreach ($times as $time) {
     //     echo '<option>'.$time->format('H:i').'</option>';
 
     // }
 }
 
-function vendor_newsletter_permission($id): bool
+function vendor_newsletter_permission($id)
 {
     $vendor_newsletter = VendorPaidModule::where('vendor_id',$id)->where('module_name','newsletter')->first();
     if(!empty($vendor_newsletter)){
@@ -354,7 +283,7 @@ function vendor_newsletter_permission($id): bool
     }
 }
 
-function vendor_coupon_permission($id): bool
+function vendor_coupon_permission($id)
 {
     $vendor_newsletter = VendorPaidModule::where('vendor_id',$id)->where('module_name','coupon')->first();
     if(!empty($vendor_newsletter)){
@@ -372,21 +301,22 @@ function vendor_coupon_permission($id): bool
 
 if (!function_exists('customer_membership_types'))
 {
-    function customer_membership_types(): array
+    function customer_membership_types()
     {
-        return array(
+        $membership_types = array(
             'explorer' => 'Explorer',
             'classic' => 'Classic',
             'bougie' => 'Bougie'
         );
+        return $membership_types;
     }
 }
 
 if (!function_exists('customer_membership_features'))
 {
-    function customer_membership_features(): array
+    function customer_membership_features()
     {
-        return array(
+        $membership_features = array(
             'support' => array(
                     'label' => 'Receive support',
                     'type' => 'select',
@@ -438,47 +368,28 @@ if (!function_exists('customer_membership_features'))
                     'values' => array('Include')
                 ),*/
         );
+        return $membership_features;
     }
 }
 
 if (!function_exists('vendor_membership_types'))
 {
-    function vendor_membership_types(): array
+    function vendor_membership_types()
     {
-        return array(
+        $membership_types = array(
             'sprout' => 'Sprout',
             'blossom' => 'Blossom',
             'one_time_setup_fee' => 'One Time Setup Fee',
         );
-    }
-}
-
-if (!function_exists('supplier_membership_types'))
-{
-    function supplier_membership_types(): array
-    {
-        return array(
-            'seed' => 'Seed',
-            'sprout1' => 'Sprout',
-        );
-    }
-}
-
-if (!function_exists('supplier_ruti_fullfill'))
-{
-    function supplier_ruti_fullfill(): array
-    {
-        return array(
-            'ruti_fullfill' => 'Ruti fullfill',
-        );
+        return $membership_types;
     }
 }
 
 if (!function_exists('vendor_membership_features'))
 {
-    function vendor_membership_features(): array
+    function vendor_membership_features()
     {
-        return array(
+        $membership_features = array(
             'fund_transfer' => array(
                     'label' => 'Daily Funds Transfer',
                     'type' => 'checkbox',
@@ -521,80 +432,104 @@ if (!function_exists('vendor_membership_features'))
                     ),
                 )
         );
+        return $membership_features;
     }
 }
 
-// if (!function_exists('supplier_membership_features'))
-// {
-//     function supplier_membership_features(): array
-//     {
-//         return array(
-//             'fund_transfer' => array(
-//                     'label' => 'Daily Funds Transfer',
-//                     'type' => 'checkbox',
-//                     'values' => array('Include')
-//                 ),
-//             'support' => array(
-//                     'label' => 'Support',
-//                     'type' => 'select',
-//                     'values' => array('(6AM - 6PM)', '24 hours by 7 days a week')
-//                 ),
-//             'customer_couponing' => array(
-//                     'label' => 'Direct to customer couponing',
-//                     'type' => 'select',
-//                     'values' => array('20 posts per month', '30 posts per month')
-//                 ),
-//             'license' =>  array(
-//                     'label' => 'Member license Permission to download App',
-//                     'type' => 'array',
-//                     'values' => array(
-//                         'administrator' => array(
-//                             'label' => 'Administrator',
-//                             'type' => 'checkbox',
-//                             'values' => array('Include')
-//                         ),
-//                         'manager' => array(
-//                             'label' => 'Manager',
-//                             'type' => 'checkbox',
-//                             'values' => array('Include')
-//                         ),
-//                         'store_clerk' => array(
-//                             'label' => 'Store Clerk',
-//                             'type' => 'checkbox',
-//                             'values' => array('Include')
-//                         ),
-//                         'security_clerk' => array(
-//                             'label' => 'Security Clerk',
-//                             'type' => 'checkbox',
-//                             'values' => array('Include')
-//                         )
-//                     ),
-//                 )
-//         );
-//     }
-// }
-
 if (!function_exists('common_membership_coupons'))
 {
-    function common_membership_coupons(): array
+    function common_membership_coupons()
     {
         /*$membership_coupons = array(
             'annual_pay_discount' => 'Annual Payment Discount'
         );*/
         $coupons = config('services.stripe.coupons');
-        return array(
+        $membership_coupons = array(
             $coupons[0] => 'GET30',
             $coupons[1] => 'DIS50',
             $coupons[2] => 'EXE70'
         );
+        return $membership_coupons;
     }
 }
 
 if (!function_exists('customer_incentives'))
 {
-    function customer_incentives(): array
+    function customer_incentives()
     {
-        /* $customer_incentives = array (
+        $customer_incentives = array (
+            0 => array (
+                'key' => 'TIER 1',
+                'items' => array(
+                    array(
+                        'title' => 'Scholarship for college student',
+                        'purchaseTimes' => 'TWICE A MONTH',
+                        'plan' => 'Bougie',
+                        'purchaseAmount' => '$150'
+                    ),
+                    array(
+                        'title' => 'One week round trip to Europe',
+                        'purchaseTimes' => 'TWICE A MONTH',
+                        'plan' => 'Bougie',
+                        'purchaseAmount' => '$150'
+                    ),
+                    array(
+                        'title' => 'One week round trip to the Caribbean',
+                        'purchaseTimes' => 'TWICE A MONTH',
+                        'plan' => 'Bougie',
+                        'purchaseAmount' => '$150'
+                    )
+                ),
+            ),
+            1 => array (
+                'key' => 'TIER 2',
+                'items' => array(
+                    array(
+                        'title' => '2 Nights stay in 5 star hotel & resort',
+                        'purchaseTimes' => 'TWICE A MONTH',
+                        'plan' => 'Classic',
+                        'purchaseAmount' => '$100'
+                    ),
+                    array(
+                        'title' => 'Adventure parks tickets',
+                        'purchaseTimes' => 'TWICE A MONTH',
+                        'plan' => 'Classic',
+                        'purchaseAmount' => '$100'
+                    ),
+                    array(
+                        'title' => 'Theme parks tickets',
+                        'purchaseTimes' => 'TWICE A MONTH',
+                        'plan' => 'Classic',
+                        'purchaseAmount' => '$100'
+                    )
+                ),
+            ),
+            2 => array (
+                'key' => 'TIER 3',
+                'items' => array(
+                    array(
+                        'title' => '$300 gift cards',
+                        'purchaseTimes' => 'TWICE A MONTH',
+                        'plan' => 'Explorer',
+                        'purchaseAmount' => '$100'
+                    ),
+                    array(
+                        'title' => 'HP laptop',
+                        'purchaseTimes' => 'TWICE A MONTH',
+                        'plan' => 'Explorer',
+                        'purchaseAmount' => '$100'
+                    ),
+                    array(
+                        'title' => 'Tablets',
+                        'purchaseTimes' => 'TWICE A MONTH',
+                        'plan' => 'Explorer',
+                        'purchaseAmount' => '$100'
+                    )
+                ),
+            )
+        );
+
+        /*$customer_incentives = array (
             0 => array (
                 0 => 'TIER 1',
                 1 => 'STORE PURCHASE (Minimum)',
@@ -668,85 +603,15 @@ if (!function_exists('customer_incentives'))
                 3 => '$100',
             )
         );*/
-        return array (
-            0 => array (
-                'key' => 'TIER 1',
-                'items' => array(
-                    array(
-                        'title' => 'Scholarship for college student',
-                        'purchaseTimes' => 'TWICE A MONTH',
-                        'plan' => 'Bougie',
-                        'purchaseAmount' => '$150'
-                    ),
-                    array(
-                        'title' => 'One week round trip to Europe',
-                        'purchaseTimes' => 'TWICE A MONTH',
-                        'plan' => 'Bougie',
-                        'purchaseAmount' => '$150'
-                    ),
-                    array(
-                        'title' => 'One week round trip to the Caribbean',
-                        'purchaseTimes' => 'TWICE A MONTH',
-                        'plan' => 'Bougie',
-                        'purchaseAmount' => '$150'
-                    )
-                ),
-            ),
-            1 => array (
-                'key' => 'TIER 2',
-                'items' => array(
-                    array(
-                        'title' => '2 Nights stay in 5 star hotel & resort',
-                        'purchaseTimes' => 'TWICE A MONTH',
-                        'plan' => 'Classic',
-                        'purchaseAmount' => '$100'
-                    ),
-                    array(
-                        'title' => 'Adventure parks tickets',
-                        'purchaseTimes' => 'TWICE A MONTH',
-                        'plan' => 'Classic',
-                        'purchaseAmount' => '$100'
-                    ),
-                    array(
-                        'title' => 'Theme parks tickets',
-                        'purchaseTimes' => 'TWICE A MONTH',
-                        'plan' => 'Classic',
-                        'purchaseAmount' => '$100'
-                    )
-                ),
-            ),
-            2 => array (
-                'key' => 'TIER 3',
-                'items' => array(
-                    array(
-                        'title' => '$300 gift cards',
-                        'purchaseTimes' => 'TWICE A MONTH',
-                        'plan' => 'Explorer',
-                        'purchaseAmount' => '$100'
-                    ),
-                    array(
-                        'title' => 'HP laptop',
-                        'purchaseTimes' => 'TWICE A MONTH',
-                        'plan' => 'Explorer',
-                        'purchaseAmount' => '$100'
-                    ),
-                    array(
-                        'title' => 'Tablets',
-                        'purchaseTimes' => 'TWICE A MONTH',
-                        'plan' => 'Explorer',
-                        'purchaseAmount' => '$100'
-                    )
-                ),
-            )
-        );
+        return $customer_incentives;
     }
 }
 
 if (!function_exists('customer_membership_incentives'))
 {
-    function customer_membership_incentives(): array
+    function customer_membership_incentives()
     {
-        return array(
+        $membership_incentives = array(
             'Payment will be applied 5 days before the membership plan expires to ensure continuous use of the service.',
             'First time user gets 30 days free trial when you sign up for Bougie membership',
             '15% off when user pay annually',
@@ -754,26 +619,28 @@ if (!function_exists('customer_membership_incentives'))
             'Earn reward points for every customer referral',
             'Earn reward points for every purchase'
         );
+        return $membership_incentives;
     }
 }
 
 if (!function_exists('vendor_membership_incentives'))
 {
-    function vendor_membership_incentives(): array
+    function vendor_membership_incentives()
     {
-        return array(
+        $membership_incentives = array(
             '15% off for every ( 2 ) additional licenses permitted to users to download app',
             '15% off for annual payment',
             '15% discount on next payment for vendor referral, when new vendor registers'
         );
+        return $membership_incentives;
     }
 }
 
 if (!function_exists('vendor_checklist'))
 {
-    function vendor_checklist(): array
+    function vendor_checklist()
     {
-        return array(
+        $vendor_checklist = array(
             'signup_image_upload' => 'Signup & Image upload',
             'add_vendor' => 'Add Vendor Information',
             'add_store' => 'Add Store Information',
@@ -786,63 +653,47 @@ if (!function_exists('vendor_checklist'))
             'download_vendor_app' => 'Download Vendor App (limited for store users)',
             'review' => 'Review and Go'
         );
-    }
-}
-
-if (!function_exists('supplier_checklist'))
-{
-    function supplier_checklist(): array
-    {
-        return array(
-            'signup_image_upload' => 'Signup & Image upload',
-            'add_supplier' => 'Add Supplier Information',
-            'add_store' => 'Add Store Information',
-            'set_role_permission' => 'Set Role and Permission',
-            'add_inventory' => 'Add Inventory',
-            'inventory_management_review' => 'Inventory Management Review',
-            'setup_supplier_app' => 'Setup Supplier App',
-            'setup_app_user_permissions' => 'Setup App User Permissions',
-            'store_hours' => 'Store Hours',
-            'download_supplier_app' => 'Download Supplier App (limited for store users)',
-            'review' => 'Review and Go'
-        );
+        return $vendor_checklist;
     }
 }
 
 if (!function_exists('customer_checklist'))
 {
-    function customer_checklist(): array
+    function customer_checklist()
     {
-        return array(
+        $customer_checklist = array(
             'signup_image_upload' => 'Signup & Photo mandatory',
             'refer_20_friends' => 'Refer 20 friends minimum (once a month)',
             'maintain_minimum_wallet' => 'Maintain $25 minimum in Wallet',
             'make_store_purchase' => 'Make a Store purchase (at least once a week)',
             'suggest_store' => 'Suggest a Store & Earn when Store Register  (twice a month)',
-            'social_share_ezsiop' => 'Share RUTI Self Checkout on social media (once a week)',
+            'social_share_ezsiop' => 'Share Nature Checkout on social media (once a week)',
             'review' => 'Review and Go'
         );
+        return $customer_checklist;
     }
 }
 
 if (!function_exists('customer_incentive_types'))
 {
-    function customer_incentive_types(): array
+    function customer_incentive_types()
     {
-        return array(
+        $customer_incentive_types = array(
 
             'tier_1' => 'Tier 1',
             'tier_2' => 'Tier 2',
             'tier_3' => 'Tier 3',
         );
+        return $customer_incentive_types;
     }
 }
 
 if (!function_exists('customer_incentive_sub_types'))
 {
-    function customer_incentive_sub_types(): array
+    function customer_incentive_sub_types()
     {
-        return array(
+        $customer_incentive_sub_types = array(
+
             'college_scholarship' => 'Scholarship for college student',
             'europe_trip' => 'One week round trip to Europe',
             'caribbean_trip' => 'One week round trip to the Caribbean',
@@ -853,20 +704,23 @@ if (!function_exists('customer_incentive_sub_types'))
             'laptop' => 'HP laptop',
             'tablet' => 'Tablets'
         );
+        return $customer_incentive_sub_types;
     }
 }
 
 if (!function_exists('miles2kms'))
 {
-    function miles2kms($miles): float
+    function miles2kms($miles)
     {
-        return $miles * 1.609344;
+        $ratio = 1.609344;
+        $kms = $miles * $ratio;
+        return $kms;
     }
 }
 
 if (!function_exists('invoiceAmountFormat'))
 {
-    function invoiceAmountFormat($amount): string
+    function invoiceAmountFormat($amount)
     {
         if($amount < 0) {
            $amount = '-$' . number_format((abs($amount)/100),2,".","");

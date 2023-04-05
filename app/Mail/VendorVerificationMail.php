@@ -42,7 +42,7 @@ class VendorVerificationMail extends Mailable
         // return $this->view('/admin/service_provider/background_check')->with([
         //         'id' => $this->id
         //     ]);
-        return $this->subject('RUTI Self Checkout: Account Verified')->view('/admin/vendors/vendor_verification_mail')->with([
+        return $this->subject('Nature Checkout: Account Verified')->view('/admin/vendors/vendor_verification_mail')->with([
                 'email' => $this->email,
                 'name' => $this->name
             ]);

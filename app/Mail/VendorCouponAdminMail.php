@@ -41,7 +41,7 @@ class VendorCouponAdminMail extends Mailable
         // return $this->view('/admin/service_provider/background_check')->with([
         //         'id' => $this->id
         //     ]);
-        return $this->subject('RUTI Self Checkout: Verify Coupon')->view('/admin/vendors/vendor_coupon_mail')->with([
+        return $this->subject('Nature Checkout: Verify Coupon')->view('/admin/vendors/vendor_coupon_mail')->with([
                 'name' => $this->name,
                 'id' => $this->id
             ]);

@@ -18,7 +18,13 @@
 		<div class="card">
 			<div class="card-header">
 				<div class="left"><!-- <i class="fa fa-group"></i> --><span>Wholesale2b Orders</span></div>
-				<div class="float-sm-right"></div>
+				<div class="float-sm-right">
+					@php /* @endphp
+					<a style="padding-bottom: 3px; padding-top: 4px;" href="{{ route('membership.create', $type) }}" class="btn btn-outline-primary btn-sm waves-effect waves-light m-1" title="Add Membership">
+						<!-- <i class="fa fa-group" style="font-size: 15px;"></i> --> <span class="name">Add Membership</span>
+					@php */ @endphp
+					</a>
+				</div>
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
@@ -54,27 +60,31 @@
                                             <option value="delivered" > Delivered</option>
                                             <option value="cancelled" > Cancel</option>
                                             </select>
-                                        @elseif($order->status == "shipped")
+                                         @elseif($order->status == "shipped")
                                             <select class="form-control" onchange="updateStatus1({{$order->id}}, $(this))" >
-                                                <option value="processing" > processing</option>
-                                                <option value="shipped" selected> shipped</option>
-                                                <option value="delivered" > Delivered</option>
-                                                <option value="cancelled" > Cancel</option>
+                                            <option value="processing" > processing</option>
+                                            <option value="shipped" selected> shipped</option>
+                                            <option value="delivered" > Delivered</option>
+                                            <option value="cancelled" > Cancel</option>
+
                                             </select>
                                         @elseif($order->status == "delivered")
                                             <select class="form-control" onchange="updateStatus1({{$order->id}}, $(this))" >
-                                                <option value="processing" > processing</option>
-                                                <option value="shipped" > shipped</option>
-                                                <option value="delivered" selected> Delivered</option>
-                                                <option value="cancelled" > Cancel</option>
+                                            <option value="processing" > processing</option>
+                                            <option value="shipped" > shipped</option>
+                                            <option value="delivered" selected> Delivered</option>
+                                            <option value="cancelled" > Cancel</option>
+
                                             </select>
-                                        @else
+                                         @else
                                             <select class="form-control" onchange="updateStatus1({{$order->id}}, $(this))" >
-                                                <option value="processing" > processing</option>
-                                                <option value="shipped" > shipped</option>
-                                                <option value="delivered" > Delivered</option>
-                                                <option value="cancelled" selected> Cancel</option>
+                                            <option value="processing" > processing</option>
+                                            <option value="shipped" > shipped</option>
+                                            <option value="delivered" > Delivered</option>
+                                            <option value="cancelled" selected> Cancel</option>
+
                                             </select>
+
                                         @endif
                                     </td>
 
@@ -109,7 +119,7 @@
         lengthChange: false,
         buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
     } );
-
+ 
     table.buttons().container()
         .appendTo( '#example_wrapper .col-md-6:eq(0)' );
 } );
@@ -117,13 +127,16 @@
 
 <script>
        function updateStatus1(id,$this) {
-            $.ajax({
-               url: "{{ url('/admin/wborder/status') }}/"+id+'/'+$this.val(),
-            }).done(function(res) {
-                console.log(res)
-                location.reload();
-            });
-        }
+
+$.ajax({
+           url: "{{ url('/admin/wborder/status') }}/"+id+'/'+$this.val(),
+
+
+}).done(function(res) {
+console.log(res)
+location.reload();
+});
+}
 
 </script>
 

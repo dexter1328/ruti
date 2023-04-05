@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\VendorAuth;
 
 use App\Http\Controllers\Controller;
-use App\WbWishlist;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;

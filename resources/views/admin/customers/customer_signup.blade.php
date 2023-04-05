@@ -3,12 +3,12 @@
 </center>
 <h2>Thank you for registering</h2>
 <p>Hi {{$name}},</p>
-<p>Thank you for creating an account in RUTI Self Checkout. Below is your login credential:</p>
+<p>Thank you for creating an account in Nature Checkout. Below is your login credential:</p>
 <b>Email Address: </b>{{$email}}<br>
 <b>Password: </b>Your chosen password
 <br>
 
-<p>Here is a systematic guide to navigating RUTI Self Checkout:</p>
+<p>Here is a systematic guide to navigating Nature Checkout:</p>
 <br>
 <b>1. Signup & Photo mandatory</b><br>
 <b>2. Refer 20 friends minimum</b><br>
@@ -19,5 +19,5 @@
 <p>If you have any questions regarding your account, click 'Reply' in your email client and we will be happy to assist.</p>
 <p>
 Thanks!<br>
-RUTI Self Checkout Team
+Nature Checkout Team
 </p>

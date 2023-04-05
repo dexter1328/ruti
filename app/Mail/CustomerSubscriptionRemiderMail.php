@@ -24,7 +24,7 @@ class CustomerSubscriptionRemiderMail extends Mailable
      * @return void
      */
     public function __construct($user, $days)
-    {   
+    {
         $this->user = $user;
         $this->days = $days;
     }
@@ -36,7 +36,7 @@ class CustomerSubscriptionRemiderMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('RUTI Self Checkout Subscription: Insufficient funds for auto renewal plan')->view('/email/customer_subscription_reminder_mail')->with([
+        return $this->subject('Nature Checkout Subscription: Insufficient funds for auto renewal plan')->view('/email/customer_subscription_reminder_mail')->with([
                 'user' => $this->user,
                 'days' => $this->days
             ]);
