@@ -1,13 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\GiftReceipt;
 use View;
 use App\User;
 use App\PageMeta;
 use App\WbWishlist;
 use App\W2bCategory;
 use App\OrderedProduct;
+use App\ReturnItem;
 use App\W2bOrder;
+use App\W2bProduct;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -43,9 +47,8 @@ class W2bCustomerController extends Controller
 
         $user = User::where('id', Auth::guard('w2bcustomer')->user()->id)->first();
         // dd($user_info);
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
         return view('front_end.user_account',compact('wb_wishlist','orders','categories2','user'));
     }
     public function userProduct($id)
@@ -63,12 +66,11 @@ class W2bCustomerController extends Controller
         ->where('w2b_orders.is_paid','yes')
         ->where('w2b_orders.order_id', $id)
         ->select('ordered_products.*', 'w2b_orders.order_id as p_order_id', 'w2b_orders.total_price as p_total_price',
-         'w2b_orders.created_at as p_created_at', 'w2b_orders.status as p_status')
+         'w2b_orders.created_at as p_created_at', 'w2b_orders.status as p_status', 'w2b_orders.user_id as p_user_id')
         ->get();
-        // dd($ordered_products);
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        //  dd($ordered_products);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
 
         return view('front_end.user_products',compact('wb_wishlist','ordered_products','categories2'));
     }
@@ -99,10 +101,9 @@ class W2bCustomerController extends Controller
         ->select('ordered_products.*', 'w2b_orders.order_id as p_order_id', 'w2b_orders.total_price as p_total_price',
          'w2b_orders.created_at as p_created_at', 'w2b_orders.status as p_status')
         ->get();
-        //  dd($ordered_products);
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        //   dd($ordered_products);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
 
         return view('front_end.order_invoice',compact('wb_wishlist','order', 'ordered_products','categories2'));
     }
@@ -150,9 +151,8 @@ class W2bCustomerController extends Controller
             $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
             ->get();
         }
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
         return view('front_end.gift_receipt', compact('wb_wishlist','categories2','orderId'));
 
     }
@@ -161,20 +161,41 @@ class W2bCustomerController extends Controller
     {
         # code...
         // dd($request->all());
-        $request->validate([
-            'gift_receipt' => 'required',
-
-        ]);
 
         $input = $request->all();
         //  dd($input);
 
 
-        $order = W2bOrder::where('order_id', $orderId)->first();
+        GiftReceipt::create($input);
 
-        $order->update($input);
 
         return redirect('/user-account');
+
+    }
+
+    public function returnItem($sku, $orderId, $userId)
+    {
+        // dd($sku, $orderId, $userId);
+        $wb_wishlist = null;
+
+        if (Auth::guard('w2bcustomer')->user()) {
+            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
+            ->get();
+        }
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
+
+        $product = W2bProduct::where('sku', $sku)->first();
+        return view('front_end.return_item', compact('sku','orderId','userId','wb_wishlist','categories2','product'));
+    }
+
+    public function returnItemSubmit(Request $request)
+    {
+        # code...
+        $input = $request->all();
+        ReturnItem::create($input);
+        return redirect('/user-account')->with('success', 'Your Request is in process. One of our representative will contact you soon.');;
+
 
     }
 

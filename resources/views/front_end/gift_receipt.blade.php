@@ -59,10 +59,18 @@
                                                 <div class="card-body">
                                                     <form method="post" action="{{ route('gift-receipt-update',$orderId) }}" enctype="multipart/form-data">
                                                         @csrf
-                                                        @method('PUT')
+                                                        <input type="hidden" value="{{$orderId}}" name="order_id">
+                                                        <div class="form-group">
+                                                            <label><strong>Name :</strong></label>
+                                                            <input class="form-control" name="name" type="text" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label><strong>Email :</strong></label>
+                                                            <input class="form-control" name="email" type="text" required>
+                                                        </div>
                                                         <div class="form-group">
                                                             <label><strong>Write Your Gift Note :</strong></label>
-                                                            <textarea class="summernote6" name="gift_receipt"></textarea>
+                                                            <textarea class="summernote6" name="message" required></textarea>
                                                         </div>
                                                         <div class="form-group text-center">
                                                             <button type="submit" class="btn btn-success btn-sm">Save</button>

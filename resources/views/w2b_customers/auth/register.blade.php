@@ -179,7 +179,7 @@
 
     <!-- terms-condition start -->
     <section id="inner-main-content">
-        <h2 class="heading">Register your account</h2>
+        <h2 class="heading">Register your Account</h2>
         <div class="container">
             <div class="row align-items-center justify-content-center">
                 <div class=''>

@@ -129,7 +129,9 @@ Route::get('/user-account', 'W2bCustomerController@userAccount')->name('user-acc
 Route::put('/user-profile-update/{id}', 'W2bCustomerController@userProfileUpdate')->name('user-profile-update');
 Route::get('/order-invoice/{id}', 'W2bCustomerController@orderInvoice')->name('order-invoice');
 Route::get('/gift-receipt/{id}', 'W2bCustomerController@giftReceipt')->name('gift-receipt');
-Route::put('/gift-receipt-update/{id}', 'W2bCustomerController@giftReceiptUpdate')->name('gift-receipt-update');
+Route::post('/gift-receipt-update/{id}', 'W2bCustomerController@giftReceiptUpdate')->name('gift-receipt-update');
+Route::get('/return-item/{sku}/{orderId}/{userId}', 'W2bCustomerController@returnItem')->name('return-item');
+Route::post('/return-item-submit', 'W2bCustomerController@returnItemSubmit')->name('return-item-submit');
 Route::get('/user-products/{id}', 'W2bCustomerController@userProduct')->name('user-product-page');
 Route::get('/dmca', 'FrontEndController@dmca');
 Route::get('/terms-condition', 'FrontEndController@termsCondition');

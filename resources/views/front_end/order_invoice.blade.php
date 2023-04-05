@@ -108,6 +108,7 @@
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
+                                                                                <?php $sum_tot_Price = 0 ?>
                                                                                 @foreach ($ordered_products as $order)
                                                                                 <tr>
                                                                                     <td>1</td>
@@ -121,13 +122,18 @@
 
 
                                                                                 </tr>
-
+                                                                                <?php $sum_tot_Price += $tt ?>
                                                                                 @endforeach
 
                                                                                 <tr>
                                                                                     <td></td>
+                                                                                    <td colspan="3" class="text-left"><strong>Sub Total</strong></td>
+                                                                                    <td class="text-right"><strong>${{$sum_tot_Price}}</strong></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td></td>
                                                                                     <td colspan="3" class="text-left"><strong>Shipping and Taxes</strong></td>
-                                                                                    <td class="text-right"><strong>+</strong></td>
+                                                                                    <td class="text-right"><strong>${{$ordered_products[0]->p_total_price - $sum_tot_Price}}</strong></td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td colspan="3">

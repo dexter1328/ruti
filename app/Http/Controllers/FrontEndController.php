@@ -75,9 +75,8 @@ class FrontEndController extends Controller
             $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
             ->get();
         }
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
         $categories = W2bCategory::with('childrens')->get();
 		return view('front_end.index',compact('wb_wishlist','categories','categories2'));
     }
@@ -91,9 +90,8 @@ class FrontEndController extends Controller
             $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
             ->get();
         }
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
 
     	return view('front_end.dmca',compact('wb_wishlist','categories2'));
     }
@@ -105,9 +103,8 @@ class FrontEndController extends Controller
             $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
             ->get();
         }
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
     	return view('front_end.terms-condition',compact('wb_wishlist','categories2'));
     }
 
@@ -118,9 +115,8 @@ class FrontEndController extends Controller
             $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
             ->get();
         }
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
     	return view('front_end.privacy-policy',compact('wb_wishlist','categories2'));
     }
 
@@ -146,9 +142,8 @@ class FrontEndController extends Controller
         }
         $categories1 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23,29,69])
         ->get();
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
 
 
         $sold = rand(20, 50);
@@ -156,15 +151,15 @@ class FrontEndController extends Controller
 
 
         $product1 = W2bProduct::inRandomOrder()->first();
-        $product2 = W2bProduct::where('sku', 'C122-1191089')->first();
-        $product3 = W2bProduct::where('sku', 'Q119-CJNSFJPD00030-Black-6-115')->first();
+        $product2 = W2bProduct::inRandomOrder()->first();
+        $product3 = W2bProduct::inRandomOrder()->first();
         $product4 = W2bProduct::inRandomOrder()->first();
-        $product5 = W2bProduct::where('sku', 'G240-B-73804-6PK')->first();
-        $product6 = W2bProduct::where('sku', 'G240-B-35243-6PK')->first();
-        $product7 = W2bProduct::where('sku', 'D970-TRX-UD22')->first();
-        $product8 = W2bProduct::where('sku', 'C122-1238151')->first();
-        $product9 = W2bProduct::where('sku', 'D681-PS7431')->first();
-        $product10 = W2bProduct::where('sku', 'H552-5001227')->first();
+        $product5 = W2bProduct::inRandomOrder()->first();
+        $product6 = W2bProduct::inRandomOrder()->first();
+        $product7 = W2bProduct::inRandomOrder()->first();
+        $product8 = W2bProduct::inRandomOrder()->first();
+        $product9 = W2bProduct::inRandomOrder()->first();
+        $product10 = W2bProduct::inRandomOrder()->first();
 
 
 
@@ -192,9 +187,8 @@ class FrontEndController extends Controller
         $cat_name = $cate;
         //   dd($products);
         $categories = W2bCategory::with('childrens')->get();
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
 
         // dd($cat);
         return view('front_end.cat_products', compact('categories', 'products','cat_name','wb_wishlist','categories2'));
@@ -224,9 +218,8 @@ class FrontEndController extends Controller
         $products = DB::table('w2b_products')->where('title', 'like', "%$query%")
         ->paginate(28);
         $categories = W2bCategory::with('childrens')->get();
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
 
         // dd($products);
         return view('front_end.search-products', compact('products','categories','wb_wishlist','categories2'));
@@ -256,9 +249,8 @@ class FrontEndController extends Controller
         ->where('sku', $sku)
         ->first();
         $categories = W2bCategory::with('childrens')->get();
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
         $related_products = DB::table('w2b_products')
         ->where('w2b_category_1', $product->w2b_category_1)
         ->inRandomOrder()->paginate(8);
@@ -288,9 +280,8 @@ class FrontEndController extends Controller
         ->where('user_id', Auth::guard('w2bcustomer')->user()->id)
         ->select('w2b_products.*')
         ->get();
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
 
         // dd($gg);
         return view('front_end.wishlist',compact('wish_products','wb_wishlist','categories2'));
@@ -315,9 +306,8 @@ class FrontEndController extends Controller
             $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
             ->get();
         }
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
         $suggested_products = W2bProduct::inRandomOrder()->paginate(7);
         return view('front_end.cart',compact('wb_wishlist','categories2','suggested_products'));
     }
@@ -423,9 +413,8 @@ class FrontEndController extends Controller
         // $cart = session()->get('cart');
         // dd($cart);
         $states = State::where('country_id',231)->get();
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
         return view('front_end.checkout',compact('states','wb_wishlist','categories2'));
     }
     public function state($state_id)
@@ -532,7 +521,7 @@ class FrontEndController extends Controller
                     ]);
                     $user_details = $user;
 
-
+                    $total_price1 = $w2border->total_price;
             foreach($cart as $sku => $details) {
                 OrderedProduct::create([
                     'sku' => $sku,
@@ -578,9 +567,8 @@ class FrontEndController extends Controller
             $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
             ->get();
         }
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
         // $data = session()->get('w2border');
         //  dd($data->order_id);
         # code...
@@ -680,9 +668,8 @@ class FrontEndController extends Controller
             ->get();
         }
         $products = W2bProduct::inRandomOrder()->paginate(32);
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
         return view('front_end.thank-you',compact('wb_wishlist','products','categories2'));
     }
 
@@ -697,9 +684,8 @@ class FrontEndController extends Controller
             $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
             ->get();
         }
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
         $products = W2bProduct::inRandomOrder()->paginate(16);
         return view('front_end.trending_products',compact('wb_wishlist','products','categories2'));
     }
@@ -715,15 +701,17 @@ class FrontEndController extends Controller
             $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
             ->get();
         }
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
         $products = W2bProduct::inRandomOrder()->paginate(16);
         return view('front_end.special_offers',compact('wb_wishlist','products','categories2'));
     }
 
     public function paypalPayment(Request $request)
     {
+        $w2border = session()->get('w2border');
+        $order = W2bOrder::where('id', $w2border->id)->first();
+        $user = User::where('id', $w2border->user_id)->first();
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
 
@@ -748,7 +736,7 @@ class FrontEndController extends Controller
 
         $redirect_urls = new RedirectUrls();
         $redirect_urls->setReturnUrl(URL::route('paypal-payment-success'))
-            ->setCancelUrl(URL::route('paypal-payment-success'));
+            ->setCancelUrl(URL::route('paypal-payment-error'));
 
         $payment = new Payment();
         $payment->setIntent('Sale')
@@ -805,5 +793,10 @@ class FrontEndController extends Controller
 
         \Session::put('error','Payment failed !!');
 		return Redirect::route('paywithpaypal');
+    }
+    public function paypalPaymentError()
+    {
+        # code...
+        dd('error');
     }
 }

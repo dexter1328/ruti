@@ -66,7 +66,7 @@
             <div class="form-group col-12" style="text-align: center;">
                Don't have an account? <br>
                <a href="{{ url('/w2bcustomer/register') }}">Sign up as Customer  | </a>
-               <a class='ml-2' href="#">Sign up as Vendor  | </a>
+               <a class='ml-2' href="{{ url("vendor/register") }}">Sign up as Vendor  | </a>
                <a class='ml-2' href="#">Sign up as Supplier</a>
             </div>
         </div>

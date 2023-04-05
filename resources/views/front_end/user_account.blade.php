@@ -14,7 +14,7 @@
                         <li>My Account</li>
                     </ul>
                 </div>
-                <div class="search-container">
+                {{-- <div class="search-container">
                     <input type="text" class='search_bar' placeholder="Search...">
                     <div class="dropdown">
                         <button class="dropbtn">Filter</button>
@@ -33,7 +33,7 @@
                             <label><input type="radio" name="filter-option" value="option4">2019</label>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -65,6 +65,11 @@
                         </div>
                         @include('front_end.user-profile')
                         <div class="tab-pane fade show active" id="orders">
+                            @if(session('success'))
+                            <div class="container alert alert-success text-center">
+                            {{ session('success') }}
+                            </div>
+                            @endif
                             <h3>Orders</h3>
                             <div class="table-responsive">
 
@@ -89,7 +94,7 @@
                                             </div>
                                             <div>
                                                 Order Duration:
-                                                <span class='d-block'>4 days.</span>
+                                                <span class='d-block'>3-4 days</span>
                                             </div>
                                         </div>
                                         <div class="orders_header2 text-center">
@@ -153,7 +158,18 @@ if ($('#password').val() == $('#password_confirmation').val()) {
     </script>
     <script>
         $(document).ready(function () {
-            $('#nav-tab2 a[href="#{{ old('tab') }}"]').tab('show')
+            $('#nav-tab2 a[href="#reviews"]').tab('show')
         });
     </script>
+
+<script type="text/javascript">
+
+    $("document").ready(function(){
+        setTimeout(function() {
+        $('.alert-success').fadeOut('fast');
+        }, 15000);
+
+    });
+
+</script>
 @endsection

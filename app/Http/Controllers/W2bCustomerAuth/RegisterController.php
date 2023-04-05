@@ -135,9 +135,8 @@ class RegisterController extends Controller
             ->get();
         }
         $categories = W2bCategory::with('childrens')->get();
-        $categories2 = W2bCategory::inRandomOrder()
-        ->whereNotIn('category1', ['others','other'])
-        ->paginate(6);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
+        ->get();
         return view('w2b_customers.auth.register',compact('wb_wishlist','categories','categories2'));
     }
 

@@ -69,8 +69,8 @@
                             </div>
                             <div class='main_button w-50'>
                                 {{-- <button class='order_details_button border boder-rounded yellow_btn'>Track Package</button> --}}
-                                <button type="button" onclick="window.location='{{ route('gift-receipt',$order->order_id) }}#reviews'" class='mt-1 order_details_button border boder-rounded'>Share gift receipt</button>
-                                <button class='mt-1 order_details_button border boder-rounded'>Return or Replace Items</button>
+                                <button type="button" onclick="window.location='{{ route('gift-receipt',$order->order_id) }}'" class='mt-1 order_details_button border boder-rounded'>Share gift receipt</button>
+                                <button class='mt-1 order_details_button border boder-rounded' onclick="window.location='{{ route('return-item', ['sku' => $order->sku, 'order_id' => $order->order_id, 'user_id' => $order->p_user_id]) }}'">Return or Replace Items</button>
                                 <button type="button" onclick="window.location='{{ route('product-detail',$order->sku) }}#reviews'" class='mt-1 order_details_button border boder-rounded'>Write a product review</button>
                                 {{-- <button type="button" onclick="reviewFunction()" class='mt-1 order_details_button border boder-rounded'>Write a product review</button> --}}
                             </div>
