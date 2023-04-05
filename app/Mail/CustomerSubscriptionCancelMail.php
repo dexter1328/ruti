@@ -25,7 +25,7 @@ class CustomerSubscriptionCancelMail extends Mailable
      * @return void
      */
     public function __construct($user)
-    {
+    {   
         $this->user = $user;
     }
 
@@ -36,7 +36,7 @@ class CustomerSubscriptionCancelMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Nature Checkout Subscription: Your plan has been expired')->view('/email/customer_subscription_cancel_mail')->with([
+        return $this->subject('RUTI Self Checkout Subscription: Your plan has been expired')->view('/email/customer_subscription_cancel_mail')->with([
                 'user' => $this->user,
             ]);
 

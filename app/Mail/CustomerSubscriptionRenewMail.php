@@ -23,7 +23,7 @@ class CustomerSubscriptionRenewMail extends Mailable
      * @return void
      */
     public function __construct($user)
-    {
+    {   
         $this->user = $user;
     }
 
@@ -34,7 +34,7 @@ class CustomerSubscriptionRenewMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Nature Checkout Subscription: Your plan has been renewed')->view('/email/customer_subscription_renew_mail')->with([
+        return $this->subject('RUTI Self Checkout Subscription: Your plan has been renewed')->view('/email/customer_subscription_renew_mail')->with([
                 'user' => $this->user,
             ]);
 

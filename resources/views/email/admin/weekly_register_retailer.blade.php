@@ -1,6 +1,6 @@
 @extends('email.layout')
 
-@section('title', 'Nature Checkout Weekly Registered Retailers')
+@section('title', 'RUTI Self Checkout Weekly Registered Retailers')
 @section('content')
 	<div>
 		<p>Dear Joseph,</p>
@@ -31,6 +31,6 @@
 			@endforeach
 		</table>
 		<br>
-		<p>Thanks, <br> Nature Checkout Team</p>
+		<p>Thanks, <br> RUTI Self Checkout Team</p>
 	</div>
 @endsection

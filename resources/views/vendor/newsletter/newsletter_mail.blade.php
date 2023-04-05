@@ -276,7 +276,7 @@ table{
 	color: rgba(255,255,255,.8);
 }
 .heading-section-white h2{
-	font-family:
+	font-family: 
 	line-height: 1;
 	padding-bottom: 0;
 }
@@ -305,7 +305,7 @@ table{
 	background: rgba(0,0,0,.03);
 }*/
 .text-services{
-	padding: 10px 10px 0;
+	padding: 10px 10px 0; 
 	text-align: center;
 }
 .text-services h3{
@@ -429,7 +429,7 @@ table{
                 <!-- 1 Column Text + Button : END -->
             </table>
             <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
-
+               
                 <tr>
                     <td valign="middle" class="bg_black footer email-section">
                         <table>
@@ -438,7 +438,7 @@ table{
                                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                         <tr>
                                             <td style="text-align: left; padding-right: 10px;">
-                                                <p>Nature Checkout &copy; 2019-2024. All Rights Reserved</p>
+                                                <p>RUTI Self Checkout &copy; 2019-2024. All Rights Reserved</p>
                                             </td>
                                         </tr>
                                     </table>
@@ -447,7 +447,7 @@ table{
                                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                         <tr>
                                             <td style="text-align: right; padding-left: 5px; padding-right: 5px;">
-                                                <p><a href="#" style="color: rgba(255,255,255,.4);">Nature Checkout</a></p>
+                                                <p><a href="#" style="color: rgba(255,255,255,.4);">RUTI Self Checkout</a></p>
                                             </td>
                                         </tr>
                                     </table>

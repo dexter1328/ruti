@@ -37,7 +37,7 @@ class VendorController extends Controller
 	use Permission;
 
 	private $stripe_secret;
-	
+
 	public function __construct()
 	{
 		$this->middleware('auth:vendor');
@@ -56,15 +56,15 @@ class VendorController extends Controller
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index()
-	{   
-		
+	{
+
 		// $vendors = Vendor::whereNotIn('id',[1])->where('parent_id','=',Auth::user()->id)->get();
-		return view('vendor/vendors/index');
+		return view('supplier.suppliers.index');
 	}
 
 	public function view(request $request)
     {
-    	$columns = array( 
+    	$columns = array(
 			0 => 'name',
 			1 => 'phone_number',
 			2 => 'email',
@@ -74,7 +74,7 @@ class VendorController extends Controller
 		$totalData = Vendor::whereNotIn('id',[1])
 				->where('parent_id','=',Auth::user()->id)->count();
 
-        $totalFiltered = $totalData; 
+        $totalFiltered = $totalData;
 
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -95,9 +95,9 @@ class VendorController extends Controller
 
 		}else{
 
-			$search = $request->input('search.value'); 
+			$search = $request->input('search.value');
 
-           
+
 			$vendors = Vendor::leftjoin('vendor_roles','vendor_roles.id','vendors.role_id')
 				->select('vendors.name', 'vendors.pincode', 'vendors.mobile_number', 'vendors.email', 'vendors.id','vendors.status','vendors.parent_id','vendor_roles.role_name')
 				->whereNotIn('vendors.id',[1])
@@ -113,18 +113,18 @@ class VendorController extends Controller
 			});
 			//$products = $products->orHavingRaw('Find_In_Set("'.$search.'", attribute_value_names) > 0');
 
-			$totalFiltered = $vendors; 
-			$totalFiltered = $totalFiltered->get()->count(); 
+			$totalFiltered = $vendors;
+			$totalFiltered = $totalFiltered->get()->count();
 
 			$vendors = $vendors->offset($start)
 				->limit($limit)
 				->orderBy($order,$dir)
 				->get();
 		}
-      
+
         $data = array();
 		if($vendors->isNotEmpty())
-		{	
+		{
 			foreach ($vendors as $key => $vendor)
 			{
 				// @if($admin->status=='active')color:#009933;@else color: #ff0000;@endif
@@ -135,7 +135,7 @@ class VendorController extends Controller
 					$color ='color:#ff0000;';
 				}
 				$cfm_msg = 'Are you sure?';
-				
+
 				// $url = "{{ url('/vendor/vendors/set-store-permission') }}/{{$vendor->id}}";
 				$url = "vendors/set-store-permission/".$vendor->id;
 
@@ -162,7 +162,7 @@ class VendorController extends Controller
 										 		<i class="fa fa-circle status_'.$vendor->id.'" style="'.$color.'" id="active_'.$vendor->id.'" data-toggle="tooltip" data-placement="bottom" title="Change Status" ></i>
 											</a>
 
-												
+
 										</form>';
 				$data[] = $nestedData;
 			}
@@ -170,10 +170,10 @@ class VendorController extends Controller
 		}
 
 		$json_data = array(
-			"draw"            => intval($request->input('draw')),  
-			"recordsTotal"    => intval($totalData),  
-			"recordsFiltered" => intval($totalFiltered), 
-			"data"            => $data   
+			"draw"            => intval($request->input('draw')),
+			"recordsTotal"    => intval($totalData),
+			"recordsFiltered" => intval($totalFiltered),
+			"data"            => $data
 		);
 
 		echo json_encode($json_data);exit();
@@ -199,7 +199,7 @@ class VendorController extends Controller
 	*/
 	public function store(Request $request)
 	{
-		
+
 		$date = date('Y-m-d');
 		$request->validate([
 			'mobile_number'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/',
@@ -222,7 +222,7 @@ class VendorController extends Controller
 		}else{
 			$parent_id = $vendor_parent->parent_id;
 		}
-		
+
 		$vendor = new Vendor;
 		$vendor->registered_date = $date;
 		$vendor->address = $request->input('address');
@@ -243,7 +243,7 @@ class VendorController extends Controller
 		if ($files = $request->file('image')){
 			$path = 'public/images/vendors';
 			$profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-			$files->move($path, $profileImage);   
+			$files->move($path, $profileImage);
 			$vendor->image = $profileImage;
 		}
 
@@ -256,7 +256,7 @@ class VendorController extends Controller
 				['store_id' => $request->store_id]
 			);
 		}
-		
+
 		return redirect('/vendor/vendors')->with('success',"Employee has been created.");
 	}
 
@@ -332,7 +332,7 @@ class VendorController extends Controller
 		if($request->has('store_id') && $request->store_id != '') {
 
 			StoresVendor::updateOrCreate(
-				['vendor_id' => $vendor->id],
+				['vendor_id' => $id],
 				['store_id' => $request->store_id]
 			);
 		}
@@ -348,7 +348,7 @@ class VendorController extends Controller
 	public function destroy(Vendor $vendor)
 	{
 		$vendor->delete();
-		return redirect('/vendor/vendors')->with('success',"Employee has been deleted.");   
+		return redirect('/vendor/vendors')->with('success',"Employee has been deleted.");
 	}
 
 	public function profile()
@@ -414,10 +414,10 @@ class VendorController extends Controller
 		if ($files = $request->file('image')){
 			$path = 'public/images/vendors/';
 			$profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-			$files->move($path, $profileImage);   
+			$files->move($path, $profileImage);
 			$vendor->image = $profileImage;
 		}
-		
+
 		$vendor->save();
 
 		if($vendor->image != NULL || $vendor->image != ''){
@@ -427,10 +427,10 @@ class VendorController extends Controller
 
 		return redirect('vendor/profile')->with('success',"Profile successfully updated.");
 	}
-	
+
 	public function Dashboard(Request $request)
 	{
-		
+
 		if($request->has('start') && $request->has('end') && $request->start !='' && $request->end != ''){
             // $date = explode('-',$request->daterange);
             $start_date = date('Y-m-d',strtotime($request->start));
@@ -470,14 +470,14 @@ class VendorController extends Controller
 
         $user = User::whereBetween(DB::raw('DATE(created_at)'), [$start_date, $end_date])
         ->whereIn('id',$order_users)->count();
-        
+
         // sales graph
         $graph_sales = Orders::selectRaw('count(id) as total_price, Date(created_at) as sales_date')
             ->whereBetween(DB::raw('DATE(created_at)'), [$start_date, $end_date])
             ->where('order_status','completed')
             ->where('vendor_id',$vendorID)
             ->groupBy('sales_date');
-         
+
         if($request->vendor){
         	$graph_sales = $graph_sales->where('orders.vendor_id',$request->vendor);
         }
@@ -493,7 +493,7 @@ class VendorController extends Controller
         $total_sales_graph_label = [];
         $total_sales_graph_data = [];
 
-        $date = $start_date; 
+        $date = $start_date;
         while (strtotime($date) <= strtotime($end_date)) {
 
             $total_sales_graph_label[] = date ("d M", strtotime($date));
@@ -511,7 +511,7 @@ class VendorController extends Controller
             ->where('order_status','completed')
             ->where('vendor_id',$vendorID)
             ->groupBy('sales_date');
-            
+
         if($request->vendor){
         	$graph_earning = $graph_earning->where('orders.vendor_id',$request->vendor);
         }
@@ -526,7 +526,7 @@ class VendorController extends Controller
         $total_earning_graph_label = [];
         $total_earning_graph_data = [];
 
-        $date = $start_date; 
+        $date = $start_date;
         while (strtotime($date) <= strtotime($end_date)) {
 
             $total_earning_graph_label[] = date ("d M", strtotime($date));
@@ -560,7 +560,7 @@ class VendorController extends Controller
 
 	    $total_store_graph = array();
 
-        foreach($store_graph as $key) 
+        foreach($store_graph as $key)
         {
         	$total_store_graph[] = array('name'=>$key->name,'latLng'=>array($key->lat,$key->long));
         }
@@ -581,7 +581,7 @@ class VendorController extends Controller
 	        ->groupBy('orders.store_id')
 	        ->orderBy('total_price', 'DESC')
 	        ->limit(5);
-				        
+
 		if($request->vendor){
         	$store_earn = $store_earn->where('orders.vendor_id',$request->vendor);
         }
@@ -589,7 +589,7 @@ class VendorController extends Controller
         if($request->store){
         	$store_earn = $store_earn->where('vendor_stores.id',$request->store);
         }
-		
+
 		$store_earn = $store_earn->get();
 
 		//customer_review
@@ -614,7 +614,7 @@ class VendorController extends Controller
         if($request->store){
         	$customer_reviews = $customer_reviews->where('products.store_id',$request->store);
         }
-		
+
 		$customer_reviews = $customer_reviews->get();
 
 	   	//recent order
@@ -624,7 +624,7 @@ class VendorController extends Controller
 	    					->where('vendor_stores.vendor_id',$vendorID)
 	    					->limit(5)
 	    					->whereBetween(DB::raw('DATE(orders.created_at)'), [$start_date, $end_date]);
-	    					
+
 	    if($request->vendor){
         	$recent_orders = $recent_orders->where('orders.vendor_id',$request->vendor);
         }
@@ -634,18 +634,18 @@ class VendorController extends Controller
         }
 
         $recent_orders = $recent_orders->orderBy('orders.id','DESC')->get();
-	    					
+
 		$attribute_values = ProductVariants::join('attribute_values','attribute_values.id','=',
 									'product_variants.attribute_value_id')
 						->join('products','products.id','=','product_variants.product_id')
 						->select('attribute_values.name','products.title','product_variants.id')
 						->get();
-						
+
 		foreach($attribute_values as $attribute_value)
 		{
 			$product_title[] = array('id'=> $attribute_value->id ,'title' => $attribute_value->title .' '.$attribute_value->name);
 		}
-		
+
 		// print_r($product_title);die();
 		$category = Category::all();
 
@@ -656,13 +656,13 @@ class VendorController extends Controller
 			$ref   = [];
 			$items = [];
 			foreach ($categories as $key => $value) {
-				
+
 				$thisRef = &$ref[$value->id];
 
 				$thisRef['id'] = $value->id;
 				$thisRef['name'] = $value->name;
 				$thisRef['parent'] = $value->parent;
-				
+
 				if($value->parent == 0) {
 					$items[$value->id] = &$thisRef;
 				} else {
@@ -679,7 +679,7 @@ class VendorController extends Controller
 		return view('vendor.home',compact('start_date','end_date','vendor','store','order',
 			'user','total_sales_graph_label', 'total_sales_graph_data','total_earning_graph_label',
 			'total_earning_graph_data','total_store_graph','store_earn','customer_reviews',
-			'recent_orders','vendor_datas','result','product_title','vendor_store','input'));           
+			'recent_orders','vendor_datas','result','product_title','vendor_store','input'));
 
 	}
 
@@ -688,11 +688,11 @@ class VendorController extends Controller
 		$str = '';
 		$span = '<span>—</span>';
 		foreach($items as $key=>$value) {
-			$str .= '<option value="'.$value['id'].'">'.$prefix.$value['name'].'</option>';					
+			$str .= '<option value="'.$value['id'].'">'.$prefix.$value['name'].'</option>';
 			if(array_key_exists('child',$value)) {
 				$str .= $this->getCategoriesDropDown($prefix.$span, $value['child'],'child');
 			}
-			
+
 		}
 		return $str;
 	}
@@ -716,7 +716,7 @@ class VendorController extends Controller
 	        while(!feof($fileD)) {
 
 	            $rowData=fgetcsv($fileD);
-	            if(!empty($rowData)) {	
+	            if(!empty($rowData)) {
 
 					$name = $rowData[0];
 					$email = $rowData[1];
@@ -767,15 +767,15 @@ class VendorController extends Controller
 								$path = public_path('images/vendors');
 								$image_name = date('YmdHis') . '.' . $ext;
 								$new_image = $path . '/' . $image_name;
-								
+
 								if (!@copy($image, $new_image)) {
-									
+
 								}else{
 									$vendor['image'] = $image_name;
 								}
 
 								/*if(!@file_put_contents($new_image, file_get_contents($image))) {
-									
+
 								}else{
 									$vendor['image'] = $image_name;
 								}*/
@@ -909,7 +909,7 @@ class VendorController extends Controller
 			->where('vendors.parent_id', $vendorID)
 			->groupBy('vendors.id')
 			->get();
-					
+
 		$image_url = url('/');
 
 		foreach ($vendors as $key => $vendor) {
@@ -921,20 +921,20 @@ class VendorController extends Controller
 			}
 
 			$data = array(
-				'Name' => $vendor->name, 
-				'Email' => $vendor->email, 
-				'Phone Number' => $vendor->phone_number, 
-				'Mobile Number' => $vendor->mobile_number, 
-				'Address' => $vendor->address, 
-				'City' => $vendor->city_name, 
-				'State' => $vendor->state_name, 
-				'Country' => $vendor->country_name, 
-				'Zip Code' => $vendor->pincode, 
-				'Store' => $vendor->store_name, 
-				'Role' => $vendor->role_name, 
+				'Name' => $vendor->name,
+				'Email' => $vendor->email,
+				'Phone Number' => $vendor->phone_number,
+				'Mobile Number' => $vendor->mobile_number,
+				'Address' => $vendor->address,
+				'City' => $vendor->city_name,
+				'State' => $vendor->state_name,
+				'Country' => $vendor->country_name,
+				'Zip Code' => $vendor->pincode,
+				'Store' => $vendor->store_name,
+				'Role' => $vendor->role_name,
 				'Image' => $image
 			);
-			
+
 		 	fputcsv($fp, $data);
 		}
 		Helper::addToLog('Export Vendor',Auth::user()->id);
@@ -1004,7 +1004,7 @@ class VendorController extends Controller
 			->whereHas('monthMembershipItem',  function($query)  {
 				$query->whereNotNull('billing_period');
 			})
-			->get(); 
+			->get();
 		$one_time_setup_fee = Membership::where('code', 'one_time_setup_fee')->with('discountMembershipItem')->first();
 		$cards = $this->retriveVendorCards();
 		//echo '<pre>'; print_r($cards); exit();
@@ -1045,7 +1045,7 @@ class VendorController extends Controller
 
 		return response()->json( array(
 			'is_setup_required' => $is_setup_required,
-			'current_subscription' => $current_subscription, 
+			'current_subscription' => $current_subscription,
 			'pending_subscription' => $pending_subscription
 		));
 	}
@@ -1066,7 +1066,7 @@ class VendorController extends Controller
 		}elseif($interval == 'year' && $license == 2){
 			$join = 'yearMembershipItemTwoLicense';
 		}
-		
+
 		/*if($interval == 'year'){
 			$coupon = DB::table('membership_coupons')->where('code', 'annual_pay_discount')->first();
 		}*/
@@ -1075,8 +1075,8 @@ class VendorController extends Controller
 			->whereHas($join,  function($query)  {
 				$query->whereNotNull('billing_period');
 			})
-			->get(); 
-		
+			->get();
+
 		$result = array('membership' => $memberships, 'coupon' => $coupon);
 		return response()->json($result);
 	}
@@ -1089,7 +1089,7 @@ class VendorController extends Controller
 		$store_created_at = strtotime('2022-06-01 12:30:49');
 		$datediff = $now - $store_created_at;
 		$diff_days = round($datediff / (60 * 60 * 24));
-		
+
 		$membership = DB::table('memberships')
 			->select('memberships.id', 'memberships.code', 'membership_items.id as item_id', 'membership_items.price')
 			->join('membership_items','membership_items.membership_id', 'memberships.id')
@@ -1127,7 +1127,7 @@ class VendorController extends Controller
 			Stripe\Stripe::setApiKey($this->stripe_secret);
 
 			try {
-		        	
+
 				$charge = Stripe\Charge::create([
 					'amount' => $final_price *100,
 					'currency' => 'usd',
@@ -1165,31 +1165,31 @@ class VendorController extends Controller
 				$status = 'success';
 				$message = 'Thank you for paying one time setup fee. We will update you shortly.';
 			} catch(\Stripe\Exception\CardException $e) {
-					
+
 				$status = 'error';
 				$message = $e->getMessage();
 			} catch (\Stripe\Exception\RateLimitException $e) {
-			
+
 				$status = 'error';
 				$message = $e->getMessage();
 			} catch (\Stripe\Exception\InvalidRequestException $e) {
-			
+
 				$status = 'error';
 				$message = $e->getMessage();
 			} catch (\Stripe\Exception\AuthenticationException $e) {
-			
+
 				$status = 'error';
 				$message = $e->getMessage();
 			} catch (\Stripe\Exception\ApiConnectionException $e) {
-			
+
 				$status = 'error';
 				$message = $e->getMessage();
 			} catch (\Stripe\Exception\ApiErrorException $e) {
-			
+
 				$status = 'error';
 				$message = $e->getMessage();
 			} catch (Exception $e) {
-				
+
 				$status = 'error';
 				$message = $e->getMessage();
 			}
@@ -1241,23 +1241,23 @@ class VendorController extends Controller
 		if($setup_fee_not_exist) {
 
 			$status = 'error';
-			$message = 'please pay first the one-time setup fee.';	
+			$message = 'please pay first the one-time setup fee.';
 		} else if($store_subscription_exist) {
 
 			$status = 'error';
-			$message = 'You can not create new subscription for this store. You can upgrade / downgrade it.';	
+			$message = 'You can not create new subscription for this store. You can upgrade / downgrade it.';
 		} else {
 
 			Stripe\Stripe::setApiKey($this->stripe_secret);
 
 			$stripe_customer_id = Auth::user()->stripe_customer_id;
-			$data = array( 
-	            "customer" => $stripe_customer_id, 
-	            "items" => array( 
-	                array( 
-	                    "plan" => $request->stripe_price_id, 
-	                ), 
-	            ), 
+			$data = array(
+	            "customer" => $stripe_customer_id,
+	            "items" => array(
+	                array(
+	                    "plan" => $request->stripe_price_id,
+	                ),
+	            ),
 	            "default_payment_method" => $request->stripe_card_id
 	        );
 
@@ -1267,8 +1267,8 @@ class VendorController extends Controller
 	        }*/
 
 	        try {
-	        	
-		        $subscription = Stripe\Subscription::create($data); 
+
+		        $subscription = Stripe\Subscription::create($data);
 
 				$store_subscription = new StoreSubscriptionTemp;
 				$store_subscription->vendor_id = Auth::user()->id;
@@ -1300,31 +1300,31 @@ class VendorController extends Controller
 				$status = 'success';
 				$message = 'Thank you for your subscription. We will update you shortly.';
 			} catch(\Stripe\Exception\CardException $e) {
-					
+
 				$status = 'error';
 				$message = $e->getMessage();
 			} catch (\Stripe\Exception\RateLimitException $e) {
-			
+
 				$status = 'error';
 				$message = $e->getMessage();
 			} catch (\Stripe\Exception\InvalidRequestException $e) {
-			
+
 				$status = 'error';
 				$message = $e->getMessage();
 			} catch (\Stripe\Exception\AuthenticationException $e) {
-			
+
 				$status = 'error';
 				$message = $e->getMessage();
 			} catch (\Stripe\Exception\ApiConnectionException $e) {
-			
+
 				$status = 'error';
 				$message = $e->getMessage();
 			} catch (\Stripe\Exception\ApiErrorException $e) {
-			
+
 				$status = 'error';
 				$message = $e->getMessage();
 			} catch (Exception $e) {
-				
+
 				$status = 'error';
 				$message = $e->getMessage();
 			}
@@ -1377,7 +1377,7 @@ class VendorController extends Controller
 					$data = array(
 						/*'cancel_at_period_end' => false,
 						'proration_behavior' => 'create_prorations',*/
-						
+
 						'payment_behavior' => 'pending_if_incomplete',
     					'proration_behavior' => 'always_invoice',
 						'items' => [
@@ -1426,31 +1426,31 @@ class VendorController extends Controller
 					$message = 'Your subscription has been changed. We will update you shortly.';
 
 				} catch(\Stripe\Exception\CardException $e) {
-					
+
 					$status = 'error';
 					$message = $e->getMessage();
 				} catch (\Stripe\Exception\RateLimitException $e) {
-				
+
 					$status = 'error';
 					$message = $e->getMessage();
 				} catch (\Stripe\Exception\InvalidRequestException $e) {
-				
+
 					$status = 'error';
 					$message = $e->getMessage();
 				} catch (\Stripe\Exception\AuthenticationException $e) {
-				
+
 					$status = 'error';
 					$message = $e->getMessage();
 				} catch (\Stripe\Exception\ApiConnectionException $e) {
-				
+
 					$status = 'error';
 					$message = $e->getMessage();
 				} catch (\Stripe\Exception\ApiErrorException $e) {
-				
+
 					$status = 'error';
 					$message = $e->getMessage();
 				} catch (Exception $e) {
-					
+
 					$status = 'error';
 					$message = $e->getMessage();
 				}
@@ -1530,7 +1530,7 @@ class VendorController extends Controller
 	                foreach ($stripe_cards as $key => $value) {
 	                    $cards[] = array(
 	                        'id' => $value->id,
-	                        'object' => $value->object, 
+	                        'object' => $value->object,
 	                        'brand' => $value->brand,
 	                        'country' => $value->country,
 	                        'exp_month' => $value->exp_month,
@@ -1542,19 +1542,19 @@ class VendorController extends Controller
 	                }
 	            }
             } catch(\Stripe\Exception\CardException $e) {
-				
+
 			} catch (\Stripe\Exception\RateLimitException $e) {
-				
+
 			} catch (\Stripe\Exception\InvalidRequestException $e) {
-			
+
 			} catch (\Stripe\Exception\AuthenticationException $e) {
-			
+
 			} catch (\Stripe\Exception\ApiConnectionException $e) {
-			
+
 			} catch (\Stripe\Exception\ApiErrorException $e) {
-			
+
 			} catch (Exception $e) {
-			
+
 			}
         }
         return $cards;
@@ -1564,7 +1564,7 @@ class VendorController extends Controller
 	{
 		$manageCard = view('vendor/vendors/card')->render();
 		$data = array('manageCard' => $manageCard);
-		return response()->json(['status' => 'success', 'data' => $data]);	
+		return response()->json(['status' => 'success', 'data' => $data]);
 	}*/
 
 	public function getVendorCard()
@@ -1638,7 +1638,7 @@ class VendorController extends Controller
 
                 $data = array(
                     'id' => $card->id,
-                    'object' => $card->object, 
+                    'object' => $card->object,
                     'brand' => $card->brand,
                     'country' => $card->country,
                     'exp_month' => $card->exp_month,
@@ -1691,7 +1691,7 @@ class VendorController extends Controller
     	$vendor = Vendor::findOrFail(Auth::user()->id);
 
     	if ($request->get('month') != '' && $request->get('year') != '') {
-    		
+
 			if($request->has('card_id') && $request->get('card_id')!=''){
 
 			    if($vendor->stripe_customer_id != NULL) {
@@ -1706,33 +1706,33 @@ class VendorController extends Controller
 						);
 						$status = 'success';
 						$message = 'Your card has been updated.';
-						
+
 					} catch(\Stripe\Exception\CardException $e) {
-					
+
 						$status = 'error';
 						$message = $e->getMessage();
 					} catch (\Stripe\Exception\RateLimitException $e) {
-					
+
 						$status = 'error';
 						$message = $e->getMessage();
 					} catch (\Stripe\Exception\InvalidRequestException $e) {
-					
+
 						$status = 'error';
 						$message = $e->getMessage();
 					} catch (\Stripe\Exception\AuthenticationException $e) {
-					
+
 						$status = 'error';
 						$message = $e->getMessage();
 					} catch (\Stripe\Exception\ApiConnectionException $e) {
-					
+
 						$status = 'error';
 						$message = $e->getMessage();
 					} catch (\Stripe\Exception\ApiErrorException $e) {
-					
+
 						$status = 'error';
 						$message = $e->getMessage();
 					} catch (Exception $e) {
-						
+
 						$status = 'error';
 						$message = $e->getMessage();
 					}
@@ -1745,7 +1745,7 @@ class VendorController extends Controller
 
 				$status = 'error';
 				$message = 'Card not found.';
-			}	
+			}
 		} else {
 
 			$status = 'error';

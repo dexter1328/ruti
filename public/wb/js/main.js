@@ -920,38 +920,5 @@ $(document).ready(function() {
         }
       }
     });
-});
-
-function sub_menu_correction() { 
-    $('.new_sub_menu1').css('top', '-65px') 
-    $('.new_sub_menu2').css('top', '-104px') 
-    $('.new_sub_menu3').css('top', '-142px') 
-    $('.new_sub_menu4').css('top', '-180px') 
-    $('.new_sub_menu5').css('top', '-218px')
-    $('.new_sub_menu6').css('top', '-256px')
-    $('.new_sub_menu7').css('top', '-294px')
-    $('.new_sub_menu8').css('top', '-332px')
-    $('.new_sub_menu9').css('top', '-370px')
-    $('.new_sub_menu10').css('top', '-408px')
-    $('.new_sub_menu11').css('top', '-446px')
-    $('.new_sub_menu12').css('top', '-484px')
-    $('.new_sub_menu13').css('top', '-522px')
-    $('.new_sub_menu14').css('top', '-560px')
-    $('.new_sub_menu15').css('top', '-598px')
-    $('.new_sub_menu16').css('top', '-636px')
-    $('.new_sub_menu17').css('top', '-674px')
-    $('.new_sub_menu18').css('top', '-712px')
-    $('.new_sub_menu19').css('top', '-750px')
-    $('.new_sub_menu20').css('top', '-788px')
-    $('.new_sub_menu21').css('top', '-826px')
-    $('.new_sub_menu22').css('top', '-864px')
-    $('.new_sub_menu23').css('top', '-902px')
-    $('.new_sub_menu24').css('top', '-940px')
-    $('.new_sub_menu25').css('top', '-978px')
-    $('.new_sub_menu26').css('top', '-1016px')
-    $('.new_sub_menu27').css('top', '-1054px')
-    $('.new_sub_menu28').css('top', '-1092px')
-    $('.new_sub_menu29').css('top', '-1130px')
-    $('.new_sub_menu30').css('top', '-1168px')
-}
-sub_menu_correction()
+  });
+  
