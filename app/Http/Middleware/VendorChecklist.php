@@ -19,8 +19,12 @@ class VendorChecklist
     {
         if (Auth::guard('vendor')->check()) {
 
+            if (Auth::guard('vendor')->user()->seller_type!=='vendor') {
+                abort(401);
+            }
+
             $data = $this->getChecklist();
-            
+
 
             if(!empty(Auth::user()->parent_id) && Auth::user()->parent_id != 0){
                 $vid = Auth::user()->parent_id;
@@ -53,7 +57,7 @@ class VendorChecklist
         // $total_checklist = count(vendor_checklist());
         // $vendor_checklist = vendor_checklist();
         if (Auth::check()) {
-            
+
             $module = '';
             foreach ($vendor_checklist as $item) {
 
@@ -119,7 +123,7 @@ class VendorChecklist
 
                         $module = 'vendor_roles';
                         $url = url('/vendor/vendor_roles');
-                        $set_role_permission = DB::table('vendor_roles')->join('vendor_role_permissions', 'vendor_role_permissions.role_id', '=', 'vendor_roles.id')->where('vendor_roles.vendor_id', Auth::user()->id)->exists(); 
+                        $set_role_permission = DB::table('vendor_roles')->join('vendor_role_permissions', 'vendor_role_permissions.role_id', '=', 'vendor_roles.id')->where('vendor_roles.vendor_id', Auth::user()->id)->exists();
                         if($set_role_permission){
 
                             DB::table('completed_checklists')
@@ -223,7 +227,7 @@ class VendorChecklist
     }
 
     function hasChecklistItemPermission($role_id, $module, $permission) {
-            
+
         $role = DB::table('vendor_role_permissions')
             ->join('vendor_roles','vendor_roles.id','=','vendor_role_permissions.role_id')
             ->where('vendor_role_permissions.role_id',$role_id)

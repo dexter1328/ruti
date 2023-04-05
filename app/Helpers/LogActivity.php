@@ -14,26 +14,31 @@ class LogActivity
             $module = 'Vendor';
             $type = 'vendor';
         }
+
         if($subject == 'Export Vendor'){
             $action = 'Export';
             $module = 'Vendor';
             $type = 'vendor';
         }
+
         if($subject == 'Import Store'){
             $action = 'Import';
             $module = 'Store';
             $type = 'vendor';
         }
+
         if($subject == 'Export Store'){
             $action = 'Export';
             $module = 'Store';
             $type = 'vendor';
         }
+
         if($subject == 'Import Product'){
             $action = 'Import';
             $module = 'Product';
             $type = 'vendor';
         }
+
         if($subject == 'Export Product'){
             $action = 'export';
             $module = 'Product';
@@ -46,16 +51,24 @@ class LogActivity
             $type = 'vendor';
         }
 
+        if($subject == 'Supplier Login'){
+            $action = 'Login';
+            $module = 'Supplier';
+            $type = 'supplier';
+        }
+
         if($subject == 'Admin Login'){
             $action = 'Login';
             $module = 'Admin';
             $type = 'admin';
         }
+
         if($subject == 'Customer Login'){
             $action = 'Login';
             $module = 'Customer';
             $type = 'customer';
         }
+
     	$log = [];
     	$log['subject'] = $subject;
     	$log['url'] = Request::fullUrl();
@@ -66,6 +79,7 @@ class LogActivity
         $log['type'] = $type;
         $log['action'] = $action;
         $log['module'] = $module;
+
     	LogActivityModel::create($log);
     }
 

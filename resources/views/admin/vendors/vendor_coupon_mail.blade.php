@@ -10,5 +10,5 @@
 	Verify Coupon
 </a>
 </p>
-<p>Thanks! <br> Nature Checkout</p>
+<p>Thanks! <br> RUTI Self Checkout</p>
 

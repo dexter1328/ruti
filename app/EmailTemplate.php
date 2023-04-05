@@ -1,0 +1,19 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class EmailTemplate extends Model
+{
+    protected $fillable = [
+        'template',
+        'subject',
+        'body',
+        'parameters',
+    ];
+
+    protected $casts = [
+        'parameters' => 'object'
+    ];
+}

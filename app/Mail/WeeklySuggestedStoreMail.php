@@ -34,7 +34,7 @@ class WeeklySuggestedStoreMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Nature Checkout: Weekly Registered Retailers')->view('email/admin/weekly_suggested_stores')->with([
+        return $this->subject('RUTI Self Checkout: Weekly Registered Retailers')->view('email/admin/weekly_suggested_stores')->with([
                 'suggested_stores' => $this->suggested_stores,
             ]);
     }

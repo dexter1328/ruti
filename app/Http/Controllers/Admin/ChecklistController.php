@@ -31,7 +31,8 @@ class ChecklistController extends Controller
     public function index($type)
     {
         $checklist  = Checklist::where('type', $type)->get();
-        return view('admin/checklist/index',compact('type', 'checklist'));
+
+        return view('admin.checklist.index', compact('type', 'checklist'));
     }
 
     /**
@@ -43,10 +44,12 @@ class ChecklistController extends Controller
     {
         if($type == 'customer') {
             $checklist = customer_checklist();
-        }elseif ($type == 'vendor') {
+        } elseif ($type == 'vendor') {
             $checklist = vendor_checklist();
+        } elseif ($type == 'supplier') {
+            $checklist = supplier_checklist();
         }
-        return view('admin/checklist/create', compact('type', 'checklist'));
+        return view('admin.checklist.create', compact('type', 'checklist'));
     }
 
     /**
@@ -69,7 +72,7 @@ class ChecklistController extends Controller
         $checklist->description = $request->description;
         $checklist->type = $request->type;
         $checklist->save();
-        
+
         return redirect('/admin/checklist/'.$request->type)->with('success',"Item has been saved.");
     }
 
@@ -93,7 +96,7 @@ class ChecklistController extends Controller
     public function edit($id)
     {
         $checklist = Checklist::findOrFail($id);
-        return view('/admin/checklist/edit',compact('checklist'));
+        return view('admin.checklist.edit', compact('checklist'));
     }
 
     /**
@@ -115,7 +118,7 @@ class ChecklistController extends Controller
         $checklist->description = $request->description;
         $checklist->type = $request->type;
         $checklist->save();
-        
+
         return redirect('/admin/checklist/'.$request->type)->with('success',"Item has been updated.");
     }
 
@@ -125,7 +128,7 @@ class ChecklistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $checklist = Checklist::findOrFail($id);
         $checklist->delete();

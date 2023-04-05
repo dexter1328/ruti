@@ -43,6 +43,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapVendorRoutes();
 
+        // $this->mapSupplierRoutes();
+
         $this->mapAdminRoutes();
 
         //
@@ -83,6 +85,25 @@ class RouteServiceProvider extends ServiceProvider
             'namespace' => $this->namespace,
         ], function ($router) {
             require base_path('routes/vendor.php');
+        });
+    }
+
+    /**
+     * Define the "vendor" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapSupplierRoutes()
+    {
+        Route::group([
+            'middleware' => ['web', 'vendor', 'auth:vendor'],
+            'prefix' => 'supplier',
+            'as' => 'supplier.',
+            'namespace' => $this->namespace,
+        ], function ($router) {
+            require base_path('routes/supplier.php');
         });
     }
 

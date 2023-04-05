@@ -8,5 +8,5 @@
 <br>
 
 Regards,<br>
-Nature Checkout Team
+RUTI Self Checkout Team
 
