@@ -32,7 +32,7 @@ class VendorStoreController extends Controller
 	{
 		$this->middleware('auth:admin');
 		$this->middleware(function ($request, $next) {
-			if(!$this->hasPermission(Auth::user())){
+            if (!$this->hasPermission(Auth::user())) {
 				return redirect('admin/home');
 			}
 			return $next($request);
@@ -40,23 +40,24 @@ class VendorStoreController extends Controller
 	}
 
 	public function index()
-	{   
+	{
 
-		$vendors = Vendor::where('status','active')->get();
-		$vendor_stores = VendorStore::join('vendors','vendors.id','=','vendor_stores.vendor_id')
-							->select('vendor_stores.id',
+        $vendors = Vendor::vendor()->where('status', 'active')->get();
+        $vendor_stores = VendorStore::vendor()->join('vendors', 'vendors.id', '=', 'vendor_stores.vendor_id')
+            ->select(
+                'vendor_stores.id',
 									'vendor_stores.branch_admin',
 									'vendor_stores.name',
 									'vendor_stores.phone_number',
 									'vendor_stores.status',
 									'vendors.name as vendor_name',
 									'vendor_stores.email'
-								) 
-							->orderBy('vendor_stores.id','desc')
+								)
+            ->orderBy('vendor_stores.id', 'desc')
 							->get();
-		// $vendor_stores = VendorStore::all();
+        // $vendor_stores = VendorStore::vendor()->get();
 		// print_r($vendor_stores->toArray());die();
-		return view('admin/vendor_store/index',compact('vendor_stores','vendors'));
+        return view('admin/vendor_store/index', compact('vendor_stores', 'vendors'));
 	}
 
 	/**
@@ -66,11 +67,11 @@ class VendorStoreController extends Controller
 	*/
 	public function create()
 	{
-		$vendors = Vendor::where('parent_id',0)->where('status','active')->get();
+        $vendors = Vendor::vendor()->where('parent_id', 0)->where('status', 'active')->get();
 		$countries = Country::all();
 		$states = State::all();
 		$cities = City::all();
-		return view('admin/vendor_store/create',compact('vendors','countries','states','cities'));
+        return view('admin/vendor_store/create', compact('vendors', 'countries', 'states', 'cities'));
 	}
 
 	/**
@@ -82,21 +83,21 @@ class VendorStoreController extends Controller
 	public function store(Request $request)
 	{
 		$request->validate([
-			'vendor_id'=>'required',
-			'name'=>'required',
-			'address'=>'required',
-			'country'=>'required',
-			'state'=>'required',
-			'city'=>'required',
+            'vendor_id' => 'required',
+            'name' => 'required',
+            'address' => 'required',
+            'country' => 'required',
+            'state' => 'required',
+            'city' => 'required',
 			//'pincode'=>'required|numeric',
-			'pincode'=>'required',
-			'email'=>'required|email|unique:vendor_stores',
-			'status'=>'required',
-			'branch_admin'=>'required',
-			'current_status'=>'required',
+            'pincode' => 'required',
+            'email' => 'required|email|unique:vendor_stores',
+            'status' => 'required',
+            'branch_admin' => 'required',
+            'current_status' => 'required',
 			'image' => 'required|mimes:jpeg,png,jpg|max:2048',
-			'phone_number'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/',
-			'mobile_number' =>'nullable|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'phone_number' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'mobile_number' => 'nullable|regex:/^([0-9\s\-\+\(\)]*)$/',
 			'return_policy' => 'required',
 			'pickup_time_limit' => 'required',
 			'manager_name' => 'required',
@@ -106,7 +107,7 @@ class VendorStoreController extends Controller
 		], [
 			'pincode.required' => 'The zip code field is required.'
 		]);
-		
+
 		$vendor_store = new VendorStore;
 		$vendor_store->vendor_id = $request->input('vendor_id');
 		$vendor_store->name = $request->input('name');
@@ -129,10 +130,10 @@ class VendorStoreController extends Controller
 		$vendor_store->no_of_staff    = $request->input('no_of_staff');
 		$vendor_store->created_by = Auth::user()->id;
 		$vendor_store->pickup_time_limit = $request->input('pickup_time_limit');
-		if ($files = $request->file('image')){
+        if ($files = $request->file('image')) {
 			$path = 'public/images/stores';
 			$profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-			$files->move($path, $profileImage);   
+			$files->move($path, $profileImage);
 			$vendor_store->image = $profileImage;
 		}
 
@@ -145,7 +146,7 @@ class VendorStoreController extends Controller
 
 		$this->__newStoreCustomerNotification($vendor_store->id, $vendor_store->name, $vendor_store->lat, $vendor_store->long);
 
-		return redirect('/admin/vendor_store')->with('success',"Store has been saved.");
+        return redirect('/admin/vendor_store')->with('success', "Store has been saved.");
 	}
 
 	/**
@@ -156,12 +157,12 @@ class VendorStoreController extends Controller
 	*/
 	public function show($id)
 	{
-		$vendor_store = VendorStore::find($id);
-		if($vendor_store->status == 'enable'){
-			VendorStore::where('id',$id)->update(array('status' => 'disable'));
+        $vendor_store = VendorStore::vendor()->find($id);
+        if ($vendor_store->status == 'enable') {
+            VendorStore::vendor()->where('id', $id)->update(array('status' => 'disable'));
 			echo json_encode('disable');
-		}else{
-			VendorStore::where('id',$id)->update(array('status' => 'enable'));
+        } else {
+            VendorStore::vendor()->where('id', $id)->update(array('status' => 'enable'));
 			echo json_encode('enable');
 		}
 	}
@@ -174,9 +175,9 @@ class VendorStoreController extends Controller
 	*/
 	public function edit(VendorStore $vendor_store)
 	{
-		$vendors = Vendor::where('parent_id',0)->get();
+        $vendors = Vendor::vendor()->where('parent_id', 0)->get();
 		$countries = Country::all();
-		return view('admin/vendor_store/edit',compact('vendor_store','vendors','countries'));
+        return view('admin/vendor_store/edit', compact('vendor_store', 'vendors', 'countries'));
 	}
 
 	/**
@@ -189,21 +190,21 @@ class VendorStoreController extends Controller
 	public function update(Request $request, $id)
 	{
 		$request->validate([
-			'vendor_id'=>'required',
-			'name'=>'required',
-			'address'=>'required',
-			'country'=>'required',
-			'state'=>'required',
-			'city'=>'required',
+            'vendor_id' => 'required',
+            'name' => 'required',
+            'address' => 'required',
+            'country' => 'required',
+            'state' => 'required',
+            'city' => 'required',
 			//'pincode'=>'required|numeric',
-			'pincode'=>'required',
-			'branch_admin'=>'required',
-			'email'=>'required|unique:vendor_stores,email,' . $id,
-			'status'=>'required',
-			'current_status'=>'required',
+            'pincode' => 'required',
+            'branch_admin' => 'required',
+            'email' => 'required|unique:vendor_stores,email,' . $id,
+            'status' => 'required',
+            'current_status' => 'required',
 			'image' => 'mimes:jpeg,png,jpg|max:2048',
-			'phone_number'=>'nullable|regex:/^([0-9\s\-\+\(\)]*)$/',
-			'mobile_number' =>'nullable|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'phone_number' => 'nullable|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'mobile_number' => 'nullable|regex:/^([0-9\s\-\+\(\)]*)$/',
 			'return_policy' => 'required',
 			'pickup_time_limit' => 'required',
 			'manager_name' => 'required',
@@ -215,7 +216,8 @@ class VendorStoreController extends Controller
 			'pincode.required' => 'The zip code field is required.'
 		]);
 
-		$data = array('vendor_id' => $request->input('vendor_id'),
+        $data = array(
+            'vendor_id' => $request->input('vendor_id'),
 					'name' => $request->input('name'),
 					'address1' => $request->input('address'),
 					'country' => $request->input('country'),
@@ -238,14 +240,14 @@ class VendorStoreController extends Controller
 					'no_of_staff'    => $request->input('no_of_staff'),
 					'setup_fee_required' => $request->input('setup_fee_required')
 				);
-		if ($files = $request->file('image')){
+        if ($files = $request->file('image')) {
 			$path = 'public/images/stores';
 			$profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-			$files->move($path, $profileImage);   
+			$files->move($path, $profileImage);
 			$data['image'] = $profileImage;
 		}
-		VendorStore::where('id',$id)->update($data);
-		return redirect('/admin/vendor_store')->with('success',"Store has been updated.");
+        VendorStore::vendor()->where('id', $id)->update($data);
+        return redirect('/admin/vendor_store')->with('success', "Store has been updated.");
 	}
 
 	/**
@@ -257,7 +259,7 @@ class VendorStoreController extends Controller
 	public function destroy(VendorStore $vendor_store)
 	{
 		$vendor_store->delete();
-		return redirect('/admin/vendor_store')->with('success',"Store has been deleted.");
+        return redirect('/admin/vendor_store')->with('success', "Store has been deleted.");
 	}
 
 	public function importStore(Request $request)
@@ -271,15 +273,14 @@ class VendorStoreController extends Controller
 		$file = $request->file('import_file');
 		$extension = $file->getClientOriginalExtension();
 
-		if(strtolower($extension) == 'csv'){
-	        $fileD = fopen($request->file('import_file'),"r");
-	        $column=fgetcsv($fileD);
+        if (strtolower($extension) == 'csv') {
+            $fileD = fopen($request->file('import_file'), "r");
+            $column = fgetcsv($fileD);
 
-	        while(!feof($fileD)){
-	            $rowData=fgetcsv($fileD);
+            while (!feof($fileD)) {
+                $rowData = fgetcsv($fileD);
 	            // print_r($rowData);
-	            if(!empty($rowData))
-	            {	
+                if (!empty($rowData)) {
 					$name = $rowData[0];
 					$email = $rowData[1];
 					$phone_number = $rowData[2];
@@ -299,48 +300,48 @@ class VendorStoreController extends Controller
 	                $status = $rowData[16];
 	                $current_status = $rowData[17];
 	                $pickup_time_limit = $rowData[18];
-	                $sunday = explode('-',$rowData[19]);
-	                $monday = explode('-',$rowData[20]);
-	                $tuesday = explode('-',$rowData[21]);
-	                $wednesday = explode('-',$rowData[22]);
-	                $thursday = explode('-',$rowData[23]);
-	                $friday = explode('-',$rowData[24]);
-	                $saturday = explode('-',$rowData[25]);
+                    $sunday = explode('-', $rowData[19]);
+                    $monday = explode('-', $rowData[20]);
+                    $tuesday = explode('-', $rowData[21]);
+                    $wednesday = explode('-', $rowData[22]);
+                    $thursday = explode('-', $rowData[23]);
+                    $friday = explode('-', $rowData[24]);
+                    $saturday = explode('-', $rowData[25]);
 
-	                $email_exists = VendorStore::where('email',$email)->exists();
+                    $email_exists = VendorStore::vendor()->where('email', $email)->exists();
 					// $barcode_exists = ProductVariants::where('barcode',$barcode)->exists();
 
-					if($email_exists){
+                    if ($email_exists) {
 						$exists_emails[] = $email;
-					}else{
-						$country_id = DB::table('countries')->where('name','like','%'.$country.'%')->first();
-						if(empty($country_id)){
+                    } else {
+                        $country_id = DB::table('countries')->where('name', 'like', '%' . $country . '%')->first();
+                        if (empty($country_id)) {
 		                	$countryID = NULL;
-		                }else{
+                        } else {
 		                	$countryID = $country_id->id;
 		                }
-		                $state_id = DB::table('states')->where('name','like','%'.$state.'%')
-		                					->where('country_id',$countryID)
+                        $state_id = DB::table('states')->where('name', 'like', '%' . $state . '%')
+                            ->where('country_id', $countryID)
 		                					->first();
-		                if(empty($state_id)){
+                        if (empty($state_id)) {
 		                	$stateID = NULL;
-		                }else{
+                        } else {
 		                	$stateID = $state_id->id;
 		                }
 		                $city_id = DB::table('cities')->where('name', 'like', '%' . $city . '%')
-		                			->where('state_id',$stateID)
+                            ->where('state_id', $stateID)
 		                			->first();
-		                if(empty($city_id)){
+                        if (empty($city_id)) {
 		                	$cityID = NULL;
-		                }else{
+                        } else {
 		                	$cityID = $city_id->id;
 		                }
-		                
+
 
 						$vendor_store = new VendorStore;
 						$vendor_store->vendor_id = $request->vendor;
 						$vendor_store->name = $name;
-						$vendor_store->email= $email;
+                        $vendor_store->email = $email;
 						$vendor_store->phone_number = $phone_number;
 						$vendor_store->mobile_number = $mobile_number;
 						$vendor_store->manager_name = $manager_name;
@@ -357,28 +358,26 @@ class VendorStoreController extends Controller
 						$vendor_store->status = $status;
 						$vendor_store->open_status = $current_status;
 						$vendor_store->pickup_time_limit = $pickup_time_limit;
-						
+
 
 						//print_r($vendor->toArray());die();
-						if(trim(strtolower($images))!='')
-						{
+                        if (trim(strtolower($images)) != '') {
 							// $images_arr = explode(',', $images);
 							$i = 1;
-							
+
 							// foreach ($images_arr as $key => $value) {
 								// $i++;
-								$file1 = public_path('images/stores').'/'.$images;
-								$farry1 = explode("/",$file1);
+                            $file1 = public_path('images/stores') . '/' . $images;
+                            $farry1 = explode("/", $file1);
 								$filename1 = end($farry1);
 								$extesion1 = explode('.', $filename1);
 								$extesion1 = end($extesion1);
 								$path1 = public_path('images/stores');
-								$image1 = date('YmdHis') . '.'.$extesion1;
-								$new_image1 = $path1.'/'.$image1;
+                            $image1 = date('YmdHis') . '.' . $extesion1;
+                            $new_image1 = $path1 . '/' . $image1;
 
 								if (!@copy($images, $new_image1)) {
-									
-								}else{
+                            } else {
 									$vendor_store['image'] = $image1;
 								}
 							// }
@@ -386,13 +385,13 @@ class VendorStoreController extends Controller
 						$vendor_store->save();
 
 						$this->__newStoreCustomerNotification($vendor_store->id, $vendor_store->name, $vendor_store->lat, $vendor_store->long);
-						
+
 						// store hours
 						$sunday_data = array(
 							'store_id' => $vendor_store->id,
 							'week_day' => 'sunday',
-							'daystart_time' => ($rowData[19] =='closed' ? NULL : $sunday[0]),
-							'dayend_time'=> ($rowData[19] =='closed' ? NULL : $sunday[1])
+                            'daystart_time' => ($rowData[19] == 'closed' ? NULL : $sunday[0]),
+                            'dayend_time' => ($rowData[19] == 'closed' ? NULL : $sunday[1])
 						);
 
 						VendorStoreHours::insert($sunday_data);
@@ -400,8 +399,8 @@ class VendorStoreController extends Controller
 						$monday_data = array(
 							'store_id' => $vendor_store->id,
 							'week_day' => 'monday',
-							'daystart_time' => ($rowData[20] =='closed' ? NULL : $monday[0]),
-							'dayend_time'=> ($rowData[20] =='closed' ? NULL : $monday[1])
+                            'daystart_time' => ($rowData[20] == 'closed' ? NULL : $monday[0]),
+                            'dayend_time' => ($rowData[20] == 'closed' ? NULL : $monday[1])
 						);
 
 						VendorStoreHours::insert($monday_data);
@@ -409,8 +408,8 @@ class VendorStoreController extends Controller
 						$tuesday_data = array(
 							'store_id' => $vendor_store->id,
 							'week_day' => 'tuesday',
-							'daystart_time' => ($rowData[21] =='closed' ? NULL : $tuesday[0]),
-							'dayend_time'=> ($rowData[21] =='closed' ? NULL : $tuesday[1])
+                            'daystart_time' => ($rowData[21] == 'closed' ? NULL : $tuesday[0]),
+                            'dayend_time' => ($rowData[21] == 'closed' ? NULL : $tuesday[1])
 						);
 
 						VendorStoreHours::insert($tuesday_data);
@@ -418,8 +417,8 @@ class VendorStoreController extends Controller
 						$wednesday_data = array(
 							'store_id' => $vendor_store->id,
 							'week_day' => 'wednesday',
-							'daystart_time' => ($rowData[22] =='closed' ? NULL : $wednesday[0]),
-							'dayend_time'=> ($rowData[22] =='closed' ? NULL : $wednesday[1])
+                            'daystart_time' => ($rowData[22] == 'closed' ? NULL : $wednesday[0]),
+                            'dayend_time' => ($rowData[22] == 'closed' ? NULL : $wednesday[1])
 						);
 
 						VendorStoreHours::insert($wednesday_data);
@@ -427,8 +426,8 @@ class VendorStoreController extends Controller
 						$thursday_data = array(
 							'store_id' => $vendor_store->id,
 							'week_day' => 'thursday',
-							'daystart_time' => ($rowData[23] =='closed' ? NULL : $thursday[0]),
-							'dayend_time'=> ($rowData[23] =='closed' ? NULL : $thursday[1])
+                            'daystart_time' => ($rowData[23] == 'closed' ? NULL : $thursday[0]),
+                            'dayend_time' => ($rowData[23] == 'closed' ? NULL : $thursday[1])
 						);
 
 						VendorStoreHours::insert($thursday_data);
@@ -436,8 +435,8 @@ class VendorStoreController extends Controller
 						$friday_data = array(
 							'store_id' => $vendor_store->id,
 							'week_day' => 'friday',
-							'daystart_time' => ($rowData[24] =='closed' ? NULL : $friday[0]),
-							'dayend_time'=> ($rowData[24] =='closed' ? NULL : $friday[1])
+                            'daystart_time' => ($rowData[24] == 'closed' ? NULL : $friday[0]),
+                            'dayend_time' => ($rowData[24] == 'closed' ? NULL : $friday[1])
 						);
 
 						VendorStoreHours::insert($friday_data);
@@ -445,21 +444,19 @@ class VendorStoreController extends Controller
 						$saturday_data = array(
 							'store_id' => $vendor_store->id,
 							'week_day' => 'saturday',
-							'daystart_time' => ($rowData[25] =='closed' ? NULL : $saturday[0]),
-							'dayend_time'=> ($rowData[25] =='closed' ? NULL : $saturday[1])
+                            'daystart_time' => ($rowData[25] == 'closed' ? NULL : $saturday[0]),
+                            'dayend_time' => ($rowData[25] == 'closed' ? NULL : $saturday[1])
 						);
 
 						VendorStoreHours::insert($saturday_data);
 					}
 	            }
 	        }
-	        
-	       	return redirect('/admin/vendor_store')->with('success-data', array('emails'=>$exists_emails, 'message' => 'Store successfully imported.') );
-	    }else{
-	    	return redirect('/admin/vendor_store')->with('error-data','The import file must be a file of type: csv.');
 
+            return redirect('/admin/vendor_store')->with('success-data', array('emails' => $exists_emails, 'message' => 'Store successfully imported.'));
+        } else {
+            return redirect('/admin/vendor_store')->with('error-data', 'The import file must be a file of type: csv.');
 	    }
-
 	}
 
 	public function exportStore()
@@ -489,29 +486,29 @@ class VendorStoreController extends Controller
 			'Current Status',
 			'Pickup Time Limit',
 		);
-		
+
 		header('Content-type: application/csv');
-		header('Content-Disposition: attachment; filename='.$filename);
+        header('Content-Disposition: attachment; filename=' . $filename);
 		fputcsv($fp, $header);
 
-		
-		$vendors_store_data = VendorStore::select(
+
+        $vendors_store_data = VendorStore::vendor()->select(
 				'vendor_stores.*',
 				'countries.name as country_name',
 				'states.name as state_name',
 				'cities.name as city_name'
 			)
-			->leftjoin('countries','countries.id','vendor_stores.country')
-			->leftjoin('states','states.id','vendor_stores.state')
-			->leftjoin('cities','cities.id','vendor_stores.city')
+            ->leftjoin('countries', 'countries.id', 'vendor_stores.country')
+            ->leftjoin('states', 'states.id', 'vendor_stores.state')
+            ->leftjoin('cities', 'cities.id', 'vendor_stores.city')
 			->get();
 
 		$image_url = url('/');
 		foreach ($vendors_store_data as $key => $value) {
 
-			if(!empty($value->image)){
-				$image = $image_url.'/public/images/stores/'.$value->image;
-			}else{
+            if (!empty($value->image)) {
+                $image = $image_url . '/public/images/stores/' . $value->image;
+            } else {
 				$image = '';
 			}
 
@@ -529,17 +526,17 @@ class VendorStoreController extends Controller
 				'State' => $value->state_name,
 				'City' => $value->city_name,
 				'Lat' => $value->lat,
-				'Long' =>$value->long,
+                'Long' => $value->long,
 				'Zip Code' => $value->pincode,
 				'Website Link' => $value->website_link,
 				'Status' => $value->status,
 				'Current Status' => $value->open_status,
 				'Pickup Time Limit' => $value->pickup_time_limit
 			);
-			
+
 		 	fputcsv($fp, $data);
 		}
-		
+
 		exit();
 	}
 }

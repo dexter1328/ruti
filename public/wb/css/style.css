@@ -862,7 +862,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 
 .logo img {
   max-width: 200px;
-  width: 100%;
+  width: 80%;
 }
 @media only screen and (max-width: 767px) {
   .logo img {
@@ -12030,7 +12030,7 @@ img, .img {
 @media screen and (min-width: 992px) {
   .nav_menu_image {
     position: absolute;
-    top: 0;
+    bottom: 150px;
     height: 100%;
     width: 50%;
     left: 50%;
@@ -12362,7 +12362,7 @@ left: 0;
   justify-content: center;
 }
 .search_bar[type=text] {
-  width: 50%;
+  width: 70%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -12376,14 +12376,14 @@ left: 0;
   margin-left: 10px;
 }
 
-.dropbtn {
-  background-color: #e96725;
-  color: white;
-  padding: 14px;
-  font-size: 18px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.dropbtn2 {
+  background-color: #e96725 !important;
+  color: white !important;
+  padding: 14px !important;
+  font-size: 18px !important;
+  border: none !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
 }
 
 .dropdown-content-new {
@@ -12418,6 +12418,11 @@ left: 0;
 
 .payment_accordion {
   width: 90% !important;
+}
+
+.payspan {
+    font-size: 15px;
+    font-weight: 800;
 }
 /*Custom css end*/
 
@@ -12462,3 +12467,20 @@ left: 0;
     }
 }
 /*return item css end*/
+
+
+
+
+
+
+/*user wallet css start*/
+#scroll-to-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+  }
+/*user wallet css start*/
+
+

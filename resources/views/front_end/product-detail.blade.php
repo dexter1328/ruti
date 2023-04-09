@@ -344,6 +344,7 @@
     </div>
 </div>
 </section>
+
 {{-- <section class='w-100 d-flex mb-3 justify-content-center'>
 <div class='m-0 border product_sets mt-2 px-0'>
                         <h3 class='like_products_heading text-center p-2' >Most Popular Sets</h3>
@@ -380,6 +381,27 @@
 <!--product info end-->
 <!--product area start-->
 <section class="product_area related_products">
+    <div class='main_parent_div border col-lg-8 col-sm-12 m-auto px-0'>
+        <h3 class='sections_coupons_header like_products_heading p-2' >Products You may also like</h3>
+        <div class='p-3 d-flex products_inner'>
+            @foreach ($related_productss as $p)
+            <div class='more_products ml-2 py-2 px-4'>
+                <a href="{{ route('product-detail',$p->sku) }}">
+                <img src="{{$p->original_image_url}}" class='more_products_img'  alt="">
+                </a>
+
+                <div class='products_title'>
+                    <h5><a href="{{ route('product-detail',$p->sku) }}">{{ Str::limit($p->title, 17) }}</a></h5>
+                </div>
+                <div class='products_title'>
+                    <h5 class="text-center"><a href="{{ route('product-detail',$p->sku) }}" class="btn btn-danger btn-sm" style="border-radius:5px; font-size:12px; padding:10px 20px;">Select</a></h5>
+                </div>
+            </div>
+            @endforeach
+
+
+        </div>
+    </div><br><br>
     <div class="container-fluid px-5">
         <div class="row">
             <div class="col-12">

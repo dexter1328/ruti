@@ -42,10 +42,11 @@
 							</div>
 						</div>
 						@php */ @endphp
+						<input type="hidden" name="product_id" value="{{$membership->stripe_product_id}}">
 						<div class="form-group row">
 							<label for="input-10" class="col-sm-2 col-form-label">Price<span class="text-danger">*</span></label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" placeholder="Enter Price" value="{{$membership->price?:0}}" readonly>
+								<input type="text" class="form-control" name="price" placeholder="Enter Price" value="{{$membership->price}}">
 							</div>
 						</div>
 						<center>
@@ -60,4 +61,4 @@
 		</div>
 	</div>
 </div>
-@endsection 
+@endsection

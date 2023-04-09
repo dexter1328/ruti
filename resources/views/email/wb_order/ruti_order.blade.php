@@ -34,7 +34,7 @@
                 width="50%"
                 height="60px"
                 style="margin-left: 5%"
-                src="assets/img/logo/orange_logo.png"
+                src="{{asset('public/wb/img/logo/logo.png')}}"
                 alt=""
               />
             </td>

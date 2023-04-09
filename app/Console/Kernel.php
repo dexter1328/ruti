@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\VendorSetting;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -33,18 +34,20 @@ class Kernel extends ConsoleKernel
         Commands\ParticipationExpired::class,
         Commands\WeeklyRetailerRegister::class,
         Commands\WeeklyCustomerRegister::class,
-        Commands\WeeklySuggestedStore::class
+        Commands\WeeklySuggestedStore::class,
+        Commands\BuyerReminder::class
     ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('store_hours_login:cron')->everyMinute();
+
+        $schedule->command('send_buyer_reminder:cron')->everyMinute();
 
         $schedule->command('retailer_register:weekly')->weekly();
         $schedule->command('customer_register:weekly')->weekly();

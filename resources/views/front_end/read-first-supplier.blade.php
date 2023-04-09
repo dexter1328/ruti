@@ -61,7 +61,7 @@
             <div class="row align-items-center">
                 <div class="col-md-10 col-offset-md-1">
                     <div class="font-para about-left">
-                        <h4>Welcome to RUTI self checkout! A convenient self-serve mobile app for smart shopping and quick checkout.</h4>
+                        <h4>Welcome to Nature checkout! A convenient self-serve mobile app for smart shopping and quick checkout.</h4>
                         <br>
                         <h5 style="text-align: center;">WHY DO BUSINESS WITH US</h5>
                         <br>

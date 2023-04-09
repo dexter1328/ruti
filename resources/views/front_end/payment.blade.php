@@ -29,6 +29,12 @@
         <p>{{ Session::get('success') }}</p>
     </div>
     @endif
+    @if (Session::has('error'))
+    <div class="alert alert-danger text-center">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <p>{{ Session::get('error') }}</p>
+    </div>
+    @endif
         <div class="checkout_form">
 
             <div class="row justify-content-between">
@@ -58,13 +64,13 @@
                         <div class="row m-auto w-100" >
                             <div id="accordion" class='payment_accordion mb-2 mx-auto'>
                                 <div class="card">
-                                    <div class="card-header" id="headingOne">
-                                      <h5 class="mb-0">
-                                        <button class="btn btn-link collapsed w-100" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        <span class='text-dark d-flex justify-content-between'>Pay with Card <span><i class='fa fa-chevron-down'></i></span></span>
-                                        </button>
-                                      </h5>
-                                    </div>
+                                            <div class="card-header" id="headingOne">
+                                                <h5 class="mb-0">
+                                                    <button class="btn btn-link collapsed w-100" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    <span class='text-dark d-flex justify-content-between payspan'>Pay with Card <span><i class='fa fa-chevron-down'></i></span></span>
+                                                    </button>
+                                                </h5>
+                                            </div>
 
 
                                             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
@@ -112,7 +118,7 @@
                                         <div class="card-header" id="headingTwo">
                                         <h5 class="mb-0">
                                             <button class="btn btn-link collapsed w-100" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            <span class='text-dark d-flex justify-content-between'>Pay with PayPal <span><i class='fa fa-chevron-down'></i></span></span>
+                                            <span class='text-dark d-flex justify-content-between payspan'>Pay with PayPal <span><i class='fa fa-chevron-down'></i></span></span>
                                             </button>
                                         </h5>
 
@@ -132,13 +138,17 @@
                                             <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
                                                 {{-- <label for="amount" class="col-md-4 control-label">Pay ${{$tp}}</label> --}}
                                                 <div class="col-md-6">
-                                                    <input id="amount" type="text" class="form-control" name="amount" autofocus>
+                                                    <span class="input-group-text usd-ico" style="width: 35px; position: absolute; top: 0px; left: -4px; height: 40px;"><i class="fa fa-usd"></i></span>
+                                                    <input  type="hidden" class="form-control" name="amount" value="{{$tp}}"  />
+                                                    <input disabled="disabled"  type="number" class="form-control"  value="{{$tp}}"  />
+                                                    {{-- <i class="fa fa-usd form-control-feedback"></i> --}}
                                                         @if ($errors->has('amount'))
                                                         <span class="help-block">
                                                             <strong>{{ $errors->first('amount') }}</strong>
                                                         </span>
                                                         @endif
                                                 </div>
+
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-lg-6 offset-2">
@@ -150,6 +160,63 @@
                                       </div>
                                     </form>
 
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header" id="headingTwo">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed w-100" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            <span class='text-dark d-flex justify-content-between payspan'>Pay with Digital Wallet <span><i class='fa fa-chevron-down'></i></span></span>
+                                            </button>
+                                        </h5>
+
+                                        </div>
+                                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                        @if (Auth::guard('w2bcustomer')->user())
+                                        @php
+                                                $op = session('w2border')
+                                            @endphp
+                                            @php
+                                                $tp = $op->total_price
+
+                                            @endphp
+                                        <form class="form-horizontal" method="POST" id="payment-form" role="form" action="{{route('user-wallet-payment', $tp)}}" >
+                                            {{ csrf_field() }}
+                                        <div class="card-body">
+
+
+                                            <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
+                                                {{-- <label for="amount" class="col-md-4 control-label">Pay ${{$tp}}</label> --}}
+                                                <h3>Your Balance : ${{Auth::guard('w2bcustomer')->user()->wallet_amount}}</h3>
+                                                <h3>Order Total : {{$tp}}</h3>
+                                                <input  type="hidden" class="form-control" name="amount" value="{{$tp}}"  />
+                                                @if ($errors->has('amount'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('amount') }}</strong>
+                                                </span>
+                                                @endif
+
+
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-lg-6 offset-2">
+                                                    <button type="submit" class="btn btn-primary">
+                                                      Click to Pay
+                                                    </button>
+                                                </div>
+                                            </div>
+                                      </div>
+                                    </form>
+                                    @else
+                                    <div class="form-group">
+                                        <div class="col-lg-6 offset-2">
+                                            <button type="" onclick="window.location='{{ url("w2bcustomer/login") }}'" class="btn btn-primary">
+                                              Login First to pay with Digital wallet
+                                            </button>
+                                        </div>
+                                    </div>
+                                    @endif
+
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -254,8 +321,8 @@
 
             </div>
 
-    </div><br><br>
-    <div class='main_parent_div border col-lg-8 col-sm-12 m-auto px-0'>
+    </div>
+    {{-- <div class='main_parent_div border col-lg-8 col-sm-12 m-auto px-0'>
         <h3 class='sections_coupons_header like_products_heading p-2' >Products You may like</h3>
         <div class='p-3 d-flex products_inner'>
             @foreach ($suggested_products as $p)
@@ -271,7 +338,7 @@
 
 
         </div>
-    </div>
+    </div> --}}
 </div>
 <!--Checkout page section end-->
 @endsection

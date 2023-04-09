@@ -41,10 +41,7 @@
                 <div class="col-sm-12 col-md-9 col-lg-9">
                     <!-- Tab panes -->
                     <div class="tab-content dashboard_content">
-                        <div class="tab-pane fade" id="dashboard">
-                            <h3>Hello {{Auth::guard('w2bcustomer')->user()->first_name}} {{Auth::guard('w2bcustomer')->user()->last_name}} </h3>
-                            <p>Click On Orders to check your orders</p>
-                        </div>
+                        @include('front_end.user_dashboard')
                         <div class="tab-pane fade show active" id="orders">
                             <h3>Order Invoice</h3>
                             <h5><a href="{{route('user-account-page')}}" style="color:#E96725">Back To Orders</a></h5>
@@ -111,12 +108,12 @@
                                                                                 <?php $sum_tot_Price = 0 ?>
                                                                                 @foreach ($ordered_products as $order)
                                                                                 <tr>
+                                                                                    <?php $tt = $order->price * $order->quantity ?>
                                                                                     <td>1</td>
                                                                                     <td><strong>{{ $order->title }}</strong></td>
                                                                                     <td class="text-center">{{$order->quantity}}</td>
-                                                                                    <td class="text-right">${{$order->price}}</td>
-                                                                                    <td class="text-right">${{$order->price * $order->quantity}}</td>
-                                                                                    <?php $tt = $order->price * $order->quantity ?>
+                                                                                    <td class="text-right">${{number_format((float)$order->price, 2, '.', '')}}</td>
+                                                                                    <td class="text-right">${{number_format((float)$tt, 2, '.', '')}}</td>
 
                                                                                     {{-- <td class="text-right">${{$tt1}}</td> --}}
 
@@ -128,12 +125,13 @@
                                                                                 <tr>
                                                                                     <td></td>
                                                                                     <td colspan="3" class="text-left"><strong>Sub Total</strong></td>
-                                                                                    <td class="text-right"><strong>${{$sum_tot_Price}}</strong></td>
+                                                                                    <td class="text-right"><strong>${{number_format((float)$sum_tot_Price, 2, '.', '')}}</strong></td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td></td>
                                                                                     <td colspan="3" class="text-left"><strong>Shipping and Taxes</strong></td>
-                                                                                    <td class="text-right"><strong>${{$ordered_products[0]->p_total_price - $sum_tot_Price}}</strong></td>
+                                                                                    <?php $taxes_shipping = $ordered_products[0]->p_total_price - $sum_tot_Price ?>
+                                                                                    <td class="text-right"><strong>${{number_format((float)$taxes_shipping, 2, '.', '')}}</strong></td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td colspan="3">
@@ -142,9 +140,14 @@
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
-                                                                    </div>
-                                                                </div>
+                                                                    </div><br><br>
 
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-10 offset-md-1 text-center mt-3">
+                                                                   <strong>Thank you for choosing our store for your recent purchase. We hope that you will have a great shopping experience with us.</strong>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

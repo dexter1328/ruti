@@ -69,10 +69,10 @@
 
     <!-- terms-condition start -->
     <section id="inner-main-content">
-        <h2 class="heading">Supplier Register</h2>
+        <h2 class="heading text-center mt-4">Supplier Register</h2>
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-md-10 col-offset-md-1">
+                <div class="col-md-10 offset-md-1">
                     <div class="font-para SignUPform">
                         <form id="signupForm" method="post" action="{{ url('/supplier/signup') }}" enctype="multipart/form-data">
                             @csrf
@@ -210,12 +210,12 @@
                                 </div>
                                 <label class="col" for="full-fill">Fulfill type<span class="text-danger">*</span></label>
                                 <div class="col">
-                                    
+
                                     <input type="radio" id="full-fill" name="fullfill_type" value="seller_fullfill" required checked> Seller Fullfill <br>
-                                    <input type="radio" id="full-fill" name="fullfill_type" title="Can be selected with payment in setting page" value="ruti_fullfill" required disabled> Ruti Fullfill
+                                    <input type="radio" id="full-fill" name="fullfill_type" title="Can be selected with payment in setting page" value="ruti_fullfill" required disabled> Nature Checkout Fullfill
                                 </div>
                             </div>
-                            <div class=" row AcceptCheckbox">
+                            {{-- <div class=" row AcceptCheckbox">
                                 <div class="col-sm-10" >
                                     <input type="checkbox" id="terms_condition" name="terms_condition" value="yes"{{ old('terms_condition') == 'yes' ? 'checked' : '' }} class="form-control">
 
@@ -224,7 +224,13 @@
                                         <span class="text-danger">{{ $errors->first('terms_condition') }}</span>
                                     @endif
                                 </div>
-                            </div>
+                            </div> --}}
+                            <div class="form-check">
+                                <label for="terms_condition" class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" type="checkbox" id="terms_condition" name="terms_condition" value="yes"{{ old('terms_condition') == 'yes' ? 'checked' : '' }}>
+                                     I've read and accept the <a href="{{url('/privacy-policy')}}" style="color:navy !important;text-decoration: revert;">privacy</a> and <a href="{{url('/terms-condition')}}" style="color:navy !important;text-decoration: revert;">terms.</a>
+                                </label>
+                              </div><br>
                             <div class="form-group row">
                                 <div class="col-sm-4">
                                     {!! app('captcha')->display() !!}

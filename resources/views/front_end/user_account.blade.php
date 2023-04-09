@@ -55,6 +55,7 @@
                             <li><a href="#dashboard" data-toggle="tab" class="nav-link ">Dashboard</a></li>
                             <li> <a href="#profile" data-toggle="tab" class="nav-link">Profile</a></li>
                             <li> <a href="#orders" data-toggle="tab" class="nav-link active">Orders</a></li>
+                            <li> <a href="#wallet" data-toggle="tab" class="nav-link">Wallet</a></li>
 
                         </ul>
                     </div>
@@ -62,59 +63,12 @@
                 <div class="col-sm-12 col-md-9 col-lg-9">
                     <!-- Tab panes -->
                     <div class="tab-content dashboard_content">
-                        <div class="tab-pane fade" id="dashboard">
-                            <h3>Hello {{Auth::guard('w2bcustomer')->user()->first_name}} {{Auth::guard('w2bcustomer')->user()->last_name}} </h3>
-                            <p>Click On Orders to check your orders</p>
-                        </div>
-                        @include('front_end.user-profile')
-                        <div class="tab-pane fade show active" id="orders">
-                            @if(session('success'))
-                            <div class="container alert alert-success text-center">
-                            {{ session('success') }}
-                            </div>
-                            @endif
-                            <h3>Orders</h3>
-                            <div class="table-responsive">
 
-                                @foreach ($orders as $order)
-                                <div class="col-12 order_main px-0 border">
-                                    <div class='d-flex justify-content-between p-3 border orders_header'>
-                                        <div class='orders_header1 d-flex justify-content-between w-75'>
-                                            <div>
-                                                #{{$loop->iteration}}
-                                            </div>
-                                            <div>
-                                                Order Placed
-                                                <span class='d-block'>{{ \Carbon\Carbon::parse($order->created_at)->format('d M, Y')}}</span>
-                                            </div>
-                                            <div>
-                                                Total
-                                                <span class='d-block'>${{$order->total_price}}</span>
-                                            </div>
-                                            <div>
-                                                Status
-                                                <span class='d-block text-primary'>{{ucfirst(trans($order->status))}}</span>
-                                            </div>
-                                            <div>
-                                                Order Duration:
-                                                <span class='d-block'>3-4 days</span>
-                                            </div>
-                                        </div>
-                                        <div class="orders_header2 text-center">
-                                            <div>
-                                                Order# <span>{{$order->order_id}}</span>
-                                            </div>
-                                            <div>
-                                                <span><a href="{{route('user-product-page',$order->order_id)}}" class='text-primary'>View order details</a> | <a href="{{route('order-invoice',$order->order_id)}}" class='text-primary'>View Invoice</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-
+                            @include('front_end.user_dashboard')
+                            @include('front_end.user-profile')
+                            @include('front_end.user_orders')
+                            @include('front_end.user_wallet')
                     </div>
                 </div>
             </div>
@@ -175,4 +129,100 @@ if ($('#password').val() == $('#password_confirmation').val()) {
     });
 
 </script>
+<script>
+    $(document).ready(function(){
+      $("#orderInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $(".gboo").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+    </script>
+
+    <script>
+        function orderFilter(filter) {
+            console.log(filter)
+            $.ajax({
+
+           url: "{{ url('/user-account') }}/"+filter,
+
+            }).done(function(res) {
+            console.log(res)
+            location.reload();
+            });
+            }
+
+    </script>
+
+
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript">
+
+    $(function() {
+
+        /*------------------------------------------
+        --------------------------------------------
+        Stripe Payment Code
+        --------------------------------------------
+        --------------------------------------------*/
+
+        var $form = $(".require-validation");
+
+        $('form.require-validation').bind('submit', function(e) {
+            var $form = $(".require-validation"),
+            inputSelector = ['input[type=email]', 'input[type=password]',
+                             'input[type=text]', 'input[type=file]',
+                             'textarea'].join(', '),
+            $inputs = $form.find('.required').find(inputSelector),
+            $errorMessage = $form.find('div.error'),
+            valid = true;
+            $errorMessage.addClass('d-none');
+
+            $('.has-error').removeClass('has-error');
+            $inputs.each(function(i, el) {
+              var $input = $(el);
+              if ($input.val() === '') {
+                $input.parent().addClass('has-error');
+                $errorMessage.removeClass('d-none');
+                e.preventDefault();
+              }
+            });
+
+            if (!$form.data('cc-on-file')) {
+              e.preventDefault();
+              Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+              Stripe.createToken({
+                number: $('.card-number').val(),
+                cvc: $('.card-cvc').val(),
+                exp_month: $('.card-expiry-month').val(),
+                exp_year: $('.card-expiry-year').val()
+              }, stripeResponseHandler);
+            }
+
+        });
+
+        /*------------------------------------------
+        --------------------------------------------
+        Stripe Response Handler
+        --------------------------------------------
+        --------------------------------------------*/
+        function stripeResponseHandler(status, response) {
+            if (response.error) {
+                $('.error')
+                    .removeClass('d-none')
+                    .find('.alert')
+                    .text(response.error.message);
+            } else {
+                /* token contains id, last4, and card type */
+                var token = response['id'];
+
+                $form.find('input[type=text]').empty();
+                $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+                $form.get(0).submit();
+            }
+        }
+
+    });
+    </script>
 @endsection

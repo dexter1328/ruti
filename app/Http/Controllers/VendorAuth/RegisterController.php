@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\VendorAuth;
 
 use App\Vendor;
+use App\WbWishlist;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;

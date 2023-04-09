@@ -273,10 +273,17 @@
                                     <button type="button" onclick="window.location='{{ url("w2bcustomer/auth/google") }}'"  class="btn mt-3 btn-light sign_up_btn w-50"> Register with Google<ig/button>
                                     <button type="button" onclick="window.location='{{ url("w2bcustomer/auth/fb") }}'"  class="btn mt-3 btn-primary w-50"> Register with Facebook</button>
                                     <hr>
-                                    <a  class="btn btn-success w-100" href="{{url('/w2bcustomer/login')}}"> Sign in as Customer</a>
                                 </div>
                             </center>
                         </form>
+                        <div class="form-row mt-2">
+                            <div class="form-group col-12" style="text-align: center;">
+                               Already have an account? <br>
+                               <a href="{{ url('/w2bcustomer/login') }}">Sign in as Customer  | </a>
+                               <a class='ml-2' href="{{ url("/vendor/login") }}">Sign in as Seller  | </a>
+                               <a class='ml-2' href="{{ url("/supplier/login") }}">Sign in as Supplier</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

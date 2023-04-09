@@ -14,7 +14,7 @@
         <meta property="og:url" content="http://rutiselfcheckout.com/" />
         <meta property="fb:app_id" content="482623692719207" />
 
-        <title>{{ config('app.name', 'RUTI Self Checkout') }}</title>
+        <title>{{ config('app.name', 'Nature Checkout') }}</title>
         <!--favicon-->
         <link rel="icon" href="{{ asset('public/images/logo-icon-xx.png') }}" type="image/x-icon">
         <!-- Vector CSS -->
@@ -508,7 +508,7 @@
                 <footer class="footer">
                     <div class="container">
                         <div class="text-center">
-                            RUTI Self Checkout &copy;2019-{{date('Y')}}. All Rights Reserved
+                            Nature Checkout &copy;2019-{{date('Y')}}. All Rights Reserved
                         </div>
                     </div>
                 </footer>

@@ -145,10 +145,14 @@
             <div class="card mb-3">
               <div class="card-body">
                 <div class="px-xl-3">
-                  <button class="btn btn-block btn-secondary">
+                  {{-- <button class="btn btn-block btn-secondary">
                     <i class="fa fa-sign-out"></i>
                     <span>Logout</span>
-                  </button>
+                  </button> --}}
+                  <a class="btn btn-block btn-secondary" href="" onclick="event.preventDefault(); document.getElementById('logout-form5').submit();">Logout</a>
+                    <form id="logout-form5" action="{{ route('w2bcustomer.logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
                 </div>
               </div>
             </div>
@@ -156,7 +160,7 @@
               <div class="card-body">
                 <h6 class="card-title font-weight-bold">Support</h6>
                 <p class="card-text">Get fast, free help from our friendly assistants.</p>
-                <button type="button" class="btn btn-primary">Contact Us</button>
+                <a target="_blank" href="https://www.facebook.com/Naturecheckout" class="btn btn-block btn-secondary">Contact Us</a>
               </div>
             </div>
           </div>

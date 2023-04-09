@@ -2,6 +2,21 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\RedirectIfAdmin;
+use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Middleware\RedirectIfEmployee;
+use App\Http\Middleware\RedirectIfNotAdmin;
+use App\Http\Middleware\RedirectIfNotEmployee;
+use App\Http\Middleware\RedirectIfNotSupplier;
+use App\Http\Middleware\RedirectIfNotVendor;
+use App\Http\Middleware\RedirectIfNotW2bCustomer;
+use App\Http\Middleware\RedirectIfSupplier;
+use App\Http\Middleware\RedirectIfVendor;
+use App\Http\Middleware\RedirectIfW2bCustomer;
+use App\Http\Middleware\SessionExpired;
+use App\Http\Middleware\SupplierChecklist;
+use App\Http\Middleware\VendorChecklist;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -54,25 +69,28 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'employee' => \App\Http\Middleware\RedirectIfNotEmployee::class,
-        'employee.guest' => \App\Http\Middleware\RedirectIfEmployee::class,
-        'vendor' => \App\Http\Middleware\RedirectIfNotVendor::class,
-        'vendor.guest' => \App\Http\Middleware\RedirectIfVendor::class,
-        'w2bcustomer' => \App\Http\Middleware\RedirectIfNotW2bCustomer::class,
-        'w2bcustomer.guest' => \App\Http\Middleware\RedirectIfW2bCustomer::class,
-        'admin' => \App\Http\Middleware\RedirectIfNotAdmin::class,
-        'admin.guest' => \App\Http\Middleware\RedirectIfAdmin::class,
-        'auth' => \App\Http\Middleware\Authenticate::class,
+        'employee' => RedirectIfNotEmployee::class,
+        'employee.guest' => RedirectIfEmployee::class,
+        'vendor' => RedirectIfNotVendor::class,
+        'vendor.guest' => RedirectIfVendor::class,
+        'supplier' => RedirectIfNotSupplier::class,
+        'supplier.guest' => RedirectIfSupplier::class,
+        'w2bcustomer' => RedirectIfNotW2bCustomer::class,
+        'w2bcustomer.guest' => RedirectIfW2bCustomer::class,
+        'admin' => RedirectIfNotAdmin::class,
+        'admin.guest' => RedirectIfAdmin::class,
+        'auth' => Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'guest' => RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'sessionExpired' => \App\Http\Middleware\SessionExpired::class,
-        'vendorChecklist' => \App\Http\Middleware\VendorChecklist::class,
+        'sessionExpired' => SessionExpired::class,
+        'vendorChecklist' => VendorChecklist::class,
+        'supplierChecklist' => SupplierChecklist::class,
         // 'json.response' => \App\Http\Middleware\ForceJsonResponse::class,
         // 'cors' => \App\Http\Middleware\Cors::class,
     ];

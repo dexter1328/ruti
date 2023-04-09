@@ -56,7 +56,7 @@
             <div class="form-row">
                 <div class="form-group col-12" style="text-align: center;">
                     {{-- {{ url('/supplier/read-first') }} --}}
-                    New to RUTI Self Checkout? <a href="{{url('/supplier/signup')}}">Create an Account</a>
+                    New to Nature Checkout? <a href="{{url('/supplier/signup')}}">Create an Account</a>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>

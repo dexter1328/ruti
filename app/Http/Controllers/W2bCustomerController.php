@@ -2,23 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\GiftReceipt;
 use View;
 use App\User;
 use App\PageMeta;
-use App\WbWishlist;
-use App\W2bCategory;
-use App\OrderedProduct;
-use App\ReturnItem;
 use App\W2bOrder;
+use Carbon\Carbon;
+use Stripe\Charge;
+use Stripe\Stripe;
+use App\ReturnItem;
+use App\UserDevice;
 use App\W2bProduct;
-use Illuminate\Http\Request;
+use App\WbWishlist;
 
+use App\GiftReceipt;
+use App\W2bCategory;
+use Stripe\Customer;
+use App\CustomerWallet;
+use App\OrderedProduct;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Stripe\Exception\CardException;
 use Illuminate\Support\Facades\Auth;
+use Stripe\Exception\ApiErrorException;
+use Stripe\Exception\RateLimitException;
+use Stripe\Exception\ApiConnectionException;
+use Stripe\Exception\AuthenticationException;
+use Stripe\Exception\InvalidRequestException;
 
 class W2bCustomerController extends Controller
 {
+
+    private $stripe_secret;
     public function __construct()
 	{
 
@@ -26,12 +40,27 @@ class W2bCustomerController extends Controller
 		View::share('page_meta', $page_meta);
         $categories = W2bCategory::with('childrens')->get();
         View::share('categories', $categories);
-
+        $this->stripe_secret = config('services.stripe.secret');
 
 
 	}
+
+    public function sendError($error, $errorMessages = [], $code = 200)
+    {
+        $response = [
+            'success' => false,
+            'data' => null,
+            'message' => $error,
+        ];
+
+        if(!empty($errorMessages)){
+            $response['data'] = $errorMessages;
+        }
+
+        return response()->json($response, $code);
+    }
     //
-    public function userAccount()
+    public function userAccount($filter = "orders")
     {
         $wb_wishlist = null;
 
@@ -39,12 +68,83 @@ class W2bCustomerController extends Controller
             $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
             ->get();
         }
-
-        $orders = DB::table('w2b_orders')
-        ->where('w2b_orders.user_id', Auth::guard('w2bcustomer')->user()->id)
-        ->where('w2b_orders.is_paid','yes')
-        ->get();
-
+        if ($filter == "shipped") {
+            # code...
+            $orders = DB::table('w2b_orders')
+            ->where('w2b_orders.user_id', Auth::guard('w2bcustomer')->user()->id)
+            ->where('w2b_orders.is_paid','yes')
+            ->where('w2b_orders.status','shipped')
+            ->get();
+            // dd('123');
+        }
+        elseif ($filter == 'cancelled') {
+            # code...
+            $orders = DB::table('w2b_orders')
+            ->where('w2b_orders.user_id', Auth::guard('w2bcustomer')->user()->id)
+            ->where('w2b_orders.is_paid','yes')
+            ->where('w2b_orders.status','cancelled')
+            ->get();
+            // dd('124');
+        }
+        elseif ($filter == 'processing') {
+            $orders = DB::table('w2b_orders')
+            ->where('w2b_orders.user_id', Auth::guard('w2bcustomer')->user()->id)
+            ->where('w2b_orders.is_paid','yes')
+            ->where('w2b_orders.status','processing')
+            ->get();
+        }
+        elseif ($filter == 'delivered') {
+            $orders = DB::table('w2b_orders')
+            ->where('w2b_orders.user_id', Auth::guard('w2bcustomer')->user()->id)
+            ->where('w2b_orders.is_paid','yes')
+            ->where('w2b_orders.status','delivered')
+            ->get();
+        }
+        elseif ($filter == 'orders'){
+            $orders = DB::table('w2b_orders')
+            ->where('w2b_orders.user_id', Auth::guard('w2bcustomer')->user()->id)
+            ->where('w2b_orders.is_paid','yes')
+            ->get();
+        }
+        elseif ($filter == 'onemonth'){
+            $orders = DB::table('w2b_orders')
+            ->where('w2b_orders.user_id', Auth::guard('w2bcustomer')->user()->id)
+            ->where('w2b_orders.is_paid','yes')
+            ->where('created_at', '>=', Carbon::now()->subDays(30)->toDateTimeString())->get();
+        }
+        elseif ($filter == 'threemonth'){
+            $orders = DB::table('w2b_orders')
+            ->where('w2b_orders.user_id', Auth::guard('w2bcustomer')->user()->id)
+            ->where('w2b_orders.is_paid','yes')
+            ->where('created_at', '>=', Carbon::now()->subDays(90)->toDateTimeString())->get();
+        }
+        elseif ($filter == '2023'){
+            $orders = DB::table('w2b_orders')
+            ->where('w2b_orders.user_id', Auth::guard('w2bcustomer')->user()->id)
+            ->where('w2b_orders.is_paid','yes')
+            ->where( DB::raw('YEAR(created_at)'), '=', '2023' )
+            ->get();
+        }
+        elseif ($filter == '2022'){
+            $orders = DB::table('w2b_orders')
+            ->where('w2b_orders.user_id', Auth::guard('w2bcustomer')->user()->id)
+            ->where('w2b_orders.is_paid','yes')
+            ->where( DB::raw('YEAR(created_at)'), '=', '2022' )
+            ->get();
+        }
+        elseif ($filter == '2021'){
+            $orders = DB::table('w2b_orders')
+            ->where('w2b_orders.user_id', Auth::guard('w2bcustomer')->user()->id)
+            ->where('w2b_orders.is_paid','yes')
+            ->where( DB::raw('YEAR(created_at)'), '=', '2021' )
+            ->get();
+        }
+        else {
+            $orders = DB::table('w2b_orders')
+            ->where('w2b_orders.user_id', Auth::guard('w2bcustomer')->user()->id)
+            ->where('w2b_orders.is_paid','yes')
+            ->get();
+        }
         $user = User::where('id', Auth::guard('w2bcustomer')->user()->id)->first();
         // dd($user_info);
         $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
@@ -194,9 +294,89 @@ class W2bCustomerController extends Controller
         # code...
         $input = $request->all();
         ReturnItem::create($input);
-        return redirect('/user-account')->with('success', 'Your Request is in process. One of our representative will contact you soon.');;
+        return redirect('/user-account')->with('success', 'Your Request is in process. One of our representative will contact you soon.');
 
 
+    }
+
+    public function addToWallet(Request $request)
+    {
+        # code...
+        $uid = Auth::guard('w2bcustomer')->user()->id;
+        $wallet = User::where('id', $uid)->first();
+		Stripe::setApiKey($this->stripe_secret);
+		 try {
+            if ($wallet->stripe_customer_id) {
+                $customer = $wallet->stripe_customer_id;
+                // dd(122);
+            }
+            else {
+                # code...
+                $customer = Customer::create(array(
+
+                    "email" => $wallet->email,
+
+                    "name" => $wallet->first_name,
+
+                    "source" => $request->stripeToken
+
+                 ));
+                 $wallet->update([
+                    'stripe_customer_id' => $customer->id,
+                 ]);
+            }
+
+            //  dd($customer->id);
+
+                Charge::create ([
+	                "amount" => $request->amount * 100,
+	                "currency" => "usd",
+	                "customer" => $wallet->stripe_customer_id,
+	                "description" => "Money added in your wallet."
+        		]);
+
+        		$closing_amount = $wallet->wallet_amount+$request->amount;
+
+				$customer_wallet = new CustomerWallet;
+				$customer_wallet->customer_id = $uid;
+				$customer_wallet->amount = $request->amount;
+				$customer_wallet->closing_amount = $closing_amount;
+				$customer_wallet->type = 'credit';
+				$customer_wallet->save();
+
+				if(empty($wallet->wallet_amount)){
+					User::where('id',$uid)->update(array('wallet_amount'=>$request->amount));
+				}else{
+					$amount = $wallet->wallet_amount+$request->amount;
+					User::where('id',$uid)->update(array('wallet_amount'=>$amount));
+				}
+
+				// notification
+				$id = $customer_wallet->id;
+				$type = 'wallet_transaction';
+			    $title = 'Wallet';
+			    $message = 'Money has been added to your wallet';
+			    $devices = UserDevice::where('user_id',$wallet->id)->where('user_type','customer')->get();
+
+			    return redirect()->back()->with('success', 'Money added to wallet');
+
+            } catch(CardException $e) {
+                $errors = $e->getMessage();
+            } catch (RateLimitException $e) {
+                $errors = $e->getMessage();
+            } catch (InvalidRequestException $e) {
+                $errors = $e->getMessage();
+            } catch (AuthenticationException $e) {
+                $errors = $e->getMessage();
+            } catch (ApiConnectionException $e) {
+                $errors = $e->getMessage();
+            } catch (ApiErrorException $e) {
+               $errors = $e->getMessage();
+            } catch (Exception $e) {
+                $errors = $e->getMessage();
+            }
+
+			return $this->sendError($errors);
     }
 
 }

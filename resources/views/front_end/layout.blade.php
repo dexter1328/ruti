@@ -323,7 +323,7 @@
                         <div class="row align-items-end">
                             <div class="col-lg-2 col-md-3 col-sm-3 col-12">
                                 <div class="logo logo-new">
-                                    <a href="{{url('/home')}}"><img src="{{asset('public/wb/img/logo/logop.png')}}" alt=""></a>
+                                    <a href="{{url('/home')}}"><img src="{{asset('public/wb/img/logo/logo.png')}}" alt=""></a>
                                 </div>
                             </div>
                             <div class="col-lg-10 col-md-9 col-sm-9 col-12">
@@ -478,15 +478,15 @@
                                     <div class="categories_menu_toggle">
                                         <ul>
                                             @if ($categories)
-                                                @foreach ($categories as $category) 
-                                                
+                                                @foreach ($categories as $category)
+
                                                 @if ($category->parent_id == 0 && !($category->childrens)->isEmpty())
-                                                <li class="menu_item_children"><a href="{{route('cat-products', $category->category1)}}"><i class='lnr lnr-heart pr-2'></i>{{ $category->category1 }}<i class="fa fa-angle-right"></i></a>
+                                                <li class="menu_item_children"><a href="{{route('cat-products', $category->category1)}}"><i class='lnr lnr-list pr-2'></i>{{ $category->category1 }}<i class="fa fa-angle-right"></i></a>
                                                     <ul class="categories_mega_menu first_submenu new_sub_menu<?php echo $category->id ?>" style="display:list-item;">
                                                     <div class='list_nav_menu'>
                                                         @foreach ($category->childrens as $subcategory)
                                                             @if ($subcategory->parent_id > 0 && !($subcategory->childrens)->isEmpty())
-                                                        <li class="menu_item_children"><a href="{{route('cat-products', $subcategory->category1)}}">{{ $subcategory->category1 }}</a>    
+                                                        <li class="menu_item_children"><a href="{{route('cat-products', $subcategory->category1)}}">{{ $subcategory->category1 }}</a>
                                                         <ul class="categorie_sub_menu ">
                                                                 @foreach ($subcategory->childrens as $subsubcategory)
                                                                         <li><a href="{{route('cat-products', $subsubcategory->category1)}}">{{ $subsubcategory->category1 }}</a></li>
@@ -499,7 +499,7 @@
                                                                     @endforeach
                                                     </div>
                                                                     <div class="nav_menu_image d-flex align-items-center justify-content-end pr-4">
-                                                                        <img class='nav_img' src="https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg" alt="">
+                                                                        <img class='nav_img' src="{{asset('public/wb/img/categories/'.$category->image)}}" alt="">
                                                                     </div>
                                                                 </ul>
                                                             </li>

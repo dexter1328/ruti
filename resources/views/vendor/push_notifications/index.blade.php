@@ -17,8 +17,8 @@
 	<div class="col-lg-12">
 		<div class="card">
 			<div class="card-header">
-				<div class="left"><span>Push Notifications</span></div>
-				<div class="float-sm-right">        
+				<div class="left"><span></span></div>
+				<div class="float-sm-right">
 					<a style="padding-bottom: 3px; padding-top: 4px;" href="{{ route('vendor.push_notifications.create') }}" class="btn btn-outline-primary btn-sm waves-effect waves-light m-1" title="Add Notification">
 						<span class="name">Add Notification</span>
 					</a>
@@ -116,7 +116,7 @@ $(document).ready(function() {
 	.appendTo( '#example_wrapper .col-md-6:eq(0)' );
 } );
 function deleteRow(id)
-{   
+{
 	$('#deletefrm_'+id).submit();
 }
 </script>

@@ -30,14 +30,14 @@
             display: block;
             width: 90%;
             margin: 10px auto;
-        }        
+        }
         .form-footer {
             margin: 30px 0 0px;
             display: block;
         }
-        .form-footer button {            
+        .form-footer button {
             box-shadow: 0 5px 30px 0 rgba(81, 39, 159, .2);
-        } 
+        }
         .form-footer button.btn.btn-success i {
             padding: 0 8px 0 0;
         }
@@ -46,9 +46,9 @@
             outline: 0px auto -webkit-focus-ring-color;
         }
         .AcceptCheckbox input[type="checkbox"] + label:before {
-            
+
             margin-top: 7px;
-        }       
+        }
 
         .field-icon {
             float: right;
@@ -69,10 +69,10 @@
 
     <!-- terms-condition start -->
     <section id="inner-main-content">
-        <h2 class="heading">Vendor Register</h2>
+        <h2 class="heading text-center mt-4">Seller Register</h2>
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-md-10 col-offset-md-1">
+                <div class="col-md-10 offset-md-1">
                     <div class="font-para SignUPform">
                         <form id="signupForm" method="post" action="{{ url('/vendor-signup') }}" enctype="multipart/form-data">
                             @csrf
@@ -209,16 +209,22 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="form-group row AcceptCheckbox">
-                                <div class="col-sm-10" style="margin-top:-23px !important;">
+                            {{-- <div class="form-group row AcceptCheckbox">
+                                <div class="col-sm-10" style="margin-top:0px !important;">
                                     <input type="checkbox" id="terms_condition" name="terms_condition" value="yes"{{ old('terms_condition') == 'yes' ? 'checked' : '' }} class="form-control">
-                                   
+
                                     <label for="terms_condition"> I've read and accept the <a href="{{url('/privacy-policy')}}" style="color:navy !important;text-decoration: revert;">privacy</a> and <a href="{{url('/terms-condition')}}" style="color:navy !important;text-decoration: revert;">terms.</a></label><br>
                                     @if ($errors->has('terms_condition'))
                                         <span class="text-danger">{{ $errors->first('terms_condition') }}</span>
                                     @endif
                                 </div>
-                            </div>
+                            </div> --}}
+                            <div class="form-check">
+                                <label for="terms_condition" class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" type="checkbox" id="terms_condition" name="terms_condition" value="yes"{{ old('terms_condition') == 'yes' ? 'checked' : '' }}>
+                                     I've read and accept the <a href="{{url('/privacy-policy')}}" style="color:navy !important;text-decoration: revert;">privacy</a> and <a href="{{url('/terms-condition')}}" style="color:navy !important;text-decoration: revert;">terms.</a>
+                                </label>
+                              </div><br>
                             <div class="form-group row">
                                 <div class="col-sm-4">
                                 {!! app('captcha')->display() !!}
@@ -264,8 +270,8 @@
 
         /*var date = new Date();
         date.setDate(date.getDate() + 1);
-        $('#datepicker').datepicker({ 
-            autoclose: true, 
+        $('#datepicker').datepicker({
+            autoclose: true,
             startDate: date,
             todayHighlight: true
         });*/

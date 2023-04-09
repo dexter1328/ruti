@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\OrderMailToSupplierJob;
+use App\SuppliersOrder;
 use Mail;
 use View;
 use Share;
@@ -251,12 +253,15 @@ class FrontEndController extends Controller
         $categories = W2bCategory::with('childrens')->get();
         $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
         ->get();
+        $related_productss = DB::table('w2b_products')
+        ->where('w2b_category_1', $product->w2b_category_1)
+        ->inRandomOrder()->paginate(8);
         $related_products = DB::table('w2b_products')
         ->where('w2b_category_1', $product->w2b_category_1)
         ->inRandomOrder()->paginate(8);
 
         $ratings = Rating::where('product_id', $sku)->get();
-        return view('front_end.product-detail',compact('product','ratings','wb_wishlist','related_products','shareComponent','categories','categories2'));
+        return view('front_end.product-detail',compact('product','ratings','wb_wishlist','related_products','related_productss','shareComponent','categories','categories2'));
     }
     public function wishlist($sku)
     {
@@ -798,5 +803,46 @@ class FrontEndController extends Controller
     {
         # code...
         dd('error');
+    }
+
+    public function userWalletPayment(Request $request, $amount)
+    {
+        # code...
+        // dd('mm');
+        $w2border = session()->get('w2border');
+        $user_details = session()->get('user_details');
+        $order = W2bOrder::where('id', $w2border->id)->first();
+        $uid = Auth::guard('w2bcustomer')->user()->id;
+        $user = User::where('id', $uid)->first();
+        if ($user->wallet_amount < $amount) {
+            return redirect()->back()->with('error', 'Your balance is not enough');
+        }
+        else {
+            $debit = $user->wallet_amount - $amount;
+            $user->update([
+                'wallet_amount' => $debit,
+            ]);
+            $order->update([
+                'is_paid' => 'yes',
+            ]);
+            $fname = ucfirst($user->first_name);
+            $lname = ucfirst($user->last_name);
+            $details = [
+                'title' => 'Nature Checkout Order #'.$w2border->order_id,
+                'body' => 'Dear '.$fname.' '.$lname,
+                'email' => $user->email
+            ];
+            $details2 = [
+                'title' => 'New Order Received #'.$w2border->order_id,
+                'body' => 'A new Customer named '.$fname.' '.$lname.' has created an order',
+                'email' => 'sales@naturecheckout.com'
+            ];
+            dispatch(new OrderMailJob($details))->delay(now()->addSeconds(30));
+            dispatch(new RutiMailJob($details2))->delay(now()->addSeconds(30));
+            session()->forget('cart');
+            session()->forget('w2border');
+            session()->forget('user_details');
+        }
+        return redirect('/thank-you-page');
     }
 }

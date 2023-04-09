@@ -70,11 +70,11 @@ class OrderController extends BaseController
 	}
 
 	public function Checkout(Request $request)
-	{	
+	{
 
 		$request_data = $request->all();
 		$image = [];
-		$validate = true; 
+		$validate = true;
 		$total_price = 0;
 		$items_total= 0;
 		$total_tax = 0;
@@ -82,7 +82,7 @@ class OrderController extends BaseController
 
 			$product = ProductVariants::select('product_variants.*')->where('id',$value['id'])->first();
 			$product_price = $product->price;
-			
+
 			if($product->discount !=Null && $product->discount > 0){
 				$discount = $product->price*$product->discount/100;
 				$product_price = $product_price - $discount;
@@ -91,7 +91,7 @@ class OrderController extends BaseController
 			$product_total_price = $product_price *(int)$value['quantity'];
 			$items_total += $product_total_price;
 			$product_price = $product_total_price;
-		
+
 			$tax_price = 0;
 			$product_tax = Products::where('id', $product->product_id)->first();
 			if($product_tax->tax!=Null && $product_tax->tax > 0){
@@ -99,7 +99,7 @@ class OrderController extends BaseController
 				$tax_price = $product_total_price*$product_tax->tax/100;
 				$product_price = $product_price+$tax_price;
 			}
-				
+
 			$total_tax += $tax_price;
 			// print_r($tax_price);print_r($total_tax);
 			if($value['quantity'] > $product->quantity){
@@ -127,12 +127,12 @@ class OrderController extends BaseController
 		}
 
 		$total_price = $items_total + $total_tax - $coupan_price;
-		
-		
+
+
 		if($validate)
 		{
 	        $wallet = User::where('id',$request_data['customer_id'])->first();
-	       
+
 	        //if(!empty($wallet->wallet_amount)){
 
 	        	/*if($total_price > $wallet->wallet_amount)
@@ -143,7 +143,7 @@ class OrderController extends BaseController
 					return $this->sendResponse($result,'You have not sufficient balance in your wallet, please add money to complete your order.');
 
 				}else{*/
-					
+
 					// echo 'out'.$total_price;
 		        	//transaction reward point
 			        if($request_data['used_reward_point'] == 'yes'){
@@ -154,10 +154,10 @@ class OrderController extends BaseController
 
 			        	$setting = Setting::where('key','reward_point_max_per_order')->first();
 			        	$max_reward_price = (float)number_format($total_price * $setting->value/100,2);
-			        			
+
 						$gem_points = CustomerRewardPoint::where('reward_type','invite')->where('user_id', $request_data['customer_id'])->first();
 						$gem_setting = RewardPoint::where('reward_type','invite')->first();
-						
+
 
 						$coin_points = CustomerRewardPoint::where('reward_type','transaction')->where('user_id', $request_data['customer_id'])->first();
 						//print_r($coin_points);die();
@@ -181,7 +181,7 @@ class OrderController extends BaseController
 			        		}
 
 				        	if($gem_reward_price >= $max_reward_price){
-				        		
+
 				        		$total_price = (float)number_format($total_price-$max_reward_price,2);
 				        		$invite_reward_points = $max_reward_price*$gem_setting->reward_point_exchange_rate;
 				        		if(strpos($invite_reward_points,".")!==false){
@@ -192,7 +192,7 @@ class OrderController extends BaseController
 								}
 				        		$reward_points = $invite_reward_points;
 				        	}else{
-				        		
+
 				        		$total_reward_price = $gem_reward_price+$coin_reward_price;
 				        		$invite_reward_points = $gem_reward_price*$gem_setting->reward_point_exchange_rate;
 				        		if(strpos($invite_reward_points,".")!==false){
@@ -228,7 +228,7 @@ class OrderController extends BaseController
 				        		/*if(!empty($coin_points)){
 				        			// update transaction reward point
 				        			$coin_points->total_point = $coin_points->total_point - $transaction_reward_point;
-				        			
+
 				        			$coin_points->save();
 				        			$coin_reward_points = $transaction_reward_point;
 				        		}else{
@@ -240,10 +240,10 @@ class OrderController extends BaseController
 								$total_glitch_price = $gem_glitch_price + $coin_glitch_price;
 								$total_price = (float)number_format($total_price+$total_glitch_price,2);
 							}
-							
+
 							//  check wallet condition
 							if($total_price > $wallet->wallet_amount)
-							{ 
+							{
 
 								$price = (float)number_format($total_price-$wallet->wallet_amount,2);
 								//echo $total_price.'total'; echo $wallet->wallet_amount.'wallet'; exit();
@@ -257,7 +257,7 @@ class OrderController extends BaseController
 							if(!empty($coin_points) &&  isset($transaction_reward_point)){
 			        			// update transaction reward point
 			        			$coin_points->total_point = $coin_points->total_point - $transaction_reward_point;
-			        			
+
 			        			$coin_points->save();
 			        			$coin_reward_points = $transaction_reward_point;
 			        		}else{
@@ -294,10 +294,10 @@ class OrderController extends BaseController
 		        		$coin_convert = number_format($coin_reward_points,2)*$coin->value/100;
 		        		$gems_convert= number_format($gems_reward_points,2)*$gems->value/100;
 		        		$convert = number_format($coin_convert,2)+number_format($gems_convert,2);
-		        		
+
 		        		$total_price = number_format($total_price,2)-number_format($convert,2);
 		        		// echo $total_price;die();
-		        		
+
 		        	}else{
 		        		$total_price = $total_price;
 		        	}*/
@@ -328,8 +328,8 @@ class OrderController extends BaseController
 			        }else{
 			        	$orders->order_status = 'pending';
 			        	$orders->completed_date = date('Y-m-d');
-			        }	
-			       
+			        }
+
 			        $orders->save();
 			        // invite reward point
 			   //      	$user_invite = CustomerInvite::where('customer_id',$request_data['customer_id'])
@@ -427,7 +427,7 @@ class OrderController extends BaseController
 
 			        	$discount_price = $product->price*$product->discount/100;
 			        	$discounted_price = $product->price - $discount_price;
-			        
+
 			        	$product_images = ProductImages::where('variant_id',$product->id)->get();
 			        	foreach ($product_images as $product_image) {
 							$image[] = asset('public/images/product_images/'.$product_image->image);
@@ -458,7 +458,7 @@ class OrderController extends BaseController
 			        	}
 
 			        	//end of lowstock threshold
-						
+
 			        	$products[] = array('id' => $orders_item->product_variant_id,
 							'title' => $product->title,
 							'price' => (float)$orders_item->price,
@@ -484,7 +484,7 @@ class OrderController extends BaseController
 							);
 					$success = array('order_id' => $orders->id,
 									'order_no' => $orders->order_no,
-									'status' => $orders->order_status,	
+									'status' => $orders->order_status,
 									'placed_on' => 1000 * strtotime($orders->created_at),
 									'type' => $orders->type,
 									'pickup_date_time' => $pickup,
@@ -506,9 +506,9 @@ class OrderController extends BaseController
 						$used_coupon->save();
 		        		// $orders->coupan_id  = $request_data['coupan_id'];
 		        	}
-					// 
+					//
 					$result = array('order' => $success,'needed_balance' =>0.0);
-					
+
 					$subscription = UserSubscription::with(['Membership'])->where('user_subscriptions.user_id', $request_data['customer_id'])->first();
 					if($subscription->membership->code != 'explorer') {
 
@@ -538,14 +538,14 @@ class OrderController extends BaseController
 				            CustomerEarnRewardPoint::create($data);
 				        }
 			        }
-			        
+
 			        // update user active
 					ActiveUser::where('user_id',$request_data['customer_id'])->where('store_id',$request_data['store_id'])->delete();
 			        return $this->sendResponse($result,'Order successfully.');
 
-			       
+
 		        //}
-		        
+
 	        /*}else{
 
 	        	$result = array('order' => null,'needed_balance' =>(float)number_format(abs($total_price),2));
@@ -586,11 +586,11 @@ class OrderController extends BaseController
 		if($orders->isNotEmpty())
 		{
 			$current_page = $orders->currentPage();
-			$total_pages  = $orders->lastPage();	
+			$total_pages  = $orders->lastPage();
 
 			foreach ($orders as $key => $order) {
 
-				
+
 				$used_reward = CustomerRewardUsed::where('order_id',$order->id)->where('user_id',$id)->first();
 				$gem_setting=  RewardPoint::where('reward_type','invite')->first();
 				$coin_setting=  RewardPoint::where('reward_type','transaction')->first();
@@ -615,7 +615,7 @@ class OrderController extends BaseController
 					$pickup = 1000 * strtotime($order->pickup_date.' '.$order->pickup_time);
 
 				}else{
-					
+
 					$pickup = null;
 				}
 
@@ -670,7 +670,7 @@ class OrderController extends BaseController
     	die();*/
 		/*date('Y-m-d', strtotime($order->completed_date. ' + '+$vendor_store->return_policy+'days'))*/
 		$order = Orders::find($id);
-		
+
 		if($order == null)
 		{
 			$success = [];
@@ -740,7 +740,7 @@ class OrderController extends BaseController
 					'images' => $image
 				);
 
-				
+
 
 				$vendor_store = VendorStore::where('id',$order_item->store)->first();
 
@@ -821,11 +821,11 @@ class OrderController extends BaseController
 	                "currency" => "usd",
 	                "customer" => $wallet->stripe_customer_id,
 	               	"source" => $request->card_id,
-	                "description" => "Money added in your wallet." 
+	                "description" => "Money added in your wallet."
         		]);
 
         		$closing_amount = $wallet->wallet_amount+$request->amount;
-		
+
 				$customer_wallet = new CustomerWallet;
 				$customer_wallet->customer_id = $id;
 				$customer_wallet->amount = $request->amount;
@@ -865,7 +865,7 @@ class OrderController extends BaseController
             } catch (Exception $e) {
                 $errors = $e->getMessage();
             }
-        
+
 			return $this->sendError($errors);
 	}
 
@@ -873,7 +873,7 @@ class OrderController extends BaseController
 	{
 		$debit_user = User::where('id', $id)->first();
 		$credit_user = User::where('email', $request->email)->first();
-		
+
 		$count_debituser_transcation = CustomerWallet::where('customer_id',$id)
 							->where('type','=','sent')
 							->whereDate('created_at', '=', Carbon::today()->toDateString())
@@ -887,7 +887,7 @@ class OrderController extends BaseController
 		$percentage = '';
 		$amount = $request->amount;
 		$subscription = UserSubscription::with(['Membership', 'MembershipItem'])->where('user_subscriptions.user_id', $id)->first();
-		
+
 		if($subscription->membership->code == 'explorer') {
 			$percentage = 2;
 		} else if($subscription->membership->code == 'classic') {
@@ -901,7 +901,7 @@ class OrderController extends BaseController
 
 		if($count_month_debituser_transcation == 5){
 			return $this->sendError('You have exceeded the monthly transaction limit. You can send funds a maximum of five times monthly.');
-		}					
+		}
 		else if($count_debituser_transcation+$amount >=250){
 			return $this->sendError('You have exceeded the daily limit. You can send funds up to $250 daily.');
 		}
@@ -914,7 +914,7 @@ class OrderController extends BaseController
 		}else{
 
 			$debit_user_closing_amount = $debit_user->wallet_amount-$request->amount;
-		
+
 			$debit_user_wallet = new CustomerWallet;
 			$debit_user_wallet->customer_id = $debit_user->id;
 			$debit_user_wallet->amount = $amount;
@@ -945,7 +945,7 @@ class OrderController extends BaseController
 			    $devices = UserDevice::where('user_id',$user_balance->id)->where('user_type','customer')->get();
 			    $this->sendNotification($title, $message, $devices, $type, $id);
 	        }
-			        
+
 			if(empty($credit_user->wallet_amount)){
 				$credit_user_closing_amount = $request->amount;
 			}else{
@@ -985,7 +985,7 @@ class OrderController extends BaseController
 
 	public function coupanList($id)
 	{
-		$couponData = []; 
+		$couponData = [];
 		$used_coupon = vendorCouponsUsed::select(DB::raw('count(id) as total_coupon'))
 			->whereRaw('MONTH(created_at) = ?',[date('m')])
 			->whereRaw('YEAR(created_at) = ?',[date('Y')])
@@ -1055,7 +1055,7 @@ class OrderController extends BaseController
                 ->where('vendor_coupons.coupon_status','verified')
                 ->whereDate('vendor_coupons.start_date', '<=',date("Y-m-d"))
                 ->whereDate('vendor_coupons.end_date', '>=',date("Y-m-d"))
-                ->where('user_coupons.user_id',$id) 
+                ->where('user_coupons.user_id',$id)
                 ->having('used_count', 0)
                 ->get()
                 ->toArray();
@@ -1075,7 +1075,7 @@ class OrderController extends BaseController
                 ->where('vendor_coupons.coupon_status','verified')
                 ->whereDate('vendor_coupons.start_date', '<=',date("Y-m-d"))
                 ->whereDate('vendor_coupons.end_date', '>=',date("Y-m-d"))
-                ->where('user_coupons.user_id',$id) 
+                ->where('user_coupons.user_id',$id)
                 ->get()
                 ->toArray();
 
@@ -1093,7 +1093,7 @@ class OrderController extends BaseController
                 ->where('vendor_coupons.type','single')
                 ->where('vendor_coupons.coupon_status','verified')
                 ->where('vendor_coupons.coupon_for','rewarded')
-                ->where('user_coupons.user_id',$id) 
+                ->where('user_coupons.user_id',$id)
                 ->having('used_count', 0)
                 ->get()
                 ->toArray();
@@ -1118,11 +1118,11 @@ class OrderController extends BaseController
 
 	public function transcationHistory(Request $request, $id)
 	{
-		
+
 		$start_timestamp = $request['start_date']/1000;
 		$start_date = date('Y-m-d H:i:s:m', $start_timestamp);
-		
-		
+
+
 		$end_timestamp = $request['end_date']/1000;
 		$end_date = date('Y-m-d H:i:s:m', $end_timestamp);
 
@@ -1169,12 +1169,12 @@ class OrderController extends BaseController
 		} elseif($request['type'] == 'subscription_charge') {
 			$customer_wallets = $customer_wallets ->where('customer_wallets.type','subscription_charge');
 		}
-		
+
 		$customer_wallets = $customer_wallets->orderBy('customer_wallets.created_at', 'desc')->paginate(10);
-		
+
 
 		if($customer_wallets->isNotEmpty())
-		{	
+		{
 			$current_page = $customer_wallets->currentPage();
 			$total_pages  = $customer_wallets->lastPage();
 
@@ -1219,12 +1219,12 @@ class OrderController extends BaseController
 					$title = 'One time joining fees for incentive program';
 					$image = null;
 				}else{
-					
+
 					$type = $value->type;
 					$title = null;
 					$image = null;
 				}
-				
+
 				// echo $value->closing_amount;die();
 				$data[] = array(
 						'id'=>$value->id,
@@ -1236,14 +1236,14 @@ class OrderController extends BaseController
 						'placed_on'=>1000 * strtotime($value['created_at'])
 					);
 			}
-			
-			return $this->sendResponse(array('page'=> $current_page,'totalPage'=>$total_pages,'wallet_amount'=>$wallet_amount,'history'=>$data),'Data retrieved successfully');	
+
+			return $this->sendResponse(array('page'=> $current_page,'totalPage'=>$total_pages,'wallet_amount'=>$wallet_amount,'history'=>$data),'Data retrieved successfully');
 		}else{
 
 			$data=[];
 			$user = User::where('id',$id)->first();
-			
-			return $this->sendResponse(array('page'=> 1,'totalPage'=>1,'wallet_amount'=>$user->wallet_amount,'history'=>$data),'We can\'t find proper data to display');	
+
+			return $this->sendResponse(array('page'=> 1,'totalPage'=>1,'wallet_amount'=>$user->wallet_amount,'history'=>$data),'We can\'t find proper data to display');
 		}
 	}
 
@@ -1276,7 +1276,7 @@ class OrderController extends BaseController
 							->where('orders.customer_id',$request->customer_id)
 							->orderBy('orders.created_at', 'desc')
 							->first();
-		
+
 		if($order->order_status != 'completed'){
 
 			$order->order_status = 'cancelled';
@@ -1289,7 +1289,7 @@ class OrderController extends BaseController
 	        /*$admin = 'ankita@addonwebsolutions.com';
 	        Mail::to($admin)->send(new OrderCancelMail($order));*/
 
-	      
+
 			$vendor = Vendor::where('id',$order->vendor_id)->first();
 			if($vendor->parent_id == 0){
 				$vendor_email = $vendor->id;
@@ -1343,7 +1343,7 @@ class OrderController extends BaseController
 				$pickup = 1000 * strtotime($order->pickup_date.' '.$order->pickup_time);
 
 			}else{
-				
+
 				$pickup = null;
 			}
 
@@ -1378,7 +1378,7 @@ class OrderController extends BaseController
 						->leftjoin('brands','brands.id','=','products.brand_id')
 						->where('order_items.order_id', $order->id)
 						->get();
-							
+
 			$produc = [];
 			foreach($products as $product){
 
@@ -1414,7 +1414,7 @@ class OrderController extends BaseController
 					'images' => $image
 				);
 			}
-				
+
 				$data= array('order_id' => $order->id,
 							'order_no' => $order->order_no,
 							'placed_on' => 1000 * strtotime($order->created_at),
@@ -1431,7 +1431,7 @@ class OrderController extends BaseController
 						);
 
 			// end
-		
+
 			return $this->sendResponse($data,'Your order has been canceled successfully');
 		}else{
 			return $this->sendResponse(null,'Your order cannot be canceled at this time.');
@@ -1489,7 +1489,7 @@ class OrderController extends BaseController
 	        /*$admin = 'ankita@addonwebsolutions.com';
 	        Mail::to($admin)->send(new OrderReturnMail($order_items));
 
-	      
+
 			$vendor = Vendor::where('id',$orders->vendor_id)->first();
 			if($vendor->parent_id == 0){
 				$vendor_email = $vendor->id;
@@ -1582,9 +1582,9 @@ class OrderController extends BaseController
 
 		// print_r($selling_products);die();
 		if($selling_products->isNotEmpty())
-		{	
+		{
 			$current_page = $selling_products->currentPage();
-			$total_pages  = $selling_products->lastPage();		
+			$total_pages  = $selling_products->lastPage();
 			foreach ($selling_products as $key => $value) {
 
 				$wish_list = UserWishlist::where('product_id',$value['id'])
@@ -1634,14 +1634,14 @@ class OrderController extends BaseController
     							->where('user_type','customer')
     							->orderBy('id','DESC')
     							->paginate(10);
-    	
+
 		if($user_notifications->isNotEmpty())
-		{	
+		{
 			$current_page = $user_notifications->currentPage();
 			$total_pages  = $user_notifications->lastPage();
 
 			foreach ($user_notifications as $key => $user_notification) {
-				
+
 				$notification_data[] = array(
 					'id' => $user_notification->id,
 					'title' => $user_notification->title,
@@ -1649,7 +1649,7 @@ class OrderController extends BaseController
 					'date' => 1000 * strtotime($user_notification->updated_at)
 				);
 			}
-			return $this->sendResponse(array('page'=> $current_page,'totalPage'=>$total_pages,'Notifications'=>$notification_data),'Data retrieved successfully');		
+			return $this->sendResponse(array('page'=> $current_page,'totalPage'=>$total_pages,'Notifications'=>$notification_data),'Data retrieved successfully');
 		}else{
 			return $this->sendResponse(array('page'=> 1,'totalPage'=>1,'Notifications'=>$notification_data),'We can\'t find proper data to display');
 		}
@@ -1662,7 +1662,7 @@ class OrderController extends BaseController
 
     	$start_timestamp = $request->start_date/1000;
     	$start_date = date('Y-m-d H:i:s:m', $start_timestamp);
-		
+
 		$end_timestamp = $request->end_date/1000;
 		$end_date = date('Y-m-d H:i:s:m', $end_timestamp);
 
@@ -1695,7 +1695,7 @@ class OrderController extends BaseController
     		$balance = array(
     			'gem' => (int)$customer_reward_points->gem,
     			'coin' => (int)$customer_reward_points->coin,
-    			'gem_amount' => $gem_balance, 
+    			'gem_amount' => $gem_balance,
     			'coin_amount' => $coin_balance
     		);
     	}else{
@@ -1706,7 +1706,7 @@ class OrderController extends BaseController
     			->select("customer_earn_reward_points.reward_point","users.first_name","users.last_name","customer_earn_reward_points.created_at as created","customer_earn_reward_points.id","customer_earn_reward_points.gems_point","customer_earn_reward_points.coin_point","customer_earn_reward_points.reward_type","customer_earn_reward_points.reward_sub_type","customer_earn_reward_points.created_at")
     			->join('users','users.id','customer_earn_reward_points.user_id')
 			->where('customer_earn_reward_points.user_id',$id);
-			
+
 
   		if($request->start_date && $request->end_date) {
 
@@ -1751,8 +1751,8 @@ class OrderController extends BaseController
 		{
 			$reaward_points = $reaward_points ->where('customer_reward_useds.coin_point','!=',0);
 			$type = 'coin';
-		}	   
-			   
+		}
+
     	/*$reaward_points = CustomerEarnRewardPoint::select('users.first_name',
 				'users.last_name',
 				'customer_earn_reward_points.id',
@@ -1765,7 +1765,7 @@ class OrderController extends BaseController
 			/*->get();
 			print_r($reaward_points);die();*/
 			//var_dump($reaward_points->toSql()); exit();
-		
+
 		$reaward_points = $reaward_points->orderBy('created','DESC')->paginate(10);
 
 
@@ -1818,7 +1818,7 @@ class OrderController extends BaseController
 					'created_at' => 1000 * strtotime($reaward_point->created)
 				);
 			}
-			return $this->sendResponse(array('page'=> $current_page,'totalPage'=>$total_pages,'balance'=>$balance,'transaction'=>$data),'Data retrieved successfully');		
+			return $this->sendResponse(array('page'=> $current_page,'totalPage'=>$total_pages,'balance'=>$balance,'transaction'=>$data),'Data retrieved successfully');
 		}else{
 			return $this->sendResponse(array('page'=> 1,'totalPage'=>1,'balance'=>$balance,'transaction'=>$data),'We can\'t find proper data to display');
 		}
@@ -1837,7 +1837,7 @@ class OrderController extends BaseController
     			'type' => $order_reason->type,
     			'reason' => $order_reason->reason);
     	}
-    	return $this->sendResponse(array('order_reason'=>$data),'Data retrieved successfully');		
+    	return $this->sendResponse(array('order_reason'=>$data),'Data retrieved successfully');
     }
 
     public function productFeedback(Request $request, $id)
@@ -1860,19 +1860,19 @@ class OrderController extends BaseController
 	    	$review->rating = $request->rating;
 	    	$review->save();
     	}
-    	
+
     	$data = array('id' => $review->id,
     		'rating' => (float)$review->rating,
     		'comment' => $review->comment);
 
-    	return $this->sendResponse($data,'Feedback is saved.');	
+    	return $this->sendResponse($data,'Feedback is saved.');
     }
 
     public function repeatOrder(Request $request, $id)
     {
     	$success = [];
     	$order_items = OrderItems::where('order_id',$id)->whereNull('order_items.status')->get();
-    	
+
     	foreach ($order_items as $key => $value) {
     		$products = Products::join('vendor_stores','vendor_stores.id','=','products.store_id')
 						->select('product_variants.id',
@@ -1900,7 +1900,7 @@ class OrderController extends BaseController
 						->groupBy('order_items.product_variant_id')
                 		->orderBy('count', 'DESC')
 						->first();
-			
+
 				/*foreach ($products as $key => $value) {*/
 
 			$wish_list = UserWishlist::where('product_id',$products->id)->where('user_id',$request->current_user)->exists();
@@ -1936,7 +1936,7 @@ class OrderController extends BaseController
 				/*}*/
 		}
 		return $this->sendResponse($success,'Data retrieved successfully');
-    }	
+    }
 
     /*public function repeatOrder(Request $request, $id)
     {
@@ -1971,7 +1971,7 @@ class OrderController extends BaseController
     					->whereNull('order_items.status')
     					->get();
     	print_r($order_items->toArray());die();
-    	foreach ($order_items as $key => $value) {			
+    	foreach ($order_items as $key => $value) {
 
 			$wish_list = UserWishlist::where('product_id',$value->product_variant_id)->where('user_id',$request->current_user)->exists();
 
@@ -2017,12 +2017,12 @@ class OrderController extends BaseController
     	if($product_variants->quantity - 1 <= 0)
     	{
     		return $this->sendResponse(null,'Not sufficient quantity');
-	    	
+
     	}else{
     		if(!empty($user_cart)){
     			$user_cart->product_variant_id = $request->id;
     			$user_cart->quantity = $user_cart->quantity+1;
-    			$user_cart->save(); 
+    			$user_cart->save();
 	    	}else{
 	    		$user_cart = new UserCart;
 	    		$user_cart->user_id = $id;
@@ -2031,7 +2031,7 @@ class OrderController extends BaseController
 	    		$user_cart->save();
 	    	}
 	    	return $this->sendResponse(null,'Product is added in cart.');
-    		
+
     	}
     }
 
@@ -2067,9 +2067,9 @@ class OrderController extends BaseController
 			->leftjoin('brands','brands.id','=','products.brand_id')
     		->where('user_id',$id)
     		->get();
-    	
+
     	$products = [];
-    	
+
     	foreach ($user_carts as $key => $user_cart) {
     		// review
 			$product_review = ProductReview::where('product_id',$user_cart->product_variant_id)->where('customer_id',$id)->first();
@@ -2139,5 +2139,5 @@ class OrderController extends BaseController
         $devices = UserDevice::whereIn('user_id',[$order->vendor_id])->where('user_type','vendor')->get();
         $this->sendVendorNotification($title, $message, $devices, $type, $id);
         return $this->sendResponse(null,'Notification Send to the vendor.');
-    }	
+    }
 }

@@ -5,12 +5,13 @@ namespace App\Http\Controllers\W2bCustomerAuth;
 use App\User;
 use Exception;
 use App\W2bCategory;
+use App\WbWishlist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Hesto\MultiAuth\Traits\LogsoutGuard;
-use Laravel\Socialite\Facades\Socialite;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {

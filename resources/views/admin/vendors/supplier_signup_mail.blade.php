@@ -4,7 +4,7 @@
 
 <p>Hi Admin,</p>
 
-<p>New Supplier Signup in RUTI Self Checkout</p>
+<p>New Supplier Signup in Nature Checkout</p>
 <a href="{{ route('supplier.edit', $id) }}" class="edit" data-toggle="tooltip" data-placement="bottom" title="Edit Supplier">
   To view supplier refer this link
 </a>
@@ -66,5 +66,5 @@
   </table>
   <br><br>
 Regards,<br>
-RUTI Self Checkout Team
+Nature Checkout Team
 

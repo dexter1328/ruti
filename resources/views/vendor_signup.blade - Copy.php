@@ -165,8 +165,8 @@ $(function() {
 
     var date = new Date();
     date.setDate(date.getDate() + 1);
-    $('#datepicker').datepicker({ 
-        autoclose: true, 
+    $('#datepicker').datepicker({
+        autoclose: true,
         startDate: date,
         todayHighlight: true
     });
