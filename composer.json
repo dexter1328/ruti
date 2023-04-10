@@ -12,6 +12,7 @@
         "algolia/algoliasearch-client-php": "^2.4",
         "barryvdh/laravel-dompdf": "0.8.5",
         "buzz/laravel-google-captcha": "^2.3",
+        "doctrine/dbal": "2.12.1",
         "fideloper/proxy": "^4.0",
         "hesto/multi-auth": "^2.0",
         "jorenvanhocht/laravel-share": "^4.2",

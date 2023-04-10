@@ -2,29 +2,29 @@
 
 namespace App\Http\Controllers\VendorAuth;
 
-use App\Http\Controllers\Controller;
-use App\WbWishlist;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use Hesto\MultiAuth\Traits\LogsoutGuard;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
+use Str;
+use Hash;
+use Redirect;
 use App\Vendor;
+use App\VendorOtp;
+use Carbon\Carbon;
+use App\WbWishlist;
 use App\VendorRoles;
 use App\StoresVendor;
 use App\VendorStoreHours;
-use App\VendorOtp;
-use App\VendorStorePermission;
 use App\Mail\VendorOTPMail;
-use App\Mail\VendorStoreHoursMail;
+use Illuminate\Http\Request;
+use App\VendorStorePermission;
 use App\Mail\StoreMainVendorMail;
+use App\Mail\VendorStoreHoursMail;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Helpers\LogActivity as Helper;
-use Hash;
-use Str;
-use DB;
-use Redirect;
-use Carbon\Carbon;
+use Hesto\MultiAuth\Traits\LogsoutGuard;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -139,10 +139,14 @@ class LoginController extends Controller
                                         ->first();
 
                             if(!empty($vendor_store_hours)) {
+                                Auth::guard('vendor')->loginUsingId($user->id);
+                                DB::table('vendor_otps')->where('email',$user->email)->delete();
+                                Helper::addToLog('Vendor Login',$user->id);
 
-                                $token = Str::random(60);
-                                $this->sendOTP($user->email, $token);
-                                return Redirect::to('vendor/submit-otp/'.$token);
+                                return redirect('vendor/home');
+                                // $token = Str::random(60);
+                                // $this->sendOTP($user->email, $token);
+                                // return Redirect::to('vendor/submit-otp/'.$token);
 
                             }else{
                             	// mail to that parent vendor
@@ -158,9 +162,14 @@ class LoginController extends Controller
 
                                 if(!empty($store_permission)) {
 
-                                    $token = Str::random(60);
-                                    $this->sendOTP($user->email, $token);
-                                    return Redirect::to('vendor/submit-otp/'.$token);
+                                    // $token = Str::random(60);
+                                    // $this->sendOTP($user->email, $token);
+                                    // return Redirect::to('vendor/submit-otp/'.$token);
+                                    Auth::guard('vendor')->loginUsingId($user->id);
+                                    DB::table('vendor_otps')->where('email',$user->email)->delete();
+                                    Helper::addToLog('Vendor Login',$user->id);
+
+                                return redirect('vendor/home');
 
                                 }else{
                                     $email = $parent_user->email;
@@ -176,9 +185,14 @@ class LoginController extends Controller
                         }
                     }else{
 
-                        $token = Str::random(60);
-                        $this->sendOTP($user->email, $token);
-                        return Redirect::to('vendor/submit-otp/'.$token);
+                        // $token = Str::random(60);
+                        // $this->sendOTP($user->email, $token);
+                        // return Redirect::to('vendor/submit-otp/'.$token);
+                                Auth::guard('vendor')->loginUsingId($user->id);
+                                DB::table('vendor_otps')->where('email',$user->email)->delete();
+                                Helper::addToLog('Vendor Login',$user->id);
+
+                                return redirect('vendor/home');
                     }
                 } else {
                     $errors = [$this->username() => trans('Your account is inactive. Please contact your admin.')];

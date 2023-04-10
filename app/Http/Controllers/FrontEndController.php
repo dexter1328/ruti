@@ -61,6 +61,13 @@ class FrontEndController extends Controller
 		View::share('page_meta', $page_meta);
         $categories = W2bCategory::with('childrens')->get();
         View::share('categories', $categories);
+        $wb_wishlist = null;
+
+        if (Auth::guard('w2bcustomer')->user()) {
+            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
+            ->get();
+        }
+        View::share('wb_wishlist', $wb_wishlist);
 
         $paypal_configuration = Config::get('paypal');
         $this->_api_context = new ApiContext(new OAuthTokenCredential($paypal_configuration['client_id'], $paypal_configuration['secret']));
@@ -666,16 +673,16 @@ class FrontEndController extends Controller
     }
     public function thankYou()
     {
-        $wb_wishlist = null;
+        // $wb_wishlist = null;
 
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
+        // if (Auth::guard('w2bcustomer')->user()) {
+        //     $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
+        //     ->get();
+        // }
         $products = W2bProduct::inRandomOrder()->paginate(32);
         $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
         ->get();
-        return view('front_end.thank-you',compact('wb_wishlist','products','categories2'));
+        return view('front_end.thank-you',compact('products','categories2'));
     }
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use View;
 use Config;
 use Session;
 use App\User;
@@ -12,6 +13,7 @@ use App\Orders;
 use App\Vendor;
 use App\Country;
 use App\Category;
+use App\PageMeta;
 use App\Products;
 use App\Supplier;
 use App\Attribute;
@@ -25,8 +27,8 @@ use App\SupplierRole;
 use App\EmailTemplate;
 use App\StoreSubscription;
 use App\Mail\VendorSuccess;
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
 use App\Mail\SupplierSuccess;
 use App\Mail\VendorSignupMail;
 use App\Mail\SupplierSignupMail;
@@ -35,6 +37,26 @@ use Illuminate\Support\Facades\Mail;
 
 class CommonController extends Controller
 {
+    public function __construct()
+	{
+
+		$page_meta = PageMeta::pluck('meta_value', 'meta_key')->all();
+		View::share('page_meta', $page_meta);
+
+        $wb_wishlist = null;
+        if (Auth::guard('w2bcustomer')->user()) {
+            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
+            ->get();
+        }
+        View::share('wb_wishlist', $wb_wishlist);
+
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])->get();
+        $categories = W2bCategory::with('childrens')->get();
+        View::share('categories', $categories);
+        View::share('categories2', $categories2);
+
+	}
+
 	protected function getStoreCustomers($sid)
 	{
 		$order = Orders::selectRaw('DISTINCT customer_id')->where('store_id',$sid)->get()->pluck('customer_id')->toArray();
@@ -184,22 +206,16 @@ class CommonController extends Controller
 		if(empty($request->all())){
                 $wb_wishlist = null;
 
-                if (Auth::guard('w2bcustomer')->user()) {
-                    $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-                    ->get();
-                }
-                $categories = W2bCategory::with('childrens')->get();
-                $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-                ->get();
+
 			$memberships = Membership::where('type', 'vendor')->get();
 			$countries = Country::all();
-			return view('vendor_signup',compact('memberships','countries','wb_wishlist','categories','categories2'));
+			return view('vendor_signup',compact('memberships','countries'));
 		}else{
 
 			$request->validate([
 				// 'sales_person_name'=>'required',
 				// 'sales_person_mobile_number'=>'required',
-				'g-recaptcha-response' => 'required|captcha',
+				// 'g-recaptcha-response' => 'required|captcha',
 				'office_number'=>'nullable|regex:/^([0-9\s\-\+\(\)]*)$/',
 				'mobile_number' =>'required|regex:/^([0-9\s\-\+\(\)]*)$/',
 				'email'=>'required|email|unique:vendors',
@@ -251,7 +267,8 @@ class CommonController extends Controller
 					// 'admin_commision'    => $request->input('admin_commision'),
 					'business_name' => $request->input('business_name'),
 					'tax_id' => $request->input('tax_id'),
-					'verification' => 'yes'
+					'verification' => 'yes',
+					'is_approved' => 1
 				);
 			//print_r($data);die();
 			if ($files = $request->file('image')){
@@ -317,22 +334,14 @@ class CommonController extends Controller
 		if(empty($request->all())){
 			$memberships = Membership::where('type', 'supplier')->get();
 			$countries = Country::all();
-            $wb_wishlist = null;
 
-                if (Auth::guard('w2bcustomer')->user()) {
-                    $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-                    ->get();
-                }
-                $categories = W2bCategory::with('childrens')->get();
-                $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-                ->get();
-			return view('supplier_signup',compact('memberships','countries','wb_wishlist','categories','categories2'));
+			return view('supplier_signup',compact('memberships','countries'));
 		}else{
 
 			$request->validate([
 				// 'sales_person_name'=>'required',
 				// 'sales_person_mobile_number'=>'required',
-				'g-recaptcha-response' => 'required|captcha',
+				// 'g-recaptcha-response' => 'required|captcha',
 				'office_number'=>'nullable|regex:/^([0-9\s\-\+\(\)]*)$/',
 				'mobile_number' =>'required|regex:/^([0-9\s\-\+\(\)]*)$/',
 				'email'=>'required|email|unique:vendors',
@@ -386,7 +395,8 @@ class CommonController extends Controller
 					'business_name' => $request->input('business_name'),
 					'tax_id' => $request->input('tax_id'),
 					'verification' => 'yes',
-                    'seller_type' => 'supplier'
+                    'seller_type' => 'supplier',
+					'is_approved' => 1
 				);
 
 			if ($files = $request->file('image')){
@@ -396,7 +406,7 @@ class CommonController extends Controller
 				$files->move($path, $profileImage);
 				$data['image'] = $profileImage;
 			}
-			$data['fullfill_type'] = "seller_fullfill";
+			// $data['fullfill_type'] = "seller_fullfill";
 
 			$vendor = Vendor::create($data);
 
