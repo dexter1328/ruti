@@ -38,6 +38,8 @@ use Stripe\Exception\CardException;
 use Stripe\Exception\InvalidRequestException;
 use Stripe\Exception\RateLimitException;
 use Stripe\Stripe;
+use Stripe\Customer;
+use Stripe\Charge;
 use Stripe\StripeClient;
 use Stripe\Subscription;
 
@@ -1103,9 +1105,11 @@ class SupplierController extends Controller
         if ($request->has('stripeToken') && $request->get('stripeToken') != '') {
             if ($stripe_customer_id != NULL && $stripe_customer_id != '') {
                 $customer_id = $stripe_customer_id;
+
             } else {
                 try {
-                    \Stripe\Stripe::setApiKey($this->stripe_secret);
+                    Stripe::setApiKey('sk_test_51IarbDGIhb5eK2lSAhS5c8HvzuCmQh8CuCx81iR1hYfzSIwGpS1gLnTWs4xfhI9cwcpS8XYKbep9N8h1ZDSSxr0Y00NoFqGE3J');
+
                     $customer = \Stripe\Customer::create([
                         "name" => $name,
                         "email" => $email
@@ -1146,7 +1150,7 @@ class SupplierController extends Controller
             }
 
             try {
-                \Stripe\Stripe::setApiKey($this->stripe_secret);
+                \Stripe\Stripe::setApiKey('sk_test_51IarbDGIhb5eK2lSAhS5c8HvzuCmQh8CuCx81iR1hYfzSIwGpS1gLnTWs4xfhI9cwcpS8XYKbep9N8h1ZDSSxr0Y00NoFqGE3J');
                 $card = \Stripe\Customer::createSource(
                     $customer_id,
                     ['source' => $request->get('stripeToken')]
@@ -1461,7 +1465,7 @@ class SupplierController extends Controller
 
     //Update Fullfill type
 
-    public function fullfill_type_change($id) 
+    public function fullfill_type_change($id)
     {
 
         $rutiFullfill = Membership::where('code','ruti_fullfill')->select('id')->pluck('id')->first();
@@ -1566,7 +1570,7 @@ class SupplierController extends Controller
             $store_subscription->end_date = date('Y-m-d H:i:s', $subscription->current_period_end);
             $store_subscription->status = $subscription->status;
             // $store_subscription->plan_type = 'create';
-            $store_subscription->save(); 
+            $store_subscription->save();
 
             //also change the type
 

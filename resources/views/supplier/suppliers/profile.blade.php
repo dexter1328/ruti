@@ -94,13 +94,14 @@
 				</ul>
 			</div>
 			<div class="card-body">
-				@php // echo '<pre>'; print_r($cards); echo '</pre>'; @endphp
+				{{-- @php  echo '<pre>'; print_r($cards); echo '</pre>'; @endphp --}}
 				<div id="error" class="text-danger"></div>
 				<div id="success" class="text-success"></div>
 				<div class="tab-content">
             		<div class="tab-pane active" id="cardList" role="tabpanel"></div>
 					<div class="tab-pane" id="addCard" role="tabpanel" aria-labelledby="addCard-tab">
-						<form method="post" id="addCardForm">
+						<form method="post" class="require-validation" id="addCardForm"
+                         data-stripe-publishable-key="pk_test_51IarbDGIhb5eK2lSKrWKttm9gweug3yv8EqP2PoVRAhD6HWsuviQWzKOszgIf7imZZ5sjUXHdQhF759Khm3J3nYF00Ved0Wutj">
 							<div class="form-group">
 								<label for="card-number">Card Number<span class="text-danger">*</span></label>
 								<input type="text" id="card-number" name="card-number" class="form-control" required>
@@ -465,6 +466,8 @@ function addCard(e) {
 	if(valid == true) {
 		$("#addCardBtn").hide();
 		$( "#processing" ).css("display", "inline-block");
+        var $form = $(".require-validation");
+        Stripe.setPublishableKey($form.data('stripe-publishable-key'));
 		Stripe.createToken({
 			number: $('#card-number').val(),
 			cvc: $('#cvc').val(),
@@ -507,7 +510,7 @@ function cardValidation() {
 }
 
 //set your publishable key
-Stripe.setPublishableKey("{{Config::get('services.stripe.key')}}");
+// Stripe.setPublishableKey("pk_test_51IarbDGIhb5eK2lSKrWKttm9gweug3yv8EqP2PoVRAhD6HWsuviQWzKOszgIf7imZZ5sjUXHdQhF759Khm3J3nYF00Ved0Wutj");
 
 //callback to handle the response from stripe
 function stripeResponseHandler(status, response) {
@@ -520,6 +523,7 @@ function stripeResponseHandler(status, response) {
 	} else {
 
 		//get token id
+        console.log(response['id']);
 		var token = response['id'];
 		saveCard(token);
 	}

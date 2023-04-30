@@ -1,4 +1,4 @@
 <?php
 
-Route::match(['get', 'post'],'/home', 'Admin\AdminController@dashboard')->name('home');
+Route::match(['get', 'post'],'/home', 'Admin\AdminController@dashboard2')->name('home');
 

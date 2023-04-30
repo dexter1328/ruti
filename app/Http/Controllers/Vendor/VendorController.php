@@ -430,6 +430,8 @@ class VendorController extends Controller
 
 	public function Dashboard(Request $request)
 	{
+        // dd('12');
+
 
 		if($request->has('start') && $request->has('end') && $request->start !='' && $request->end != ''){
             // $date = explode('-',$request->daterange);
@@ -682,6 +684,11 @@ class VendorController extends Controller
 			'recent_orders','vendor_datas','result','product_title','vendor_store','input'));
 
 	}
+    public function dashboard2()
+    {
+        // dd('12');
+        return view('vendor.layout.main2');
+    }
 
 	protected function getCategoriesDropDown($prefix, $items)
 	{

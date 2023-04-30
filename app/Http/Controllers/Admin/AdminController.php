@@ -52,7 +52,7 @@ class AdminController extends Controller
 			->join('admin_roles', 'admin_roles.id', 'admins.role_id')
 			->whereNotIn('admins.id',[1])
 			->get();
-		
+
 		return view('admin.admin.index', compact('admins'));
 	}
 
@@ -75,7 +75,7 @@ class AdminController extends Controller
 	*/
 	public function store(Request $request)
 	{
-		
+
 		$request->validate([
 			'name' => 'required',
 			'email' => 'required|email|unique:admins',
@@ -86,7 +86,7 @@ class AdminController extends Controller
 		],[
 			'role_id.required' => 'The role field is required.',
 		]);
-		
+
 		$admins = new Admin;
 		$admins->name = $request->input('name');
 		$admins->email = $request->input('email');
@@ -97,7 +97,7 @@ class AdminController extends Controller
 		if ($files = $request->file('image')){
 			$path = 'public/images/';
 			$profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-			$files->move($path, $profileImage);   
+			$files->move($path, $profileImage);
 			$admins->image = $profileImage;
 		}
 		$admins->save();
@@ -162,7 +162,7 @@ class AdminController extends Controller
 		if ($files = $request->file('image')){
 			$path = 'public/images/';
 			$profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-			$files->move($path, $profileImage);   
+			$files->move($path, $profileImage);
 			$data['image'] = $profileImage;
 		}
 		Admin::where('id', $id)->update($data);
@@ -201,16 +201,16 @@ class AdminController extends Controller
 		if ($files = $request->file('image')){
 			$path = 'public/images/';
 			$profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-			$files->move($path, $profileImage);   
+			$files->move($path, $profileImage);
 			$data['image'] = $profileImage;
 		}
 		Admin::where('id', Auth::user()->id)->update($data);
 		return redirect('admin/profile')->with('success',"Profile has been saved.");
-		// return redirect('/admin/admins')->with('success', 'Profile is successfully Updated');	
+		// return redirect('/admin/admins')->with('success', 'Profile is successfully Updated');
 	}
 
 	public function dashboard(Request $request)
-	{	
+	{
 
 		if($request->has('start') && $request->has('end') && $request->start !='' && $request->end != ''){
             // $date = explode('-',$request->daterange);
@@ -224,7 +224,7 @@ class AdminController extends Controller
         $vendor_datas = Vendor::where('status','active')->get();
 
         $vendor = Vendor::whereBetween(DB::raw('DATE(created_at)'), [$start_date, $end_date])->count();
-        
+
         $store = VendorStore::whereBetween(DB::raw('DATE(created_at)'), [$start_date, $end_date])->count();
 
         $order = Orders::whereBetween(DB::raw('DATE(created_at)'), [$start_date, $end_date])
@@ -238,7 +238,7 @@ class AdminController extends Controller
             ->whereBetween(DB::raw('DATE(created_at)'), [$start_date, $end_date])
             ->where('order_status','completed')
             ->groupBy('sales_date');
-         
+
         if($request->vendor){
         	$graph_sales = $graph_sales->where('orders.vendor_id',$request->vendor);
         }
@@ -248,7 +248,7 @@ class AdminController extends Controller
         }
 
         /*if($request->categories)
-        {	
+        {
         	$graph_sales = $graph_sales->join('order_items','order_items.order_id','orders.id')
 								->join('product_variants','product_variants.id','order_items.product_variant_id')
 								->join('products','products.id','product_variants.product_id')
@@ -262,7 +262,7 @@ class AdminController extends Controller
         $total_sales_graph_label = [];
         $total_sales_graph_data = [];
 
-        $date = $start_date; 
+        $date = $start_date;
         while (strtotime($date) <= strtotime($end_date)) {
 
             $total_sales_graph_label[] = date ("d M", strtotime($date));
@@ -279,7 +279,7 @@ class AdminController extends Controller
             ->whereBetween(DB::raw('DATE(created_at)'), [$start_date, $end_date])
             ->where('order_status','completed')
             ->groupBy('sales_date');
-            
+
         if($request->vendor){
         	$graph_earning = $graph_earning->where('orders.vendor_id',$request->vendor);
         }
@@ -294,7 +294,7 @@ class AdminController extends Controller
         $total_earning_graph_label = [];
         $total_earning_graph_data = [];
 
-        $date = $start_date; 
+        $date = $start_date;
         while (strtotime($date) <= strtotime($end_date)) {
 
             $total_earning_graph_label[] = date ("d M", strtotime($date));
@@ -327,7 +327,7 @@ class AdminController extends Controller
 
 	    $total_store_graph = array();
 
-        foreach($store_graph as $key) 
+        foreach($store_graph as $key)
         {
         	$total_store_graph[] = array('name'=>$key->name,'latLng'=>array($key->lat,$key->long));
         }
@@ -347,7 +347,7 @@ class AdminController extends Controller
 				        ->groupBy('orders.store_id')
 				        ->orderBy('total_price', 'DESC')
 				        ->limit(5);
-				        
+
 		if($request->vendor){
         	$store_earn = $store_earn->where('orders.vendor_id',$request->vendor);
         }
@@ -355,7 +355,7 @@ class AdminController extends Controller
         if($request->store){
         	$store_earn = $store_earn->where('vendor_stores.id',$request->store);
         }
-		
+
 		$store_earn = $store_earn->get();
 
 		//customer_review
@@ -383,7 +383,7 @@ class AdminController extends Controller
         if($request->store){
         	$customer_reviews = $customer_reviews->where('products.store_id',$request->store);
         }
-		
+
 		$customer_reviews = $customer_reviews->get();
 
 	   	//recent order
@@ -392,7 +392,7 @@ class AdminController extends Controller
 	    					->select('orders.order_no','vendor_stores.name','orders.total_price','users.first_name','users.last_name','orders.created_at')
 	    					->limit(5)
 	    					->orwhereBetween(DB::raw('DATE(orders.created_at)'), [$start_date, $end_date]);
-	    					
+
 	    if($request->vendor){
         	$recent_orders = $recent_orders->where('orders.vendor_id',$request->vendor);
         }
@@ -402,18 +402,18 @@ class AdminController extends Controller
         }
 
         $recent_orders = $recent_orders->orderBy('orders.id','DESC')->get();
-	    					
+
 		$attribute_values = ProductVariants::join('attribute_values','attribute_values.id','=',
 									'product_variants.attribute_value_id')
 						->join('products','products.id','=','product_variants.product_id')
 						->select('attribute_values.name','products.title','product_variants.id')
 						->get();
-						
+
 		foreach($attribute_values as $attribute_value)
 		{
 			$product_title[] = array('id'=> $attribute_value->id ,'title' => $attribute_value->title .' '.$attribute_value->name);
 		}
-		
+
 		// print_r($product_title);die();
 		$category = Category::all();
 
@@ -424,13 +424,13 @@ class AdminController extends Controller
 			$ref   = [];
 			$items = [];
 			foreach ($categories as $key => $value) {
-				
+
 				$thisRef = &$ref[$value->id];
 
 				$thisRef['id'] = $value->id;
 				$thisRef['name'] = $value->name;
 				$thisRef['parent'] = $value->parent;
-				
+
 				if($value->parent == 0) {
 					$items[$value->id] = &$thisRef;
 				} else {
@@ -445,19 +445,23 @@ class AdminController extends Controller
 		$input = $request->all();
 		//print_r($input); exit();
 
-		return view('admin.home',compact('start_date','end_date','vendor','store','order','user','total_sales_graph_label', 'total_sales_graph_data','total_earning_graph_label','total_earning_graph_data','total_store_graph','store_earn','customer_reviews','recent_orders','vendor_datas','result','product_title', 'input'));        
+		return view('admin.home',compact('start_date','end_date','vendor','store','order','user','total_sales_graph_label', 'total_sales_graph_data','total_earning_graph_label','total_earning_graph_data','total_store_graph','store_earn','customer_reviews','recent_orders','vendor_datas','result','product_title', 'input'));
 	}
+    public function dashboard2()
+    {
+        return view('admin.layout.main2');
+    }
 
 	protected function getCategoriesDropDown($prefix, $items)
 	{
 		$str = '';
 		$span = '<span>—</span>';
 		foreach($items as $key=>$value) {
-			$str .= '<option value="'.$value['id'].'">'.$prefix.$value['name'].'</option>';					
+			$str .= '<option value="'.$value['id'].'">'.$prefix.$value['name'].'</option>';
 			if(array_key_exists('child',$value)) {
 				$str .= $this->getCategoriesDropDown($prefix.$span, $value['child'],'child');
 			}
-			
+
 		}
 		return $str;
 	}
@@ -475,7 +479,7 @@ class AdminController extends Controller
 
        	if($request->product){
        		$selling_chart = $selling_chart->where('order_items.product_variant_id',$request->product);
-       					
+
        	}
 
        	if($request->categories && $request->product){
@@ -486,7 +490,7 @@ class AdminController extends Controller
        	$selling_chart = $selling_chart->get();
         $selling = Arr::pluck($selling_chart, 'count', 'monthyear');
 
-       				
+
         $selling_array = array();
 
         $months = array(1,2,3,4,5,6,7,8,9,10,11,12);
@@ -516,7 +520,7 @@ class AdminController extends Controller
 
        	if($request->product){
        		$earnings_chart = $earnings_chart->where('order_items.product_variant_id',$request->product);
-       					
+
        	}
 
        	if($request->categories && $request->product){
@@ -526,7 +530,7 @@ class AdminController extends Controller
    		$earnings_chart = $earnings_chart->get();
      	$earnings = Arr::pluck($earnings_chart, 'count', 'monthyear');
 
-      
+
         $earning_array = array();
 
         $months = array(1,2,3,4,5,6,7,8,9,10,11,12);
@@ -544,7 +548,7 @@ class AdminController extends Controller
 	}
 
 	public function loginHistory()
-	{	
+	{
 		$login_history = DB::table('log_activities')
 							->select('vendors.name',
 									'log_activities.created_at',
@@ -581,6 +585,6 @@ class AdminController extends Controller
 							->get();
 
 		return view('admin.admin.import_export_logs',compact('login_history'));
-	}	
+	}
 
 }

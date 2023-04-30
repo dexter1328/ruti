@@ -82,15 +82,15 @@
 						<div class="left"><!-- <i class="fa fa-product-hunt"></i> --><span>Products</span></div>
 					</div>
 					<div class="col-9">
-						<div class="product-btn-right"> 
-		                	<div class="row">      
+						<div class="product-btn-right">
+		                	<div class="row">
 		                		<div class="col-xs-12 col-sm-3">
-		                			@if(has_permission(Auth::user()->role_id,'import_product','read'))   
+		                			@if(has_permission(Auth::user()->role_id,'import_product','read'))
 		                			<a href="{{url('/public/ezsiop-product-import.csv')}}" download="sample-product.csv" class="download-csv">Download Sample CSV</a>
 		                			@endif
 		                		</div>
 		                      	<div class="col-xs-12 col-sm-3">
-		                      		@if(has_permission(Auth::user()->role_id,'import_product','write'))   
+		                      		@if(has_permission(Auth::user()->role_id,'import_product','write'))
 		                      		<button class="btn btn-outline-primary btn-sm waves-effect waves-light m-1" data-toggle="modal" data-target="#importModal"><i class="fa fa-upload" style="font-size:15px;"></i> <span class="name">Import</span></button>
 		                      		@endif
 		                        </div>
@@ -151,9 +151,9 @@
                                 @endforeach
                         </select>
                         <span class="text-danger" id="vendor_preview_error"></span>
-                        @if ($errors->has('vendor')) 
+                        @if ($errors->has('vendor'))
                             <span class="text-danger" id="vendor_error">{{ $errors->first('vendor') }}</span>
-                    	@endif 
+                    	@endif
 					</div>
 					<div class="form-group">
 						<label>Store<span class="text-danger">*</span></label>
@@ -161,14 +161,14 @@
                             <option value="">Select Store</option>
                         </select>
                         <span class="text-danger" id="store_preview_error"></span>
-                        @if ($errors->has('store')) 
-                        	<span class="text-danger" id="store_error">{{ $errors->first('store') }}</span> 
-                        @endif 
+                        @if ($errors->has('store'))
+                        	<span class="text-danger" id="store_error">{{ $errors->first('store') }}</span>
+                        @endif
 					</div>
 					<div class="form-group">
 						<label for="input-3">File<span class="text-danger">*</span></label>
 						<input type="file" name="import_file" id="import_file" class="form-control" accept=".csv">
-						
+
 						@if(session()->get('error-data'))
 							<span class="text-danger">{{ session()->get('error-data') }}</span>
 						@endif
@@ -189,8 +189,8 @@
 		</div>
 	</div>
 </div>
-	
-               
+
+
 <!-- end modal -->
 <!-- preview modal -->
 <div class="modal fade" id="previewModal">
@@ -204,7 +204,7 @@
 			</div>
 			<div class="modal-body">
 				<div id="preview_div">
-					
+
     			</div>
 			</div>
 		</div>
@@ -231,10 +231,10 @@ $(document).ready(function() {
 	});
 	$("#btnPreview").click(function(){
 		// $("#previewModal").modal('show');
-		
+
 		// alert($("#vendor").val());
 		if($("#vendor option:selected" ).val() == ''){
-			
+
 			$("#vendor_preview_error").html('Please Select Vendor');
 		}else{
 			$("#vendor_preview_error").html('');
@@ -244,15 +244,15 @@ $(document).ready(function() {
 		}else{
 			$('#store_preview_error').html('');
 		}
-		
+
 		if($('#import_file').val() == '')
-		{	
+		{
 			$('#file_preview_error').html('Please Select File');
-			
+
 		}else{
 			$('#file_preview_error').html(' ');
 		}
-		
+
 
 		if($("#vendor option:selected" ).val() != '' && $("#store option:selected" ).val() != '' && $('#import_file').val() != ''){
 			var form_data = new FormData();
@@ -267,11 +267,11 @@ $(document).ready(function() {
 	              headers: {
 	                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	            	},
-	            	
+
 	              contentType: false,
 	              processData: false,
 	              success: function(response){
-	              
+
 	              	$("#previewModal").modal('show');
 	              	var data = JSON.parse(response);
 	              	var str = '';
@@ -311,7 +311,7 @@ $(document).ready(function() {
 	        });
 		}
 	});
-	
+
 	 /*$('#preview_table').DataTable( {
         "scrollX": true
     } );*/
@@ -365,7 +365,7 @@ $(document).ready(function() {
 				}
 			},
 			'colvis'
-		]	 
+		]
 
     });
 	 table.buttons().container()
@@ -408,7 +408,7 @@ function getStores(){
 }
 
 function deleteRow(id)
-{   
+{
     $('#deletefrm_'+id).submit();
 }
 
@@ -427,7 +427,7 @@ function changeStatus(id){
             if(data == 'enable'){
             	status = 'enabled';
                 $('.status_'+id).css('color','#009933');
-                
+
             }else{
             	status = 'disabled';
                 $('.status_'+id).css('color','#ff0000');
