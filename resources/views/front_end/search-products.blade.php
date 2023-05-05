@@ -103,11 +103,14 @@
                                     </ul>
                                 </div>
                             </div>
-                            <figcaption class="product_content d-flex justify-content-between">
+                            <figcaption class="product_content">
                                 <h4 class="product_name double-lines-ellipsis"><a href="{{ route('product-detail',$p->sku) }}">{{ Str::limit($p->title, 30) }}</a></h4>
+                                <h5 class='text-left'><i class='fa fa-check'></i> In Stock</h5>
                                 <div class="price_box">
                                     <span class="current_price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
                                 </div>
+                                <button class='btn btn-primary rounded p-2 my-2 w-100'>Add to Cart</button>
+                                <h5 class='text-left'>SKU: 4563</h5>
                             </figcaption>
                         </figure>
                     </article>

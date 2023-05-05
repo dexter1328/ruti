@@ -52,19 +52,19 @@
             <div class="sub_header_last justify-content-around pe-3 col-md-12 col-lg-6">
                 <div class="restaurant d-flex align-items-center">
                     <img src="{{ asset('public/panel/images/RestaurantBuilding.png') }}" class="sub_header_icons" alt="">
-                    <p>Restaurant <img src="{{ asset('public/panel/images/dropIcon.png') }}" class="drop_icon" alt=""></p>
+                    <p>Restaurant hello</p>
                 </div>
                 <div class="super_admin d-flex align-items-center">
                     <img src="{{ asset('public/panel/images/Administrator.png') }}" alt="">
-                    <p>Super Admin <img src="{{ asset('public/panel/images/dropIcon.png') }}" class="drop_icon" alt=""></p>
+                    <p>Super Admin hello</p>
                 </div>
                 <div class="sales_receipts d-flex align-items-center">
                     <img src="{{ asset('public/panel/images/Totalsales.png') }}" alt="">
-                    <p>Sales Receipts <img src="{{ asset('public/panel/images/dropIcon.png') }}" class="drop_icon" alt=""></p>
+                    <p>Sales Receipts hello</p>
                 </div>
                 <div class="duration d-flex align-items-center">
                     <img src="{{ asset('public/panel/images/Weekview.png') }}" alt="">
-                    <p>Duration  <img src="{{ asset('public/panel/images/dropIcon.png') }}" class="drop_icon" alt=""></p>
+                    <p>Duration  hello</p>
                 </div>
             </div>
         </div>

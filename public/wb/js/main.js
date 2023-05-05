@@ -890,17 +890,6 @@ initializeClock('clockdiv', deadline);
     
 })(jQuery);
 
-var prevScrollpos = window.pageYOffset;
-window.onscroll = function() {
-var currentScrollPos = window.pageYOffset;
-  if (prevScrollpos < currentScrollPos) {
-    $('.categories_menu_toggle').hide()
-  }
-  prevScrollpos = currentScrollPos;
-}
-window.onload = function() {
-    $('.categories_menu_toggle').hide()
-}
 
 $(document).ready(function() {
     $('.cardnew').owlCarousel({
