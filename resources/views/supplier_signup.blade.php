@@ -208,9 +208,8 @@
                                         <span class="text-danger">{{ $errors->first('image') }}</span>
                                     @endif
                                 </div>
-                                <label class="col" for="full-fill">Fulfill type<span class="text-danger">*</span></label>
-                                <div class="col">
-
+                                <label class="col-sm-2" for="full-fill">Fulfill type<span class="text-danger">*</span></label>
+                                <div class="col-sm-4">
                                     <input type="radio" id="full-fill" name="fullfill_type" value="seller_fullfill" required checked> Seller Fullfill <br>
                                     <input type="radio" id="full-fill" name="fullfill_type" title="Can be selected with payment in setting page" value="ruti_fullfill" required disabled> Nature Checkout Fullfill
                                 </div>

@@ -54,19 +54,19 @@
             <div class="sub_header_last justify-content-around pe-3 col-md-12 col-lg-6">
                 <div class="restaurant d-flex align-items-center">
                     <img src="{{ asset('public/panel/images/RestaurantBuilding.png') }}" class="sub_header_icons" alt="">
-                    <p>Restaurant <img src="{{ asset('public/panel/images/dropIcon.png') }}" class="drop_icon" alt=""></p>
+                    <p><a href='www.google.com' class='header_link'> Restaurant </a></p>
                 </div>
                 <div class="super_admin d-flex align-items-center">
                     <img src="{{ asset('public/panel/images/Administrator.png') }}" alt="">
-                    <p>Super Admin <img src="{{ asset('public/panel/images/dropIcon.png') }}" class="drop_icon" alt=""></p>
+                    <p><a href='#' class='header_link'> Super Admin </a></p>
                 </div>
                 <div class="sales_receipts d-flex align-items-center">
                     <img src="{{ asset('public/panel/images/Totalsales.png') }}" alt="">
-                    <p>Sales Receipts <img src="{{ asset('public/panel/images/dropIcon.png') }}" class="drop_icon" alt=""></p>
+                    <p><a href='#' class='header_link'> Sales Receipts </a></p>
                 </div>
                 <div class="duration d-flex align-items-center">
                     <img src="{{ asset('public/panel/images/Weekview.png') }}" alt="">
-                    <p>Duration  <img src="{{ asset('public/panel/images/dropIcon.png') }}" class="drop_icon" alt=""></p>
+                    <p><a href='#' class='header_link'> Duration  </a></p>
                 </div>
             </div>
         </div>
@@ -95,22 +95,39 @@
             <div class="first_column col-xl-3 col-lg-12 col-md-12">
                 <h5 class="headings"><img src="{{ asset('public/panel/images/Supplier.png') }}" width="30px" height="30px" alt="" class="me-2">Supplier</h5>
                 <ul class="no_decoration_list">
-                    <li class="mt-2 underlined">Inventory Management</li>
+                    <li class="mt-2 underlined"><a href='#' class='links'>Inventory Management</a></li>
                     @if(vendor_has_permission(Auth::user()->role_id,'orders','read'))
                     <li class="mt-2 underlined {{ (request()->is('vendor/orders') or request()->is('vendor/orders/*')) ? 'active' : '' }}">
-                        <a href="{{url('vendor/orders')}}" >
+                        <a class='links' href="{{url('vendor/orders')}}" >
                             Manage Orders
                         </a>
                     </li>
                     @endif
-                    <li class="mt-2 underlined">Roles and Management</li>
-                    <li class="mt-2 underlined">Product Management</li>
-                    <li class="mt-2 underlined">Sales Management</li>
-                    <li class="mt-2 underlined">Fulfillment Reports</li>
+                    <li class="mt-2 underlined"><a href='#' class='links'>Roles and Management</a></li>
+                    <li class="mt-2 underlined"><a href='#' class='links'>Product Management</a></li>
+                    <li class="mt-2 underlined"><a href='#' class='links'>Sales Management</a></li>
+                    <li class="mt-2 underlined"><a href='#' class='links'>Fulfillment Reports</a></li>
                 </ul>
                 <h5 class="headings"><img src="{{ asset('public/panel/images/icon8_wholesale.png') }}" width="30px" height="30px" alt="" class="me-2">Wholesale 2 B</h5>
                 <ul class="no_decoration_list">
-                    <li class="mt-2 underlined">Orders</li>
+                    <li class="mt-2 underlined">
+                        <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    Accordion Item #1
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <ul class='no_decoration_list'>
+                                        <li class="mt-2 underlined"><a href='#' class='links'>Product Management</a></li>
+                                        <li class="mt-2 underlined"><a href='#' class='links'>Product Management</a></li>
+                                    </ul>
+                            </div>
+                        </div>
+                        </div>    
+                    </li>
                     <li class="mt-2 underlined">Inventory Management</li>
                     <li class="mt-2 underlined">Fulfillments</li>
                 </ul>

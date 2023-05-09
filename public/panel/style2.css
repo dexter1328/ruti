@@ -44,7 +44,7 @@
         display: block;
     }
 }
-li:hover {
+li a:hover {
     cursor: pointer;
     color: #fff;
 }
@@ -154,4 +154,25 @@ body::-webkit-scrollbar {
 }
 .country_dropdown select:focus, .language_dropdown select:focus, #time_dropdown {
     outline: none;
+}
+.header_link {
+    color: #fff; 
+    text-decoration: none;
+}
+.links {
+    color: #dddddd;
+    text-decoration: none;
+}
+.accordion-button, .accordion-body, .accordion-item {
+    background-color: #5f5cdd !important;
+    color: #fff !important;
+}
+.accordion-button::after {
+    background-image: var(--bs-accordion-btn-icon)!important;
+}
+.accordion-button:focus {
+    box-shadow: none !important;
+}
+.accordion-item {
+    border: none;
 }
