@@ -231,6 +231,11 @@
                                     <i class="zmdi zmdi-dot-circle-alt"></i><span>Choose Plan</span>
                                 </a>
                             </li>
+                            <li class="{{ request()->is('supplier/choose-ruti-fullfill-page') ? 'active' : '' }}">
+                                <a href="{{url('supplier/choose-ruti-fullfill-page')}}" class="waves-effect">
+                                    <i class="zmdi zmdi-dot-circle-alt"></i><span>Fullfilment Plan</span>
+                                </a>
+                            </li>
                             <li class="{{ request()->is('supplier/active-plans') ? 'active' : '' }}">
                                 <a href="{{url('supplier/active-plans')}}" class="waves-effect">
                                     <i class="zmdi zmdi-dot-circle-alt"></i><span>Active Plan</span>
@@ -239,6 +244,11 @@
                             <li class="{{ request()->is('supplier/profile#manage-card') ? 'active' : '' }}">
                                 <a href="{{url('supplier/profile#manage-card')}}" class="waves-effect">
                                     <i class="zmdi zmdi-dot-circle-alt"></i><span>Manage Cards</span>
+                                </a>
+                            </li>
+                            <li class="{{ request()->is('supplier/supplier-wallet') ? 'active' : '' }}">
+                                <a href="{{url('supplier/supplier-wallet')}}" class="waves-effect">
+                                    <i class="zmdi zmdi-dot-circle-alt"></i><span>Wallet</span>
                                 </a>
                             </li>
                         </ul>

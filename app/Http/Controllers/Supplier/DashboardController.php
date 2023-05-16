@@ -41,7 +41,7 @@ class DashboardController extends Controller
 
     public function __invoke(Request $request)
     {
-        return $this->dashboard($request);
+        return $this->dashboard2();
     }
 
     public function dashboard(Request $request)
@@ -185,4 +185,10 @@ class DashboardController extends Controller
         }
         return $str;
     }
+    public function dashboard2()
+    {
+        return view('supplier.layout.main2');
+    }
 }
+
+

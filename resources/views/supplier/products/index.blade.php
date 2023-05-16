@@ -104,6 +104,11 @@
 		                                <span class="name">Add Product</span>
 		                            </a>
 		                        </div>
+                                <div class="col-xs-12 col-sm-3">
+                                    <a href="{{ route('supplier.products.create') }}" class="btn btn-outline-primary btn-sm waves-effect waves-light m-1" title="Add Product">
+		                                <span class="name">Import</span>
+		                            </a>
+		                        </div>
 							</div>
 						</div>
 					</div>

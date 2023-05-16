@@ -461,7 +461,13 @@ Route::group(['middleware' => array('supplierChecklist')], function () {
         Route::get('active-plans', 'Supplier\SupplierController@activePlan')->name('supplier.active-plan');
         Route::get('choose-plan', 'Supplier\SupplierController@choosePlan')->name('supplier.choose-plan');
 
+        Route::get('choose-ruti-fullfill-page', 'Supplier\SupplierController@chooseRutiFullfillPage')->name('supplier.choose-ruti-fullfill-page');
         Route::get('choose-ruti-fullfill', 'Supplier\SupplierController@chooseRutiFullfill')->name('supplier.choose-ruti-fullfill');
+        Route::post('ruti-fullfill-submit', 'Supplier\SupplierController@rutiFulfillSubmit')->name('ruti-fullfill-submit');
+        Route::post('supplier_fulfill', 'Supplier\SupplierController@supplierFulfill')->name('supplier_fulfill');
+        Route::get('supplier-wallet', 'Supplier\SupplierController@supplierWallet')->name('supplier.wallet');
+        Route::post('add-to-supplier-wallet', 'Supplier\SupplierController@addToWallet')->name('add-to-supplier-wallet');
+        Route::post('/supplier-wallet-payment/{amount}', 'Supplier\SupplierController@supplierWalletPayment')->name('supplier-wallet-payment');
 
         Route::get('get-plan-by-interval-license/{interval}/{license?}', 'Supplier\SupplierController@getPlanByIntervalLicense')->name('supplier.get-plan-by-interval-license');
         Route::post('one-time-setup-fee/{store_id}', 'Supplier\SupplierController@oneTimeSetupFee')->name('supplier.one-time-setup-fee');
@@ -524,6 +530,7 @@ Route::group(['middleware' => array('supplierChecklist')], function () {
         Route::resource('customer_used_reward_points', 'Supplier\CustomerRewardUsedController', ['as' => 'supplier'])->only(['index', 'create', 'store']);
 
         Route::resource('orders', 'Supplier\OrdersController', ['as' => 'supplier'])->only('index', 'update');
+        Route::get('supplier_shippo/{userId}/{sku}/{supplierId}', 'Supplier\OrdersController@supplierShippo')->name('supplier.supplier_shippo');
 
         Route::get('orders/view_order/{id}', 'Supplier\OrdersController@view_order')->name('supplier.orders.view_order');
         Route::resource('order_return', 'Supplier\OrderReturnController', ['as' => 'supplier']);

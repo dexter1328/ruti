@@ -12,6 +12,17 @@
 		</div>
 </div>
 @endif
+@if(session()->get('error'))
+<div class="alert alert-danger alert-dismissible" role="alert">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+		<div class="alert-icon">
+			<i class="fa fa-check"></i>
+		</div>
+		<div class="alert-message">
+			<span><strong>Failed!</strong> {{ session()->get('success') }}</span>
+		</div>
+</div>
+@endif
 
 <div class="row">
 	<div class="col-lg-12">
@@ -27,7 +38,6 @@
                             <th style="width: 15%">Order No</th>
                             <th style="width: 25%">Customer Name</th>
                             <th>Total Price</th>
-                            <th>Order Notes</th>
                             <th>Is Paid</th>
                             <th>Status</th>
                             <th>Products</th>
@@ -35,6 +45,19 @@
 						</tr>
 					</thead>
 					<tbody>
+                        @foreach ($op as $item)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$item->order_id}}</td>
+                            <td>{{$item->user_name}}</td>
+                            <td>{{$item->price}}</td>
+                            <td>{{$item->is_paid}}</td>
+                            <td>{{$item->status}}</td>
+                            <td>{{$item->title}}</td>
+                            <td><a href="{{route('supplier.supplier_shippo',['user_id'=>$item->user_id,'product_sku'=>$item->sku,'supplier_id'=>$item->supplier_id])}}" class="btn btn-info">Ship</a></td>
+                        </tr>
+                        @endforeach
+
 					</tbody>
 					<tfoot>
 						<tr>
@@ -42,7 +65,6 @@
                             <th style="width: 15%">Order No</th>
                             <th style="width: 25%">Customer Name</th>
                             <th>Total Price</th>
-                            <th>Order Notes</th>
                             <th>Is Paid</th>
                             <th>Status</th>
                             <th>Products</th>
@@ -55,7 +77,7 @@
 	</div>
 </div>
 
-<script>
+{{-- <script>
 $(document).ready(function() {
 	const table = $('#example').DataTable( {
 		lengthChange: false,
@@ -130,6 +152,6 @@ function updateStatus1(id,$this) {
         location.reload();
     });
 }
-</script>
+</script> --}}
 @endsection
 

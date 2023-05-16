@@ -10,7 +10,7 @@
   <body>
     <div class="main_body">
         <div class="top_header row">
-            <h2 class="col-lg-6 col-md-12 page_heading d-flex blue_color ps-4 align-items-center">Vendor Portal</h2>
+            <h2 class="col-lg-6 col-md-12 page_heading d-flex blue_color ps-4 align-items-center">Supplier Portal</h2>
             <div class="col-lg-6 col-md-12 top_header_div justify-content-around align-items-center">
             <div class="dropdowns_top_header d-flex justify-content-around">
             <div class="country_dropdown d-flex w-50 top_bar_elements">
@@ -111,9 +111,16 @@
                 <p class="headings"><img src="{{ asset('public/panel/images/Program.png') }}" width="30px" height="30px" alt=""> PROGRAMS</p>
                 <ul class="no_decoration_list list">
                     @if(vendor_has_permission(Auth::user()->role_id,'products','read'))
-                    <li class="li_elements {{ (request()->is('vendor/products') or (request()->is('vendor/products/*') && !request()->is('vendor/products/inventory'))) ? 'active' : '' }}">
-                        <a class="links" href="{{url('vendor/products')}}">
-                        Products(Master Catalog)
+                    <li class="li_elements {{ (request()->is('supplier/products') or (request()->is('supplier/products/*') && !request()->is('supplier/products/inventory'))) ? 'active' : '' }}">
+                        <a class="links" href="{{url('supplier/products')}}">
+                        Products
+                        </a>
+                    </li>
+                    @endif
+                    @if(vendor_has_permission(Auth::user()->role_id,'orders','read'))
+                    <li class="li_elements {{ (request()->is('supplier/orders') || request()->is('supplier/orders/*')) ? 'active' : '' }}">
+                        <a class="links" href="{{url('supplier/orders')}}">
+                        Orders
                         </a>
                     </li>
                     @endif

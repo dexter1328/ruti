@@ -61,6 +61,14 @@
             <button type="button" onclick="window.location='{{ url("w2bcustomer/auth/fb") }}'" class="btn btn-primary ml-1 w-50">Login with Facebook</button>
         </div>
         <hr>
+        <div class='text-center'>
+            Are you a seller or supplier?
+        </div>
+
+        <div class='w-100 my-2 mx-auto d-flex '>
+            <button type="button" onclick="window.location='{{ url("vendor/login") }}'" style="background-color:#ee7322;color:#fff !important;" class="btn btn-block w-50">Login as Seller</button>
+            <button type="button" onclick="window.location='{{ url("supplier/login") }}'" class="btn btn-primary ml-1 w-50">Login as Supplier</button>
+        </div>
         <a href="{{url('/')}}" style="background-color:#ee7322;color:#fff !important;" class="btn btn-block">Home</a>
         <div class="form-row mt-2">
             <div class="form-group col-12" style="text-align: center;">

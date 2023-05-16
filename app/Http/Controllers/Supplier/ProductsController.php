@@ -46,28 +46,28 @@ class ProductsController extends Controller
 	}
 
 
-    public function productDatatable(Request $request)
-    {
-        $query = W2bProduct::query()->where('supplier_id', auth()->id());
+    // public function productDatatable(Request $request)
+    // {
+    //     $query = W2bProduct::query()->where('supplier_id', auth()->id());
 
-        return DataTables::of($query)
-            ->addIndexColumn()
-            ->addColumn('action', function ($product) {
-                $edit = route('supplier.products.edit', $product->sku);
-                $delete = route('supplier.products.destroy', $product->sku);
+    //     return DataTables::of($query)
+    //         ->addIndexColumn()
+    //         ->addColumn('action', function ($product) {
+    //             $edit = route('supplier.products.edit', $product->sku);
+    //             $delete = route('supplier.products.destroy', $product->sku);
 
-                return '<form id="deletefrm_'.$product->sku.'" action="'.$delete.'" method="POST" onsubmit="return confirm(\""Are you sure?"\");">
-                            <input type="hidden" name="_token" value="'.csrf_token().'">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <a href="'.$edit.'" data-toggle="tooltip" data-placement="bottom" title="Edit">
-                            <i class="icon-note icons"></i>
-                            </a>
-                            <a href="javascript:void(0);" onclick="deleteRow(\''.$product->sku.'\')" data-toggle="tooltip" data-placement="bottom" title="Delete">
-                                <i class="icon-trash icons"></i>
-                            </a>
-                        </form>';
-            })->toJson();
-    }
+    //             return '<form id="deletefrm_'.$product->sku.'" action="'.$delete.'" method="POST" onsubmit="return confirm(\""Are you sure?"\");">
+    //                         <input type="hidden" name="_token" value="'.csrf_token().'">
+    //                         <input type="hidden" name="_method" value="DELETE">
+    //                         <a href="'.$edit.'" data-toggle="tooltip" data-placement="bottom" title="Edit">
+    //                         <i class="icon-note icons"></i>
+    //                         </a>
+    //                         <a href="javascript:void(0);" onclick="deleteRow(\''.$product->sku.'\')" data-toggle="tooltip" data-placement="bottom" title="Delete">
+    //                             <i class="icon-trash icons"></i>
+    //                         </a>
+    //                     </form>';
+    //         })->toJson();
+    // }
 
 	/**
 	* Show the form for creating a new resource.

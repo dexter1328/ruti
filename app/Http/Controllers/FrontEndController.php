@@ -140,7 +140,7 @@ class FrontEndController extends Controller
     }
     public function shop()
     {
-        // session()->flush();
+        session()->flush();
         $categories = W2bCategory::with('childrens')->get();
 
 
@@ -351,7 +351,8 @@ class FrontEndController extends Controller
                 "retail_price" => $product->retail_price,
                 "original_image_url" => $product->original_image_url,
                 "shipping_price" => $product->shipping_price,
-                "sales_tax_pct" => $product->sales_tax_pct
+                "sales_tax_pct" => $product->sales_tax_pct,
+                "supplier_id" => $product->supplier_id
             ];
         }
 
@@ -382,7 +383,8 @@ class FrontEndController extends Controller
                 "retail_price" => $product->retail_price,
                 "original_image_url" => $product->original_image_url,
                 "shipping_price" => $product->shipping_price,
-                "sales_tax_pct" => $product->sales_tax_pct
+                "sales_tax_pct" => $product->sales_tax_pct,
+                "supplier_id" => $product->supplier_id
             ];
         }
 
@@ -541,7 +543,8 @@ class FrontEndController extends Controller
                     'quantity' => $details['quantity'],
                     'title' => $details['title'],
                     'image' => $details['original_image_url'],
-                    'order_id' => $w2border->order_id
+                    'order_id' => $w2border->order_id,
+                    'supplier_id' => $details['supplier_id']
 
                 ]);
             }

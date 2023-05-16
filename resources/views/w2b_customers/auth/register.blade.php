@@ -276,6 +276,14 @@
                                 </div>
                             </center>
                         </form>
+                        <div class='text-center'>
+                            Are you a seller or supplier?
+                        </div>
+
+                        <div class='w-100 my-2 mx-auto d-flex '>
+                            <button type="button" onclick="window.location='{{ url("vendor-signup") }}'" style="background-color:#ee7322;color:#fff !important;" class="btn btn-block w-50">Sign Up as Seller</button>
+                            <button type="button" onclick="window.location='{{ url("supplier/signup") }}'" class="btn btn-primary ml-1 w-50">Sign Up as Supplier</button>
+                        </div>
                         <div class="form-row mt-2">
                             <div class="form-group col-12" style="text-align: center;">
                                Already have an account? <br>
