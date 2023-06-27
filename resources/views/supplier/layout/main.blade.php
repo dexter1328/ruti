@@ -44,6 +44,7 @@
         <link rel="stylesheet" href="{{ asset('public/css/prettyPhoto.css') }}" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
         <!-- custome_css -->
         <link href="{{ asset('public/css/custom_style.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('public/css/new_style.css') }}" rel="stylesheet"/>
         <link href="{{ asset('public/css/wickedpicker.min.css') }}" rel="stylesheet"/>
         <style type="text/css">
             .fa.fa-angle-down{
@@ -248,7 +249,17 @@
                             </li>
                             <li class="{{ request()->is('supplier/supplier-wallet') ? 'active' : '' }}">
                                 <a href="{{url('supplier/supplier-wallet')}}" class="waves-effect">
-                                    <i class="zmdi zmdi-dot-circle-alt"></i><span>Wallet</span>
+                                    <i class="zmdi zmdi-dot-circle-alt"></i><span>Add funds to Wallet</span>
+                                </a>
+                            </li>
+                            <li class="{{ request()->is('supplier/receive-wallet') ? 'active' : '' }}">
+                                <a href="{{url('supplier/receive-wallet')}}" class="waves-effect">
+                                    <i class="zmdi zmdi-dot-circle-alt"></i><span>Receive funds to Wallet</span>
+                                </a>
+                            </li>
+                            <li class="{{ request()->is('supplier/withdraw-wallet') ? 'active' : '' }}">
+                                <a href="{{url('supplier/withdraw-wallet')}}" class="waves-effect">
+                                    <i class="zmdi zmdi-dot-circle-alt"></i><span>Withdraw funds from Wallet</span>
                                 </a>
                             </li>
                         </ul>

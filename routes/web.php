@@ -466,6 +466,8 @@ Route::group(['middleware' => array('supplierChecklist')], function () {
         Route::post('ruti-fullfill-submit', 'Supplier\SupplierController@rutiFulfillSubmit')->name('ruti-fullfill-submit');
         Route::post('supplier_fulfill', 'Supplier\SupplierController@supplierFulfill')->name('supplier_fulfill');
         Route::get('supplier-wallet', 'Supplier\SupplierController@supplierWallet')->name('supplier.wallet');
+        Route::get('receive-wallet', 'Supplier\SupplierController@receiveWallet')->name('supplier.receive.wallet');
+        Route::get('withdraw-wallet', 'Supplier\SupplierController@withdrawWallet')->name('supplier.withdraw.wallet');
         Route::post('add-to-supplier-wallet', 'Supplier\SupplierController@addToWallet')->name('add-to-supplier-wallet');
         Route::post('/supplier-wallet-payment/{amount}', 'Supplier\SupplierController@supplierWalletPayment')->name('supplier-wallet-payment');
 
@@ -532,6 +534,7 @@ Route::group(['middleware' => array('supplierChecklist')], function () {
         Route::resource('orders', 'Supplier\OrdersController', ['as' => 'supplier'])->only('index', 'update');
         Route::get('supplier_shippo/{userId}/{sku}/{supplierId}', 'Supplier\OrdersController@supplierShippo')->name('supplier.supplier_shippo');
 
+        Route::get('orders/view_details/{id}', 'Supplier\OrdersController@view_details')->name('supplier.orders.view_details');
         Route::get('orders/view_order/{id}', 'Supplier\OrdersController@view_order')->name('supplier.orders.view_order');
         Route::resource('order_return', 'Supplier\OrderReturnController', ['as' => 'supplier']);
         Route::get('orders/return/request', 'Supplier\OrderReturnController@orderReturnRequest')->name('supplier.orders.return.request');

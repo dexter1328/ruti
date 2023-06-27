@@ -13,7 +13,7 @@
             <h2 class="col-lg-6 col-md-12 page_heading d-flex blue_color ps-4 align-items-center">Supplier Portal</h2>
             <div class="col-lg-6 col-md-12 top_header_div justify-content-around align-items-center">
             <div class="dropdowns_top_header d-flex justify-content-around">
-            <div class="country_dropdown d-flex w-50 top_bar_elements">
+            {{-- <div class="country_dropdown d-flex w-50 top_bar_elements">
                 <span>Country</span>
                 <select name="" id="">
                     <option value="">All</option>
@@ -30,15 +30,20 @@
                     <option value="">French</option>
                     <option value="">Spanish</option>
                 </select>
+            </div> --}}
             </div>
-            </div>
-            <div class="top_bar_last d-flex justify-content-around w-100 align-items-center">
-            <div class="notifications top_bar_elements text-center">
+            <div class="top_bar_last d-flex  w-100 align-items-center">
+            {{-- <div class="notifications top_bar_elements text-center">
                 <img src="{{ asset('public/panel/images/notification.png') }}" class="notification_icon" alt="">
-            </div>
+            </div> --}}
             <div class="user_image d-flex align-items-center top_bar_elements">
-                <img src="{{ asset('public/panel/images/User.png') }}" alt="" class="user_image me-2">
-                <p>John Smith</p>
+                @if(Auth::user()->image)
+                @php $image = asset('public/images/suppliers/'.Auth::user()->image); @endphp
+                <img src="{{$image}}" alt="" class="user_image me-2 img-circle">
+                @else
+                <img src="{{asset('public/images/User-Avatar.png')}}" alt="" class="user_image me-2 img-circle">
+                @endif
+                <p>{{Auth::user()->name}}</p>
             </div>
             <div class="sign_out_btn top_bar_elements">
                 <button type="button" class="btn btn-outline-secondary px-2">Sign Out</button>
@@ -47,10 +52,10 @@
         </div>
         <div class="sub_header row justify-content-between p-2 align-items-center">
             <div class="bussiness_name col-lg-4 col-md-12 ps-3">
-                <h4>Bussiness Name</h4>
+                <h4>{{Auth::user()->name}}</h4>
             </div>
             <div class="sub_header_last justify-content-around pe-3 col-md-12 col-lg-6">
-                <div class="restaurant d-flex align-items-center">
+                {{-- <div class="restaurant d-flex align-items-center">
                     <img src="{{ asset('public/panel/images/RestaurantBuilding.png') }}" class="sub_header_icons" alt="">
                     <p>Restaurant hello</p>
                 </div>
@@ -65,7 +70,7 @@
                 <div class="duration d-flex align-items-center">
                     <img src="{{ asset('public/panel/images/Weekview.png') }}" alt="">
                     <p>Duration  hello</p>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

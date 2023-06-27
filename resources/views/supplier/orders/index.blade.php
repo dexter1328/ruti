@@ -42,6 +42,7 @@
                             <th>Status</th>
                             <th>Products</th>
                             <th>Actions</th>
+                            <th>Details</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -55,6 +56,7 @@
                             <td>{{$item->status}}</td>
                             <td>{{$item->title}}</td>
                             <td><a href="{{route('supplier.supplier_shippo',['user_id'=>$item->user_id,'product_sku'=>$item->sku,'supplier_id'=>$item->supplier_id])}}" class="btn btn-info">Ship</a></td>
+                            <td><a href="{{route('supplier.orders.view_details', $item->order_id)}}" class="btn btn-info">Details</a></td>
                         </tr>
                         @endforeach
 
@@ -69,6 +71,7 @@
                             <th>Status</th>
                             <th>Products</th>
                             <th>Actions</th>
+                            <th>Details</th>
 						</tr>
 					</tfoot>
 				</table>

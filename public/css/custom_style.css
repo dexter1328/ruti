@@ -302,7 +302,7 @@ table.dataTable thead>tr>th.sorting_asc, table.dataTable thead>tr>th.sorting_des
 }
 
 table.dataTable{ font-size: 12px;}
- 
+
 table td.action {
     text-align: center;
 }
@@ -330,7 +330,7 @@ button i.fa.fa-plus {
 .listing .box.box-info {
     border-top-color: #424f9b;
 }
-.listing .box-body {    
+.listing .box-body {
     padding: 15px;
 }
 .listing .box {
@@ -386,7 +386,7 @@ button i.fa.fa-plus {
     width: 100%;
     margin-bottom: 5px;text-transform: capitalize;
 }
-.order-details .form-group {    
+.order-details .form-group {
     padding: 3px;
 }
 .order-details .form-group b{margin: 0 15px 0 0;}
@@ -395,7 +395,7 @@ button i.fa.fa-plus {
 	margin-bottom:0;
 }
 
-.order-detail-table tr b{margin: 0 0px 0 15px;} 
+.order-detail-table tr b{margin: 0 0px 0 15px;}
 .order-detail-table td.title{position: relative;}
 .order-detail-table td.title .item-title{position: relative; width: 60%; float: left;}
 .order-detail-table td.title .change-status {
@@ -410,13 +410,13 @@ select.status-change{
     border-radius: 5px;
     background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png);
     background-position: right 10px center; background-size: 12px 12px;
-    background-repeat: no-repeat;	
+    background-repeat: no-repeat;
     -webkit-appearance: none; position: relative;
-}    
+}
 select.status-change:after{
 	content: '\f078';
 	position: absolute;
-}    
+}
 .change-status .btn-outline-primary {
     transition: 0.5s all;
     padding: 6px 15px;

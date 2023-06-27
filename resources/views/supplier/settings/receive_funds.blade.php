@@ -1,10 +1,10 @@
 @extends('supplier.layout.main')
 @section('content')
 
-{{-- add funds start --}}
+{{-- receive funds start --}}
 
 
-{{-- add funds end --}}
+{{-- receive funds end --}}
 
 
 @endsection

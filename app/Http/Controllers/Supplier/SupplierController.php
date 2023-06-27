@@ -1573,6 +1573,22 @@ class SupplierController extends Controller
 
         return view('supplier.settings.supplier_wallet', compact('supplier'));
     }
+    public function receiveWallet()
+    {
+        # code...
+
+        $supplier = Auth::user();
+
+        return view('supplier.settings.receive_funds', compact('supplier'));
+    }
+    public function withdrawWallet()
+    {
+        # code...
+
+        $supplier = Auth::user();
+
+        return view('supplier.settings.withdraw_funds', compact('supplier'));
+    }
 
     public function supplierWalletPayment(Request $request, $amount)
     {

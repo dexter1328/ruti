@@ -15,7 +15,7 @@
             <h2 class="col-lg-6 col-md-12 page_heading d-flex blue_color ps-4 align-items-center">SUPER ADMIN CHANNEL</h2>
             <div class="col-lg-6 col-md-12 top_header_div justify-content-around align-items-center">
             <div class="dropdowns_top_header d-flex justify-content-around">
-            <div class="country_dropdown d-flex w-50 top_bar_elements">
+            {{-- <div class="country_dropdown d-flex w-50 top_bar_elements">
                 <span>Country</span>
                 <select name="" id="">
                     <option value="">All</option>
@@ -32,27 +32,37 @@
                     <option value="">French</option>
                     <option value="">Spanish</option>
                 </select>
+            </div> --}}
             </div>
-            </div>
-            <div class="top_bar_last d-flex justify-content-around w-100 align-items-center">
-            <div class="notifications top_bar_elements text-center">
+            <div class="top_bar_last d-flex  w-100 align-items-center">
+            {{-- <div class="notifications top_bar_elements text-center">
                 <img src="{{ asset('public/panel/images/notification.png') }}" class="notification_icon" alt="">
-            </div>
+            </div> --}}
             <div class="user_image d-flex align-items-center top_bar_elements">
-                <img src="{{ asset('public/panel/images/User.png') }}" alt="" class="user_image me-2">
-                <p>John Smith</p>
+                @if(Auth::user()->image)
+                @php $image = asset('public/images/'.Auth::user()->image); @endphp
+                <img src="{{$image}}" alt="" class="user_image me-2 img-circle">
+                @else
+                <img src="{{asset('public/images/User-Avatar.png')}}" alt="" class="user_image me-2 img-circle">
+                @endif
+                <p>{{Auth::user()->name}}</p>
             </div>
             <div class="sign_out_btn top_bar_elements">
-                <button type="button" class="btn btn-outline-secondary px-2">Sign Out</button>
+                <a href="{{ url('/admin/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-outline-secondary px-2">
+                    Sign Out
+                </a>
+                <form id="logout-form" action="{{ url('/admin/logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
             </div>
             </div>
         </div>
         <div class="sub_header row justify-content-between p-2 align-items-center">
             <div class="bussiness_name col-lg-4 col-md-12 ps-3">
-                <h4>Bussiness Name</h4>
+                <h4>{{Auth::user()->name}}</h4>
             </div>
             <div class="sub_header_last justify-content-around pe-3 col-md-12 col-lg-6">
-                <div class="restaurant d-flex align-items-center">
+                {{-- <div class="restaurant d-flex align-items-center">
                     <img src="{{ asset('public/panel/images/RestaurantBuilding.png') }}" class="sub_header_icons" alt="">
                     <p><a href='www.google.com' class='header_link'> Restaurant </a></p>
                 </div>
@@ -67,7 +77,7 @@
                 <div class="duration d-flex align-items-center">
                     <img src="{{ asset('public/panel/images/Weekview.png') }}" alt="">
                     <p><a href='#' class='header_link'> Duration  </a></p>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -170,10 +180,17 @@
                         </div>
                         </div>
                     </li>
-
-                    <li class="mt-2 underlined"><a href='#' class='links'>Roles and Management</a></li>
-                    <li class="mt-2 underlined"><a href='#' class='links'>Product Management</a></li>
-                    <li class="mt-2 underlined"><a href='#' class='links'>Sales Management</a></li>
+                    @if(has_permission(Auth::user()->role_id,'admin_roles','read'))
+                    <li class="mt-2 underlined {{ (request()->is('admin/admin_roles') or request()->is('admin/admin_roles/*')) ? 'active' : '' }}">
+                        <a href='{{url('admin/admin_roles')}}' class='links'>Roles and Management</a>
+                    </li>
+                    @endif
+                    @if(has_permission(Auth::user()->role_id,'products','read'))
+                    <li class="mt-2 underlined {{ (request()->is('admin/products') or (request()->is('admin/products/*') && !request()->is('admin/products/inventory') && !request()->is('admin/products/generate-barcodes'))) ? 'active' : '' }}">
+                        <a href='{{url('admin/products')}}' class='links'>Product Management</a>
+                    </li>
+                    @endif
+                    {{-- <li class="mt-2 underlined"><a href='#' class='links'>Sales Management</a></li> --}}
                     <li class="mt-2 underlined"><a href='#' class='links'>Fulfillment Reports</a></li>
                     @endif
                 </ul>
@@ -301,7 +318,7 @@
                         </div>
                         </div>
                     </li>
-                    <li class="mt-2 underlined">Inventory Management</li>
+                    {{-- <li class="mt-2 underlined">Inventory Management</li>
                     <li class="mt-2 underlined">Order Management</li>
                     <li class="mt-2 underlined">Employee Management</li>
                     <li class="mt-2 underlined">Roles and Permissions</li>
@@ -309,7 +326,7 @@
                     <li class="mt-2 underlined">Sale Management</li>
                     <li class="mt-2 underlined">Store Management</li>
                     <li class="mt-2 underlined">Wholesale Management</li>
-                    <li class="mt-2 underlined">Fulfillment Report</li>
+                    <li class="mt-2 underlined">Fulfillment Report</li> --}}
                     @endif
                 </ul>
             </div>
@@ -323,12 +340,29 @@
                     <div>
                         <h5 class="headings"><img src="{{ asset('public/panel/images/icon8_general2.png') }}" width="30px" height="30px" alt="" class="me-2">General</h5>
                     <ul class="no_decoration_list">
-                        <li class="mt-2 underlined">Profile (Add/Edit)</li>
-                        <li class="mt-2 underlined">Membership/Subscription</li>
-                        <li class="mt-2 underlined">Support</li>
+                        @if(has_permission(Auth::user()->role_id,'admins','read'))
+                        <li class="mt-2 underlined {{ (request()->is('admin/admins') or request()->is('admin/admins/*')) ? 'active' : '' }}">
+                            <a class="links" href="{{url('admin/admins')}}">All Admins</a>
+                        </li>
+                        @endif
+                        <li class="mt-2 underlined">
+                            <a class="links" href="{{ url('/admin/profile') }}">My Profile</a>
+                        </li>
+                        @if(has_permission(Auth::user()->role_id,'membership','read'))
+                        <li class="mt-2 underlined {{ (request()->is('admin/membership/list/vendor')) ? 'active' : '' }}">
+                            <a class="links" href="{{url('admin/membership/list/vendor')}}">Vendor Membership</a>
+                        </li>
+                        <li class="mt-2 underlined {{ (request()->is('admin/membership/list/supplier')) ? 'active' : '' }}">
+                            <a class="links" href="{{url('admin/membership/list/supplier')}}">Supplier Membership</a>
+                        </li>
+                        <li class="mt-2 underlined {{ (request()->is('admin/membership/list/supplier_ruti_fullfill')) ? 'active' : '' }}">
+                            <a class="links" href="{{url('admin/membership/list/supplier_ruti_fullfill')}}">Nature Fulfill Membership</a>
+                        </li>
+                        @endif
+                        {{-- <li class="mt-2 underlined">Support</li>
                         <li class="mt-2 underlined">Enquiry</li>
                         <li class="mt-2 underlined">Login History</li>
-                        <li class="mt-2 underlined">Notifications</li>
+                        <li class="mt-2 underlined">Notifications</li> --}}
                     </ul>
                     <h5 class="headings"><img src="{{ asset('public/panel/images/Management.png') }}" width="30px" height="30px" alt="" class="me-2">Fund Management</h5>
                     <ul class="no_decoration_list">
@@ -340,8 +374,9 @@
                     </ul>
                     </div>
                     <div>
-                    <h5 class="headings"><img src="{{ asset('public/panel/images/Shipped.png') }}" width="30px" height="30px" alt="" class="me-2">Shipping</h5>
+                    <h5 class="headings"><img src="{{ asset('public/panel/images/Shipped.png') }}" width="30px" height="30px" alt="" class="me-2">Help</h5>
                     <ul class="no_decoration_list">
+                        <li class="mt-2 underlined">Manage Tickets</li>
                         <li class="mt-2 underlined">Sign In</li>
                         <li class="mt-2 underlined">Create Account</li>
                         <li class="mt-2 underlined">Guide/Support</li>

@@ -1,10 +1,12 @@
 @extends('supplier.layout.main')
+
 @section('content')
 
-{{-- add funds start --}}
+
+{{-- Order details start --}}
 
 
-{{-- add funds end --}}
+{{--  Order details end --}}
 
 
 @endsection

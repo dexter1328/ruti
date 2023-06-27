@@ -93,6 +93,19 @@ class OrdersController extends Controller
 
     }
 
+    public function view_details($id)
+	{
+        $od = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
+        ->join('users', 'w2b_orders.user_id', 'users.id')
+        ->where('ordered_products.supplier_id', !empty(auth()->user()->parent_id)?auth()->user()->parent_id:auth()->id())
+        ->where('w2b_orders.order_id', $id)
+        ->select('ordered_products.*', 'w2b_orders.status as status', 'w2b_orders.is_paid as is_paid', 'users.first_name as user_name', 'users.id as user_id')
+        ->get();
+        // dd($od);
+
+		return view('supplier.orders.view_details',compact('od'));
+	}
+
 	/**
 	* Display the specified resource.
 	*/
