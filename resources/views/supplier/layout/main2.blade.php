@@ -134,19 +134,23 @@
                     <li class="li_elements">Stores(Master)</li>
                     <li class="li_elements">Sales(Master)</li>
                 </ul>
-                <p class="headings"><img src="{{ asset('public/panel/images/icon_c1.png') }}" width="30px" height="30px" alt=""> CUSTOMER MEMBERSHIP</p>
+                <p class="headings"><img src="{{ asset('public/panel/images/icon_c1.png') }}" width="30px" height="30px" alt="">Manage Plans</p>
                 <ul class="list">
-                    <li class="li_elements"><div class="d-flex justify-content-between">Explorer <span>2000</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Classic <span>1212</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Bougie <span>8372</span></div></li>
+                    <li class="li_elements "><div class="d-flex justify-content-between"><a class="links" href="{{url('supplier/choose-ruti-fullfill-page')}}"> Fulfillment Plan </a></div></li>
+                    <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('supplier/supplier-wallet')}}">Add Funds to Wallet </a></div></li>
+                    <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('supplier/receive-wallet')}}">Receive Funds to Wallet </a></div></li>
+                    <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('supplier/withdraw-wallet')}}">Withdraw Funds </a></div></li>
                 </ul>
-                <p class="li_elements">Customer Incentive</p>
+                <p class="headings"><img src="{{ asset('public/panel/images/icon_c1.png') }}" width="30px" height="30px" alt=""> Manage Product Details</p>
                 <ul class="list">
-                    <li class="li_elements"><div class="d-flex justify-content-between">All Year Participants <span>2000</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">All Year Winners <span>1212</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">The Month Entries <span>8372</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">The Month Winners <span>8372</span></div></li>
+                    <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('supplier/categories')}}">Manage Category </a></div></li>
+                    <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('supplier/brand')}}">Manage Brands</a></div></li>
+                    <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('supplier/products')}}">Manage Product</a></div></li>
+                    <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('supplier/products/inventory-upload')}}">Upload Inventory </a></div></li>
+                    <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('supplier/products/inventory')}}">Manage Product Stock</a></div></li>
+                    <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('supplier/product_reviews')}}">Manage Product Review</a></div></li>
                 </ul>
+
                 <p class="headings"><img src="{{ asset('public/panel/images/membership_card.png') }}" width="30px" height="30px" alt=""> VENDOR MEMBERSHIP</p>
                 <ul class="list">
                     <li class="li_elements"><div class="d-flex justify-content-between">Seed <span>1214</span></div></li>

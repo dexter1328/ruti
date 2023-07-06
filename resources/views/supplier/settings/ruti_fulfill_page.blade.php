@@ -1,94 +1,12 @@
 @extends('supplier.layout.main')
 @section('content')
 
-{{-- Subscription page start --}}
-
-
-{{-- Subscription page end --}}
-
-
-<div class="body_subscribtion d-flex justify-content-center">
-    <div class="i_sub_container m-auto p-4">
-        <div class="inner-container">
-            <div class="mt-4 mb-2">
-                <div class="i_heading_main text-center">
-                    <h1>
-                        Nature Checkout Fulfill Plan 
-                    </h1>
-                    <span class="mt-4">Subscribe only for $25</span>
-                </div>
-            </div>
-          <div class="row my-2 mx-0">
-                <div class="accordion w-100" id="faq">
-                    <div class="card w-75 mx-auto">
-                        <div class="card-header" id="faqhead1">
-                            <a href="#" class="btn btn-header-link text-dark i_link w-100 text-left" data-toggle="collapse" data-target="#faq1"
-                            aria-expanded="true" aria-controls="faq1">Pay with Card</a>
-                        </div>
-
-                        <div id="faq1" class="collapse show" aria-labelledby="faqhead1" data-parent="#faq">
-                            <div class="card-body">
-                                <div class="col-lg-12 mb-4  required">
-                                    <form action="#">
-                                      <label>Name on Card <span>*</span></label>
-                                      <input class='form-control' size='4' type='text' placeholder='Enter Name on Card'>
-                                      </div>
-                                      <div class="col-lg-12 mb-4 required" style="border: none">
-                                          <label>Card Number  <span>*</span></label>
-                                          <input autocomplete='off' class='form-control card-number' size='20' type='text' placeholder='Enter Card Number'>
-                                      </div>
-                                      <div class="row">
-                                          <div class="col-4 mb-4 cvc required">
-                                              <label>CVC</label>
-                                              <input autocomplete='off' class='form-control card-cvc' placeholder='e.g 415' size='4'type='text'>
-                                          </div>
-                                          <div class="col-4 mb-4 expiration required">
-                                              <label>Expiration Month  <span>*</span></label>
-                                              <input class='form-control card-expiry-month' placeholder='MM' size='2'type='text'>
-                                          </div>
-                                          <div class="col-4 mb-4 expiration required">
-                                              <label>Expiration Year <span>*</span></label>
-                                              <input class='form-control card-expiry-year' placeholder='YYYY' size='4'type='text'>
-                                          </div>
-                                      </div>
-                                      <div class="mx-auto order_button i_buttons">
-                                          <button class="btn custom-button w-100" type="submit">Pay Now</button>
-                                      </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card w-75 mx-auto">
-                        <div class="card-header" id="faqhead2">
-                            <a href="#" class="btn btn-header-link collapsed text-dark i_link w-100 text-left" data-toggle="collapse" data-target="#faq2"
-                            aria-expanded="true" aria-controls="faq2">Pay with Digital Wallet</a>
-                        </div>
-
-                        <div id="faq2" class="collapse" aria-labelledby="faqhead2" data-parent="#faq">
-                            <div class="card-body">
-                                <div class="text-center">
-                                    <div class="my-4">
-                                        <h4>Your Balance: <span>$1455</span></h4>
-                                        <h4>Total Order: <span>25</span></h4>
-                                    </div>
-                                    <div class="mx-auto i_buttons">
-                                        <button class="btn custom-button w-100" type="submit">Click to Pay</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <!-- <div class="i_cancel_body d-flex justify-content-center">
+{{-- Subscription cancel page start --}}
+@if ($supplier->fulfill_type == 'nature')
+ <div class="i_cancel_body d-flex justify-content-center">
     <div class="i_sub_container m-4">
         <div class="inner-container">
-            <h4 class="i_funds_heading text-center mt-3 pb-2 p-2">Congratz.. you have successfully subscribed to Nature Checkout Fulfillment Plan</h4>
+            <h4 class="i_funds_heading text-center mt-3 pb-2 p-2">Congratulations.. You have successfully subscribed to Nature Checkout Fulfillment Plan</h4>
     <svg id="i_svg" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 590 484.7">
       <g id="blobs">
         <path id="blob-1" d="M545.5,299c0,80.3-28.6,150.4-126.4,139.4-63.2-7.1-109.3-37.3-142.6-37.3-45.7,0-105.4,29.3-146.8,22.2-69-11.7-85.3-66.8-85.3-135.8,0-56.3,25.5-99.9,46.2-140.8,18.3-36.1,55.9-97.8,125.1-100.5,53.3-2.1,97.4,50.5,138.4,74.2,49.9,28.8,98.4-1.8,126,1.3C537.9,127.9,545.5,265.5,545.5,299Z" fill="#eddfeb"/>
@@ -154,7 +72,7 @@
                 <ellipse id="eye-right" cx="349" cy="172.8" rx="11.2" ry="13.8" fill="#543093" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5" />
                 <ellipse id="eye-left" cx="235.5" cy="172.8" rx="11.2" ry="13.8" fill="#543093" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5" />         <path id="eyebrow-sad-right" d="M366.2,146.3c-2.6-5.3-14.8-14.1-24.3-14.7" fill="none" stroke="#543093" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
                 <path id="eyebrow-sad-left" d="M216.4,146.3c2.6-5.3,14.8-14.1,24.3-14.7" fill="none" stroke="#543093" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
-                            
+
               </g>
               <g id="eyes-laughing">
          <path id="eye-laughing-right" d="M332.2,174c0-8.3,7.5-15,16.8-15s16.8,6.7,16.8,15" fill="none" stroke="#543093" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
@@ -179,18 +97,125 @@
         </g>
       </g>
     </svg>
-    
-    
+
+
         <div class="i_bottom">
             <h5 class="title">Do you want to unsubscribe?</h5>
             <p class="subtitle">And Want to switch to Seller Fulfillment plan.</p>
+            <form class="form-horizontal" method="POST" id="payment-form" role="form" action="{{route('supplier_fulfill')}}" >
+                @csrf
+                <input type="hidden" name="fulfill_type" value="self">
                 <div class="i_buttons">
-                    <a href="subscribtion.html"><button id="unsubscribe">Unsubscribe</button></a> 
+                    <button id="unsubscribe" type="submit">Unsubscribe</button>
                 </div>
+            </form>
         </div>
     </div>
     </div>
-    </div> -->
+    </div>
+
+
+{{-- Subscription cancel page end --}}
+
+@else
+<div class="body_subscribtion d-flex justify-content-center">
+    <div class="i_sub_container m-auto p-4">
+        <div class="inner-container">
+            <div class="mt-4 mb-2">
+                <div class="i_heading_main text-center">
+                    <h1>
+                        Nature Checkout Fulfill Plan
+                    </h1>
+                    <span class="mt-4">Subscribe only for $25</span>
+                </div>
+            </div>
+          <div class="row my-2 mx-0">
+                <div class="accordion w-100" id="faq">
+                    <div class="card w-75 mx-auto">
+                        <div class="card-header" id="faqhead1">
+                            <a href="#" class="btn btn-header-link text-dark i_link w-100 text-left" data-toggle="collapse" data-target="#faq1"
+                            aria-expanded="true" aria-controls="faq1">Pay with Card</a>
+                        </div>
+
+                        <div id="faq1" class="collapse show" aria-labelledby="faqhead1" data-parent="#faq">
+                            <div class="card-body">
+                                <div class="col-lg-12 mb-4  required">
+                                    <form role="form"
+                                    action="{{ route('ruti-fullfill-submit') }}"
+                                    method="post"
+                                    class="require-validation"
+                                    data-cc-on-file="false"
+                                    data-stripe-publishable-key="{{$stripe_key}}"
+                                    id="payment-form">
+                                    @csrf
+                                      <label>Name on Card <span>*</span></label>
+                                      <input class='form-control' size='4' type='text' placeholder='Enter Name on Card'>
+                                      </div>
+                                      <div class="col-lg-12 mb-4 required" style="border: none">
+                                          <label>Card Number  <span>*</span></label>
+                                          <input autocomplete='off' class='form-control card-number' size='20' type='text' placeholder='Enter Card Number'>
+                                      </div>
+                                      <div class="row">
+                                          <div class="col-4 mb-4 cvc required">
+                                              <label>CVC</label>
+                                              <input autocomplete='off' class='form-control card-cvc' placeholder='e.g 415' size='4'type='text'>
+                                          </div>
+                                          <div class="col-4 mb-4 expiration required">
+                                              <label>Expiration Month  <span>*</span></label>
+                                              <input class='form-control card-expiry-month' placeholder='MM' size='2'type='text'>
+                                          </div>
+                                          <div class="col-4 mb-4 expiration required">
+                                              <label>Expiration Year <span>*</span></label>
+                                              <input class='form-control card-expiry-year' placeholder='YYYY' size='4'type='text'>
+                                          </div>
+                                      </div>
+                                      <div class="mx-auto order_button i_buttons">
+                                          <button class="btn custom-button w-100" type="submit">Pay Now</button>
+                                      </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card w-75 mx-auto">
+                        <div class="card-header" id="faqhead2">
+                            <a href="#" class="btn btn-header-link collapsed text-dark i_link w-100 text-left" data-toggle="collapse" data-target="#faq2"
+                            aria-expanded="true" aria-controls="faq2">Pay with Digital Wallet</a>
+                        </div>
+
+                        <div id="faq2" class="collapse" aria-labelledby="faqhead2" data-parent="#faq">
+                            <form class="form-horizontal" method="POST" id="payment-form" role="form" action="{{route('fulfill-with-wallet')}}" >
+                                @csrf
+                                <div class="card-body">
+                                    @php
+                                    $tp = 25
+                                    @endphp
+                                    <div class="text-center">
+                                        <div class="my-4">
+                                            <h4>Your Balance: <span>${{$supplier->wallet_amount}}</span></h4>
+                                            <h4>Subscription fee: <span>$25</span></h4>
+                                            <input type="hidden" name="amount" value="{{$tp}}">
+                                        </div>
+                                            @if ($errors->has('amount'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('amount') }}</strong>
+                                            </span>
+                                            @endif
+                                        <div class="mx-auto i_buttons">
+                                            <button class="btn custom-button w-100" type="submit">Click to Pay</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+@endif
+
 
 
 {{-- cancel Subscription page start --}}
@@ -198,5 +223,74 @@
 
 {{--cancel Subscription page end --}}
 
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
+<script type="text/javascript">
+
+$(function() {
+
+    /*------------------------------------------
+    --------------------------------------------
+    Stripe Payment Code
+    --------------------------------------------
+    --------------------------------------------*/
+
+    var $form = $(".require-validation");
+
+    $('form.require-validation').bind('submit', function(e) {
+        var $form = $(".require-validation"),
+        inputSelector = ['input[type=email]', 'input[type=password]',
+                         'input[type=text]', 'input[type=file]',
+                         'textarea'].join(', '),
+        $inputs = $form.find('.required').find(inputSelector),
+        $errorMessage = $form.find('div.error'),
+        valid = true;
+        $errorMessage.addClass('d-none');
+
+        $('.has-error').removeClass('has-error');
+        $inputs.each(function(i, el) {
+          var $input = $(el);
+          if ($input.val() === '') {
+            $input.parent().addClass('has-error');
+            $errorMessage.removeClass('d-none');
+            e.preventDefault();
+          }
+        });
+
+        if (!$form.data('cc-on-file')) {
+          e.preventDefault();
+          Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+          Stripe.createToken({
+            number: $('.card-number').val(),
+            cvc: $('.card-cvc').val(),
+            exp_month: $('.card-expiry-month').val(),
+            exp_year: $('.card-expiry-year').val()
+          }, stripeResponseHandler);
+        }
+
+    });
+
+    /*------------------------------------------
+    --------------------------------------------
+    Stripe Response Handler
+    --------------------------------------------
+    --------------------------------------------*/
+    function stripeResponseHandler(status, response) {
+        if (response.error) {
+            $('.error')
+                .removeClass('d-none')
+                .find('.alert')
+                .text(response.error.message);
+        } else {
+            /* token contains id, last4, and card type */
+            var token = response['id'];
+
+            $form.find('input[type=text]').empty();
+            $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+            $form.get(0).submit();
+        }
+    }
+
+});
+</script>
 @endsection

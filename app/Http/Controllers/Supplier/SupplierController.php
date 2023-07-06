@@ -36,6 +36,7 @@ use Stripe\Exception\CardException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\LogActivity as Helper;
+use App\WithdrawRequest;
 use Illuminate\Contracts\View\Factory;
 use Stripe\Exception\ApiErrorException;
 use Stripe\Exception\RateLimitException;
@@ -1555,6 +1556,26 @@ class SupplierController extends Controller
 
 			return $this->sendError($errors);
     }
+    public function fulfillWithWallet(Request $request)
+    {
+        $input = $request->amount;
+
+        $uid = Auth::user()->id;
+        //  dd($input);
+        $user = Vendor::where('id', $uid)->first();
+        // dd($user);
+        if ($user->wallet_amount < $input) {
+            return redirect()->back()->with('error', 'Your balance is not enough');
+        }
+        else {
+            $debit = $user->wallet_amount - $input;
+            $user->update([
+                'wallet_amount' => $debit,
+                'fulfill_type' => 'nature'
+            ]);
+            return redirect()->back()->with('success', 'Your Fulfillments will now be done by Nature checkout');
+        }
+    }
     public function supplierFulfill(Request $request)
     {
         # code...
@@ -1568,16 +1589,15 @@ class SupplierController extends Controller
     public function supplierWallet()
     {
         # code...
+        $supplier = Vendor::where('id', Auth::user()->id)->first();
+        $stripe_key = $this->stripe_key;
 
-        $supplier = Auth::user();
-
-        return view('supplier.settings.supplier_wallet', compact('supplier'));
+        return view('supplier.settings.supplier_wallet', compact('supplier','stripe_key'));
     }
     public function receiveWallet()
     {
         # code...
-
-        $supplier = Auth::user();
+        $supplier = Vendor::where('id', Auth::user()->id)->first();
 
         return view('supplier.settings.receive_funds', compact('supplier'));
     }
@@ -1588,6 +1608,32 @@ class SupplierController extends Controller
         $supplier = Auth::user();
 
         return view('supplier.settings.withdraw_funds', compact('supplier'));
+    }
+    public function withdrawToBank(Request $request)
+    {
+        // dd($request->all());
+        $uid = Auth::user()->id;
+        $supplier = Vendor::where('id', $uid)->first();
+        if ($supplier->wallet_amount < $request->amount) {
+            return redirect()->back()->with('error', 'Your balance is not enough');
+        }
+        else {
+
+            $debit = $supplier->wallet_amount - $request->amount;
+            $supplier->update([
+                'wallet_amount' => $debit
+            ]);
+        }
+
+        WithdrawRequest::create([
+            'user_id' => $uid,
+            'account_title' => $request->account_title,
+            'account_no' => $request->account_no,
+            'amount' => $request->amount
+        ]);
+
+        return redirect()->back()->with('success', 'You will get payment soon');
+
     }
 
     public function supplierWalletPayment(Request $request, $amount)
@@ -1610,8 +1656,10 @@ class SupplierController extends Controller
     public function addToWallet(Request $request)
     {
         # code...
+        // dd($request->all());
         $uid = Auth::user()->id;
         $wallet = Vendor::where('id', $uid)->first();
+        // dd($wallet);
 		Stripe::setApiKey($this->stripe_secret);
 		 try {
             if ($wallet->stripe_customer_id) {
@@ -1634,7 +1682,7 @@ class SupplierController extends Controller
                  $wallet->update([
                     'stripe_customer_id' => $customer->id
                  ]);
-                //  dd($wallet);
+                //   dd($wallet);
             }
 
             //  dd($customer->id);

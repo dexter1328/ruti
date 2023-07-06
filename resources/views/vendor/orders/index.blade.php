@@ -120,7 +120,7 @@ $(document).ready(function() {
 	.appendTo( '#example_wrapper .col-md-6:eq(0)' );
 } );
 function deleteRow(id)
-{   
+{
 	$('#deletefrm_'+id).submit();
 }
 </script>

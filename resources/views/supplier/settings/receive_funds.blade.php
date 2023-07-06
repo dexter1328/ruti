@@ -11,7 +11,7 @@
                     <h4 class="i_funds_heading border-bottom mb-3 pb-4 p-2">Receive Funds</h4>
                     <div class="i_balance_div justify-content-between">
                         <h4 class="i_funds_heading mb-3 p-2">Your Balance: </h4>
-                        <h4 class="i_funds_heading mb-3 p-2">$1455 </h4>
+                        <h4 class="i_funds_heading mb-3 p-2">${{$supplier->wallet_amount}} </h4>
                     </div>
                     <div>
                         <table class="w-100">

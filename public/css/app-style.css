@@ -409,7 +409,7 @@ hr {
 
 /* Page Content Wrapper */
 .content-wrapper {
-    margin-left: 260px;
+
 	padding-top: 70px;
 	padding-left: 10px;
     padding-right: 10px;
@@ -582,6 +582,7 @@ hr {
   background-image: url(../images/bg-themes/1.png);
 }
 #sidebar-wrapper.bg-theme2 {
+    display: none !important;
   background-image: url(../images/bg-themes/2.png);
 }
 #sidebar-wrapper.bg-theme3 {
@@ -5441,7 +5442,7 @@ table.grid td {
   padding: 12px 30px;
   position: fixed;
   right: 0;
-  left: 240px;
+  /* left: 240px; */
   background-color: white;
   border-top: 1px solid rgba(0, 0, 0, 0.15);
   -webkit-transition: all 0.3s ease;

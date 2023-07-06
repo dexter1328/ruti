@@ -464,10 +464,12 @@ Route::group(['middleware' => array('supplierChecklist')], function () {
         Route::get('choose-ruti-fullfill-page', 'Supplier\SupplierController@chooseRutiFullfillPage')->name('supplier.choose-ruti-fullfill-page');
         Route::get('choose-ruti-fullfill', 'Supplier\SupplierController@chooseRutiFullfill')->name('supplier.choose-ruti-fullfill');
         Route::post('ruti-fullfill-submit', 'Supplier\SupplierController@rutiFulfillSubmit')->name('ruti-fullfill-submit');
+        Route::post('fulfill-with-wallet', 'Supplier\SupplierController@fulfillWithWallet')->name('fulfill-with-wallet');
         Route::post('supplier_fulfill', 'Supplier\SupplierController@supplierFulfill')->name('supplier_fulfill');
         Route::get('supplier-wallet', 'Supplier\SupplierController@supplierWallet')->name('supplier.wallet');
         Route::get('receive-wallet', 'Supplier\SupplierController@receiveWallet')->name('supplier.receive.wallet');
         Route::get('withdraw-wallet', 'Supplier\SupplierController@withdrawWallet')->name('supplier.withdraw.wallet');
+        Route::post('withdraw-to-bank', 'Supplier\SupplierController@withdrawToBank')->name('withdraw-to-bank');
         Route::post('add-to-supplier-wallet', 'Supplier\SupplierController@addToWallet')->name('add-to-supplier-wallet');
         Route::post('/supplier-wallet-payment/{amount}', 'Supplier\SupplierController@supplierWalletPayment')->name('supplier-wallet-payment');
 
@@ -500,6 +502,9 @@ Route::group(['middleware' => array('supplierChecklist')], function () {
 
         Route::resource('products', 'Supplier\ProductsController', ['as' => 'supplier'])->except('show');
         Route::get('products/inventory', 'Supplier\ProductsController@inventory')->name('supplier.products.inventory');
+        Route::get('products/inventory-upload', 'Supplier\ProductsController@inventoryUpload')->name('supplier.inventory.upload');
+        Route::post('/import_parse', 'Supplier\ProductsController@parseImport')->name('import_parse');
+        Route::post('/import_process', 'Supplier\ProductsController@processImport')->name('import_process');
         Route::post('products/get-inventory', 'Supplier\ProductsController@getInventory')->name('supplier.get-inventory');
         Route::post('products/update-quantity', 'Supplier\ProductsController@updateQuantity')->name('supplier.product-update-quantity');
         Route::post('products/update-discount', 'Supplier\ProductsController@updateDiscount')->name('supplier.product-update-discount');

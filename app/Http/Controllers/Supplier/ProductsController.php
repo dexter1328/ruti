@@ -2,22 +2,24 @@
 
 namespace App\Http\Controllers\Supplier;
 
-use App\W2bCategory;
-use App\W2bProduct;
 use DB;
 use Auth;
 use App\Brand;
+use App\CsvData;
 use App\Products;
+use App\Membership;
+use App\W2bProduct;
 use App\VendorStore;
+use App\W2bCategory;
+use App\Notification;
 use App\ProductImages;
 use App\ProductVariants;
-use App\Notification;
 use App\Traits\Permission;
-use App\Helpers\LogActivity as Helper;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Membership;
 use App\SupplierSubscriptionTemp;
+use App\Http\Controllers\Controller;
+use App\Helpers\LogActivity as Helper;
+use Stripe\Product;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProductsController extends Controller
@@ -377,6 +379,52 @@ class ProductsController extends Controller
 	{
 		return view('supplier.products.inventory');
 	}
+    public function inventoryUpload()
+    {
+        return view('supplier.products.upload');
+    }
+    public function parseImport(Request $request)
+    {
+
+    $path = $request->file('csv_file')->getRealPath();
+    $data = array_map('str_getcsv', file($path));
+    $json = mb_convert_encoding($data, 'UTF-8');
+    $json2 = json_encode($json);
+    // $json3 = json_decode($json2);
+
+    //  dd($json2);
+    // mb_convert_encoding($data, 'UTF-8', 'UTF-8');
+    // $json = json_encode($data);
+
+    $csv_data_file = CsvData::create([
+        'csv_filename' => $request->file('csv_file')->getClientOriginalName(),
+        'csv_header' => $request->has('header'),
+        'csv_data' => $json2
+    ]);
+
+    $csv_data = array_slice($data, 0, 2);
+    return view('supplier.products.upload_fields', compact('json','csv_data', 'csv_data_file'));
+
+    }
+    public function processImport(Request $request)
+    {
+        // dd($request->csv_data_file_id);
+        $data = CsvData::find($request->csv_data_file_id);
+        //  dd($data->csv_data);
+        // mb_convert_decoding($data->csv_data, 'UTF-8');
+        // mb_convert_encoding($data->csv_data, "windows-1251", "utf-8");
+        $csv_data = json_decode($data->csv_data);
+        // dd($csv_data);
+        foreach ($csv_data as $row) {
+            $contact = new W2bProduct();
+            foreach (config('app.db_fields') as $index => $field) {
+                $contact->$field = $row[$request->fields[$index]];
+            }
+            $contact->save();
+        }
+
+        return view('supplier.products.upload_success');
+    }
 
 	public function getInventory(Request $request)
 	{

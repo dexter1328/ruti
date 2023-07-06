@@ -125,6 +125,19 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'db_fields' => [
+        'no',
+        'name',
+        'title',
+        'age',
+        'age2',
+        'age3',
+        'age4',
+        'city',
+        'company',
+        'price'
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

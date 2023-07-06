@@ -7,7 +7,11 @@
 
 <div class="i_body_details pb-5">
     <div class="pt-4 mx-0 mx-lg-5">
-        <h4 class="i_details_heading text-dark mx-5">Order No: <span>#245678</span></h4>
+        @foreach ($od as $o)
+
+        <h4 class="i_details_heading text-dark mx-5">Order No: <span>#{{$o->order_id}}</span></h4>
+        @endforeach
+
         <div class="i_first_section">
             <div class="i_my_container mx-5 p-3">
                 <table class="w-100">
@@ -18,11 +22,15 @@
                         <th class="py-2">Total Price</th>
                     </tr>
                     <tr class="border-bottom">
-                        <td class="py-2"><img src="https://cdn.dxomark.com/wp-content/uploads/medias/post-61584/iphone-12-pro-max-graphite-hero.jpg" width="60px" height="50px" alt=""> Iphone 12 Pro Max</td>
-                        <td class="py-2">$999</td>
-                        <td class="py-2">x2</td>
-                        <td class="py-2">$1998</td>
+                        @foreach ($od as $o)
+
+                        <td class="py-2"><img src="{{$o->image}}" width="60px" height="50px" alt=""> {{$o->title}}</td>
+                        <td class="py-2">${{$o->price}}</td>
+                        <td class="py-2">x{{$o->quantity}}</td>
+                        <td class="py-2">${{$o->price}}</td>
                     </tr>
+                    @endforeach
+
                     <tr class="border-bottom">
                         <td class="py-2"><img src="https://cdn.dxomark.com/wp-content/uploads/medias/post-61584/iphone-12-pro-max-graphite-hero.jpg" width="60px" height="50px" alt="">Iphone 12 Pro Max</td>
                         <td class="py-2">$999</td>

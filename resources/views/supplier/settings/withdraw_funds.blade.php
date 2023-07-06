@@ -9,21 +9,34 @@
             <div class="mx-auto">
                 <div class="main_section p-4 mb-4">
                     <h4 class="i_funds_heading border-bottom mb-3 pb-4 p-2">Withdraw Funds</h4>
+                        @if (Session::has('success'))
+                        <div class="alert alert-success text-center">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                            <p>{{ Session::get('success') }}</p>
+                        </div>
+                        @endif
+                        @if (Session::has('error'))
+                        <div class="alert alert-danger text-center">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                            <p>{{ Session::get('error') }}</p>
+                        </div>
+                        @endif
                     <div class="i_balance_div justify-content-between">
                         <h4 class="i_funds_heading mb-3 p-2">Your Balance: </h4>
-                        <h4 class="i_funds_heading mb-3 p-2">$1455 </h4>
+                        <h4 class="i_funds_heading mb-3 p-2">${{$supplier->wallet_amount}} </h4>
                     </div>
                     <h5 class="i_text_color my-3">Bank Details:</h5>
                     <div>
-                        <form action="">
+                        <form action="{{ route('withdraw-to-bank') }}" method="post">
+                            @csrf
                             <div class="col-lg-12 mb-3">
                                 <label>Account Title<span class="text-danger">*</span></label>
-                                <input class='form-control' size='4' type='text' placeholder='Enter Account Title'>
+                                <input class='form-control' name="account_title" size='4' type='text' placeholder='Enter Account Title'>
                             </div>
                             <div class="col-lg-12 mb-3" style="border: none">
                                 <label>Account Number<span class="text-danger">*</span>
                                 </label>
-                                <input autocomplete='off' class='form-control card-number' size='20' type='number' placeholder='Enter Account Number'>
+                                <input autocomplete='off' name="account_no" class='form-control card-number' size='20' type='number' placeholder='Enter Account Number'>
                             </div>
                             <div class="row">
                                 <label class="col-4">Amount (USD)<span class="text-danger">*</span></label>
@@ -47,7 +60,7 @@
         </div>
     </div>
     </div>
-    </div>
+
 
 {{-- withdraw funds end --}}
 
