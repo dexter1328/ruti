@@ -53,13 +53,13 @@
         .field-icon {
             float: right;
             margin-right: 13px;
-            margin-top: -26px;
+            margin-top: -26px !important;
             z-index: 2;
         }
 
         .confirm-check {
             float: right;
-            margin-top: -26px;
+            margin-top: -26px !important;
             margin-right: 13px;
             z-index: 2;
         }

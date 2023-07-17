@@ -2,7 +2,7 @@ const searchBtn = document.querySelector('#search-btn');
 const searchResults = document.querySelector('.first_main_div');
 const searchInput = document.querySelector('.search-container input[type=text]');
 
-searchResults.style.display = 'none';
+searchResults.style.display = 'block';
 searchBtn.addEventListener('click', () => {
   if (searchResults.style.display === 'block') {
     searchResults.style.display = 'none';

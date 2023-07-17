@@ -79,6 +79,15 @@
     background-repeat: no-repeat;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#543093", endColorstr="#d960ae", GradientType=1);
 }
+.inventory_body {
+    min-height: 70vh;
+    height: 100%;
+    color: #373737;
+    margin: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#543093", endColorstr="#d960ae", GradientType=1);
+}
 .i_text_color {
     color: #543093;
 }
@@ -192,6 +201,26 @@
     box-shadow: 5px 10px 40px 0 rgba(0, 0, 0, 0.2);
     border-radius: 5px;
 }
+.container_upload_field {
+    background: #fefefe;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding-bottom: 30px;
+    box-shadow: 5px 10px 40px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+.upload_field_table {
+}
+.table_parent {
+    overflow-x: auto;
+}
+.select_dropdown {
+    border: none;
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,.12), inset 0 -1px 0 0 #dadce0;
+    font-weight: bold;
+}
 #blob-3,
 #blob-2,
 #mouth-happy,
@@ -276,3 +305,85 @@
         overflow-x: scroll;
     }
 }
+  .tick_pic {
+    width: 50%;
+    height: 40%;
+  }
+  .ty_heading{
+    font-family: 'Kaushan Script', cursive;
+    font-size:4em;
+    letter-spacing:3px;
+    color: #543093;
+    margin:0;
+    margin-bottom:20px;
+   }
+   .wrapper-2 p{
+    margin:0;
+    font-size:1.3em;
+    color:#aaa;
+    font-family: 'Source Sans Pro', sans-serif;
+    letter-spacing:1px;
+  }
+  .go-home{
+    color:#fff;
+    background:#543093;
+    border:none;
+    padding:10px 50px;
+    margin:30px 0;
+    border-radius:30px;
+    text-transform:capitalize;
+    box-shadow: 0 3px 5px 1px #543093;
+  }
+  .go-home a {
+    color: #fff !important;
+  }
+  #folder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.uploader_label {
+    background-color: white;
+    color: #007fff;
+    padding: 1rem 2rem;
+    font-family: sans-serif;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    line-height: 1.5rem;
+    box-shadow: 4px 4px 16px 0 rgba(100, 100, 100, 0.15), -2px -2px 12px 0 rgba(200, 200, 200, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+.import_heading {
+    color: #007fff;
+    font-family: Georgia, "Times New Roman", Times, serif;
+}
+.parse_btn {
+    background-color: #007fff;
+    color: #fff;
+}
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .table th, .table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  
+  .table tr:nth-child(odd) {
+    background-color: #3d95ee9d;
+    color: #fff;
+  }
+  

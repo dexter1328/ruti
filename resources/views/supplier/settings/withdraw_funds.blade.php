@@ -30,8 +30,17 @@
                         <form action="{{ route('withdraw-to-bank') }}" method="post">
                             @csrf
                             <div class="col-lg-12 mb-3">
-                                <label>Account Title<span class="text-danger">*</span></label>
-                                <input class='form-control' name="account_title" size='4' type='text' placeholder='Enter Account Title'>
+                                <label>Bank Name<span class="text-danger">*</span></label>
+                                <input class='form-control' type='text' placeholder='Enter Account Title'>
+                            </div>
+                            <div class="col-lg-12 mb-3">
+                                <label>Bank Account Name<span class="text-danger">*</span></label>
+                                <input class='form-control' type='text' placeholder='Enter Account Title'>
+                            </div>
+                            <div class="col-lg-12 mb-3" style="border: none">
+                                <label>Bank Routing Number<span class="text-danger">*</span>
+                                </label>
+                                <input autocomplete='off' class='form-control card-number' size='20' type='number' placeholder='Enter Account Number'>
                             </div>
                             <div class="col-lg-12 mb-3" style="border: none">
                                 <label>Account Number<span class="text-danger">*</span>

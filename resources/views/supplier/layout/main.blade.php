@@ -67,6 +67,9 @@
             .content-wrapper{
             min-height: 100vh;
             }
+            .back_btn:hover {
+                opacity: 60%;
+            }
         </style>
 
         <!-- Styles -->
@@ -452,8 +455,8 @@
         </div>
         <!--Start topbar header-->
         <header class="topbar-nav">
-            <nav class="navbar navbar-expand fixed-top">
-                <ul class="navbar-nav mr-auto align-items-center">
+            <nav class="navbar navbar-expand fixed-top justify-content-between">
+                <!-- <ul class="navbar-nav mr-auto align-items-center">
                     <li class="nav-item">
                         <a class="nav-link toggle-menu" href="javascript:void();">
                             <i class="icon-menu menu-icon"></i>
@@ -464,7 +467,10 @@
                             <strong>Sales Person:</strong> {{$data['sales']->name}} - <a href="tel:+1{{$data['sales']->mobile}}">+1{{$data['sales']->mobile}}</a>
                         </li>
                     @endif
-                </ul>
+                </ul> -->
+                <a class='text-dark mr-4 back_btn' href="">
+                    <i class="fa fa-arrow-left"></i> Back
+                </a>
                 <ul class="navbar-nav align-items-center right-nav-link">
                      <li class="nav-item">
                         <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#" style="font-size: 14px;font-weight: 500;">
