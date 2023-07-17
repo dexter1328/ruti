@@ -440,7 +440,6 @@
                             <span class="current_price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
                         </div>
                         <button class='btn btn-primary rounded p-2 my-2 w-100'>Add to Cart</button>
-                        <h5 class='text-left'>SKU: 4563</h5>
                     </figcaption>
                 </figure>
             </article>

@@ -32,7 +32,7 @@
                 </select>
             </div> --}}
             </div>
-            <div class="top_bar_last d-flex justify-content-around w-100 align-items-center">
+            <div class="top_bar_last d-flex justify-content-end w-100 align-items-center">
             <div class="notifications top_bar_elements text-center">
                 <img src="{{ asset('public/panel/images/notification.png') }}" class="notification_icon" alt="">
             </div>
@@ -58,24 +58,6 @@
         <div class="sub_header row justify-content-between p-2 align-items-center">
             <div class="bussiness_name col-lg-4 col-md-12 ps-3">
                 <h4>Bussiness Name</h4>
-            </div>
-            <div class="sub_header_last justify-content-around pe-3 col-md-12 col-lg-6">
-                <div class="restaurant d-flex align-items-center">
-                    <img src="{{ asset('public/panel/images/RestaurantBuilding.png') }}" class="sub_header_icons" alt="">
-                    <p>Restaurant hello</p>
-                </div>
-                <div class="super_admin d-flex align-items-center">
-                    <img src="{{ asset('public/panel/images/Administrator.png') }}" alt="">
-                    <p>Super Admin hello</p>
-                </div>
-                <div class="sales_receipts d-flex align-items-center">
-                    <img src="{{ asset('public/panel/images/Totalsales.png') }}" alt="">
-                    <p>Sales Receipts hello</p>
-                </div>
-                <div class="duration d-flex align-items-center">
-                    <img src="{{ asset('public/panel/images/Weekview.png') }}" alt="">
-                    <p>Duration  hello</p>
-                </div>
             </div>
         </div>
     </div>
@@ -161,11 +143,6 @@
             <div class="col-xl-3 col-lg-3 col-md-12 third_column">
                 <div class="d-flex justify-content-between">
                     <p class="headings"><img src="{{ asset('public/panel/images/receive_dollar.png') }}" width="30px" height="30px" alt=""> FUNDS RECEIVED</p>
-                    <select id="time_dropdown">
-                        <option value="Week">Week</option>
-                        <option value="Month">Month</option>
-                        <option value="Year">Year</option>
-                    </select>
                 </div>
                 <p>Membership</p>
                 <ul class="list">

@@ -32,7 +32,7 @@
                 </select>
             </div> --}}
             </div>
-            <div class="top_bar_last d-flex  w-100 align-items-center">
+            <div class="top_bar_last d-flex justify-content-end w-100 align-items-center">
             {{-- <div class="notifications top_bar_elements text-center">
                 <img src="{{ asset('public/panel/images/notification.png') }}" class="notification_icon" alt="">
             </div> --}}
@@ -167,11 +167,6 @@
             <div class="col-xl-3 col-lg-3 col-md-12 third_column">
                 <div class="d-flex justify-content-between">
                     <p class="headings"><img src="{{ asset('public/panel/images/receive_dollar.png') }}" width="30px" height="30px" alt=""> FUNDS RECEIVED</p>
-                    <select id="time_dropdown">
-                        <option value="Week">Week</option>
-                        <option value="Month">Month</option>
-                        <option value="Year">Year</option>
-                    </select>
                 </div>
                 <p>Membership</p>
                 <ul class="list">

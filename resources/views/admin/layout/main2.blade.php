@@ -34,7 +34,7 @@
                 </select>
             </div> --}}
             </div>
-            <div class="top_bar_last d-flex  w-100 align-items-center">
+            <div class="top_bar_last d-flex justify-content-end w-100 align-items-center">
             {{-- <div class="notifications top_bar_elements text-center">
                 <img src="{{ asset('public/panel/images/notification.png') }}" class="notification_icon" alt="">
             </div> --}}
