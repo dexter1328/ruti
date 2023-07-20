@@ -468,7 +468,7 @@
                         </li>
                     @endif
                 </ul> -->
-                <a class='text-dark mr-4 back_btn' href="">
+                <a class='text-dark mr-4 back_btn' href="{{url('supplier/home')}}">
                     <i class="fa fa-arrow-left"></i> Back
                 </a>
                 <ul class="navbar-nav align-items-center right-nav-link">

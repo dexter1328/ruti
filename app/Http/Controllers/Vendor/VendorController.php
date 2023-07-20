@@ -2,41 +2,56 @@
 
 namespace App\Http\Controllers\Vendor;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use App\Http\Controllers\Controller;
-use App\Traits\Permission;
-use App\Helpers\LogActivity as Helper;
-use App\Membership;
-use App\Vendor;
-use App\VendorStore;
-use App\Orders;
-use App\User;
-use App\ProductReview;
-use App\ProductVariants;
-use App\Category;
-use App\Country;
-use App\State;
-use App\City;
-use App\StoresVendor;
-use App\VendorRoles;
-use App\VendorPaidModule;
-use App\VendorStorePermission;
-use App\StoreSubscription;
-use App\StoreSubscriptionTemp;
-use App\MembershipCoupon;
-use Carbon\Carbon;
-use Auth;
 use DB;
+use Auth;
 use Schema;
-use Stripe;
+use App\City;
+use App\User;
+use App\State;
+use Exception;
 use Validator;
+use App\Orders;
+use App\Vendor;
+use App\Country;
+use App\Category;
+use Carbon\Carbon;
+use Stripe\Charge;
+use Stripe\Stripe;
+use App\Membership;
+use App\UserDevice;
+use App\VendorRoles;
+use App\VendorStore;
+use Stripe\Customer;
+use App\StoresVendor;
+use App\ProductReview;
+use App\CustomerWallet;
+use App\ProductVariants;
+use App\WithdrawRequest;
+use App\MembershipCoupon;
+use App\VendorPaidModule;
+use App\StoreSubscription;
+use App\Traits\Permission;
+use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use App\StoreSubscriptionTemp;
+use App\VendorStorePermission;
+use Stripe\Exception\CardException;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Helpers\LogActivity as Helper;
+use App\Mail\WithdrawMail;
+use Stripe\Exception\ApiErrorException;
+use Stripe\Exception\RateLimitException;
+use Stripe\Exception\ApiConnectionException;
+use Stripe\Exception\AuthenticationException;
+use Stripe\Exception\InvalidRequestException;
 
 class VendorController extends Controller
 {
 	use Permission;
 
 	private $stripe_secret;
+    private $stripe_key;
 
 	public function __construct()
 	{
@@ -47,7 +62,8 @@ class VendorController extends Controller
 		// 	}
 		// 	return $next($request);
 		// });
-		$this->stripe_secret = config('services.stripe.secret');
+        $this->stripe_secret = config('services.stripe.secret');
+        $this->stripe_key = config('services.stripe.key');
 	}
 
 	/**
@@ -1949,4 +1965,280 @@ class VendorController extends Controller
 
 		return response()->json($user);
 	}*/
+    public function sendError($error, $errorMessages = [], $code = 200)
+    {
+        $response = [
+            'success' => false,
+            'data' => null,
+            'message' => $error,
+        ];
+
+        if(!empty($errorMessages)){
+            $response['data'] = $errorMessages;
+        }
+
+        return response()->json($response, $code);
+    }
+    public function rutiFulfillSubmit(Request $request)
+    {
+        // dd($request->all());
+        $uid = Auth::user()->id;
+        $supplier = Vendor::where('id', $uid)->first();
+		Stripe::setApiKey($this->stripe_secret);
+        // dd('aa00');
+		 try {
+            if ($supplier->stripe_customer_id) {
+                $customer = $supplier->stripe_customer_id;
+                //  dd(122);
+            }
+            else {
+                # code...
+                //  dd(123);
+                $customer = Customer::create(array(
+
+                    "email" => $supplier->email,
+
+                    "name" => $supplier->first_name,
+
+                    "source" => $request->stripeToken
+
+                 ));
+                   dd($customer->id);
+                 $supplier->update([
+                    'stripe_customer_id' => $customer->id
+                 ]);
+                //  dd($wallet);
+            }
+
+            //   dd($customer->id);
+
+                Charge::create ([
+	                "amount" => 25 * 100,
+	                "currency" => "usd",
+	                "customer" => $supplier->stripe_customer_id,
+	                "description" => "Nature checkout fulfillment done"
+        		]);
+                $debit = $supplier->wallet_amount - 25;
+                $supplier->update([
+                    'wallet_amount' => $debit,
+                    'fulfill_type' => 'nature'
+                 ]);
+
+			    return redirect()->back()->with('success', 'Your Fulfillments will now be done by Nature checkout');
+
+            } catch(CardException $e) {
+                $errors = $e->getMessage();
+            } catch (RateLimitException $e) {
+                $errors = $e->getMessage();
+            } catch (InvalidRequestException $e) {
+                $errors = $e->getMessage();
+            } catch (AuthenticationException $e) {
+                $errors = $e->getMessage();
+            } catch (ApiConnectionException $e) {
+                $errors = $e->getMessage();
+            } catch (ApiErrorException $e) {
+               $errors = $e->getMessage();
+            } catch (Exception $e) {
+                $errors = $e->getMessage();
+            }
+
+			return $this->sendError($errors);
+    }
+    public function fulfillWithWallet(Request $request)
+    {
+        $input = $request->amount;
+
+        $uid = Auth::user()->id;
+        //  dd($input);
+        $user = Vendor::where('id', $uid)->first();
+        // dd($user);
+        if ($user->wallet_amount < $input) {
+            return redirect()->back()->with('error', 'Your balance is not enough');
+        }
+        else {
+            $debit = $user->wallet_amount - $input;
+            $user->update([
+                'wallet_amount' => $debit,
+                'fulfill_type' => 'nature'
+            ]);
+            return redirect()->back()->with('success', 'Your Fulfillments will now be done by Nature checkout');
+        }
+    }
+    public function vendorFulfill(Request $request)
+    {
+        # code...
+        $uid = Auth::user()->id;
+        $supplier = Vendor::where('id', $uid)->first();
+        $supplier->update([
+            'fulfill_type' => $request->fulfill_type
+         ]);
+         return redirect()->back()->with('success', 'Your Fulfillments will now be done by Yourself');
+    }
+    public function vendorWallet()
+    {
+        # code...
+        $supplier = Vendor::where('id', Auth::user()->id)->first();
+        $stripe_key = $this->stripe_key;
+
+        return view('vendor.settings.supplier_wallet', compact('supplier','stripe_key'));
+    }
+    public function receiveWallet()
+    {
+        # code...
+        $supplier = Vendor::where('id', Auth::user()->id)->first();
+
+        return view('vendor.settings.receive_funds', compact('supplier'));
+    }
+    public function withdrawWallet()
+    {
+        # code...
+
+        $supplier = Auth::user();
+
+        return view('vendor.settings.withdraw_funds', compact('supplier'));
+    }
+    public function withdrawToBank(Request $request)
+    {
+        // dd($request->all());
+        $uid = Auth::user()->id;
+        $supplier = Vendor::where('id', $uid)->first();
+        if ($supplier->wallet_amount < $request->amount) {
+            return redirect()->back()->with('error', 'Your balance is not enough');
+        }
+        else {
+
+            $debit = $supplier->wallet_amount - $request->amount;
+            $supplier->update([
+                'wallet_amount' => $debit
+            ]);
+        }
+
+        WithdrawRequest::create([
+            'user_id' => $uid,
+            'bank_name' => $request->bank_name,
+            'routing_number' => $request->routing_number,
+            'account_title' => $request->account_title,
+            'account_no' => $request->account_no,
+            'amount' => $request->amount
+        ]);
+        $contact_data = [
+            'fullname' => $request->account_title,
+            'account_no' => $request->account_no,
+            'amount' => $request->amount
+        ];
+        Mail::to('ahmad.nab331@gmail.com')->send(new WithdrawMail($contact_data));
+
+        return redirect()->back()->with('success', 'You will get payment soon');
+
+    }
+
+    public function vendorWalletPayment(Request $request, $amount)
+    {
+        $uid = Auth::user()->id;
+        $supplier = Vendor::where('id', $uid)->first();
+        if ($supplier->wallet_amount < $amount) {
+            return redirect()->back()->with('error', 'Your balance is not enough');
+        }
+        else {
+
+            $debit = $supplier->wallet_amount - $amount;
+            $supplier->update([
+                'wallet_amount' => $debit,
+            ]);
+
+        }
+        return redirect()->back()->with('success', 'Your Fulfillments will now be done by Nature checkout');
+    }
+    public function addToWallet(Request $request)
+    {
+        # code...
+        // dd($request->all());
+        $uid = Auth::user()->id;
+        $wallet = Vendor::where('id', $uid)->first();
+        // dd($wallet);
+		Stripe::setApiKey($this->stripe_secret);
+		 try {
+            if ($wallet->stripe_customer_id) {
+                $customer = $wallet->stripe_customer_id;
+                // dd(122);
+            }
+            else {
+                # code...
+                // dd(123);
+                $customer = Customer::create(array(
+
+                    "email" => $wallet->email,
+
+                    "name" => $wallet->first_name,
+
+                    "source" => $request->stripeToken
+
+                 ));
+                //   dd($customer->id);
+                 $wallet->update([
+                    'stripe_customer_id' => $customer->id
+                 ]);
+                //   dd($wallet);
+            }
+
+            //  dd($customer->id);
+
+                Charge::create ([
+	                "amount" => $request->amount * 100,
+	                "currency" => "usd",
+	                "customer" => $wallet->stripe_customer_id,
+	                "description" => "Money added in your wallet."
+        		]);
+
+        		$closing_amount = $wallet->wallet_amount+$request->amount;
+
+				$customer_wallet = new CustomerWallet;
+				$customer_wallet->customer_id = $uid;
+				$customer_wallet->amount = $request->amount;
+				$customer_wallet->closing_amount = $closing_amount;
+				$customer_wallet->type = 'credit';
+				$customer_wallet->save();
+
+				if(empty($wallet->wallet_amount)){
+					Vendor::where('id',$uid)->update(array('wallet_amount'=>$request->amount));
+				}else{
+					$amount = $wallet->wallet_amount+$request->amount;
+					Vendor::where('id',$uid)->update(array('wallet_amount'=>$amount));
+				}
+
+				// notification
+				$id = $customer_wallet->id;
+				$type = 'wallet_transaction';
+			    $title = 'Wallet';
+			    $message = 'Money has been added to your wallet';
+			    $devices = UserDevice::where('user_id',$wallet->id)->where('user_type','customer')->get();
+
+			    return redirect()->back()->with('success', 'Money added to wallet');
+
+            } catch(CardException $e) {
+                $errors = $e->getMessage();
+            } catch (RateLimitException $e) {
+                $errors = $e->getMessage();
+            } catch (InvalidRequestException $e) {
+                $errors = $e->getMessage();
+            } catch (AuthenticationException $e) {
+                $errors = $e->getMessage();
+            } catch (ApiConnectionException $e) {
+                $errors = $e->getMessage();
+            } catch (ApiErrorException $e) {
+               $errors = $e->getMessage();
+            } catch (Exception $e) {
+                $errors = $e->getMessage();
+            }
+
+			return $this->sendError($errors);
+    }
+    public function chooseRutiFullfillPage()
+    {
+        $supplier = Vendor::where('id', Auth::user()->id)->first();
+        $stripe_key = $this->stripe_key;
+        return view('vendor.settings.ruti_fulfill_page', compact('stripe_key','supplier'));
+    }
 }
+
+

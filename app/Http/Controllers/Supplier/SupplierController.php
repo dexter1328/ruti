@@ -1532,9 +1532,12 @@ class SupplierController extends Controller
 	                "customer" => $supplier->stripe_customer_id,
 	                "description" => "Nature checkout fulfillment done"
         		]);
+                $debit = $supplier->wallet_amount - 25;
                 $supplier->update([
+                    'wallet_amount' => $debit,
                     'fulfill_type' => 'nature'
                  ]);
+
 
 			    return redirect()->back()->with('success', 'Your Fulfillments will now be done by Nature checkout');
 

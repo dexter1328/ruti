@@ -114,6 +114,14 @@
                     <li class="li_elements">Stores(Master)</li>
                     <li class="li_elements">Sales(Master)</li>
                 </ul>
+
+                <p class="headings"><img src="{{ asset('public/panel/images/icon_c1.png') }}" width="30px" height="30px" alt="">Manage Plans</p>
+                <ul class="list">
+                    <li class="li_elements "><div class="d-flex justify-content-between"><a class="links" href="{{url('vendor/choose-ruti-fullfill-page')}}"> Fulfillment Plan </a></div></li>
+                    <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('vendor/vendor-wallet')}}">Add Funds to Wallet </a></div></li>
+                    <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('vendor/receive-wallet')}}">Receive Funds to Wallet </a></div></li>
+                    <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('vendor/withdraw-wallet')}}">Withdraw Funds </a></div></li>
+                </ul>
                 <p class="headings"><img src="{{ asset('public/panel/images/icon_c1.png') }}" width="30px" height="30px" alt=""> CUSTOMER MEMBERSHIP</p>
                 <ul class="list">
                     <li class="li_elements"><div class="d-flex justify-content-between">Explorer <span>2000</span></div></li>

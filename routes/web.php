@@ -620,6 +620,23 @@ Route::group(['prefix' => 'vendor'], function () {
   //Route::get('checklist','Vendor\VendorController@checklist')->name('vendor.checklist');
         Route::get('active-plans', 'Vendor\VendorController@activePlan')->name('vendor.active-plan');
         Route::get('choose-plan', 'Vendor\VendorController@choosePlan')->name('vendor.choose-plan');
+
+
+        Route::get('choose-ruti-fullfill-page', 'Vendor\VendorController@chooseRutiFullfillPage')->name('vendor.choose-ruti-fullfill-page');
+        Route::get('choose-ruti-fullfill', 'Vendor\VendorController@chooseRutiFullfill')->name('supplier.choose-ruti-fullfill');
+        Route::post('ruti-fullfill-submit', 'Vendor\VendorController@rutiFulfillSubmit')->name('ruti-fullfill-submit');
+        Route::post('fulfill-with-wallet', 'Vendor\VendorController@fulfillWithWallet')->name('fulfill-with-wallet');
+        Route::post('vendor_fulfill', 'Vendor\VendorController@vendorFulfill')->name('vendor_fulfill');
+        Route::get('vendor-wallet', 'Vendor\VendorController@vendorWallet')->name('vendor.wallet');
+        Route::get('receive-wallet', 'Vendor\VendorController@receiveWallet')->name('vendor.receive.wallet');
+        Route::get('withdraw-wallet', 'Vendor\VendorController@withdrawWallet')->name('vendor.withdraw.wallet');
+        Route::post('withdraw-to-bank', 'Vendor\VendorController@withdrawToBank')->name('withdraw-to-bank');
+        Route::post('add-to-vendor-wallet', 'Vendor\VendorController@addToWallet')->name('add-to-vendor-wallet');
+        Route::post('/vendor-wallet-payment/{amount}', 'Vendor\VendorController@vendorWalletPayment')->name('vendor-wallet-payment');
+
+
+
+
         Route::get('get-plan-by-interval-license/{interval}/{license?}', 'Vendor\VendorController@getPlanByIntervalLicense')->name('vendor.get-plan-by-interval-license');
         Route::post('one-time-setup-fee/{store_id}', 'Vendor\VendorController@oneTimeSetupFee')->name('vendor.one-time-setup-fee');
         Route::post('create-subscription', 'Vendor\VendorController@createSubscription')->name('vendor.create-subscription');
