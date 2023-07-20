@@ -34,7 +34,7 @@
     <!-- custome_css -->
     <link href="{{ asset('public/css/custom_style.css') }}" rel="stylesheet"/>
     <!--favicon-->
-    <link rel="icon" href="{{ asset('public/images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{asset('public/wb/img/logo/favicon.ico')}}" type="image/x-icon">
     <!-- Vector CSS -->
     <link href="{{ asset('public/plugins/vectormap/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet"/>
     <!-- simplebar CSS-->
@@ -80,7 +80,7 @@
     <script src="{{ asset('public/plugins/Chart.js/Chart.min.js') }}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css" type="text/css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.js"></script>
-    
+
     <!-- Scripts -->
     <!--<script src="/js/app.js"></script>-->
     <!-- <script src="{{ asset('public/js/app.js') }}"></script>  -->
@@ -112,7 +112,7 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                
+
                 <li class="{{ (request()->is('admin/admins') or request()->is('admin/admins/create') or request()->is('admin/admin_roles') or request()->is('admin/admin_roles/create')) ? 'active menu-open' : '' }}">
                     <a href="javaScript:void();" class="waves-effect">
                         <i class="fa fa-user-circle"></i>
@@ -447,7 +447,7 @@
                                 </ul>
                             </li>
                         </ul>
-                    </li> 
+                    </li>
 
                 </ul>
             </nav>
@@ -457,11 +457,11 @@
             <div class="content-wrapper">
                 <div class="container-fluid">
                     @yield('content')
-                </div> 
+                </div>
                 <footer class="footer">
                     <div class="container">
                         <div class="text-center">
-                            Copyright © 2019 EZSiop 
+                            Copyright © 2019 EZSiop
                         </div>
                     </div>
                 </footer>
@@ -474,7 +474,7 @@
     <!--End Back To Top Button-->
 
     <!--Start footer-->
-   
+
     <!--End footer-->
 
 

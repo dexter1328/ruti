@@ -29,7 +29,7 @@
                                         <i class="lnr lnr-map"></i>
                                         <div class="contact">
                                             829 W Palmdale Blvd, Suite <br />
-                                            133 Palmdale, alifornia 93551
+                                            133 Palmdale, California 93551
                                         </div>
                                     </li>
                                 </ul>
@@ -49,6 +49,7 @@
                                         <li><a href="{{url('/')}}">Home</a></li>
                                         <li><a href="{{url('/trending-products')}}">Trending Products</a></li>
                                         <li><a href="{{url('/special-offers')}}">Special Offers</a></li>
+                                        <li><a href="#">Restaurants</a></li>
                                         {{-- <li><a href="contact.html">Privacy Policy</a></li>
                                         <li><a href="contact.html">Term and Conditions</a></li> --}}
                                     </ul>
@@ -82,11 +83,13 @@
                                             <li><a href="{{route('user-account-page')}}">My Orders</a></li>
                                             <li><a href="{{route('user-account-page')}}">Track Your Order</a></li>
                                             <li><a href="{{route('wb-wishlist-page')}}">Wishlist</a></li>
+                                            <li><a href="#">Support</a></li>
                                             @else
                                             <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal25">My Account</a></li>
                                             <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal26">My Orders</a></li>
                                             <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal27">Track Your Order</a></li>
                                             <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal28">Wishlist</a></li>
+                                            <li><a href="#">Support</a></li>
                                             @endif
                                             {{-- <li><a href="contact.html">Support</a></li>
                                             <li><a href="contact.html">Compare</a></li> --}}

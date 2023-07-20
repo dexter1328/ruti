@@ -11,7 +11,7 @@
 <meta name="theme-color" content="#003366" />
 <meta property="og:title" content="{{ config('app.name', 'Nature checkout') }}" />
 <meta property="og:description" content="We provide convenient and expeditious service to all users (merchants and consumers) in areas of consumer spending. Our service is to improve merchant - customer relations while offering positive contribution to the overall economy." />
-<meta property="og:image" content="{{ asset('images/logo-icon.png') }}" />
+<meta property="og:image" content="{{asset('public/wb/img/logo/logo2.png')}}" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://naturecheckout.com/" />
 <meta property="fb:app_id" content="482623692719207" />
@@ -118,7 +118,7 @@
 }
 </style>
 
-<link rel="icon" href="{{ asset('public/images/favicon-32x32.png') }}" type="image/x-icon">
+<link rel="icon" href="{{asset('public/wb/img/logo/favicon.ico')}}" type="image/x-icon">
 
 <!---Font Icon-->
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -575,7 +575,8 @@
                                             <li><a class="{{ Route::is('product-shop') ? 'active' : '' }}"  href="{{url('/')}}">Home</a></li>
                                             <li><a class=""  href="{{url('/trending-products')}}">Trending Products</a></li>
                                             <li><a class=""  href="{{url('/special-offers')}}">Special Offers</a></li>
-                                            <li><a class=""  href="#">Helpdesk</a></li>
+                                            <li><a class=""  href="#">Restaurants</a></li>
+                                            {{-- <li><a class=""  href="#">Support</a></li> --}}
                                         </ul>
                                     </nav>
                                 </div>

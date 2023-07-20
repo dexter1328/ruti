@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'EZShop') }}</title>
 
     <!--favicon-->
-    <link rel="icon" href="{{ asset('public/images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{asset('public/wb/img/logo/favicon.ico')}}" type="image/x-icon">
     <!-- Bootstrap core CSS-->
     <link href="{{ asset('public/css/bootstrap.min.css') }}" rel="stylesheet"/>
     <!-- animate CSS-->
