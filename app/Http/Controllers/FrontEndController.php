@@ -140,7 +140,7 @@ class FrontEndController extends Controller
     }
     public function shop()
     {
-        session()->flush();
+        // session()->flush();
         $categories = W2bCategory::with('childrens')->get();
 
 
@@ -707,9 +707,9 @@ class FrontEndController extends Controller
 
     public function specialOffers()
     {
-        $cart = session()->get('cart');
+        // $cart = session()->get('cart');
         // dd(session('lifetime'));
-         dd($cart);
+        //  dd($cart);
         $wb_wishlist = null;
 
         if (Auth::guard('w2bcustomer')->user()) {
