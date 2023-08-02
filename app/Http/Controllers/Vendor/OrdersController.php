@@ -2,21 +2,23 @@
 
 namespace App\Http\Controllers\Vendor;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Traits\Permission;
 use Auth;
-use App\VendorStore;
-use App\Vendor;
 use App\User;
 use App\Orders;
-use App\Products;
+use App\Vendor;
 use App\Setting;
-use App\CustomerWallet;
+use App\Products;
 use App\OrderItems;
-use App\ProductVariants;
-use App\CancelledOrders;
 use App\RewardPoint;
+use App\VendorStore;
+use App\CustomerWallet;
+use App\OrderedProduct;
+use App\CancelledOrders;
+use App\ProductVariants;
+use App\Traits\Permission;
+use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class OrdersController extends Controller
 {
@@ -39,15 +41,22 @@ class OrdersController extends Controller
 
 	public function index()
 	{
-		$store_ids = getVendorStore();
-		$orders = Orders::join('vendors','vendors.id','=','orders.vendor_id')
-								->join('vendor_stores','vendor_stores.id','=','orders.store_id')
-								->join('users','users.id','=','orders.customer_id')
-								->select('vendors.name as owner_name','vendor_stores.name as store_name','orders.id','orders.order_status','orders.pickup_date','orders.pickup_time','orders.type','users.first_name') 
-								->whereIn('orders.store_id', $store_ids)
-								->orderBy('orders.id','desc')
-								->get();
-		return view('vendor/orders/index',compact('orders'));
+		$op = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
+        ->join('users', 'w2b_orders.user_id', 'users.id')
+        ->where('ordered_products.vendor_id', Auth::user()->id)
+        ->where('ordered_products.seller_type', 'vendor')
+        ->groupBy('ordered_products.order_id')
+        ->select('ordered_products.*', 'w2b_orders.status as status', 'w2b_orders.is_paid as is_paid', 'users.first_name as user_name', 'users.id as user_id')
+        ->get();
+        // $opp = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
+        // ->join('users', 'w2b_orders.user_id', 'users.id')
+        // ->where('ordered_products.vendor_id', Auth::user()->id)
+        // ->where('ordered_products.seller_type', 'vendor')
+        // ->sum('ordered_products.total_price');
+        // dd($opp);
+        // $array = Arr::divide(['name' => 'Desk']);
+        // dd($array);
+		return view('vendor.orders.index',compact('op'));
 	}
 
 	/**
@@ -55,6 +64,37 @@ class OrdersController extends Controller
 	*
 	* @return \Illuminate\Http\Response
 	*/
+    public function view_details($id)
+	{
+        $od = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
+        ->join('users', 'w2b_orders.user_id', 'users.id')
+        ->where('ordered_products.vendor_id', !empty(auth()->user()->parent_id)?auth()->user()->parent_id:auth()->id())
+        ->where('w2b_orders.order_id', $id)
+        ->select('ordered_products.*')
+        ->get();
+        $grand_total = OrderedProduct::where('order_id', $id)
+        ->where('vendor_id', !empty(auth()->user()->parent_id)?auth()->user()->parent_id:auth()->id())
+        ->sum('total_price');
+        // dd($hello);
+        $order1 = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
+        ->join('users', 'w2b_orders.user_id', 'users.id')
+        ->join('states', 'states.id', 'users.state')
+        ->join('cities', 'cities.id', 'users.city')
+        ->where('ordered_products.vendor_id', !empty(auth()->user()->parent_id)?auth()->user()->parent_id:auth()->id())
+        ->where('w2b_orders.order_id', $id)
+        ->select('ordered_products.*',
+         'users.first_name as user_fname','users.last_name as user_lname',
+         'users.address as user_address',
+         'users.mobile as user_phone',
+         'states.name as state_name',
+         'cities.name as city_name')
+        ->first();
+
+        //  dd($od);
+
+		return view('vendor.orders.view_details',compact('od','order1','grand_total'));
+	}
+
 	public function create()
 	{
 		$vendor_stores= VendorStore::where('vendor_id','=',Auth::user()->id)->get();
@@ -86,7 +126,7 @@ class OrdersController extends Controller
 			'order_status'=>'required',
 			'product_id'=>'required'
 		]);
-		
+
 		$order = new Orders;
 		$order->vendor_id = Auth::user()->id;
 		$order->store_id = $request->input('store_id');
@@ -118,7 +158,7 @@ class OrdersController extends Controller
 				// print_r($order_items->toArray());
 			}
 		}
-		
+
 		return redirect('/vendor/orders')->with('success',"Order successfully saved.");
 	}
 
@@ -207,7 +247,7 @@ class OrdersController extends Controller
 			'type'=>'required',
 			'order_status'=>'required',
 		]);
-		
+
 		if($request->date)
 		{
 			$date = date("Y-m-d", strtotime($request->input('date')));
@@ -242,7 +282,7 @@ class OrdersController extends Controller
 				$order_items->save();
 			}
 		}
-		
+
 		return redirect('/vendor/orders')->with('success',"Order successfully updated.");
 	}
 
@@ -264,7 +304,7 @@ class OrdersController extends Controller
 		$orders = Orders::join('vendors','vendors.id','=','orders.vendor_id')
 								->join('vendor_stores','vendor_stores.id','=','orders.store_id')
 								->join('users','users.id','=','orders.customer_id')
-								->select('vendors.name as owner_name','vendor_stores.name as store_name','orders.id','orders.order_status','orders.pickup_date','orders.pickup_time','orders.type','users.first_name') 
+								->select('vendors.name as owner_name','vendor_stores.name as store_name','orders.id','orders.order_status','orders.pickup_date','orders.pickup_time','orders.type','users.first_name')
 								->where('orders.type','inshop')
 								->where('orders.order_status','pending')
 								->whereIn('orders.store_id', $store_ids)
@@ -326,7 +366,7 @@ class OrdersController extends Controller
 									'orders.vendor_id')
 								->join('vendor_stores','vendor_stores.id','=','orders.store_id')
 								->join('users','users.id','=','orders.customer_id')
-								->select('vendors.name as owner_name','vendor_stores.name as store_name','orders.id','orders.order_status','orders.pickup_date','orders.pickup_time','orders.type','users.first_name') 
+								->select('vendors.name as owner_name','vendor_stores.name as store_name','orders.id','orders.order_status','orders.pickup_date','orders.pickup_time','orders.type','users.first_name')
 								->where('vendors.parent_id','=',0)
 								->where('orders.type','pickup')
 								->where('orders.order_status','=','pending')
@@ -377,7 +417,7 @@ class OrdersController extends Controller
 		$coin_setting = Setting::where('key','reward_coins_exchagne_rate')->first();*/
 		$gem_setting = RewardPoint::select('reward_point_exchange_rate as value')->where('reward_type','invite')->first();
 		$coin_setting = RewardPoint::select('reward_point_exchange_rate as value')->where('reward_type','transaction')->first();
-					
+
 		return view('vendor/orders/pickup_order_view',compact('order_items','gem_setting','coin_setting'));
 	}
 

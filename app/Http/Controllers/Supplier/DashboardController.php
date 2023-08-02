@@ -187,6 +187,8 @@ class DashboardController extends Controller
     }
     public function dashboard2()
     {
+        // $auths =  Auth::user()->authentications;
+        // dd($auths);
         return view('supplier.layout.main2');
     }
 }

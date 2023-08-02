@@ -12,6 +12,17 @@
 		</div>
 </div>
 @endif
+@if(session()->get('error'))
+<div class="alert alert-danger alert-dismissible" role="alert">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+		<div class="alert-icon">
+			<i class="fa fa-check"></i>
+		</div>
+		<div class="alert-message">
+			<span><strong>Failed!</strong> {{ session()->get('success') }}</span>
+		</div>
+</div>
+@endif
 
 <div class="row">
 	<div class="col-lg-12">
@@ -21,61 +32,43 @@
 		<div class="card-body">
 			<div class="table-responsive">
 				<table id="example" class="table table-bordered">
-					<thead>
+					<thead style="background: black">
 						<tr>
-							<th>#</th>
-							<th>Vendor</th>
-							<th>Store</th>
-							<th>Customer</th>
-							<th>Type</th>
-							<th>Pickup date</th>
-							<th>Pickup time</th>
-							<th>Status</th>
-							<th>Action</th>
+                            <th>#</th>
+                            <th style="width: 15%">Order No</th>
+                            <th style="width: 25%">Customer Name</th>
+                            {{-- <th>Total Price</th> --}}
+                            <th>Is Paid</th>
+                            <th>Status</th>
+                            {{-- <th>Products</th> --}}
+                            <th>Actions</th>
+                            <th>Details</th>
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($orders as $key =>$order)
-							<tr>
-								<td>{{$key+1}}</td>
-								<td>{{$order->owner_name}}</td>
-								<td>{{$order->store_name}}</td>
-								<td>{{$order->first_name}}</td>
-								<td>{{$order->type}}</td>
-								<td>{{$order->pickup_date}}</td>
-								<td>{{$order->pickup_time}}</td>
-								<td>{{$order->order_status}}</td>
-								<td class="action">
-									<form id="deletefrm_{{$order->id}}" action="{{ route('vendor.orders.destroy', $order->id) }}" method="POST" class="delete"  onsubmit="return confirm('Are you sure?');">
-									@csrf
-									@method('DELETE')
-									<a href="{{ url('vendor/orders/view_order', $order->id) }}" class="edit" data-toggle="tooltip" data-placement="bottom" title="View Order">
-									<i class="icon-eye icons"></i>
-									</a>
-									</form>
-								</td>
-							</tr>
-						@endforeach
+                        @foreach ($op as $item)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$item->order_id}}</td>
+                            <td>{{$item->user_name}}</td>
+                            {{-- <td>{{$item->price}}</td> --}}
+                            <td>{{$item->is_paid}}</td>
+                            <td>{{$item->status}}</td>
+                            {{-- <td>{{$item->title}}</td> --}}
+                            {{-- <td><a href="{{route('supplier.supplier_shippo',['user_id'=>$item->user_id,'product_sku'=>$item->sku,'supplier_id'=>$item->supplier_id])}}" class="btn btn-info">Ship</a></td> --}}
+                            <td><a href="#" class="btn btn-info">Ship</a></td>
+                            <td><a href="{{route('vendor.orders.view_details', $item->order_id)}}" class="btn btn-info">Details</a></td>
+                        </tr>
+                        @endforeach
+
 					</tbody>
-					<tfoot>
-						<tr>
-							<th>#</th>
-							<th>Vendor</th>
-							<th>Store</th>
-							<th>Customer</th>
-							<th>Type</th>
-							<th>Pickup date</th>
-							<th>Pickup time</th>
-							<th>Status</th>
-							<th>Action</th>
-						</tr>
-					</tfoot>
+
 				</table>
 			</div>
 		</div>
 	</div>
 </div>
-
+{{--
 <script>
 $(document).ready(function() {
 	var table = $('#example').DataTable( {
@@ -123,6 +116,6 @@ function deleteRow(id)
 {
 	$('#deletefrm_'+id).submit();
 }
-</script>
+</script> --}}
 @endsection
 

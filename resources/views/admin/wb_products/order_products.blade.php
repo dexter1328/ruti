@@ -32,9 +32,11 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th style="width: 15%">Product SKU</th>
-								<th style="width: 25%">Title</th>
+								<th >Product SKU</th>
+								<th>Title</th>
 								<th>Price</th>
+								<th>Quantity</th>
+								<th>Total Price(Incl. Taxes)</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -45,6 +47,8 @@
 									<td>{{$product->sku}}</td>
 									<td>{{$product->title}}</td>
 									<td>{{$product->price}}</td>
+									<td>{{$product->quantity}}</td>
+									<td>{{$product->total_price}}</td>
 
 								</tr>
                                 @endforeach
@@ -52,9 +56,11 @@
 						<tfoot>
 							<tr>
 								<th>#</th>
-								<th style="width: 15%">Product SKU</th>
-								<th style="width: 25%">Title</th>
+								<th >Product SKU</th>
+								<th>Title</th>
 								<th>Price</th>
+								<th>Quantity</th>
+								<th>Total Price(Incl. Taxes)</th>
 							</tr>
 						</tfoot>
 					</table>

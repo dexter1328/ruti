@@ -126,16 +126,28 @@ return [
     'cipher' => 'AES-256-CBC',
 
     'db_fields' => [
-        'no',
-        'name',
+        'sku',
         'title',
-        'age',
-        'age2',
-        'age3',
-        'age4',
-        'city',
-        'company',
-        'price'
+        'description',
+        'w2b_category_1',
+        'brand',
+        'retail_price',
+        'wholesale_price',
+        'stock',
+        'original_image_url',
+        'shipping_price'
+    ],
+
+    'db_fields2' => [
+        'sku',
+        'title',
+        'description',
+        'w2b_category_1',
+        'brand',
+        'retail_price',
+        'stock',
+        'original_image_url',
+        'shipping_price'
     ],
 
     /*
@@ -182,6 +194,7 @@ return [
         Jorenvh\Share\Providers\ShareServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -253,6 +266,7 @@ return [
         'Share' => Jorenvh\Share\ShareFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
 
     ],
 

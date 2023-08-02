@@ -10,6 +10,7 @@ use Share;
 use Config;
 use Session;
 use App\City;
+use App\Item as AppItem;
 use App\User;
 use App\State;
 use Validator;
@@ -61,6 +62,8 @@ class FrontEndController extends Controller
 		View::share('page_meta', $page_meta);
         $categories = W2bCategory::with('childrens')->get();
         View::share('categories', $categories);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])->get();
+        View::share('categories2', $categories2);
         $wb_wishlist = null;
 
         if (Auth::guard('w2bcustomer')->user()) {
@@ -79,169 +82,114 @@ class FrontEndController extends Controller
     {
         $ip = '162.159.24.227'; /* Static IP address */
         $currentUserInfo =  Location::get($ip);
-        $wb_wishlist = null;
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-        ->get();
-        $categories = W2bCategory::with('childrens')->get();
-		return view('front_end.index',compact('wb_wishlist','categories','categories2'));
+
+
+		return view('front_end.index');
     }
 
 
 
     public function dmca()
     {
-        $wb_wishlist = null;
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-        ->get();
 
-    	return view('front_end.dmca',compact('wb_wishlist','categories2'));
+
+    	return view('front_end.dmca');
     }
 
     public function termsCondition()
     {
-        $wb_wishlist = null;
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-        ->get();
-    	return view('front_end.terms-condition',compact('wb_wishlist','categories2'));
+
+    	return view('front_end.terms-condition',compact('categories2'));
     }
 
     public function privacyPolicy()
     {
-        $wb_wishlist = null;
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-        ->get();
-    	return view('front_end.privacy-policy',compact('wb_wishlist','categories2'));
+
+    	return view('front_end.privacy-policy',compact('categories2'));
     }
 
     public function readFirst()
     {
-        $wb_wishlist = null;
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
-        return view('front_end.read-first' ,compact('wb_wishlist'));
+
+        return view('front_end.read-first');
     }
     public function shop()
     {
-        // session()->flush();
-        $categories = W2bCategory::with('childrens')->get();
 
-
-        $wb_wishlist = null;
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
         $categories1 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23,29,69])
         ->get();
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-        ->get();
-
 
         $sold = rand(20, 50);
         $available = rand(60, 99);
 
+        $product1 = W2bProduct::take(300)->inRandomOrder()->first();
+        // dd($product1);
+        $product2 =  W2bProduct::take(300)->inRandomOrder()->first();;
+        $product3 =  W2bProduct::take(300)->inRandomOrder()->first();;
+        $product4 = W2bProduct::take(300)->inRandomOrder()->first();;
+        $product5 = W2bProduct::take(300)->inRandomOrder()->first();;
+        $product6 = W2bProduct::take(300)->inRandomOrder()->first();;
+        $product7 = W2bProduct::take(300)->inRandomOrder()->first();;
+        $product8 = W2bProduct::take(300)->inRandomOrder()->first();;
+        $product9 = W2bProduct::take(300)->inRandomOrder()->first();;
+        $product10 = W2bProduct::take(300)->inRandomOrder()->first();;
 
-        $product1 = W2bProduct::inRandomOrder()->first();
-        $product2 = W2bProduct::inRandomOrder()->first();
-        $product3 = W2bProduct::inRandomOrder()->first();
-        $product4 = W2bProduct::inRandomOrder()->first();
-        $product5 = W2bProduct::inRandomOrder()->first();
-        $product6 = W2bProduct::inRandomOrder()->first();
-        $product7 = W2bProduct::inRandomOrder()->first();
-        $product8 = W2bProduct::inRandomOrder()->first();
-        $product9 = W2bProduct::inRandomOrder()->first();
-        $product10 = W2bProduct::inRandomOrder()->first();
 
 
-
-        $products = W2bProduct::inRandomOrder()->paginate(6);
-        return view('front_end.shop',compact('products','categories','wb_wishlist',
-        'categories1','categories2','sold','available','product1','product2','product3','product4','product5',
+        $products = W2bProduct::take(3000)->inRandomOrder()->limit(3000)->paginate(6);
+        return view('front_end.shop',compact('products',
+        'categories1','sold','available','product1','product2','product3','product4','product5',
         'product6','product7','product8','product9','product10'));
     }
     public function catName($cate)
     {
-        $wb_wishlist = null;
 
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
-        // dd($cate);
-
-        $products = DB::table('w2b_categories')
+        $p1 = DB::table('w2b_categories')
         ->join('w2b_products', 'w2b_categories.category1', '=', 'w2b_products.w2b_category_1')
         ->select('w2b_products.*')
         ->where('w2b_products.w2b_category_1', $cate)
         ->distinct()
-        ->paginate(28);
-        $cat_name = $cate;
-        //   dd($products);
-        $categories = W2bCategory::with('childrens')->get();
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
         ->get();
 
-        // dd($cat);
-        return view('front_end.cat_products', compact('categories', 'products','cat_name','wb_wishlist','categories2'));
+        $p2 = DB::table('w2b_categories')
+        ->join('products', 'w2b_categories.category1', '=', 'products.w2b_category_1')
+        ->select('products.*')
+        ->where('products.w2b_category_1', $cate)
+        ->distinct()
+        ->get();
+        $products = $p2->merge($p1)->paginate(24);
+
+        $cat_name = $cate;
+
+        return view('front_end.cat_products', compact('products','cat_name'));
     }
     public function autocomplete(Request $request)
     {
-        // $data = DB::table('w2b_products')->select("title")
-        //         ->where("title","LIKE","%{$request->query}%")
-        //         ->get();
-        // $query = $request->get('query');
-        //   $data = DB::table('w2b_products')->where('title', 'LIKE', '%'. $query. '%')->get();
-
-        // return response()->json($data);
-        return DB::table('w2b_products')->select('title')
+        $p1 = DB::table('w2b_products')->select('title')
         ->where('title', 'like', "%{$request->term}%")
         ->pluck('title');
+        $p2 = DB::table('products')->select('title')
+        ->where('title', 'like', "%{$request->term}%")
+        ->pluck('title');
+
+        return $p2->merge($p1);
     }
+
     public function shopSearch(Request $request)
     {
-        $wb_wishlist = null;
 
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
         $query = $request->input('query');
-        $products = DB::table('w2b_products')->where('title', 'like', "%$query%")
-        ->paginate(28);
-        $categories = W2bCategory::with('childrens')->get();
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-        ->get();
+        $p1 = DB::table('w2b_products')->where('title', 'like', "%$query%")->get();
+        $p2 = DB::table('products')->where('title', 'like', "%$query%")->get();
+        $products = $p2->merge($p1)->paginate(24);
 
-        // dd($products);
-        return view('front_end.search-products', compact('products','categories','wb_wishlist','categories2'));
+
+        return view('front_end.search-products', compact('products'));
     }
 
     public function ProductDetail($sku)
     {
-        $wb_wishlist = null;
 
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
 
         $shareComponent = Share::page(
             'http://www.naturecheckout.com//shop/product_detail/'.$sku,
@@ -254,21 +202,39 @@ class FrontEndController extends Controller
         ->whatsapp()
         ->reddit();
 
-        $product = DB::table('w2b_products')
+        $p1 = DB::table('w2b_products')
         ->where('sku', $sku)
         ->first();
-        $categories = W2bCategory::with('childrens')->get();
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-        ->get();
-        $related_productss = DB::table('w2b_products')
+
+        if ($p1 == Null) {
+            $product = DB::table('products')->where('sku', $sku)->first();
+        }
+        else {
+            $product = DB::table('w2b_products')->where('sku', $sku)->first();
+        }
+
+
+
+        $rps1 = DB::table('w2b_products')
         ->where('w2b_category_1', $product->w2b_category_1)
-        ->inRandomOrder()->paginate(8);
-        $related_products = DB::table('w2b_products')
+        ->inRandomOrder()->get();
+        $rps2 = DB::table('products')
         ->where('w2b_category_1', $product->w2b_category_1)
-        ->inRandomOrder()->paginate(8);
+        ->inRandomOrder()->get();
+        $related_productss = $rps2->merge($rps1)->paginate(8);
+
+
+
+        $rp1 = DB::table('w2b_products')
+        ->where('w2b_category_1', $product->w2b_category_1)
+        ->inRandomOrder()->get();
+        $rp2 = DB::table('products')
+        ->where('w2b_category_1', $product->w2b_category_1)
+        ->inRandomOrder()->get();
+        $related_products = $rp2->merge($rp1)->paginate(8);
 
         $ratings = Rating::where('product_id', $sku)->get();
-        return view('front_end.product-detail',compact('product','ratings','wb_wishlist','related_products','related_productss','shareComponent','categories','categories2'));
+        return view('front_end.product-detail',compact('product','ratings','related_products','related_productss','shareComponent'));
     }
     public function wishlist($sku)
     {
@@ -292,11 +258,9 @@ class FrontEndController extends Controller
         ->where('user_id', Auth::guard('w2bcustomer')->user()->id)
         ->select('w2b_products.*')
         ->get();
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-        ->get();
 
         // dd($gg);
-        return view('front_end.wishlist',compact('wish_products','wb_wishlist','categories2'));
+        return view('front_end.wishlist',compact('wish_products','wb_wishlist'));
     }
     public function removeWishlist($sku)
     {
@@ -312,16 +276,13 @@ class FrontEndController extends Controller
     }
     public function cart()
     {
-        $wb_wishlist = null;
 
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-        ->get();
-        $suggested_products = W2bProduct::inRandomOrder()->paginate(7);
-        return view('front_end.cart',compact('wb_wishlist','categories2','suggested_products'));
+        $sp1 = DB::table('w2b_products')->inRandomOrder()->get();
+        $sp2 = DB::table('products')->inRandomOrder()->limit(3)->get();
+        $suggested_products = $sp2->merge($sp1)->paginate(7);
+        $suggested_products = $suggested_products->sortBy('title');
+
+        return view('front_end.cart',compact('suggested_products'));
     }
     public function removeEverything()
     {
@@ -330,16 +291,20 @@ class FrontEndController extends Controller
     }
     public function addToCart($sku)
     {
-        if (Auth::guard('w2bcustomer')->user()) {
-            $user_id = Auth::guard('w2bcustomer')->user()->id;
-        }
-        else {
-            $user_id = Null;
-        }
-        $product = DB::table('w2b_products')
+
+        $p1 = DB::table('w2b_products')
         ->where('sku', $sku)
         ->first();
-
+        if ($p1 ==  Null) {
+            $product = DB::table('products')
+            ->where('sku', $sku)
+            ->first();
+        }
+        else {
+            $product = DB::table('w2b_products')
+            ->where('sku', $sku)
+            ->first();
+        }
         $cart = session()->get('cart', []);
 
         if(isset($cart[$sku])) {
@@ -352,7 +317,8 @@ class FrontEndController extends Controller
                 "original_image_url" => $product->original_image_url,
                 "shipping_price" => $product->shipping_price,
                 "sales_tax_pct" => $product->sales_tax_pct,
-                "supplier_id" => $product->supplier_id
+                "vendor_id" => $product->vendor_id,
+                "seller_type" => $product->seller_type
             ];
         }
 
@@ -362,15 +328,19 @@ class FrontEndController extends Controller
 
     public function addToCart1($sku)
     {
-        if (Auth::guard('w2bcustomer')->user()) {
-            $user_id = Auth::guard('w2bcustomer')->user()->id;
-        }
-        else {
-            $user_id = Null;
-        }
-        $product = DB::table('w2b_products')
+        $p1 = DB::table('w2b_products')
         ->where('sku', $sku)
         ->first();
+        if ($p1 ==  Null) {
+            $product = DB::table('products')
+            ->where('sku', $sku)
+            ->first();
+        }
+        else {
+            $product = DB::table('w2b_products')
+            ->where('sku', $sku)
+            ->first();
+        }
 
         $cart = session()->get('cart', []);
 
@@ -384,7 +354,8 @@ class FrontEndController extends Controller
                 "original_image_url" => $product->original_image_url,
                 "shipping_price" => $product->shipping_price,
                 "sales_tax_pct" => $product->sales_tax_pct,
-                "supplier_id" => $product->supplier_id
+                "vendor_id" => $product->vendor_id,
+                "seller_type" => $product->seller_type
             ];
         }
 
@@ -418,18 +389,9 @@ class FrontEndController extends Controller
 
     public function checkout()
     {
-        $wb_wishlist = null;
 
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
-        // $cart = session()->get('cart');
-        // dd($cart);
         $states = State::where('country_id',231)->get();
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-        ->get();
-        return view('front_end.checkout',compact('states','wb_wishlist','categories2'));
+        return view('front_end.checkout',compact('states'));
     }
     public function state($state_id)
     {
@@ -440,8 +402,10 @@ class FrontEndController extends Controller
     public function postCheckout(Request $request)
     {
 
+
             $cart = session()->get('cart');
-            //   dd($cart);
+            // $suppliersIds = collect($cart)->pluck('vendor_id')->unique()->toArray();
+
 
             if ($user = Auth::guard('w2bcustomer')->user()) {
                 $request->validate([
@@ -449,8 +413,6 @@ class FrontEndController extends Controller
                     'state' => 'required',
                     'city' => 'required',
                     'address' => 'required'
-                    // 'author.name' => 'required',
-                    // 'author.description' => 'required',
                 ]);
                 $user->update([
                     'state' => $request->state,
@@ -460,10 +422,13 @@ class FrontEndController extends Controller
                     'zip_code' => $request->zip_code
                 ]);
             }
-            else {
+            else
+                {
 
-                if ($request->password) {
-                    $request->validate([
+                    if ($request->password)
+                    {
+
+                        $request->validate([
                         'first_name' => 'required',
                         'last_name' => 'required',
                         'email' => 'required|email|unique:users',
@@ -473,85 +438,85 @@ class FrontEndController extends Controller
                         'city' => 'required',
                         'address' => 'required',
                         'password' => 'required'
-                        // 'author.name' => 'required',
-                        // 'author.description' => 'required',
-                    ],
-                    [
+                        ],
+                        [
                         'email.unique' => 'The Email has already been taken. Please login first to continue',
-                    ]);
-                    $user = new User;
-                    $user->first_name = $request->first_name;
-                    $user->last_name = $request->last_name;
-                    $user->email = $request->email;
-                    $user->password = bcrypt($request->password);
-                    $user->mobile = $request->mobile;
-                    $user->state = $request->state;
-                    $user->city = $request->city;
-                    $user->zip_code = $request->zip_code;
-                    $user->address = $request->address;
-                    $user->address2 = $request->address2;
-                    $user->save();
+                        ]);
+                        $user = new User;
+                        $user->first_name = $request->first_name;
+                        $user->last_name = $request->last_name;
+                        $user->email = $request->email;
+                        $user->password = bcrypt($request->password);
+                        $user->mobile = $request->mobile;
+                        $user->state = $request->state;
+                        $user->city = $request->city;
+                        $user->zip_code = $request->zip_code;
+                        $user->address = $request->address;
+                        $user->address2 = $request->address2;
+                        $user->save();
 
+                    }
+                        else {
+                            $request->validate([
+                            'first_name' => 'required',
+                            'last_name' => 'required',
+                            'email' => 'required|unique:users',
+                            'zip_code' => 'required',
+                            'mobile' => 'required',
+                            'state' => 'required',
+                            'city' => 'required',
+                            'address' => 'required'
+                            ],
+                            [
+                            'email.unique' => 'The Email has already been taken. Please login first to continue',
+                            ]);
+
+                            $user = new User;
+                            $user->first_name = $request->first_name;
+                            $user->last_name = $request->last_name;
+                            $user->email = $request->email;
+                            $user->mobile = $request->mobile;
+                            $user->state = $request->state;
+                            $user->city = $request->city;
+                            $user->zip_code = $request->zip_code;
+                            $user->address = $request->address;
+                            $user->address2 = $request->address2;
+                            $user->save();
+                        }
                 }
-                else {
-                    $request->validate([
-                        'first_name' => 'required',
-                        'last_name' => 'required',
-                        'email' => 'required|unique:users',
-                        'zip_code' => 'required',
-                        'mobile' => 'required',
-                        'state' => 'required',
-                        'city' => 'required',
-                        'address' => 'required'
-                        // 'author.name' => 'required',
-                        // 'author.description' => 'required',
-                    ],
-                    [
-                        'email.unique' => 'The Email has already been taken. Please login first to continue',
-                    ]);
+                            $w2border = W2bOrder::create([
 
-                    $user = new User;
-                    $user->first_name = $request->first_name;
-                    $user->last_name = $request->last_name;
-                    $user->email = $request->email;
-                    $user->mobile = $request->mobile;
-                    $user->state = $request->state;
-                    $user->city = $request->city;
-                    $user->zip_code = $request->zip_code;
-                    $user->address = $request->address;
-                    $user->address2 = $request->address2;
-                    $user->save();
-                }
-            }
+                            'total_price' => number_format((float)$request->total_price, 2, '.', ''),
+                            'user_id' => $user->id,
 
-            $w2border = W2bOrder::create([
+                            'order_notes' => $request->order_notes,
+                            'order_id' => strtoupper(substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 9))
 
-                        'total_price' => number_format((float)$request->total_price, 2, '.', ''),
-                        'user_id' => $user->id,
+                            ]);
+                            $user_details = $user;
 
-                        'order_notes' => $request->order_notes,
-                        'order_id' => strtoupper(substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 9))
+                            // $total_price1 = $w2border->total_price;
+                            foreach($cart as $sku => $details) {
+                                $tax = ($details['sales_tax_pct'] / 100) *  $details['retail_price'];
+                                $tp = $details['retail_price'] * $details['quantity'];
+                                OrderedProduct::create([
+                                    'sku' => $sku,
+                                    'price' => $details['retail_price'],
+                                    'quantity' => $details['quantity'],
+                                    'sales_tax' => $tax,
+                                    'shipping_price' => $details['shipping_price'],
+                                    'total_price' => $tax + $tp + $details['shipping_price'],
+                                    'title' => $details['title'],
+                                    'image' => $details['original_image_url'],
+                                    'order_id' => $w2border->order_id,
+                                    'vendor_id' => $details['vendor_id'],
+                                    'seller_type' => $details['seller_type']
 
-                    ]);
-                    $user_details = $user;
-
-                    $total_price1 = $w2border->total_price;
-            foreach($cart as $sku => $details) {
-                OrderedProduct::create([
-                    'sku' => $sku,
-                    'price' => $details['retail_price'],
-                    'quantity' => $details['quantity'],
-                    'title' => $details['title'],
-                    'image' => $details['original_image_url'],
-                    'order_id' => $w2border->order_id,
-                    'supplier_id' => $details['supplier_id']
-
-                ]);
-            }
-            session()->put('w2border', $w2border);
-            session()->put('user_details', $user_details);
-            // return view('front_end.payment', compact('w2border'));
-            return redirect('/payment-page');
+                                ]);
+                            }
+                    session()->put('w2border', $w2border);
+                    session()->put('user_details', $user_details);
+                    return redirect('/payment-page');
     }
 
     public function notPaidMail()
@@ -576,19 +541,13 @@ class FrontEndController extends Controller
     }
     public function paymentPage()
     {
-        $wb_wishlist = null;
 
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-        ->get();
-        // $data = session()->get('w2border');
-        //  dd($data->order_id);
-        # code...
-        $suggested_products = W2bProduct::inRandomOrder()->paginate(7);
-        return view('front_end.payment',compact('wb_wishlist','categories2','suggested_products'));
+        $sp1 = DB::table('w2b_products')->inRandomOrder()->get();
+        $sp2 = DB::table('products')->inRandomOrder()->limit(3)->get();
+        $suggested_products = $sp2->merge($sp1)->paginate(7);
+        $suggested_products = $suggested_products->sortBy('title');
+
+        return view('front_end.payment',compact('suggested_products'));
     }
 
     public function orderPayment(Request $request)
@@ -596,12 +555,9 @@ class FrontEndController extends Controller
         $w2border = session()->get('w2border');
         $user_details = session()->get('user_details');
         $order = W2bOrder::where('id', $w2border->id)->first();
-        // $data = session()->get('w2border');
-        // dd($data);
-        // dd($request->all());
-        // return view('front_end.payment');
+
         Stripe::setApiKey('sk_test_51IarbDGIhb5eK2lSAhS5c8HvzuCmQh8CuCx81iR1hYfzSIwGpS1gLnTWs4xfhI9cwcpS8XYKbep9N8h1ZDSSxr0Y00NoFqGE3J');
-        // dd($request->all());
+
         $user = User::where('id', $w2border->user_id)->first();
         $customer = Customer::create(array(
 
@@ -639,87 +595,64 @@ class FrontEndController extends Controller
 
             ]
 
-    ]);
-    if ($charge) {
-        $order->update([
-            'is_paid' => 'yes',
         ]);
-        $fname = ucfirst($user->first_name);
-        $lname = ucfirst($user->last_name);
-        $details = [
-            'title' => 'Nature Checkout Order #'.$w2border->order_id,
-            'body' => 'Dear '.$fname.' '.$lname,
-            'email' => $user->email
-        ];
-        $details2 = [
-            'title' => 'New Order Received #'.$w2border->order_id,
-            'body' => 'A new Customer named '.$fname.' '.$lname.' has created an order',
-            'email' => 'sales@naturecheckout.com'
-        ];
-        dispatch(new OrderMailJob($details))->delay(now()->addSeconds(30));
-        dispatch(new RutiMailJob($details2))->delay(now()->addSeconds(30));
-        // Mail::to($user_details->email)->send(new WbOrderMail($details));
-        // Mail::to('sales@naturecheckout.com')->send(new WbRutiOrderMail($details2));
-    }
-        // Charge::create ([
-        //         "amount" => 100 * 100,
-        //         "currency" => "usd",
-        //         "source" => $request->stripeToken,
-        //         "description" => "Test payment from Nabeel Butt"
-        // ]);
+        if ($charge) {
+            $order->update([
+                'is_paid' => 'yes',
+            ]);
+            $fname = ucfirst($user->first_name);
+            $lname = ucfirst($user->last_name);
+            $details = [
+                'title' => 'Nature Checkout Order #'.$w2border->order_id,
+                'body' => 'Dear '.$fname.' '.$lname,
+                'email' => $user->email
+            ];
+            $details2 = [
+                'title' => 'New Order Received #'.$w2border->order_id,
+                'body' => 'A new Customer named '.$fname.' '.$lname.' has created an order',
+                'email' => 'sales@naturecheckout.com'
+            ];
+            dispatch(new OrderMailJob($details))->delay(now()->addSeconds(30));
+            dispatch(new RutiMailJob($details2))->delay(now()->addSeconds(30));
+            // Mail::to($user_details->email)->send(new WbOrderMail($details));
+            // Mail::to('sales@naturecheckout.com')->send(new WbRutiOrderMail($details2));
+        }
         session()->forget('cart');
         session()->forget('w2border');
         session()->forget('user_details');
-        // session()->flash('success', 'Payment successful!');
         return redirect('/thank-you-page');
         return ;
     }
+
     public function thankYou()
     {
-        // $wb_wishlist = null;
 
-        // if (Auth::guard('w2bcustomer')->user()) {
-        //     $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-        //     ->get();
-        // }
-        $products = W2bProduct::inRandomOrder()->paginate(32);
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-        ->get();
-        return view('front_end.thank-you',compact('products','categories2'));
+        $p1 = DB::table('w2b_products')->inRandomOrder()->get();
+        $p2 = DB::table('products')->inRandomOrder()->limit(15)->get();
+        $products = $p2->merge($p1)->paginate(32);
+        $products = $products->sortBy('title');
+        return view('front_end.thank-you',compact('products'));
     }
 
 
     public function trendingProducts()
     {
-        session()->forget('cart');
 
-        $wb_wishlist = null;
+        $p1 = DB::table('w2b_products')->inRandomOrder()->get();
+        $p2 = DB::table('products')->inRandomOrder()->get();
+        $products = $p2->merge($p1)->paginate(24);
 
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-        ->get();
-        $products = W2bProduct::inRandomOrder()->paginate(16);
-        return view('front_end.trending_products',compact('wb_wishlist','products','categories2'));
+        return view('front_end.trending_products',compact('products'));
     }
 
     public function specialOffers()
     {
-        // $cart = session()->get('cart');
-        // dd(session('lifetime'));
-        //  dd($cart);
-        $wb_wishlist = null;
 
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-        ->get();
-        $products = W2bProduct::inRandomOrder()->paginate(16);
-        return view('front_end.special_offers',compact('wb_wishlist','products','categories2'));
+        $p1 = DB::table('w2b_products')->inRandomOrder()->get();
+        $p2 = DB::table('products')->inRandomOrder()->get();
+        $products = $p2->merge($p1)->paginate(24);
+
+        return view('front_end.special_offers',compact('products'));
     }
 
     public function paypalPayment(Request $request)
@@ -811,14 +744,11 @@ class FrontEndController extends Controller
     }
     public function paypalPaymentError()
     {
-        # code...
         dd('error');
     }
 
     public function userWalletPayment(Request $request, $amount)
     {
-        # code...
-        // dd('mm');
         $w2border = session()->get('w2border');
         $user_details = session()->get('user_details');
         $order = W2bOrder::where('id', $w2border->id)->first();

@@ -120,6 +120,7 @@ Route::get('/wishlist/{sku}', 'FrontEndController@wishlist')->name('wb-wishlist'
 Route::get('/cart', 'FrontEndController@cart')->name('product-cart');
 Route::get('/add-to-cart/{sku}', 'FrontEndController@addToCart')->name('add.to.cart');
 Route::get('/add-to-cart1/{sku}', 'FrontEndController@addToCart1')->name('add.to.cart1');
+Route::get('/add-to-cart2/{sku}', 'FrontEndController@addToCart2')->name('add.to.cart2');
 Route::patch('update-cart', 'FrontEndController@updateCart')->name('update.cart');
 Route::delete('remove-from-cart', 'FrontEndController@removeCart')->name('remove.from.cart');
 Route::get('/remove-everything', 'FrontEndController@removeEverything')->name('remove-everything');
@@ -661,6 +662,11 @@ Route::group(['prefix' => 'vendor'], function () {
 
   Route::resource('products', 'Vendor\ProductsController', ['as' => 'vendor'])->except('show');
   Route::get('products/inventory', 'Vendor\ProductsController@inventory')->name('vendor.products.inventory');
+
+  Route::get('products/inventory-upload', 'Vendor\ProductsController@inventoryUpload')->name('vendor.inventory.upload');
+  Route::post('/import_parse', 'Vendor\ProductsController@parseImport')->name('vendor.import_parse');
+  Route::post('/import_process', 'Vendor\ProductsController@processImport')->name('vendor.import_process');
+
   Route::post('products/get-inventory', 'Vendor\ProductsController@getInventory')->name('vendor.get-inventory');
   Route::post('products/update-quantity', 'Vendor\ProductsController@updateQuantity')->name('vendor.product-update-quantity');
   Route::post('products/update-discount', 'Vendor\ProductsController@updateDiscount')->name('vendor.product-update-discount');
@@ -698,6 +704,7 @@ Route::group(['prefix' => 'vendor'], function () {
   Route::resource('orders', 'Vendor\OrdersController', ['as' => 'vendor'])->except('show');
 
         Route::get('orders/view_order/{id}', 'Vendor\OrdersController@view_order')->name('vendor.orders.view_order');
+        Route::get('orders/view_detail/{id}', 'Vendor\OrdersController@view_details')->name('vendor.orders.view_details');
         Route::get('orders/inshop_order', 'Vendor\OrdersController@inshop_order')->name('vendor.orders.inshop_order');
         Route::get('orders/inshop_order_view/{id}', 'Vendor\OrdersController@inshop_order_view')->name('vendor.orders.inshop_order_view');
         Route::get('orders/pickup_order', 'Vendor\OrdersController@pickup_order')->name('vendor.orders.pickup_order');

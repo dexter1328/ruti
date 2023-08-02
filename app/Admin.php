@@ -2,13 +2,14 @@
 
 namespace App;
 
-use App\Notifications\AdminResetPassword;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\AdminResetPassword;
+use Yadahan\AuthenticationLog\AuthenticationLogable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Admin extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, AuthenticationLogable;
 
     /**
      * The attributes that are mass assignable.

@@ -105,7 +105,7 @@
 		                            </a>
 		                        </div>
                                 <div class="col-xs-12 col-sm-3">
-                                    <a href="{{ route('supplier.products.create') }}" class="btn btn-outline-primary btn-sm waves-effect waves-light m-1" title="Add Product">
+                                    <a href="{{ route('supplier.inventory.upload') }}" class="btn btn-outline-primary btn-sm waves-effect waves-light m-1" title="Add Product">
 		                                <span class="name">Import</span>
 		                            </a>
 		                        </div>
@@ -116,45 +116,45 @@
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
-					<table id="example" class="table table-bordered display" style="width: 100%">
+					<table id="example_demo" class="table table-bordered display" style="width: 100%">
 						<thead>
-							<tr>
+							<tr style="background: black">
 								<th>SKU</th>
 								<th>Product Title</th>
 								<th>Brand</th>
 								<th>Category</th>
 								<th>Retail Price</th>
-								<th>Wholesale Price</th>
+								<th>Stock</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
+                            @foreach ($products as $product)
+
+                            <tr>
+                                <td>{{$product->sku}}</td>
+                                <td>{{$product->title}}</td>
+                                <td>{{$product->brand ? $product->brand : 'Not Specified'}}</td>
+                                <td>{{$product->w2b_category_1}}</td>
+                                <td>{{$product->retail_price}}</td>
+                                <td>{{$product->stock}}</td>
+                                <td>Action</td>
+                            </tr>
+                            @endforeach
+
 						</tbody>
 
 					</table>
 
 				</div>
-{{--				<nav aria-label="...">--}}
-{{--					@if ($products->lastPage() > 1)--}}
-{{--						<ul class="pagination justify-content-center">--}}
-{{--							<li class="page-item {{ $products->currentPage() == 1 ? 'disabled' : '' }}">--}}
-{{--								<a class="page-link" href="{{ $products->url($products->currentPage() - 1) }}"--}}
-{{--									tabindex="-1">Previous</a>--}}
-{{--							</li>--}}
-{{--							@for ($i = 1; $i <= $products->lastPage(); $i++)--}}
-{{--								<li class="page-item {{ $products->currentPage() == $i ? 'active' : '' }}"><a--}}
-{{--										class="page-link" href=" {{ $products->url($i) }}">{{ $i }}</a></li>--}}
-{{--							@endfor--}}
-{{--							<li--}}
-{{--								class="page-item {{ $products->currentPage() == $products->lastPage() ? 'disabled' : '' }}">--}}
-{{--								<a class="page-link" href="{{ $products->url($products->currentPage() + 1) }}">Next</a>--}}
-{{--							</li>--}}
-{{--						</ul>--}}
-{{--					@endif--}}
-{{--				</nav>--}}
-{{--				<span class="text-info ml-1 mb-1" > Showing {{ $products->firstItem() }} to {{ $products->lastItem() }}--}}
-{{--					of total {{ $products->total() }} products</span>--}}
+
 			</div>
+            <div class="justify-content-end float-right" style="float:right">
+            {!! $products->links() !!}
+
+            </div>
+
+
 		</div>
 	</div>
 </div><!-- End Row-->

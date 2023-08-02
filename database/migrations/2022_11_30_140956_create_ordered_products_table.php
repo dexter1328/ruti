@@ -18,9 +18,15 @@ class CreateOrderedProductsTable extends Migration
             $table->string('order_id');
             $table->string('sku');
             $table->string('title');
+            $table->string('image');
             $table->string('price');
             $table->string('quantity');
-            $table->string('image');
+            $table->string('sales_tax');
+            $table->string('shipping_price');
+            $table->string('total_price');
+            $table->enum('status', ['processing', 'shipped', 'delivered', 'cancelled'])->default('processing');
+            $table->bigInteger('vendor_id');
+            $table->string('seller_type');
 
             $table->timestamps();
         });

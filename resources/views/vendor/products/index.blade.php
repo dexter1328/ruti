@@ -68,7 +68,7 @@
 	}
 	div#importModal {
 	    width: 50%;
-	    margin: 
+	    margin:
 	    0 auto;
 	}
 	.text-danger{
@@ -82,28 +82,22 @@
 			<div class="card-header">
 				<div class="row">
 					<div class="col-3">
-						<div class="left"><!-- <i class="fa fa-product-hunt"></i> --><span>Products</span></div>
+						<div class="left"><!-- <i class="fa fa-product-hunt"></i> -->
+                            <span>Products</span>
+                        </div>
 					</div>
 					<div class="col-9">
-						<div class="product-btn-right"> 
-		                	<div class="row">   
-		                		<div class="col-xs-12 col-sm-3">
-		                			@if(vendor_has_permission(Auth::user()->role_id,'import_product','read'))   
-		                				<a href="{{url('/public/ezsiop-product-import.csv')}}" download="sample-product.csv" class="download-csv">Download Sample CSV</a>
-		                			@endif
-		                		</div>
-		                      	<div class="col-xs-12 col-sm-3">
-		                      		@if(vendor_has_permission(Auth::user()->role_id,'import_product','write'))   
-		                      			<button class="btn btn-outline-primary btn-sm waves-effect waves-light m-1" data-toggle="modal" data-target="#importModal"><span class="name">Import</span></button>
-		                      		@endif
-		                        </div>
+						<div class="product-btn-right">
+		                	<div class="row justify-content-end">
 		                        <div class="col-xs-12 col-sm-3">
-		                      		<a href="{{ url('vendor/products/export-product') }}" class="btn btn-outline-primary btn-sm waves-effect waves-light m-1"><span class="name">Export</span></a>
+                                    <a href="{{ route('vendor.products.create') }}" class="btn btn-outline-primary btn-sm waves-effect waves-light m-1" title="Add Product">
+		                                <span class="name">Add Product</span>
+		                            </a>
 		                        </div>
-		                        <div class="col-xs-12 col-sm-3">
-		                        	  <a href="{{ route('vendor.products.create') }}" class="btn btn-outline-primary btn-sm waves-effect waves-light m-1" title="Add Product">
-		                            <!-- <i class="fa fa-product-hunt" style="font-size:15px;"></i> --> <span class="name">Add Product</span>
-		                        </a>
+                                <div class="col-xs-12 col-sm-3">
+                                    <a href="{{route('vendor.inventory.upload')}}" class="btn btn-outline-primary btn-sm waves-effect waves-light m-1" title="Add Product">
+		                                <span class="name">Import</span>
+		                            </a>
 		                        </div>
 							</div>
 						</div>
@@ -112,113 +106,48 @@
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
-					<table id="example" class="table table-bordered display" style="width: 100%">
-						<thead>
-							<tr>
-								<th>Vendor</th>
-								<th>Store</th>
-								<th>Title</th>
+					<table id="example_demo" class="table table-bordered display" style="width: 100%">
+						<thead style="background: black;">
+							<tr >
+								<th>SKU</th>
+								<th>Product Title</th>
+								<th>Brand</th>
+								<th>Category</th>
+								<th>Retail Price</th>
+								<th>Stock</th>
 								<th>Action</th>
 							</tr>
 						</thead>
-						
+						<tbody>
+                            @foreach ($products as $product)
+
+                            <tr>
+                                <td>{{$product->sku}}</td>
+                                <td>{{$product->title}}</td>
+                                <td>{{$product->brand ? $product->brand : 'Not Specified'}}</td>
+                                <td>{{$product->w2b_category_1}}</td>
+                                <td>{{$product->retail_price}}</td>
+                                <td>{{$product->stock}}</td>
+                                <td>Action</td>
+                            </tr>
+                            @endforeach
+
+						</tbody>
+
 					</table>
+
 				</div>
+
 			</div>
+            <div class="justify-content-end float-right" style="float:right">
+            {!! $products->links() !!}
+
+            </div>
+
+
 		</div>
 	</div>
 </div><!-- End Row-->
-
-<!-- import modal -->
-<div class="modal fade" id="importModal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Import Product</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-			<div id="error"></div>
-				<form method="post" action="{{ url('vendor/products/import-product') }}" enctype="multipart/form-data" id="import-product">
-					@csrf
-					<div class="form-group">
-						<label>Store<span class="text-danger">*</span></label>
-                        <select name="store[]" id="store"  multiple="multiple">
-                            @foreach($vendor_stores as $vendor_store)
-                            	<option value="{{$vendor_store->id}}" {{ (old("store") == $vendor_store->id ? "selected":"") }}>{{$vendor_store->name}}</option>
-                            @endforeach
-                        </select>
-                        <span class="text-danger" id="store_preview_error"></span>
-                        @if ($errors->has('store')) 
-                        	<span class="text-danger">{{ $errors->first('store') }}</span> 
-                        @endif 
-					</div>
-					<div class="form-group">
-						<label for="input-3">File<span class="text-danger">*</span></label>
-						<input type="file" name="import_file" id="import_file" class="form-control" accept=".csv">
-						@if(session()->get('error-data'))
-							<span class="text-danger">{{ session()->get('error-data') }}</span>
-						@endif
-						@if ($errors->has('import_file'))
-							<span class="text-danger">{{ $errors->first('import_file') }}</span>
-						@endif
-						<label style="margin-top:10px;">Note:</label> File must be csv.
-						<span class="text-danger" id="file_preview_error"></span>
-					</div>
-					<div class="form-group">
-						<button type="button" class="btn btn-primary px-5" id="btnPreview">Preview</button>
-						<button type="submit" class="btn btn-primary px-5" id="btnImport">Submit</button>
-						<span id="processing" style="display: none;">Processing...</span>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- import modal -->
-<!-- preview modal -->
-<div class="modal fade" id="previewModal">
-	<div class="modal-dialog" style="width: 1050px">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Preview</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div id="preview_div">
-					<table id="preview_table" class="table table-bordered">
-						<thead>
-							<tr>
-								<th>Title</th>
-								<th>Quantity</th>
-								<th>Discount</th>
-								<th>Brand</th>
-								<th>Category</th>
-								<th>Price</th>
-							</tr>
-						</thead>
-						<tbody class="previewtbody"></tbody>
-						<tfoot>
-							<tr>
-								<th>Title</th>
-								<th>Quantity</th>
-								<th>Discount</th>
-								<th>Brand</th>
-								<th>Category</th>
-								<th>Price</th>
-							</tr>
-						</tfoot>
-					</table>
-    			</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- end preview modal -->
 
 <script>
 
@@ -239,7 +168,7 @@ $(document).ready(function() {
 		allSelectedText: 'All',
       	maxHeight: 300,
       	includeSelectAllOption: true
-	   
+
 	});
 
 	$("#btnImport").click(function(){
@@ -248,19 +177,19 @@ $(document).ready(function() {
 	});
 
 	$("#btnPreview").click(function(){
-		
+
 		if($("#store option:selected" ).val() == '') {
 			$('#store_preview_error').html('Please Select Store');
 		} else {
 			$('#store_preview_error').html('');
 		}
-		
-		if($('#import_file').val() == '') {	
+
+		if($('#import_file').val() == '') {
 			$('#file_preview_error').html('Please Select File');
 		} else {
 			$('#file_preview_error').html(' ');
 		}
-		
+
 
 		if($("#store option:selected" ).val() != '' && $('#import_file').val() != '') {
 
@@ -287,7 +216,7 @@ $(document).ready(function() {
 
 						console.log(result.error);
 						str += '<tr>';
-							str += '<td colspan="6" align="center">'+result.error+'</td>';	
+							str += '<td colspan="6" align="center">'+result.error+'</td>';
 						str += '</tr>';
 					} else {
 
@@ -384,16 +313,16 @@ $(document).ready(function() {
 				}
 			},
 			'colvis'
-		]	 
+		]
 
     });
 	 table.buttons().container()
 	.appendTo( '#example_wrapper .col-md-6:eq(0)' );
-	
+
 } );
 
 function deleteRow(id)
-{   
+{
     $('#deletefrm_'+id).submit();
 }
 
@@ -413,7 +342,7 @@ function changeStatus(id){
             if(data == 'enable'){
             	status = 'enabled';
                 $('.status_'+id).css('color','#009933');
-                
+
             }else{
             	status = 'disabled';
                 $('.status_'+id).css('color','#ff0000');
@@ -432,7 +361,7 @@ function changeStatus(id){
 	});
 }
 
-function countInObject(obj) 
+function countInObject(obj)
 {
 	var count = 0;
 	// iterate over properties, increment if a non-prototype property

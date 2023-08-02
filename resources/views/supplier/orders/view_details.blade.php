@@ -7,42 +7,32 @@
 
 <div class="i_body_details pb-5">
     <div class="pt-4 mx-0 mx-lg-5">
-        @foreach ($od as $o)
 
-        <h4 class="i_details_heading text-dark mx-5">Order No: <span>#{{$o->order_id}}</span></h4>
-        @endforeach
+        <h4 class="i_details_heading text-dark mx-5">Order No: <span>#{{$order1->order_id}}</span></h4>
+
 
         <div class="i_first_section">
             <div class="i_my_container mx-5 p-3">
                 <table class="w-100">
                     <tr class="border-bottom">
-                        <th class="py-2">Items Summary</th>
+                        <th class="py-2">Image</th>
+                        <th class="py-2">Sku</th>
+                        <th class="py-2">Title</th>
                         <th class="py-2">Price</th>
                         <th class="py-2">QTY</th>
-                        <th class="py-2">Total Price</th>
+                        <th class="py-2">Total Price (Incl. Taxes)</th>
                     </tr>
                     <tr class="border-bottom">
                         @foreach ($od as $o)
 
-                        <td class="py-2"><img src="{{$o->image}}" width="60px" height="50px" alt=""> {{$o->title}}</td>
+                        <td class="py-2"><img src="{{$o->image}}" width="60px" height="50px" alt=""></td>
+                        <td class="py-2">{{$o->sku}}</td>
+                        <td class="py-2">{{$o->title}}</td>
                         <td class="py-2">${{$o->price}}</td>
                         <td class="py-2">x{{$o->quantity}}</td>
-                        <td class="py-2">${{$o->price}}</td>
+                        <td class="py-2">${{$o->total_price}}</td>
                     </tr>
                     @endforeach
-
-                    <tr class="border-bottom">
-                        <td class="py-2"><img src="https://cdn.dxomark.com/wp-content/uploads/medias/post-61584/iphone-12-pro-max-graphite-hero.jpg" width="60px" height="50px" alt="">Iphone 12 Pro Max</td>
-                        <td class="py-2">$999</td>
-                        <td class="py-2">x2</td>
-                        <td class="py-2">$1998</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td class="py-2"><img src="https://cdn.dxomark.com/wp-content/uploads/medias/post-61584/iphone-12-pro-max-graphite-hero.jpg" width="60px" height="50px" alt="">Iphone 12 Pro Max</td>
-                        <td class="py-2">$999</td>
-                        <td class="py-2">x2</td>
-                        <td class="py-2">$1998</td>
-                    </tr>
                 </table>
             </div>
             <div class="i_my_container2 mx-5 mx-lg-0 p-3">
@@ -51,20 +41,24 @@
                         <th class="py-2">Shipping Details</th>
                     </tr>
                     <tr class="border-bottom">
-                        <td class="py-2">Shipping Address</td>
-                        <td class="py-2 text-end">New Street No 1, Central Area, Germany</td>
+                        <td class="py-2">Customer Name:</td>
+                        <td class="py-2 text-end">{{$order1->user_fname}} {{$order1->user_lname}}</td>
                     </tr>
                     <tr class="border-bottom">
-                        <td class="py-2">Shipping Status</td>
-                        <td class="py-2 text-end">Delivered</td>
+                        <td class="py-2">Shipping Address:</td>
+                        <td class="py-2 text-end">{{$order1->user_address}}, {{$order1->city_name}}, {{$order1->state_name}}</td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <td class="py-2">Shipping Status:</td>
+                        <td class="py-2 text-end">Processing</td>
                     </tr>
                     <tr class="border-bottom">
                         <td class="py-2">Status of Process</td>
-                        <td class="py-2 text-end">Received</td>
+                        <td class="py-2 text-end">Processing</td>
                     </tr>
                     <tr class="border-bottom">
                         <td class="py-2">Payment</td>
-                        <td class="py-2 text-end">$999</td>
+                        <td class="py-2 text-end">${{$grand_total}}</td>
                     </tr>
                     <tr class="border-bottom">
                         <td class="py-2">Payment Process</td>
@@ -78,17 +72,14 @@
                 <tr class="border-bottom" class="border-bottom">
                     <th class="py-2">Customer And Order Details</th>
                 </tr>
-                <tr class="border-bottom">
-                    <td class="py-2">Supplier Name</td>
-                    <td class="py-2 text-end">John Smith</td>
-                </tr>
+
                 <tr class="border-bottom">
                     <td class="py-2">Customer Name</td>
-                    <td class="py-2 text-end">John Smith</td>
+                    <td class="py-2 text-end">{{$order1->user_fname}} {{$order1->user_lname}}</td>
                 </tr>
                 <tr class="border-bottom">
                     <td class="py-2">Phone Number</td>
-                    <td class="py-2 text-end">1234567890</td>
+                    <td class="py-2 text-end">{{$order1->user_phone}}</td>
                 </tr>
                 <tr class="border-bottom">
                     <td class="py-2">Fulfillment Type</td>

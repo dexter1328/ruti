@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\W2bOrder;
 use Stripe\Stripe;
+use App\W2bProduct;
 use App\OrderedProduct;
 use App\Traits\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class WbProductController extends Controller
 {
@@ -31,28 +33,44 @@ class WbProductController extends Controller
 		Stripe::setApiKey($this->stripe_secret);
 	}
 
-    public function index()
+    public function index(Request $request)
     {
-        // dd('abc');
-        $products = DB::table('w2b_products')->get();
-        return view('admin.wb_products.index',compact('products'));
+        //  dd('abc');
+        // $products = DB::table('w2b_products')->get();
+        // return view('admin.wb_products.index',compact('products'));
+        if ($request->ajax()) {
+            $data = W2bProduct::all();
+            return DataTables::of($data)
+                    ->addIndexColumn()
+
+                    ->make(true);
+        }
+
+        return view('admin.wb_products.index');
     }
     public function order()
     {
         // dd('abc');
         $orders = DB::table('w2b_orders')
         ->join('users', 'w2b_orders.user_id', '=', 'users.id')
-        ->select('w2b_orders.*','users.first_name','users.last_name')
+        ->join('ordered_products', 'ordered_products.order_id', '=', 'w2b_orders.order_id')
         ->where('w2b_orders.is_paid','yes')
+        ->where('ordered_products.vendor_id',1)
+        ->select('ordered_products.*','w2b_orders.order_notes','w2b_orders.status','users.first_name','users.last_name')
         ->orderBy('id', 'DESC')
+        ->groupBy('ordered_products.order_id')
         ->get();
+
+        // dd($orders);
         return view('admin.wb_products.order',compact('orders'));
     }
 
     public function orderedProducts($id)
     {
-        $products = OrderedProduct::where('order_id',$id)->get();
-
+        $products = OrderedProduct::where('order_id',$id)
+        ->where('vendor_id', 1)
+        ->get();
+        // dd($products);
         return view('admin.wb_products.order_products',compact('products'));
     }
 
