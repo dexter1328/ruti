@@ -7,20 +7,25 @@ use Auth;
 use Schema;
 use App\Brand;
 use App\Vendor;
+use App\CsvData;
 use App\Category;
 use App\Products;
 use App\Attribute;
-use App\AttributeValue;
 use App\VendorStore;
-use App\ProductImages;
-use App\ProductVariants;
-use App\VendorsSubCategory;
+use App\W2bCategory;
 use App\Notification;
+use App\ProductImages;
+use App\AttributeValue;
+use App\ProductVariants;
 use App\Traits\Permission;
-use App\Helpers\LogActivity as Helper;
+use App\VendorsSubCategory;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use App\Imports\ProductImport;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Helpers\LogActivity as Helper;
+use Maatwebsite\Excel\HeadingRowImport;
 
 class ProductsController extends Controller
 {
@@ -43,134 +48,13 @@ class ProductsController extends Controller
 
 	public function index()
 	{
-		$store_ids = getVendorStore();
-		$vendor_stores = VendorStore::whereIn('id', $store_ids)->get();
-		/*$products = Products::join('vendors','vendors.id','=','products.vendor_id')
-							->leftJoin('vendor_stores','vendor_stores.id','=','products.store_id')
-							->leftJoin('categories','categories.id','=','products.category_id')
-							->leftJoin('brands','brands.id','=','products.brand_id')
-							->select('vendors.name as owner_name','vendor_stores.name as store_name',
-									'categories.name as category_name','brands.name as brand_name','products.id','products.title','products.type','products.status')
-							->whereIn('vendor_stores.id', $store_ids)
-							->get();*/
-
-		return view('vendor/products/index',compact('vendor_stores'));
+		$products = Products::where('vendor_id', Auth::user()->id)
+        ->where('seller_type', 'vendor')->orderBy('id', 'DESC')
+        ->paginate(10);
+		return view('vendor.products.index', compact('products'));
 	}
 
-	public function productDatatable(request $request)
-    {
-    	$store_ids = getVendorStore();
-    	$columns = array(
-			0 => 'vendor',
-			1 => 'store',
-			2 => 'title',
-			3 => 'action'
-		);
-		$totalData = Products::join('vendors','vendors.id','=','products.vendor_id')
-							->leftJoin('vendor_stores','vendor_stores.id','=','products.store_id')
-							->leftJoin('categories','categories.id','=','products.category_id')
-							->leftJoin('brands','brands.id','=','products.brand_id')
-							->select('vendors.name as owner_name','vendor_stores.name as store_name',
-									'categories.name as category_name','brands.name as brand_name','products.id','products.title','products.type','products.status')
-							->whereIn('vendor_stores.id', $store_ids)
-							->get()
-							->count();
 
-        $totalFiltered = $totalData;
-
-		$limit = $request->input('length');
-		$start = $request->input('start');
-
-		$order = $columns[$request->input('order.0.column')];
-		$dir = $request->input('order.0.dir');
-
-
-		if(empty($request->input('search.value'))){
-
-			$products = Products::join('vendors','vendors.id','=','products.vendor_id')
-							->leftJoin('vendor_stores','vendor_stores.id','=','products.store_id')
-							->leftJoin('categories','categories.id','=','products.category_id')
-							->leftJoin('brands','brands.id','=','products.brand_id')
-							->select('vendors.name as owner_name','vendor_stores.name as store_name',
-									'categories.name as category_name','brands.name as brand_name','products.id','products.title','products.type','products.status')
-							->whereIn('vendor_stores.id', $store_ids)
-							->offset($start)
-							->limit($limit)
-							->orderBy('products.id','DESC')
-							->get();
-
-		}else{
-
-			$search = $request->input('search.value');
-
-
-			$products = Products::join('vendors','vendors.id','=','products.vendor_id')
-							->leftJoin('vendor_stores','vendor_stores.id','=','products.store_id')
-							->leftJoin('categories','categories.id','=','products.category_id')
-							->leftJoin('brands','brands.id','=','products.brand_id')
-							->select('vendors.name as owner_name','vendor_stores.name as store_name',
-									'categories.name as category_name','brands.name as brand_name','products.id','products.title','products.type','products.status')
-							->whereIn('vendor_stores.id', $store_ids);
-
-	        	$products = $products->where(function($query) use ($search){
-				$query->where('vendors.name', 'LIKE',"%{$search}%")
-					->orWhere('vendor_stores.name', 'LIKE',"%{$search}%")
-					->orWhere('products.title', 'LIKE',"%{$search}%");
-			});
-			//$products = $products->orHavingRaw('Find_In_Set("'.$search.'", attribute_value_names) > 0');
-
-			$totalFiltered = $products;
-			$totalFiltered = $totalFiltered->get()->count();
-
-			$products = $products->offset($start)
-				->limit($limit)
-				->orderBy('products.id')
-				->get();
-		}
-
-        $data = array();
-		if($products->isNotEmpty())
-		{
-			foreach ($products as $key => $product)
-			{
-				// @if($admin->status=='active')color:#009933;@else color: #ff0000;@endif
-				if($product->status == 'enable')
-				{
-					$color = 'color:#009933;';
-				}else{
-					$color ='color:#ff0000;';
-				}
-
-				$nestedData['vendor'] = $product->owner_name;
-				$nestedData['store'] = $product->store_name;
-				$nestedData['title'] = $product->title;
-				$nestedData['action'] = '<form id="deletefrm_'.$product->id.'" action="'.route('vendor.products.destroy', $product->id).'" method="POST" onsubmit="return confirm(\""Are you sure?"\");">
-											<input type="hidden" name="_token" value="'.csrf_token().'">
-											<input type="hidden" name="_method" value="DELETE">
-											<a href="'.route('vendor.products.edit', $product->id).'" data-toggle="tooltip" data-placement="bottom" title="Edit Vendor">
-											<i class="icon-note icons"></i>
-											</a>
-											<a href="javascript:void(0);" onclick="deleteRow('.$product->id.')" data-toggle="tooltip" data-placement="bottom" title="Delete Vendor">
-												<i class="icon-trash icons"></i>
-											</a>
-											<a href="javascript:void(0);" onclick="changeStatus('.$product->id.')" >
-										 		<i class="fa fa-circle status_'.$product->id.'" style="'.$color.'" id="enable_'.$product->id.'" data-toggle="tooltip" data-placement="bottom" title="Change Status" ></i>
-											</a>
-										</form>';
-				$data[] = $nestedData;
-			}
-
-		}
-
-		$json_data = array(
-			"draw"            => intval($request->input('draw')),
-			"recordsTotal"    => intval($totalData),
-			"recordsFiltered" => intval($totalFiltered),
-			"data"            => $data
-		);
-
-		echo json_encode($json_data);exit();
-    }
 
 	/**
 	* Show the form for creating a new resource.
@@ -179,10 +63,11 @@ class ProductsController extends Controller
 	*/
 	public function create()
 	{
-		$attributes = Attribute::all();
-		$store_ids = getVendorStore();
-		$vendor_stores = VendorStore::whereIn('id', $store_ids)->get();
-		return view('vendor/products/create',compact('vendor_stores','attributes'));
+        $categories = W2bCategory::where('parent_id', 0)->get();
+		// $attributes = Attribute::all();
+		// $store_ids = getVendorStore();
+		// $vendor_stores = VendorStore::whereIn('id', $store_ids)->get();
+		return view('vendor/products/create',compact('categories'));
 	}
 
 	/**
@@ -195,85 +80,91 @@ class ProductsController extends Controller
 	{
 
 		$request->validate([
-			'store' => 'required',
-			'title' => 'required',
-			'regular_price' => 'required',
-			'discount' => 'required',
-			'sku' => 'required',
-			'quantity' => 'required',
-			'lowstock_threshold' => 'required',
-			'image' => 'required'
-		]);
+            'title' => 'required',
+            'description' => 'required',
+            'brand' => 'nullable',
+            'category' => 'nullable',
+            'retail_price' => 'required',
+            'shipping_price' => 'nullable',
+            'sku' => 'required|unique:products,sku',
+            'stock' => 'required',
+            'image' => 'required',
+        ]);
 
-		if($request->attribute)
-		{
-			$type = 'group';
+        $category = W2bCategory::find($request->input('w2b_category_1'));
 
-				$attribute = implode(',',$request->attribute);
-				$attribute_value_id = implode(',',$request->attribute_values);
+        $product = new Products();
+        $product->vendor_id = Auth::user()->id;
+        $product->seller_type = 'vendor';
+        $product->w2b_category_1 = $category->category1 ?? null;
+        $product->title = $request->input('title');
+        $product->description = $request->input('description');
+        $product->brand = $request->input('brand');
+        $product->retail_price = $request->input('retail_price');
+        $product->sku = $request->input('sku');
+        $product->in_stock = 'Y';
+        $product->stock = $request->input('stock');
 
 
 
-		}else{
-			$type = 'single';
-			$attribute_value_id = NULL;
-			$attribute = NULL;
-		}
+        if($request->file('image')){
+            foreach($request->file('image') as $key => $images){
 
+                $path = 'public/images/product_images';
+                $profileImage = date('YmdHis') .$key ."." . $images->getClientOriginalExtension();
+                $images->move($path, $profileImage);
 
-		$products = new Products;
-		$products->vendor_id = Auth::user()->id;
-		$products->store_id = $request->input('store');
-		$products->title = $request->input('title');
-		$products->category_id = implode(",",$request->input('category'));
-		$products->description = $request->input('description');
-		$products->brand_id = $request->input('brand');
-		$products->tax = $request->input('tax');
-		$products->season = $request->input('season');
-		$products->type = $type;
-		$products->aisle = $request->input('aisle');
-		$products->shelf = $request->input('shelf');
-		$products->created_by = Auth::user()->id;
-		$products->save();
+                if ($key == 0) {
+                    $product->original_image_url = asset("$path/$profileImage");
+                }
+                if ($key == 1) {
+                    $product->extra_img_1 = asset("$path/$profileImage");
+                }
+                if ($key == 2) {
+                    $product->extra_img_2 = asset("$path/$profileImage");
+                }
+                if ($key == 3) {
+                    $product->extra_img_3 = asset("$path/$profileImage");
+                }
+                if ($key == 4) {
+                    $product->extra_img_4 = asset("$path/$profileImage");
+                }
+                if ($key == 5) {
+                    $product->extra_img_5 = asset("$path/$profileImage");
+                }
+                if ($key == 6) {
+                    $product->extra_img_6 = asset("$path/$profileImage");
+                }
+                if ($key == 7) {
+                    $product->extra_img_7 = asset("$path/$profileImage");
+                }
+                if ($key == 8) {
+                    $product->extra_img_8 = asset("$path/$profileImage");
+                }
+                if ($key == 9) {
+                    $product->extra_img_9 = asset("$path/$profileImage");
+                }
+                if ($key == 10) {
+                    $product->extra_img_10 = asset("$path/$profileImage");
+                }
 
-		$product_variants = new ProductVariants;
-		$product_variants->product_id = $products->id;
-		$product_variants->attribute_id = $attribute;
-		$product_variants->attribute_value_id = $attribute_value_id;
-		$product_variants->sku_uniquecode = $request->sku;
-		$product_variants->quantity = $request->quantity;
-		$product_variants->price = $request->regular_price;
-		$product_variants->discount = $request->discount;
-		$product_variants->lowstock_threshold = $request->lowstock_threshold;
-		$product_variants->barcode = $products->id;
-		$product_variants->created_by = Auth::user()->id;
+            }
+            //$product->where('sku', $request->input('sku'))->save();
+            $product->save();
+        }
 
-		$product_variants->save();
+        $this->__completeVendorChecklist(Auth::user()->id, 'add_inventory');
 
-		if($request->file('image')){
-			foreach($request->file('image') as $key => $images){
+        if($request->btnSubmit == 'close'){
+            return redirect('/vendor/products')->with('success',"Products successfully saved.");
+        }elseif($request->btnSubmit == 'new'){
+            return redirect('/vendor/products/create')->with('success',"Products successfully saved.");
+        }elseif($request->btnSubmit == 'edit'){
+            return redirect('/vendor/products/'.$product->id.'/edit')->with('success',"Products successfully saved.");
+        }
 
-				$path = 'public/images/product_images';
-				$profileImage = date('YmdHis') .$key ."." . $images->getClientOriginalExtension();
-				$images->move($path, $profileImage);
-				$product_images = new ProductImages;
-				$product_images->product_id = $products->id;
-				$product_images->variant_id = $product_variants->id;
-				$product_images->created_by =Auth::user()->id;
-				$product_images['image'] = $profileImage;
-				$product_images->save();
-			}
-		}
+		return redirect()->route('vendor.choose-plan')->with('error', 'You must have a subscription');
 
-		$this->__completeVendorChecklist(Auth::user()->id, 'add_inventory');
-
-		if($request->btnSubmit == 'close'){
-			return redirect('/vendor/products')->with('success',"Products successfully saved.");
-		}elseif($request->btnSubmit == 'new'){
-			return redirect('/vendor/products/create')->with('success',"Products successfully saved.");
-		}elseif($request->btnSubmit == 'edit'){
-			return redirect('/vendor/products/'.$products->id.'/edit')->with('success',"Products successfully saved.");
-		}
 	}
 
 	/**
@@ -450,6 +341,80 @@ class ProductsController extends Controller
 		$stores = VendorStore::whereIn('id', $store_ids)->get();
 		return view('vendor.products.inventory', compact('stores'));
 	}
+
+    public function inventoryUpload()
+    {
+        return view('vendor.products.upload');
+    }
+    public function parseImport(Request $request)
+    {
+
+    if ($request->has('header')) {
+        $headings = (new HeadingRowImport)->toArray($request->file('csv_file'));
+        $data = Excel::toArray(new ProductImport, $request->file('csv_file'))[0];
+    } else {
+        $data = array_map('str_getcsv', file($request->file('csv_file')->getRealPath()));
+    }
+
+    if (count($data) > 0) {
+        $csv_data = array_slice($data, 0, 2);
+
+        $csv_data_file = CsvData::create([
+            'csv_filename' => $request->file('csv_file')->getClientOriginalName(),
+            'csv_header' => $request->has('header'),
+            'csv_data' => json_encode($data)
+        ]);
+    } else {
+        return redirect()->back();
+    }
+    return view('vendor.products.upload_fields', [
+        'headings' => $headings ?? null,
+        'csv_data' => $csv_data,
+        'csv_data_file' => $csv_data_file
+    ]);
+
+    }
+    public function processImport(Request $request)
+    {
+
+        $data = CsvData::find($request->csv_data_file_id);
+        $csv_data = json_decode($data->csv_data, true);
+        foreach ($csv_data as $row) {
+
+            $product = new Products();
+            foreach (config('app.db_fields2') as $index => $field) {
+                if ($data->csv_header) {
+
+                    $product->sku = $row[$request->fields['sku']];
+                    $product->title = $row[$request->fields['title']];
+                    $product->description = $row[$request->fields['description']];
+                    $product->w2b_category_1 = $row[$request->fields['w2b_category_1']];
+                    $product->brand = $row[$request->fields['brand']];
+                    $product->retail_price = $row[$request->fields['retail_price']];
+                    $product->stock = $row[$request->fields['stock']];
+                    $product->original_image_url = $row[$request->fields['original_image_url']];
+                    $product->shipping_price = $row[$request->fields['shipping_price']];
+                    $product->vendor_id =Auth::user()->id;
+                    $product->seller_type = 'vendor';
+                    $product->in_stock = 'Y';
+
+                } else {
+                    $product->$field = $row[$request->fields[$index]];
+                    $product->vendor_id =Auth::user()->id;
+                    $product->seller_type ='vendor';
+                    $product->in_stock ='Y';
+
+                }
+            }
+
+            $product->save();
+        }
+
+
+        return redirect('/vendor/products')->with('success',"Products successfully saved.");
+    }
+
+
 
 	public function getInventory(Request $request)
 	{

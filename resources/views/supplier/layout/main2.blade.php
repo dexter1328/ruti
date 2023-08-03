@@ -13,29 +13,10 @@
             <h2 class="col-lg-6 col-md-12 page_heading d-flex blue_color ps-4 align-items-center">Supplier Portal</h2>
             <div class="col-lg-6 col-md-12 top_header_div justify-content-around align-items-center">
             <div class="dropdowns_top_header d-flex justify-content-around">
-            {{-- <div class="country_dropdown d-flex w-50 top_bar_elements">
-                <span>Country</span>
-                <select name="" id="">
-                    <option value="">All</option>
-                    <option value="">USA</option>
-                    <option value="">UAE</option>
-                    <option value="">Pakistan</option>
-                </select>
-            </div>
-            <div class="language_dropdown d-flex ms-lg-5 ms-0 w-50 top_bar_elements">
-                <span>Language</span>
-                <select name="" id="">
-                    <option value="">All</option>
-                    <option value="">English</option>
-                    <option value="">French</option>
-                    <option value="">Spanish</option>
-                </select>
-            </div> --}}
+
             </div>
             <div class="top_bar_last d-flex justify-content-end w-100 align-items-center">
-            {{-- <div class="notifications top_bar_elements text-center">
-                <img src="{{ asset('public/panel/images/notification.png') }}" class="notification_icon" alt="">
-            </div> --}}
+
             <div class="user_image d-flex align-items-center top_bar_elements">
                 @if(Auth::user()->image)
                 @php $image = asset('public/images/suppliers/'.Auth::user()->image); @endphp
@@ -46,7 +27,12 @@
                 <p>{{Auth::user()->name}}</p>
             </div>
             <div class="sign_out_btn top_bar_elements">
-                <button type="button" class="btn btn-outline-secondary px-2">Sign Out</button>
+                <a href="{{ url('/admin/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-outline-secondary px-2">
+                    Sign Out
+                </a>
+                <form id="logout-form" action="{{ url('/supplier/logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
             </div>
             </div>
         </div>
@@ -55,22 +41,7 @@
                 <h4>{{Auth::user()->name}}</h4>
             </div>
             <div class="sub_header_last justify-content-around pe-3 col-md-12 col-lg-6">
-                {{-- <div class="restaurant d-flex align-items-center">
-                    <img src="{{ asset('public/panel/images/RestaurantBuilding.png') }}" class="sub_header_icons" alt="">
-                    <p>Restaurant hello</p>
-                </div>
-                <div class="super_admin d-flex align-items-center">
-                    <img src="{{ asset('public/panel/images/Administrator.png') }}" alt="">
-                    <p>Super Admin hello</p>
-                </div>
-                <div class="sales_receipts d-flex align-items-center">
-                    <img src="{{ asset('public/panel/images/Totalsales.png') }}" alt="">
-                    <p>Sales Receipts hello</p>
-                </div>
-                <div class="duration d-flex align-items-center">
-                    <img src="{{ asset('public/panel/images/Weekview.png') }}" alt="">
-                    <p>Duration  hello</p>
-                </div> --}}
+
             </div>
         </div>
     </div>
@@ -129,10 +100,9 @@
                         </a>
                     </li>
                     @endif
-                    <li class="li_elements">Orders(Master)</li>
-                    <li class="li_elements">Fulfillments(Master)</li>
-                    <li class="li_elements">Stores(Master)</li>
-                    <li class="li_elements">Sales(Master)</li>
+                    {{-- <li class="li_elements">Fulfillments</li>
+                    <li class="li_elements">Stores</li>
+                    <li class="li_elements">Sales</li> --}}
                 </ul>
                 <p class="headings"><img src="{{ asset('public/panel/images/icon_c1.png') }}" width="30px" height="30px" alt="">Manage Plans</p>
                 <ul class="list">

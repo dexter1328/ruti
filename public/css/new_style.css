@@ -80,7 +80,7 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#543093", endColorstr="#d960ae", GradientType=1);
 }
 .inventory_body {
-    min-height: 70vh;
+    min-height: 55vh;
     height: 100%;
     color: #373737;
     margin: 0;
@@ -369,21 +369,20 @@
     width: 100%;
     overflow-x: auto;
   }
-  
+
   .table {
     border-collapse: collapse;
     width: 100%;
   }
-  
+
   .table th, .table td {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
 
-  
+
   .table tr:nth-child(odd) {
     background-color: #3d95ee9d;
     color: #fff;
   }
-  

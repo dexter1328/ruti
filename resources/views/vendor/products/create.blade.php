@@ -104,86 +104,43 @@ ul.category-tabs li.tabs {
                                                 <div class="col-sm-12">
                                                     <label>Title<span class="text-danger">*</span></label>
                                                     <input type="text" name="title" class="form-control" value="{{old('title')}}" placeholder="Enter Title">
-                                                    @if ($errors->has('title')) <span class="text-danger">{{ $errors->first('title') }}</span> @endif 
+                                                    @if ($errors->has('title')) <span class="text-danger">{{ $errors->first('title') }}</span> @endif
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
-                                                <div class="col-sm-12">
-                                                    <label>Tax</label>
-                                                    <input type="text" name="tax" class="form-control" value="{{old('tax')}}" placeholder="Enter Tax">
-                                                    @if ($errors->has('tax')) <span class="text-danger">{{ $errors->first('tax') }}</span> @endif
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-sm-12">
-                                                    <label>AISLE</label>
-                                                    <input type="text" name="aisle" class="form-control" value="{{old('aisle')}}" placeholder="Enter AISLE">
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-sm-12">
-                                                    <label>SHELF</label>
-                                                    <input type="text" name="shelf" value="{{old('shelf')}}" class="form-control" placeholder="Enter SHELF">
-                                                    
-                                                </div>
-                                            </div>
+
+
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
                                                     <label>Description</label>
                                                     <textarea id="summernoteEditor" name="description">{{old('description')}}</textarea>
-                                                    @if ($errors->has('description')) <span class="text-danger"> {{ $errors->first('description') }}</span> @endif 
+                                                    @if ($errors->has('description')) <span class="text-danger"> {{ $errors->first('description') }}</span> @endif
                                                 </div>
                                             </div>
-                                            
+
+
                                         </div>
                                         <div class="col-lg-4">
-                                            
-                                            <div class="form-group row">
-                                                <div class="col-sm-12">
-                                                    <label>Store<span class="text-danger">*</span></label>
-                                                    <select name="store" id="store" class="form-control">
-                                                        <option value="">Select Store</option>
-                                                        @foreach($vendor_stores as $vendor_store)
-                                                        <option value="{{$vendor_store->id}}" {{ (old("store") == $vendor_store->id ? "selected":"") }}>{{$vendor_store->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    @if ($errors->has('store')) 
-                                                    <span class="text-danger">{{ $errors->first('store') }}
-                                                    </span> 
-                                                    @endif  
-                                                </div>
-                                            </div>
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
                                                     <label>Brand</label>
-                                                    <select name="brand" id="brand" class="form-control">
-                                                        <option value="">Select Brand</option>
-                                                    </select>
-                                                    @if ($errors->has('brand')) 
-                                                    <span class="text-danger">{{ $errors->first('brand') }}</span> 
-                                                    @endif 
+                                                    <input type="text" name="brand" class="form-control" value="{{old('brand')}}" placeholder="Enter Title">
+
+                                                    @if ($errors->has('brand'))
+                                                    <span class="text-danger">{{ $errors->first('brand') }}</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
-                                                    <label>Season</label>
-                                                    <select name="season" class="form-control" id="season">
-                                                        <option value="">Select Season</option>
-                                                        @foreach(getSeasons() as $key => $season)
-                                                        <option value="{{$key}}" {{$key==old('season') ? 'selected="selected"' : ''}}>{{$season['title']}}</option>
+                                                    <label>Category</label>
+                                                    <select name="w2b_category_1" id="category" class="form-control">
+                                                        <option value="">Select Category</option>
+                                                        @foreach($categories as $category)
+                                                            <option value="{{$category->id}}">{{$category->category1}}</option>
                                                         @endforeach
                                                     </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-sm-12">
-                                                    <label>Categories</label>
-                                                    <div id="categories" class="categorydiv">
-                                                    </div>
-                                                    @if($errors->has('categories')) <span class="text-danger">
-                                                    {{ $errors->first('categories') }}
-                                                    </span> 
+                                                    @if ($errors->has('category'))
+                                                        <span class="text-danger">{{ $errors->first('category') }}</span>
                                                     @endif
                                                 </div>
                                             </div>
@@ -193,73 +150,50 @@ ul.category-tabs li.tabs {
                                     <div style="clear: both;"></div>
                                         <div class="col-lg-12">
                                             <div class="table">
+                                                <div style="clear: both;"></div>
                                                 <div class="row">
                                                     <div class="col-xs-12 col-md-6">
-                                                        <label for="input-11" >Attribute</label>
-                                                        <select class="form-control attribute" name="attributes[]" id="attributes">
-                                                            <option value="">Select Attribute</option>
-                                                           <!--  @foreach($attributes as $attribute)
-                                                            <option value="{{$attribute->id}}">{{$attribute->name}}</option>
-                                                            @endforeach -->
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-xs-12 col-md-6">
-                                                        <label for="input-11" >&nbsp;</label>
-                                                        <button type="button" class="btn btn-sm btn-primary add_attributre" onclick="add_attribute(this);">
-                                                        <i class="fa fa-plus"></i> Add Attribute
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="product_attributes"></div>
-                                                <div style="clear: both;"></div>
-                                                <div class="row">   
-                                                    <div class="col-xs-12 col-md-6">
                                                         <label for="input-11" >Regular Price<span class="text-danger">*</span></label>
-                                                        <input type="text" name="regular_price" class="form-control" value="{{old('regular_price')}}" placeholder="Enter Price">
-                                                        @if ($errors->has('regular_price'))
-                                                        <span class="text-danger">{{ $errors->first('regular_price') }}</span>
+                                                        <input type="text" name="retail_price" class="form-control" value="{{old('retail_price')}}" placeholder="Enter Price">
+                                                        @if ($errors->has('retail_price'))
+                                                        <span class="text-danger">{{ $errors->first('retail_price') }}</span>
+                                                        @endif
+                                                    </div>
+
+
+                                                    <div class="col-xs-12 col-md-6">
+                                                        <label for="input-11" >Shipping Price<span class="text-danger">*</span></label>
+                                                        <input type="text" name="shipping_price" class="form-control" value="{{old('shipping_price')}}" placeholder="Enter Shipping price">
+                                                        @if ($errors->has('shipping_price'))
+                                                        <span class="text-danger">{{ $errors->first('shipping_price') }}</span>
                                                         @endif
                                                     </div>
                                                     <div class="col-xs-12 col-md-6">
-                                                        <label for="input-11" >Discount<span class="text-danger">*</span></label>
-                                                        <input type="text" name="discount" class="form-control" value="{{old('discount')}}" placeholder="Enter Discount">
-                                                        @if ($errors->has('discount'))
-                                                        <span class="text-danger">{{ $errors->first('discount') }}</span>
-                                                        @endif
-                                                    </div>
-                                                    <div class="col-xs-12 col-md-6">
-                                                        <label for="input-11" >Sku<span class="text-danger">*</span></label>
-                                                        <input type="text" name="sku" class="form-control" value="{{old('sku')}}" placeholder="Enter Sku">
+                                                        <label for="input-11" >SKU<span class="text-danger">*</span></label>
+                                                        <input type="text" name="sku" class="form-control" value="{{old('sku')}}" placeholder="Enter SKU">
                                                         @if ($errors->has('sku'))
                                                         <span class="text-danger">{{ $errors->first('sku') }}</span>
                                                         @endif
                                                     </div>
                                                     <div class="col-xs-12 col-md-6">
-                                                        <label for="input-11" >Quantity<span class="text-danger">*</span></label>
-                                                        <input type="number" name="quantity" class="form-control" value="{{old('quantity')}}" placeholder="Enter Quantity">
-                                                        @if ($errors->has('quantity'))
-                                                        <span class="text-danger">{{ $errors->first('quantity') }}</span>
-                                                        @endif
-                                                    </div>
-                                                    <div class="col-xs-12 col-md-6">
-                                                        <label for="input-11" >Lowstock Threshold<span class="text-danger">*</span></label>
-                                                        <input type="text" name="lowstock_threshold" class="form-control" value="{{old('lowstock_threshold')}}" placeholder="Enter Lowstock Threshold">
-                                                        @if ($errors->has('lowstock_threshold'))
-                                                        <span class="text-danger">
-                                                        {{ $errors->first('lowstock_threshold') }}
-                                                        </span>
+                                                        <label for="input-11" >Stock Quantity<span class="text-danger">*</span></label>
+                                                        <input type="number" name="stock" class="form-control" value="{{old('stock')}}" placeholder="Enter Quantity">
+                                                        @if ($errors->has('stock'))
+                                                        <span class="text-danger">{{ $errors->first('stock') }}</span>
                                                         @endif
                                                     </div>
                                                     <div class="col-xs-12 col-md-6">
                                                         <label for="input-11" >Image<span class="text-danger">*</span></label>
                                                         <input type="file" class="form-control" name="image[]" multiple="multiple">
+                                                        {{-- <input type="file" class="form-control" name="original_image_url"> --}}
                                                         @if ($errors->has('image'))
                                                         <span class="text-danger">{{ $errors->first('image') }}</span>
                                                         @endif
                                                     </div>
                                                 </div>
+
                                             </div>
-                                        </div>    
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-footer">
@@ -286,7 +220,7 @@ var attribute_id = {!! json_encode(old('attributes')) !!};
 var attribute_values = {!! json_encode(old('attribute_values'))!!}
 
 $(function() {
-   
+
     setTimeout(function(){ getStores(); }, 500);
     setTimeout(function(){ getBrands(); }, 500);
     setTimeout( function() { getCategories(); }, 500);
@@ -405,7 +339,7 @@ function getBrands(){
 }
 
 function getCategories()
-{   
+{
     if(store_id != ''){
         $.ajax({
             type: "get",
@@ -450,5 +384,5 @@ function getAttribute()
         });
     }
 }
-</script> 
-@endsection 
+</script>
+@endsection

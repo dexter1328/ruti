@@ -150,6 +150,7 @@
                                     @php $total += $details['retail_price'] * $details['quantity'] @endphp
                                     @php $tax = ($details['sales_tax_pct'] / 100) * $total @endphp
                                     @php $total_price = $total + $details['shipping_price'] + $tax @endphp
+                                    <input type="hidden" value="{{$details['vendor_id']}}" name="vendor_id[]">
                                     <input type="hidden" value="{{$total_price}}" name="total_price">
                                     <tr>
                                         <td> {{ Str::limit($details['title'], 30) }} <strong> × {{$details['quantity']}}</strong></td>

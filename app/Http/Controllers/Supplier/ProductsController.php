@@ -9,17 +9,22 @@ use App\CsvData;
 use App\Products;
 use App\Membership;
 use App\W2bProduct;
+use Stripe\Product;
 use App\VendorStore;
 use App\W2bCategory;
 use App\Notification;
 use App\ProductImages;
 use App\ProductVariants;
+use App\Imports\CsvImport;
 use App\Traits\Permission;
 use Illuminate\Http\Request;
+use App\Imports\ProductImport;
 use App\SupplierSubscriptionTemp;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Helpers\LogActivity as Helper;
-use Stripe\Product;
+use Illuminate\Validation\Rules\Exists;
+use Maatwebsite\Excel\HeadingRowImport;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProductsController extends Controller
@@ -42,15 +47,17 @@ class ProductsController extends Controller
 
 	public function index()
 	{
-    // $products = W2bProduct::where('supplier_id', Auth::user()->id)->paginate(10);
+     $products = Products::where('vendor_id', Auth::user()->id)
+     ->where('seller_type', 'supplier')->orderBy('id', 'DESC')
+     ->paginate(10);
 
-		return view('supplier/products/index');
+		return view('supplier.products.index', compact('products'));
 	}
 
 
     // public function productDatatable(Request $request)
     // {
-    //     $query = W2bProduct::query()->where('supplier_id', auth()->id());
+    //     $query = W2bProduct::query()->where('vendor_id', auth()->id());
 
     //     return DataTables::of($query)
     //         ->addIndexColumn()
@@ -84,14 +91,15 @@ class ProductsController extends Controller
 
 		$check_premium_subs = SupplierSubscriptionTemp::where('vendor_id', Auth::user()->id)->where('membership_id',$premium_id)->first();
 
-		$products_count = W2bProduct::where('supplier_id', Auth::user()->id)->count();
+		$products_count = W2bProduct::where('vendor_id', Auth::user()->id)->count();
 
 		if(!$check_premium_subs && $products_count>=20 ){
 		    return redirect()->route('supplier.choose-plan')->with('error', 'You must upgrade subscription to add more products.');
 		}
 
         $brands = Brand::where('vendor_id', auth()->id())->get();
-        $categories = W2bCategory::where('supplier_id', auth()->id())->get();
+        // $categories = W2bCategory::where('vendor_id', auth()->id())->get();
+        $categories = W2bCategory::where('parent_id', 0)->get();
 
         return view('supplier/products/create', [
             'brands' => $brands,
@@ -106,6 +114,7 @@ class ProductsController extends Controller
 	*/
 	public function store(Request $request)
 	{
+        // dd($request->all());
 
         if (!boolval(Auth::user()->is_approved)) {
             return back()->with('error', 'Your account is not approved.');
@@ -116,7 +125,7 @@ class ProductsController extends Controller
 
         $check_premium_subs = SupplierSubscriptionTemp::where('vendor_id', Auth::user()->id)->where('membership_id',$premium_id)->first();
 
-        $products_count = W2bProduct::where('supplier_id', Auth::user()->id)->count();
+        $products_count = W2bProduct::where('vendor_id', Auth::user()->id)->count();
 
         if(!$check_premium_subs && $products_count>=20 ){
             return redirect()->route('supplier.choose-plan')->with('error', 'You must upgrade subscription to add more products.');
@@ -125,50 +134,43 @@ class ProductsController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'meta_title' => 'nullable',
-            'meta_description' => 'nullable',
             'brand' => 'nullable',
             'category' => 'nullable',
             'retail_price' => 'required',
-            'wholesale' => 'nullable',
             'wholesale_price' => 'nullable',
-            'sku' => 'required|unique:w2b_products,sku',
+            'shipping_price' => 'nullable',
+            'sku' => 'required|unique:products,sku',
             'stock' => 'required',
             'image' => 'required',
-            'min_wholesale_qty' => 'nullable',
         ]);
 
-        $category = W2bCategory::find($request->input('category'));
+        $category = W2bCategory::find($request->input('w2b_category_1'));
 
-        $product = new W2bProduct();
-        $product->supplier_id = Auth::user()->id;
-        $product->supplier_name = Auth::user()->first_name . " " . Auth::user()->last_name;
+        $product = new Products();
+        $product->vendor_id = Auth::user()->id;
         $product->seller_type = 'supplier';
-        $product->supplier_category_1 = $category->category1 ?? null;
-        $product->w2b_category_1 = $category->source->category1 ?? null;
+        $product->w2b_category_1 = $category->category1 ?? null;
         $product->title = $request->input('title');
         $product->description = $request->input('description');
         $product->brand = $request->input('brand');
-        $product->meta_title = $request->input('meta_title');
-        $product->meta_description = $request->input('meta_description');
         $product->retail_price = $request->input('retail_price');
-        $product->wholesale = $request->input('wholesale_price');
+        $product->wholesale_price = $request->input('wholesale_price');
         $product->sku = $request->input('sku');
+        $product->in_stock = 'Y';
         $product->stock = $request->input('stock');
-        $product->min_wholesale_qty = $request->input('min_wholesale_qty');
         // $product->save();
 
-        $wholesale_price_range = [];
-        foreach ($request->input('wholesale')['min_order_qty'] as $key => $value) {
-            $wholesale_price_range[] = [
-                'min_order_qty' => $request->input('wholesale')['min_order_qty'][$key],
-                'max_order_qty' => $request->input('wholesale')['max_order_qty'][$key],
-                'wholesale_price' => $request->input('wholesale')['wholesale_price'][$key],
-            ];
-        }
+        // $wholesale_price_range = [];
+        // foreach ($request->input('wholesale')['min_order_qty'] as $key => $value) {
+        //     $wholesale_price_range[] = [
+        //         'min_order_qty' => $request->input('wholesale')['min_order_qty'][$key],
+        //         'max_order_qty' => $request->input('wholesale')['max_order_qty'][$key],
+        //         'wholesale_price' => $request->input('wholesale')['wholesale_price'][$key],
+        //     ];
+        // }
 
 
-        $product->wholesale_price_range = json_encode($wholesale_price_range);
+        // $product->wholesale_price_range = json_encode($wholesale_price_range);
         //$product->where('sku', $request->input('sku'))->save();
 
 
@@ -385,50 +387,124 @@ class ProductsController extends Controller
     }
     public function parseImport(Request $request)
     {
+    // $path = $request->file('csv_file')->getRealPath();
+    // $data = array_map('str_getcsv', file($path));
+    // $json = mb_convert_encoding($data, 'UTF-8');
+    // $json2 = json_encode($json);
 
-    $path = $request->file('csv_file')->getRealPath();
-    $data = array_map('str_getcsv', file($path));
-    $json = mb_convert_encoding($data, 'UTF-8');
-    $json2 = json_encode($json);
-    // $json3 = json_decode($json2);
+    // $csv_data_file = CsvData::create([
+    //     'csv_filename' => $request->file('csv_file')->getClientOriginalName(),
+    //     'csv_header' => $request->has('header'),
+    //     'csv_data' => $json2
+    // ]);
 
-    //  dd($json2);
-    // mb_convert_encoding($data, 'UTF-8', 'UTF-8');
-    // $json = json_encode($data);
+    // $csv_data = array_slice($data, 0, 2);
+    // $path = $request->file('csv_file')->getRealPath();
 
-    $csv_data_file = CsvData::create([
-        'csv_filename' => $request->file('csv_file')->getClientOriginalName(),
-        'csv_header' => $request->has('header'),
-        'csv_data' => $json2
+    // if ($request->has('header')) {
+    //     // $data = Excel::import($path, function($reader) {})->get()->toArray();
+    //     $data = Excel::load($path)->get()->toArray();
+    //     // $data = Excel::load(new CsvImport, $path);
+    //      dd($data);
+    // } else {
+    //     $data = array_map('str_getcsv', file($path));
+    // }
+    // $csv_header_fields = [];
+
+    // if (count($data) > 0) {
+    //     if ($request->has('header')) {
+    //         foreach ($data[0][0] as $key => $value) {
+    //             $csv_header_fields[] = $key;
+    //         }
+    //     }
+    //     $json = mb_convert_encoding($data[0], 'UTF-8');
+    //     $json2 = json_encode($json);
+    //     // dd($json2);
+    //     $csv_data = array_slice($data[0], 0, 2);
+
+    //     $csv_data_file = CsvData::create([
+    //         'csv_filename' => $request->file('csv_file')->getClientOriginalName(),
+    //         'csv_header' => $request->has('header'),
+    //         'csv_data' =>  $json2
+    //     ]);
+    // } else {
+    //     return redirect()->back();
+    // }
+
+    if ($request->has('header')) {
+        $headings = (new HeadingRowImport)->toArray($request->file('csv_file'));
+        $data = Excel::toArray(new ProductImport, $request->file('csv_file'))[0];
+    } else {
+        $data = array_map('str_getcsv', file($request->file('csv_file')->getRealPath()));
+    }
+
+    if (count($data) > 0) {
+        $csv_data = array_slice($data, 0, 2);
+
+        $csv_data_file = CsvData::create([
+            'csv_filename' => $request->file('csv_file')->getClientOriginalName(),
+            'csv_header' => $request->has('header'),
+            'csv_data' => json_encode($data)
+        ]);
+    } else {
+        return redirect()->back();
+    }
+    return view('supplier.products.upload_fields', [
+        'headings' => $headings ?? null,
+        'csv_data' => $csv_data,
+        'csv_data_file' => $csv_data_file
     ]);
-
-    $csv_data = array_slice($data, 0, 2);
-    return view('supplier.products.upload_fields', compact('json','csv_data', 'csv_data_file'));
+    // return view('supplier.products.upload_fields', compact('headings','csv_data', 'csv_data_file'));
 
     }
     public function processImport(Request $request)
     {
-        // dd($request->csv_data_file_id);
+
         $data = CsvData::find($request->csv_data_file_id);
-        //  dd($data->csv_data);
-        // mb_convert_decoding($data->csv_data, 'UTF-8');
-        // mb_convert_encoding($data->csv_data, "windows-1251", "utf-8");
-        $csv_data = json_decode($data->csv_data);
-        // dd($csv_data);
+        $csv_data = json_decode($data->csv_data, true);
+        $stock = 'in_stock';
+        // dd($data);
         foreach ($csv_data as $row) {
-            $contact = new W2bProduct();
+
+            $product = new Products();
             foreach (config('app.db_fields') as $index => $field) {
-                $contact->$field = $row[$request->fields[$index]];
+                if ($data->csv_header) {
+
+                    $product->sku = $row[$request->fields['sku']];
+                    $product->title = $row[$request->fields['title']];
+                    $product->description = $row[$request->fields['description']];
+                    $product->w2b_category_1 = $row[$request->fields['w2b_category_1']];
+                    $product->brand = $row[$request->fields['brand']];
+                    $product->retail_price = $row[$request->fields['retail_price']];
+                    $product->wholesale_price = $row[$request->fields['wholesale_price']];
+                    $product->stock = $row[$request->fields['stock']];
+                    $product->original_image_url = $row[$request->fields['original_image_url']];
+                    $product->shipping_price = $row[$request->fields['shipping_price']];
+                    $product->vendor_id =Auth::user()->id;
+                    $product->seller_type ='supplier';
+                    $product->in_stock = 'Y';
+
+                } else {
+                    $product->$field = $row[$request->fields[$index]];
+                    $product->vendor_id =Auth::user()->id;
+                    $product->seller_type ='supplier';
+                    $product->in_stock ='Y';
+
+                }
+
             }
-            $contact->save();
+            // dd($product);
+
+            $product->save();
         }
 
-        return view('supplier.products.upload_success');
+
+        return redirect('/supplier/products')->with('success',"Products successfully saved.");
     }
 
 	public function getInventory(Request $request)
 	{
-        $query = W2bProduct::query()->where('supplier_id', auth()->id());
+        $query = W2bProduct::query()->where('vendor_id', auth()->id());
 
         return DataTables::of($query)
             ->addIndexColumn()

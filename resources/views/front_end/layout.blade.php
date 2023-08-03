@@ -207,27 +207,18 @@
     <script src="{{asset('public/frontend/js/custom.js')}}"></script>
     <script src="{{asset('public/frontend/js/preloader.js')}}"></script>
 
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-189301985-1"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SX3ERHB1EV"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-      gtag('config', 'UA-189301985-1');
+    gtag('config', 'G-SX3ERHB1EV');
     </script>
 
-    <!-- Global site tag (gtag.js) - Google Ads: 978318545 -->
-    <script async src=https://www.googletagmanager.com/gtag/js?id=AW-978318545></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
 
 
-      gtag('config', 'AW-978318545');
-    </script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JNHSLQJ5TS"></script>
@@ -323,7 +314,7 @@
                         <div class="row align-items-end">
                             <div class="col-lg-2 col-md-3 col-sm-3 col-12">
                                 <div class="logo logo-new">
-                                    <a href="{{url('/home')}}"><img src="{{asset('public/wb/img/logo/logo.png')}}" alt=""></a>
+                                    <a href="{{url('/')}}"><img src="{{asset('public/wb/img/logo/logo.png')}}" alt=""></a>
                                 </div>
                             </div>
                             <div class="col-lg-10 col-md-9 col-sm-9 col-12">

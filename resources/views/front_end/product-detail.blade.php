@@ -7,7 +7,6 @@
 @endif
 
 
-
 <!--product details start-->
 <div class="product_details mt-70 mb-70">
     <div class="container-fluid">

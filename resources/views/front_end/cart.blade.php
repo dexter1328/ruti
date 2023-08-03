@@ -23,56 +23,7 @@
   {{ session('success') }}
 </div>
 @endif
- <!--shopping cart area start -->
-{{-- <!-- <div class="shopping_cart_area mt-70">
-    <div class="container">
-        <form action="#">
-            <div class="row">
-                <div class="col-12">
-                    <div class="table_desc">
-                        <div class="cart_page table-responsive">
-                            <table>
-                        <thead>
-                            <tr>
-                                <th class="product_remove">Delete</th>
-                                <th class="product_thumb">Image</th>
-                                <th class="product_name">Product</th>
-                                <th class="product-price">Price</th>
-                                <th class="product_quantity">Quantity</th>
-                                <th class="product_total">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
 
-                            <tr data-id="{{ $sku }}">
-                               <td class="product_remove"><a role="button" class="remove-from-cart"><i class="fa fa-trash-o"></i></a></td>
-                                <td class="product_thumb"><a href="#"><img src="{{ $details['original_image_url'] }}" alt=""></a></td>
-                                <td class="product_name"><a href="#">{{ Str::limit($details['title'], 30) }}</a></td>
-                                <td class="product-price">${{number_format((float)$details['retail_price'], 2, '.', '')}}</td>
-                                <td class="product_quantity"><label>Quantity</label> <input min="1" max="100" class="quantity update-cart" value="{{$details['quantity']}}" type="number"></td>
-                                <td class="product_total">${{number_format((float)$details['retail_price'] * $details['quantity'], 2, '.', '')}}</td>
-
-
-                            </tr>
-
-
-                        </tbody>
-                    </table>
-                        </div>
-                        <div class="checkout_btn">
-                            <a style="background: red" href="{{ route('remove-everything') }}">Remove Everything</a>
-                        </div>
-                    </div>
-                 </div>
-             </div>
-             coupon code area start
-            coupon code area end
-        </form>
-    </div>
-</div> --> --}}
- <!--shopping cart area end -->
-
-<!-- new shopping cart -->
 
 <div class='row w-100 justify-content-between ml-0 p-5'>
     <div class="col-12 order_main px-0 border">

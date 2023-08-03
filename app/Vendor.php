@@ -2,19 +2,20 @@
 
 namespace App;
 
-use App\Notifications\VendorResetPassword;
+use DB;
 use App\Scopes\SellerTypeScope;
 use App\Scopes\SupplierScopeTrait;
-use DB;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
+use App\Notifications\VendorResetPassword;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Yadahan\AuthenticationLog\AuthenticationLogable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Vendor extends Authenticatable
 {
-    use Notifiable, HasApiTokens, SupplierScopeTrait;
+    use Notifiable, HasApiTokens, SupplierScopeTrait, AuthenticationLogable;
 
     /**
      * The attributes that are mass assignable.

@@ -11,26 +11,41 @@
                         {{ csrf_field() }}
                         <input type="hidden" name="csv_data_file_id" value="{{ $csv_data_file->id }}" />
                         <div class="container table_parent">
-                            
+
                             <table class="table upload_field_table border">
+                                @if (isset($headings))
+                                <tr>
+                                    @foreach ($headings[0][0] as $csv_header_field)
+                                        <th>{{ $csv_header_field }}</th>
+                                    @endforeach
+                                </tr>
+                                @endif
+                                @foreach ($csv_data as $row)
+                                <tr>
+                                @foreach ($row as $key => $value)
+                                    <td class='border'>{{ $value }}</td>
+                                @endforeach
+                                </tr>
+                                @endforeach
                                 <tr>
                                     @foreach ($csv_data[0] as $key => $value)
                                         <td class='border'>
                                             <select class='select_dropdown p-2' name="fields[{{ $key }}]">
                                                 @foreach (config('app.db_fields') as $db_field)
-                                                    <option value="{{ $loop->index }}">{{ $db_field }}</option>
+                                                <option value="{{ (\Request::has('header')) ? $db_field : $loop->index }}"
+                                                    @if ($key === $db_field) selected @endif>{{ $db_field }}</option>
                                                 @endforeach
                                             </select>
                                         </td>
                                     @endforeach
                                 </tr>
-                                @foreach ($csv_data as $row)
+                                {{-- @foreach ($csv_data as $row)
                                     <tr>
                                     @foreach ($row as $key => $value)
                                         <td class='border'>{{ $value }}</td>
                                     @endforeach
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
                             </table>
                         </div>
                             <div class='w-100 d-flex justify-content-center'>
@@ -39,7 +54,7 @@
                                 </button>
                             </div>
                         </form>
-                    
+
                 </div>
             </div>
         </div>

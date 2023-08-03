@@ -127,13 +127,7 @@ ul.category-tabs li.tabs {
                                                         @if ($errors->has('title')) <span class="text-danger">{{ $errors->first('title') }}</span> @endif
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
-                                                    <div class="col-sm-12">
-                                                        <label>Meta Title<span class="text-danger">*</span></label>
-                                                        <input type="text" name="meta_title" class="form-control" value="{{old('meta_title')}}" placeholder="Enter Meta Title">
-                                                        @if ($errors->has('meta_title')) <span class="text-danger">{{ $errors->first('meta_title') }}</span> @endif
-                                                    </div>
-                                                </div>
+
 
                                                 <div class="form-group row">
                                                     <div class="col-sm-12">
@@ -142,25 +136,15 @@ ul.category-tabs li.tabs {
                                                         @if ($errors->has('description')) <span class="text-danger"> {{ $errors->first('description') }}</span> @endif
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
-                                                    <div class="col-sm-12">
-                                                        <label>Meta Description</label>
-                                                        <textarea name="meta_description" class="form-control">{{old('meta_description')}}</textarea>
-                                                        @if ($errors->has('meta_description')) <span class="text-danger"> {{ $errors->first('meta_description') }}</span> @endif
-                                                    </div>
-                                                </div>
+
 
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-group row">
                                                     <div class="col-sm-12">
                                                         <label>Brand</label>
-                                                        <select name="brand" id="brand" class="form-control">
-                                                            <option value="">Select Brand</option>
-                                                            @foreach($brands as $brand)
-                                                                <option value="{{$brand->name}}">{{$brand->name}}</option>
-                                                            @endforeach
-                                                        </select>
+                                                        <input type="text" name="brand" class="form-control" value="{{old('brand')}}" placeholder="Enter Title">
+
                                                         @if ($errors->has('brand'))
                                                         <span class="text-danger">{{ $errors->first('brand') }}</span>
                                                         @endif
@@ -169,14 +153,14 @@ ul.category-tabs li.tabs {
                                                 <div class="form-group row">
                                                     <div class="col-sm-12">
                                                         <label>Category</label>
-                                                        <select name="category" id="category" class="form-control">
+                                                        <select name="w2b_category_1" id="category" class="form-control">
                                                             <option value="">Select Category</option>
                                                             @foreach($categories as $category)
                                                                 <option value="{{$category->id}}">{{$category->category1}}</option>
                                                             @endforeach
                                                         </select>
-                                                        @if ($errors->has('brand'))
-                                                            <span class="text-danger">{{ $errors->first('brand') }}</span>
+                                                        @if ($errors->has('category'))
+                                                            <span class="text-danger">{{ $errors->first('category') }}</span>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -195,9 +179,10 @@ ul.category-tabs li.tabs {
                                                             <span class="text-danger">{{ $errors->first('retail_price') }}</span>
                                                             @endif
                                                         </div>
+
                                                         <div class="col-xs-12 col-md-6">
-                                                            <label for="input-11" >Wholesale Price<span class="text-danger">*</span></label>
-                                                            <input type="text" name="wholesale_price" class="form-control" value="{{old('wholesale_price')}}" placeholder="Enter Wholesale price">
+                                                            <label for="input-11" >Wholesale Price<span class="text-danger"></span></label>
+                                                            <input type="text" name="wholesale_price" class="form-control" value="{{old('shipping_price')}}" placeholder="Enter Shipping price">
                                                             @if ($errors->has('wholesale_price'))
                                                             <span class="text-danger">{{ $errors->first('wholesale_price') }}</span>
                                                             @endif
@@ -226,65 +211,13 @@ ul.category-tabs li.tabs {
                                                         <div class="col-xs-12 col-md-6">
                                                             <label for="input-11" >Image<span class="text-danger">*</span></label>
                                                             <input type="file" class="form-control" name="image[]" multiple="multiple">
+                                                            {{-- <input type="file" class="form-control" name="original_image_url"> --}}
                                                             @if ($errors->has('image'))
                                                             <span class="text-danger">{{ $errors->first('image') }}</span>
                                                             @endif
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <label for="" >Wholesale Settings</label>
 
-                                                            <div class="row mb-3">
-                                                                <div class="col-xs-12 col-md-6">
-                                                                    <label for="input-11" >Minimum Wholesale Quantity</label>
-                                                                    <input type="number" name="min_wholesale_qty" class="form-control" value="{{old('min_wholesale_qty')}}" placeholder="Minimum Wholesale Quantity">
-                                                                    @if ($errors->has('min_wholesale_qty'))
-                                                                        <span class="text-danger">
-                                                                        {{ $errors->first('min_wholesale_qty') }}
-                                                                        </span>
-                                                                    @endif
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-8">
-                                                                    <div class="row">
-                                                                        <div class="col-4">
-                                                                            <label for="input-11" >Min Order</label>
-                                                                        </div>
-                                                                        <div class="col-4">
-                                                                            <label for="input-11" >Max Order</label>
-                                                                        </div>
-                                                                        <div class="col-4">
-                                                                            <label for="input-11" >Whole Sale Price</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div id="wholesale_container">
-                                                                <div class="row pb-2">
-                                                                    <div class="col-md-8">
-                                                                        <div class="row">
-                                                                            <div class="col-4">
-                                                                                <input type="number" class="form-control" name="wholesale[min_order_qty][]" id="" placeholder="Min Order Qty">
-                                                                            </div>
-                                                                            <div class="col-4">
-                                                                                <input type="number" class="form-control" name="wholesale[max_order_qty][]" id="" placeholder="Max Order Qty">
-                                                                            </div>
-                                                                            <div class="col-4">
-                                                                                <input type="number" class="form-control" name="wholesale[wholesale_price][]" step="any" id="" placeholder="Wholesale price">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-4">
-                                                                        <button type="button" class="btn btn-sm btn-primary add_attributre" onclick="add_wholesale_step(this);">
-                                                                            <i class="fa fa-plus"></i> Add
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

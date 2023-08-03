@@ -105,14 +105,18 @@
                     @if(vendor_has_permission(Auth::user()->role_id,'products','read'))
                     <li class="li_elements {{ (request()->is('vendor/products') or (request()->is('vendor/products/*') && !request()->is('vendor/products/inventory'))) ? 'active' : '' }}">
                         <a class="links" href="{{url('vendor/products')}}">
-                        Products(Master Catalog)
+                        Products
                         </a>
                     </li>
                     @endif
-                    <li class="li_elements">Orders(Master)</li>
-                    <li class="li_elements">Fulfillments(Master)</li>
-                    <li class="li_elements">Stores(Master)</li>
-                    <li class="li_elements">Sales(Master)</li>
+                    @if(vendor_has_permission(Auth::user()->role_id,'orders','read'))
+                    <li class="li_elements {{ (request()->is('vendor/orders') or request()->is('vendor/orders/*')) ? 'active' : '' }}">
+                        <a href="{{url('vendor/orders')}}" class="links"> Orders </a>
+                    </li>
+                    @endif
+                    <li class="li_elements">Fulfillments</li>
+                    <li class="li_elements">Stores</li>
+                    <li class="li_elements">Sales</li>
                 </ul>
 
                 <p class="headings"><img src="{{ asset('public/panel/images/icon_c1.png') }}" width="30px" height="30px" alt="">Manage Plans</p>

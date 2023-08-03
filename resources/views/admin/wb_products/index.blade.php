@@ -28,19 +28,19 @@
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
-					<table id="examplewb" class="table table-bordered">
+					<table id="examplewb12" class="table table-bordered data-table1">
 						<thead>
 							<tr>
 								<th>#</th>
-								<th style="width: 15%">sku</th>
-								<th style="width: 25%">title</th>
+								<th >sku</th>
+								<th >title</th>
 								<th>Category</th>
 								<th>Retail Price</th>
-								<th>Wholesale Price</th>
+								<th>Stock</th>
 							</tr>
 						</thead>
 						<tbody>
-                            @foreach($products as  $key=> $product)
+                            {{-- @foreach($products as  $key=> $product)
 
 								<tr>
 									<td>{{$loop->iteration}}</td>
@@ -51,9 +51,9 @@
 									<td>{{$product->wholesale}}</td>
 
 								</tr>
-                                @endforeach
+                                @endforeach --}}
 						</tbody>
-						<tfoot>
+						{{-- <tfoot>
 							<tr>
 								<th>#</th>
 								<th>sku</th>
@@ -62,7 +62,7 @@
 								<th>Retail Price</th>
 								<th>Wholesale Price</th>
 							</tr>
-						</tfoot>
+						</tfoot> --}}
 					</table>
 				</div>
 			</div>
@@ -70,7 +70,7 @@
 	</div>
 </div><!-- End Row-->
 
-<script>
+{{-- <script>
 $(document).ready(function() {
 	var table = $('#examplewb').DataTable( {
 		lengthChange: false,
@@ -152,6 +152,26 @@ function changeStatus(id) {
         }
     });
 }
-</script>
+</script> --}}
+<script type="text/javascript">
+    $(function () {
+
+      var table = $('#examplewb12').DataTable({
+          processing: true,
+          serverSide: true,
+          ajax: "{{ route('admin.wbproducts') }}",
+          columns: [
+              {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+              {data: 'sku', name: 'sku'},
+              {data: 'title', name: 'title'},
+              {data: 'w2b_category_1', name: 'w2b_category_1'},
+              {data: 'retail_price', name: 'retail_price'},
+              {data: 'stock', name: 'stock'},
+            //   {data: 'action', name: 'action', orderable: false, searchable: false},
+          ]
+      });
+
+    });
+  </script>
 @endsection
 

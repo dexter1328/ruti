@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Products extends Model
 {
-    protected $fillable = ['vendor_id', 'store_id', 'category_id', 'subcategory_id', 'brand_id', 'type', 'title','description','status'];
+    protected $guarded = [];
+    // protected $fillable = ['vendor_id', 'store_id', 'category_id', 'subcategory_id', 'brand_id', 'type', 'title','description','status'];
 
     public function importToDb()
     {
@@ -21,5 +22,5 @@ class Products extends Model
 
     	}
     }
-   
+
 }

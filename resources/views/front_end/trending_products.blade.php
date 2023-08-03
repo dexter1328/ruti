@@ -127,12 +127,13 @@
                     </article>
                     </div>
                     @endforeach
-                    
+
                 </div>
                 <br><br>
                 {!! $products->links() !!}
-               
+
             </div>
+
     </div>
 </div>
 <!--product area end-->

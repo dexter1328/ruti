@@ -34,7 +34,6 @@
 								<th>#</th>
 								<th style="width: 15%">Order No</th>
 								<th style="width: 25%">Customer Name</th>
-								<th>Total Price</th>
 								<th>Order Notes</th>
 								<th>Status</th>
 								<th>Products</th>
@@ -48,7 +47,7 @@
 									<td>{{$loop->iteration}}</td>
 									<td>{{$order->order_id}}</td>
 									<td>{{$order->first_name}} {{$order->last_name}}</td>
-									<td>{{$order->total_price}}</td>
+									{{-- <td>{{$order->total_price}}</td> --}}
 									<td>{{$order->order_notes}}</td>
 									<td>{{$order->status}}</td>
 									<td><a href="{{route('admin.wborderedproducts',$order->order_id)}}" class="btn btn-info">Show</a></td>
@@ -96,7 +95,6 @@
 								<th>#</th>
 								<th style="width: 15%">Order No</th>
 								<th style="width: 25%">Customer Name</th>
-								<th>Total Price</th>
 								<th>Order Notes</th>
 								<th>Status</th>
 								<th>Products</th>
@@ -119,7 +117,7 @@
         lengthChange: false,
         buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
     } );
- 
+
     table.buttons().container()
         .appendTo( '#example_wrapper .col-md-6:eq(0)' );
 } );
