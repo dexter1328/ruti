@@ -8,6 +8,7 @@ use App\Orders;
 use App\Vendor;
 use App\Setting;
 use App\Products;
+use App\W2bOrder;
 use App\OrderItems;
 use App\RewardPoint;
 use App\VendorStore;
@@ -18,6 +19,7 @@ use App\ProductVariants;
 use App\Traits\Permission;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class OrdersController extends Controller
@@ -41,7 +43,7 @@ class OrdersController extends Controller
 
 	public function index()
 	{
-		$op = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
+		$op1 = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
         ->join('users', 'w2b_orders.user_id', 'users.id')
         ->where('ordered_products.vendor_id', Auth::user()->id)
         ->where('ordered_products.seller_type', 'vendor')
@@ -56,6 +58,13 @@ class OrdersController extends Controller
         // dd($opp);
         // $array = Arr::divide(['name' => 'Desk']);
         // dd($array);
+        $op = W2bOrder::select('w2b_orders.*','users.first_name as user_name', DB::raw('SUM(ordered_products.total_price) as vendor_total_price'))
+        ->leftJoin('ordered_products', 'w2b_orders.order_id', '=', 'ordered_products.order_id')
+        ->join('users', 'w2b_orders.user_id', 'users.id')
+        ->where('ordered_products.vendor_id', Auth::user()->id)
+        ->groupBy('w2b_orders.order_id')
+        ->get();
+        // dd($orders);
 		return view('vendor.orders.index',compact('op'));
 	}
 

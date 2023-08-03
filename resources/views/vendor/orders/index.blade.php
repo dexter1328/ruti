@@ -37,7 +37,7 @@
                             <th>#</th>
                             <th style="width: 15%">Order No</th>
                             <th style="width: 25%">Customer Name</th>
-                            {{-- <th>Total Price</th> --}}
+                            <th>Total Price</th>
                             <th>Is Paid</th>
                             <th>Status</th>
                             {{-- <th>Products</th> --}}
@@ -51,7 +51,7 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$item->order_id}}</td>
                             <td>{{$item->user_name}}</td>
-                            {{-- <td>{{$item->price}}</td> --}}
+                            <td>{{$item->vendor_total_price}}</td>
                             <td>{{$item->is_paid}}</td>
                             <td>{{$item->status}}</td>
                             {{-- <td>{{$item->title}}</td> --}}
