@@ -194,7 +194,6 @@ return [
         Jorenvh\Share\Providers\ShareServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        Yajra\DataTables\DataTablesServiceProvider::class,
         /*
          * Package Service Providers...
          */
