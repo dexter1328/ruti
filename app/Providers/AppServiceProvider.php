@@ -43,7 +43,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
-        // $wb_wishlist = null;
+ 
+	 if(config('app.env') === 'production') {
+            \URL::forceScheme('https');
+        }
+
+	// $wb_wishlist = null;
 
         // if (Auth::guard('w2bcustomer')->user()) {
         //     $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
