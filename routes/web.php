@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+// use Exception;
+use App\EmailTemplate;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -91,10 +91,11 @@ Route::get('/config-cache', function () {
 // Route::get('/vendor-login-cron/{id}', 'TestController@StoreHourCron');
 // Route::get('/paid_module_change_status', 'TestController@PaidModuleChangeStatusCron');
 
-use App\EmailTemplate;
-use App\Http\Controllers\Admin\SupplierController;
 use App\Mail\SupplierSuccess;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\SupplierController;
 
 Auth::routes();
 
@@ -106,13 +107,16 @@ Route::post('api/vendor/password/reset', 'API\Vendor\AuthController@reset');
 Route::post('api/vendor/password/api_reset', 'API\Vendor\AuthController@ApiReset');
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+// Route::get('/debug-sentry', function () {
+//     throw new Exception('My first Sentry error!');
+// });
+Route::get('/debug-sentry', 'FrontEndController@sentry')->name('sentry-page');
 Route::get('/home', 'FrontEndController@index')->name('home-page');
 Route::get('/', 'FrontEndController@shop')->name('product-shop');
 Route::get('/category/{cate?}', 'FrontEndController@catName')->name('cat-products');
 Route::get('/shop/search', 'FrontEndController@shopSearch')->name('shop-search');
 Route::get('/shop/search/autocomplete', 'FrontEndController@autocomplete')->name('shop-search-autocomplete');
-Route::get('/shop/product_detail/{sku}', 'FrontEndController@ProductDetail')->name('product-detail');
+Route::get('/shop/product_detail/{slug}/{sku}', 'FrontEndController@ProductDetail')->name('product-detail');
 Route::post('/user-rating', 'FrontEndController@rating')->name('user-rating');
 Route::get('/user_wishlist', 'FrontEndController@wishlistPage')->name('wb-wishlist-page');
 Route::delete('/user_wishlist/delete/{sku}', 'FrontEndController@removeWishlist')->name('remove-from-wishlist');
@@ -827,3 +831,6 @@ Route::group(['prefix' => 'w2bcustomer'], function () {
 
 
   });
+
+
+

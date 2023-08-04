@@ -194,6 +194,7 @@ return [
         Jorenvh\Share\Providers\ShareServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Sentry\Laravel\ServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -265,6 +266,7 @@ return [
         'Share' => Jorenvh\Share\ShareFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Sentry' => Sentry\Laravel\Facade::class,
 
     ],
 

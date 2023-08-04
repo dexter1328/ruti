@@ -384,16 +384,17 @@
         <h3 class='sections_coupons_header like_products_heading p-2' >Products You may also like</h3>
         <div class='p-3 d-flex products_inner'>
             @foreach ($related_productss as $p)
+
             <div class='more_products ml-2 py-2 px-4'>
-                <a href="{{ route('product-detail',$p->sku) }}">
+                <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
                 <img src="{{$p->original_image_url}}" class='more_products_img'  alt="">
                 </a>
 
                 <div class='products_title'>
-                    <h5><a href="{{ route('product-detail',$p->sku) }}">{{ Str::limit($p->title, 17) }}</a></h5>
+                    <h5><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">{{ Str::limit($p->title, 17) }}</a></h5>
                 </div>
                 <div class='products_title'>
-                    <h5 class="text-center"><a href="{{ route('product-detail',$p->sku) }}" class="btn btn-danger btn-sm" style="border-radius:5px; font-size:12px; padding:10px 20px;">Select</a></h5>
+                    <h5 class="text-center"><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}" class="btn btn-danger btn-sm" style="border-radius:5px; font-size:12px; padding:10px 20px;">Select</a></h5>
                 </div>
             </div>
             @endforeach
@@ -411,12 +412,13 @@
         </div>
         <div class="row">
             @foreach ($related_products as $p)
+
             <div class="col-lg-3 col-md-4 col-sm-6 col-12">
             <article class="single_product">
                 <figure>
                     <div class="product_thumb">
-                        <a class="primary_img" href="{{ route('product-detail',$p->sku) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a>
-                        <a class="secondary_img" href="{{ route('product-detail',$p->sku) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a>
+                        <a class="primary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a>
+                        <a class="secondary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a>
                         <div class="label_product">
                             <span class="label_sale">Sale</span>
 
@@ -433,7 +435,7 @@
                         </div>
                     </div>
                     <figcaption class="product_content">
-                        <h4 class="product_name double-lines-ellipsis"><a href="{{ route('product-detail',$p->sku) }}">{{ Str::limit($p->title, 30) }}</a></h4>
+                        <h4 class="product_name double-lines-ellipsis"><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">{{ Str::limit($p->title, 30) }}</a></h4>
                         <h5 class='text-left'><i class='fa fa-check'></i> In Stock</h5>
                         <div class="price_box">
                             <span class="current_price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>

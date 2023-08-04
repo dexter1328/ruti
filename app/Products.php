@@ -2,11 +2,14 @@
 
 namespace App;
 
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use App\Jobs\ProcessCsvUpload;
 use Illuminate\Database\Eloquent\Model;
 
 class Products extends Model
 {
+    use HasSlug;
     protected $guarded = [];
     // protected $fillable = ['vendor_id', 'store_id', 'category_id', 'subcategory_id', 'brand_id', 'type', 'title','description','status'];
 
@@ -22,5 +25,12 @@ class Products extends Model
 
     	}
     }
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('title')
+            ->saveSlugsTo('slug');
+    }
+
 
 }

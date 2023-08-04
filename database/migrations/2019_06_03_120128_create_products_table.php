@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->string('sku');
             $table->string('title');
+            $table->string('slug');
             $table->longText('description');
             $table->bigInteger('supplier_id');
             $table->bigInteger('vendor_id');

@@ -118,12 +118,13 @@
                 <h3 class='sections_coupons_header like_products_heading p-2' >Products You may like</h3>
                 <div class='p-3 d-flex products_inner'>
                     @foreach ($suggested_products as $p)
+
                     <div class='more_products ml-2 py-2 px-4'>
-                        <a href="{{ route('product-detail',$p->sku) }}">
+                        <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
                         <img src="{{$p->original_image_url}}" class='more_products_img'  alt="">
                         </a>
                         <div class='products_title'>
-                            <h5><a href="{{ route('product-detail',$p->sku) }}">{{ Str::limit($p->title, 20) }}</a></h5>
+                            <h5><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">{{ Str::limit($p->title, 20) }}</a></h5>
                         </div>
                     </div>
                     @endforeach

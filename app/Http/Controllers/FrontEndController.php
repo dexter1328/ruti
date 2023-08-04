@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\OrderMailToSupplierJob;
-use App\SuppliersOrder;
 use Mail;
 use View;
 use Share;
 use Config;
 use Session;
 use App\City;
-use App\Item as AppItem;
 use App\User;
 use App\State;
+use Exception;
 use Validator;
 use App\Rating;
 use App\UsState;
@@ -31,7 +29,9 @@ use Stripe\Customer;
 use PayPal\Api\Payer;
 use PayPal\Api\Amount;
 use App\OrderedProduct;
+use App\SuppliersOrder;
 use PayPal\Api\Payment;
+use App\Item as AppItem;
 use PayPal\Api\ItemList;
 use App\Jobs\RutiMailJob;
 use App\Mail\WbOrderMail;
@@ -44,12 +44,13 @@ use PayPal\Api\RedirectUrls;
 use App\Mail\WbRutiOrderMail;
 use PayPal\Api\PaymentExecution;
 use Illuminate\Support\Facades\DB;
-use Omnipay\Common\Http\Exception;
 use Illuminate\Support\Facades\URL;
+use App\Jobs\OrderMailToSupplierJob;
 use Illuminate\Support\Facades\Auth;
 use PayPal\Auth\OAuthTokenCredential;
 use Illuminate\Support\Facades\Redirect;
 use Stevebauman\Location\Facades\Location;
+use PayPal\Exception\PPConnectionException;
 
 class FrontEndController extends Controller
 {
@@ -187,12 +188,12 @@ class FrontEndController extends Controller
         return view('front_end.search-products', compact('products'));
     }
 
-    public function ProductDetail($sku)
+    public function ProductDetail($slug, $sku)
     {
 
 
         $shareComponent = Share::page(
-            'http://www.naturecheckout.com//shop/product_detail/'.$sku,
+            'http://www.naturecheckout.com//shop/product_detail/'.$slug.'/'.$sku,
             'Your share text comes here',
         )
         ->facebook()
@@ -637,6 +638,13 @@ class FrontEndController extends Controller
 
     public function trendingProducts()
     {
+        $all_products = W2bProduct::all();
+        foreach ($all_products as $all_p) {
+            $str1 = str_replace(" ","-",$all_p->title);
+            $str2 = str_replace("/","-",$str1);
+            $all_p->update(['slug' => $str2]);
+        }
+
 
         $p1 = DB::table('w2b_products')->inRandomOrder()->get();
         $p2 = DB::table('products')->inRandomOrder()->get();
@@ -693,7 +701,7 @@ class FrontEndController extends Controller
             ->setTransactions(array($transaction));
         try {
             $payment->create($this->_api_context);
-        } catch (\PayPal\Exception\PPConnectionException $ex) {
+        } catch (PPConnectionException $ex) {
             if (Config::get('app.debug')) {
                 Session::put('error','Connection timeout');
                 return Redirect::route('paywithpaypal');
@@ -784,5 +792,10 @@ class FrontEndController extends Controller
             session()->forget('user_details');
         }
         return redirect('/thank-you-page');
+    }
+
+    public function sentry()
+    {
+        throw new Exception('My first Sentry error!');
     }
 }

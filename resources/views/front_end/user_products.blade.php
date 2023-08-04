@@ -51,6 +51,7 @@
                             <div class="table-responsive">
 
         @foreach ($ordered_products as $order)
+
         <div class="col-12 order_main px-0 border">
 
                     <div class="orders_body p-3">
@@ -64,14 +65,14 @@
                                 <div class='px-2 product_title_width image_title'>
                                     <span>{{ Str::limit($order->title, 70) }} </span>
                                     <br>
-                                    <button type="button" onclick="window.location='{{ route('product-detail',$order->sku) }}'" class='border buy_again'>Buy it again</button>
+                                    <button type="button" onclick="window.location='{{ route('product-detail',['slug' => $order->slug, 'sku' => $order->sku]) }}'" class='border buy_again'>Buy it again</button>
                                 </div>
                             </div>
                             <div class='main_button w-50'>
                                 {{-- <button class='order_details_button border boder-rounded yellow_btn'>Track Package</button> --}}
                                 <button type="button" onclick="window.location='{{ route('gift-receipt',$order->order_id) }}'" class='mt-1 order_details_button border boder-rounded'>Share gift receipt</button>
                                 <button class='mt-1 order_details_button border boder-rounded' onclick="window.location='{{ route('return-item', ['sku' => $order->sku, 'order_id' => $order->order_id, 'user_id' => $order->p_user_id]) }}'">Return or Replace Items</button>
-                                <button type="button" onclick="window.location='{{ route('product-detail',$order->sku) }}#reviews'" class='mt-1 order_details_button border boder-rounded'>Write a product review</button>
+                                <button type="button" onclick="window.location='{{ route('product-detail',['slug' => $order->slug, 'sku' => $order->sku]) }}#reviews'" class='mt-1 order_details_button border boder-rounded'>Write a product review</button>
                                 {{-- <button type="button" onclick="reviewFunction()" class='mt-1 order_details_button border boder-rounded'>Write a product review</button> --}}
                             </div>
                         </div>

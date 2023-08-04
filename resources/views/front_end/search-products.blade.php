@@ -82,12 +82,13 @@
         <div class="product_container">
             <div class="row">
                     @foreach ($products as $p)
+
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12" style="padding-bottom: 35px">
                     <article class="single_product">
                         <figure>
                             <div class="product_thumb">
-                                <a class="primary_img" href="{{ route('product-detail',$p->sku) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a>
-                                <a class="secondary_img" href="{{ route('product-detail',$p->sku) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a>
+                                <a class="primary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a>
+                                <a class="secondary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a>
                                 <div class="label_product">
                                     <span class="label_sale">Sale</span>
 
@@ -104,7 +105,7 @@
                                 </div>
                             </div>
                             <figcaption class="product_content">
-                                <h4 class="product_name double-lines-ellipsis"><a href="{{ route('product-detail',$p->sku) }}">{{ Str::limit($p->title, 30) }}</a></h4>
+                                <h4 class="product_name double-lines-ellipsis"><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">{{ Str::limit($p->title, 30) }}</a></h4>
                                 <h5 class='text-left'><i class='fa fa-check'></i> In Stock</h5>
                                 <div class="price_box">
                                     <span class="current_price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
@@ -115,11 +116,11 @@
                     </article>
                     </div>
                     @endforeach
-                    
+
                 </div>
                 <br><br>
                 {!! $products->links() !!}
-               
+
             </div>
     </div>
 </div>

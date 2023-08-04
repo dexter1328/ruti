@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Suggested Producs</title>
- 
+
    <style>
 
             body{
@@ -27,7 +27,7 @@
     }
 
     .card {
-        
+
         position: relative;
         display: -webkit-box;
         display: -ms-flexbox;
@@ -149,8 +149,8 @@
         font-size: 1rem;
         line-height: 1.5;
             border-radius: 0.2rem;
-        
-    } 
+
+    }
 
     .btn-primary {
         color: #fff;
@@ -169,10 +169,10 @@
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    
+
     <h4>Hi {{$customer->first_name}},</h4>
     <p>You can buy the Suggested product</p>
-    
+
     <div class="container">
         <div class="row">
 @foreach ($suggested_products as $item)
@@ -185,31 +185,31 @@
                        <div class="col-4" style="text-align:center;">
 
                            <a href="#" class="title" data-abc="true">{{$item->title}}</a>
-                           
+
                        </div>
 
                    </div>
 
         </figcaption>
         <div class="bottom-wrap" style="text-align:center;">
-            <a href="{{url('shop/product_detail').'/'.$item->sku}}" class="btn  btn-primary text-centr" data-abc="true"> Buy now </a>
+            <a href="{{url('shop/product_detail').'/'.$item->slug.'/'.$item->Sku}}" class="btn  btn-primary text-centr" data-abc="true"> Buy now </a>
             <div class="price-wrap">
                 <span class="price h5">Retail Price:{{$item->retail_price}}</span> <br> <small class="text-success">shipping {{$item->shipping_price}}:</small>
             </div>
-        </div> 
+        </div>
     </figure>
 </div>
 @endforeach
-         
+
 
       </div>
     </div>
 
-    
+
     Regards,<br>
     <p>from {{$supplier->name}},</p>
-    
-      
+
+
 </body>
 </html>
 
