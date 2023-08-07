@@ -218,20 +218,20 @@ class FrontEndController extends Controller
 
         $rps1 = DB::table('w2b_products')
         ->where('w2b_category_1', $product->w2b_category_1)
-        ->inRandomOrder()->get();
+        ->inRandomOrder()->limit(2000)->get();
         $rps2 = DB::table('products')
         ->where('w2b_category_1', $product->w2b_category_1)
-        ->inRandomOrder()->get();
+        ->inRandomOrder()->limit(2000)->get();
         $related_productss = $rps2->merge($rps1)->paginate(8);
 
 
 
         $rp1 = DB::table('w2b_products')
         ->where('w2b_category_1', $product->w2b_category_1)
-        ->inRandomOrder()->get();
+        ->inRandomOrder()->limit(2000)->get();
         $rp2 = DB::table('products')
         ->where('w2b_category_1', $product->w2b_category_1)
-        ->inRandomOrder()->get();
+        ->inRandomOrder()->limit(2000)->get();
         $related_products = $rp2->merge($rp1)->paginate(8);
 
         $ratings = Rating::where('product_id', $sku)->get();
@@ -278,8 +278,8 @@ class FrontEndController extends Controller
     public function cart()
     {
 
-        $sp1 = DB::table('w2b_products')->inRandomOrder()->get();
-        $sp2 = DB::table('products')->inRandomOrder()->limit(3)->get();
+        $sp1 = DB::table('w2b_products')->inRandomOrder()->limit(2000)->get();
+        $sp2 = DB::table('products')->inRandomOrder()->limit(2000)->get();
         $suggested_products = $sp2->merge($sp1)->paginate(7);
         $suggested_products = $suggested_products->sortBy('title');
 
@@ -543,8 +543,8 @@ class FrontEndController extends Controller
     public function paymentPage()
     {
 
-        $sp1 = DB::table('w2b_products')->inRandomOrder()->get();
-        $sp2 = DB::table('products')->inRandomOrder()->limit(3)->get();
+        $sp1 = DB::table('w2b_products')->inRandomOrder()->limit(2000)->get();
+        $sp2 = DB::table('products')->inRandomOrder()->limit(2000)->get();
         $suggested_products = $sp2->merge($sp1)->paginate(7);
         $suggested_products = $suggested_products->sortBy('title');
 
@@ -628,8 +628,8 @@ class FrontEndController extends Controller
     public function thankYou()
     {
 
-        $p1 = DB::table('w2b_products')->inRandomOrder()->get();
-        $p2 = DB::table('products')->inRandomOrder()->limit(15)->get();
+        $p1 = DB::table('w2b_products')->inRandomOrder()->limit(2000)->get();
+        $p2 = DB::table('products')->inRandomOrder()->limit(2000)->get();
         $products = $p2->merge($p1)->paginate(32);
         $products = $products->sortBy('title');
         return view('front_end.thank-you',compact('products'));
@@ -638,16 +638,16 @@ class FrontEndController extends Controller
 
     public function trendingProducts()
     {
-        $all_products = W2bProduct::all();
-        foreach ($all_products as $all_p) {
-            $str1 = str_replace(" ","-",$all_p->title);
-            $str2 = str_replace("/","-",$str1);
-            $all_p->update(['slug' => $str2]);
-        }
+        // $all_products = W2bProduct::all();
+        // foreach ($all_products as $all_p) {
+        //     $str1 = str_replace(" ","-",$all_p->title);
+        //     $str2 = str_replace("/","-",$str1);
+        //     $all_p->update(['slug' => $str2]);
+        // }
 
 
-        $p1 = DB::table('w2b_products')->inRandomOrder()->get();
-        $p2 = DB::table('products')->inRandomOrder()->get();
+        $p1 = DB::table('w2b_products')->inRandomOrder()->limit(2000)->get();
+        $p2 = DB::table('products')->inRandomOrder()->limit(2000)->get();
         $products = $p2->merge($p1)->paginate(24);
 
         return view('front_end.trending_products',compact('products'));
@@ -656,8 +656,8 @@ class FrontEndController extends Controller
     public function specialOffers()
     {
 
-        $p1 = DB::table('w2b_products')->inRandomOrder()->get();
-        $p2 = DB::table('products')->inRandomOrder()->get();
+        $p1 = DB::table('w2b_products')->inRandomOrder()->limit(2000)->get();
+        $p2 = DB::table('products')->inRandomOrder()->limit(2000)->get();
         $products = $p2->merge($p1)->paginate(24);
 
         return view('front_end.special_offers',compact('products'));
