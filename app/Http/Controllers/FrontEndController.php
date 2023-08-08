@@ -100,13 +100,13 @@ class FrontEndController extends Controller
     public function termsCondition()
     {
 
-    	return view('front_end.terms-condition',compact('categories2'));
+    	return view('front_end.terms-condition');
     }
 
     public function privacyPolicy()
     {
 
-    	return view('front_end.privacy-policy',compact('categories2'));
+    	return view('front_end.privacy-policy');
     }
 
     public function readFirst()
@@ -279,7 +279,7 @@ class FrontEndController extends Controller
     {
 
         $sp1 = DB::table('w2b_products')->inRandomOrder()->limit(2000)->get();
-        $sp2 = DB::table('products')->inRandomOrder()->limit(2000)->get();
+        $sp2 = DB::table('products')->where('status', 'enable')->inRandomOrder()->limit(2000)->get();
         $suggested_products = $sp2->merge($sp1)->paginate(7);
         $suggested_products = $suggested_products->sortBy('title');
 
@@ -544,7 +544,7 @@ class FrontEndController extends Controller
     {
 
         $sp1 = DB::table('w2b_products')->inRandomOrder()->limit(2000)->get();
-        $sp2 = DB::table('products')->inRandomOrder()->limit(2000)->get();
+        $sp2 = DB::table('products')->where('status', 'enable')->inRandomOrder()->limit(2000)->get();
         $suggested_products = $sp2->merge($sp1)->paginate(7);
         $suggested_products = $suggested_products->sortBy('title');
 
@@ -629,7 +629,7 @@ class FrontEndController extends Controller
     {
 
         $p1 = DB::table('w2b_products')->inRandomOrder()->limit(2000)->get();
-        $p2 = DB::table('products')->inRandomOrder()->limit(2000)->get();
+        $p2 = DB::table('products')->where('status', 'enable')->inRandomOrder()->limit(2000)->get();
         $products = $p2->merge($p1)->paginate(32);
         $products = $products->sortBy('title');
         return view('front_end.thank-you',compact('products'));
@@ -647,7 +647,7 @@ class FrontEndController extends Controller
 
 
         $p1 = DB::table('w2b_products')->inRandomOrder()->limit(2000)->get();
-        $p2 = DB::table('products')->inRandomOrder()->limit(2000)->get();
+        $p2 = DB::table('products')->where('status', 'enable')->inRandomOrder()->limit(2000)->get();
         $products = $p2->merge($p1)->paginate(24);
 
         return view('front_end.trending_products',compact('products'));
@@ -657,7 +657,7 @@ class FrontEndController extends Controller
     {
 
         $p1 = DB::table('w2b_products')->inRandomOrder()->limit(2000)->get();
-        $p2 = DB::table('products')->inRandomOrder()->limit(2000)->get();
+        $p2 = DB::table('products')->where('status', 'enable')->inRandomOrder()->limit(2000)->get();
         $products = $p2->merge($p1)->paginate(24);
 
         return view('front_end.special_offers',compact('products'));

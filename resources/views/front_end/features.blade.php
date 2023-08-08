@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="content w-100">
                                     <h4 class="title">30 Days Return</h4>
-                                    <p>Simply reture it within 30<br>
+                                    <p>Simply return it within 30<br>
                                     days for an exchange </p>
                                 </div>
                             </div>

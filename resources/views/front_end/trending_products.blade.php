@@ -44,7 +44,7 @@
                     </div>
                     <div class="shipping_content w-100">
                         <h3 class="title">30 Days Return</h3>
-                        <p>Simply reture it within 30<br>
+                        <p>Simply return it within 30<br>
                         days for an exchange </p>
                     </div>
                 </div>

@@ -207,14 +207,14 @@
     <script src="{{asset('public/frontend/js/custom.js')}}"></script>
     <script src="{{asset('public/frontend/js/preloader.js')}}"></script>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SX3ERHB1EV"></script>
+   <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6B55NDVCGD"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'G-SX3ERHB1EV');
+    gtag('config', 'G-6B55NDVCGD');
     </script>
 
 
