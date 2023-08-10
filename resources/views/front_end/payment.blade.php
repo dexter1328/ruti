@@ -19,7 +19,7 @@
     </div>
 </div>
 <!--breadcrumbs area end-->
-
+{{-- xyz --}}
 <!--Checkout page section-->
 <div class="Checkout_section mt-70">
    <div class="container">
@@ -47,8 +47,6 @@
                                 again.</div>
                         </div>
                     </div>
-
-
 
                         <h3 class='sections_coupons_header'>Payment Details</h3>
                         <div class="row m-auto w-100" >
