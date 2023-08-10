@@ -101,7 +101,7 @@
             		<div class="tab-pane active" id="cardList" role="tabpanel"></div>
 					<div class="tab-pane" id="addCard" role="tabpanel" aria-labelledby="addCard-tab">
 						<form method="post" class="require-validation" id="addCardForm"
-                         data-stripe-publishable-key="pk_test_51IarbDGIhb5eK2lSKrWKttm9gweug3yv8EqP2PoVRAhD6HWsuviQWzKOszgIf7imZZ5sjUXHdQhF759Khm3J3nYF00Ved0Wutj">
+                         data-stripe-publishable-key="{{$stripe_key}}">
 							<div class="form-group">
 								<label for="card-number">Card Number<span class="text-danger">*</span></label>
 								<input type="text" id="card-number" name="card-number" class="form-control" required>
@@ -509,8 +509,6 @@ function cardValidation() {
 	return valid;
 }
 
-//set your publishable key
-// Stripe.setPublishableKey("pk_test_51IarbDGIhb5eK2lSKrWKttm9gweug3yv8EqP2PoVRAhD6HWsuviQWzKOszgIf7imZZ5sjUXHdQhF759Khm3J3nYF00Ved0Wutj");
 
 //callback to handle the response from stripe
 function stripeResponseHandler(status, response) {

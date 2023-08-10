@@ -18,6 +18,15 @@ use Illuminate\Support\Facades\Mail;
 
 class WholesaleProductController extends Controller
 {
+    private $stripe_secret;
+    private $stripe_key;
+
+    public function __construct()
+	{
+        $this->stripe_secret = config('services.stripe.secret');
+        $this->stripe_key = config('services.stripe.key');
+	}
+
     public function sendResponse($result, $message='')
     {
         $response = [
@@ -202,7 +211,7 @@ class WholesaleProductController extends Controller
         $user_details = session()->get('user_details');
         $order = W2bOrder::where('id', $order_id)->first();
         $user = User::where('id', $user_id)->first();
-        Stripe::setApiKey('sk_test_51IarbDGIhb5eK2lSAhS5c8HvzuCmQh8CuCx81iR1hYfzSIwGpS1gLnTWs4xfhI9cwcpS8XYKbep9N8h1ZDSSxr0Y00NoFqGE3J');
+        Stripe::setApiKey($this->stripe_secret);
 
         $customer = Customer::create(array(
 

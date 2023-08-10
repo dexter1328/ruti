@@ -76,6 +76,7 @@ class LoginController extends Controller
         try {
 
             $user = Socialite::driver('facebook')->user();
+            // dd($user);
 
             $finduser = User::where('social_id', $user->id)->first();
 
@@ -118,7 +119,7 @@ class LoginController extends Controller
 
             $user = Socialite::driver('google')->user();
             $user1 = $user->user;
-            // dd($user);
+            //  dd($user1['picture']);
             // dd('11223');
 
             $finduser = User::where('social_id', $user->id)->first();
@@ -133,6 +134,7 @@ class LoginController extends Controller
             }else{
                 $newUser = User::updateOrCreate(['email' => $user->email],[
                         'first_name' => $user->name,
+                        // 'image' => $user1['picture'],
                         'social_id'=> $user->id,
                         'social_type'=> 'google',
                         'password' => encrypt('123456dummy')

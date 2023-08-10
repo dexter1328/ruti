@@ -47,15 +47,7 @@
                                 again.</div>
                         </div>
                     </div>
-                    {{-- <form
-                    role="form"
-                    action="{{ route('order-payment') }}"
-                    method="post"
-                    class="require-validation"
-                    data-cc-on-file="false"
-                    data-stripe-publishable-key="pk_test_51IarbDGIhb5eK2lSKrWKttm9gweug3yv8EqP2PoVRAhD6HWsuviQWzKOszgIf7imZZ5sjUXHdQhF759Khm3J3nYF00Ved0Wutj"
-                    id="payment-form">
-                    @csrf --}}
+
 
 
                         <h3 class='sections_coupons_header'>Payment Details</h3>
@@ -80,7 +72,7 @@
                                                     method="post"
                                                     class="require-validation"
                                                     data-cc-on-file="false"
-                                                    data-stripe-publishable-key="pk_test_51IarbDGIhb5eK2lSKrWKttm9gweug3yv8EqP2PoVRAhD6HWsuviQWzKOszgIf7imZZ5sjUXHdQhF759Khm3J3nYF00Ved0Wutj"
+                                                    data-stripe-publishable-key="{{$stripe_key}}"
                                                     id="payment-form">
                                                     @csrf
                                                 <div class="card-body">
