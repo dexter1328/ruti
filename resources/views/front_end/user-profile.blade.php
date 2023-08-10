@@ -22,7 +22,7 @@
                         <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
                           <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">
                             @if (Auth::guard('w2bcustomer')->user()->image)
-                            <img class="rounded-circle" src="{{asset('public/user_photo/'.Auth::guard('w2bcustomer')->user()->image)}}"  alt="">
+                            <img class="rounded-circle" src="{{asset('public/user_photo/'.Auth::guard('w2bcustomer')->user()->image)}}"  alt="{{Auth::guard('w2bcustomer')->user()->first_name}}">
                             @else
                             <i class="lnr lnr-user fa-3x d-flex"></i>
                             @endif

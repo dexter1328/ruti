@@ -314,7 +314,7 @@
                         <div class="row align-items-end">
                             <div class="col-lg-2 col-md-3 col-sm-3 col-12">
                                 <div class="logo logo-new">
-                                    <a href="{{url('/')}}"><img src="{{asset('public/wb/img/logo/logo.png')}}" alt=""></a>
+                                    <a href="{{url('/')}}"><img src="{{asset('public/wb/img/logo/logo.png')}}" alt="Nature Checkout"></a>
                                 </div>
                             </div>
                             <div class="col-lg-10 col-md-9 col-sm-9 col-12">
@@ -350,7 +350,7 @@
                                         <li class="header-sine-in dropdown">
                                             <a href="" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 @if (Auth::guard('w2bcustomer')->user()->image)
-                                                <img class="rounded-circle" src="{{asset('public/user_photo/'.Auth::guard('w2bcustomer')->user()->image)}}" style="max-width: 45px; margin-right: 8px;" alt="">
+                                                <img class="rounded-circle" src="{{asset('public/user_photo/'.Auth::guard('w2bcustomer')->user()->image)}}" style="max-width: 45px; margin-right: 8px;" alt="{{Auth::guard('w2bcustomer')->user()->first_name}}">
                                                 @else
                                                 <i class="lnr lnr-user fa-3x d-flex"></i>
                                                 @endif
@@ -408,7 +408,7 @@
                                                     @foreach(session('cart') as $sku => $details)
                                                     <div class="cart_item" style="padding: 5px 0px;">
                                                         <div class="cart_img">
-                                                            <a href="#"><img style="max-width: 50%" src="{{ $details['original_image_url'] }}" alt=""></a>
+                                                            <a href="#"><img style="max-width: 50%" src="{{ $details['original_image_url'] }}" alt="{{ Str::limit($details['title'], 35) }}"></a>
                                                         </div>
                                                         <div class="cart_info">
                                                             <h4>{{ Str::limit($details['title'], 40) }}</h4>
@@ -490,7 +490,7 @@
                                                                     @endforeach
                                                     </div>
                                                                     <div class="nav_menu_image d-flex align-items-center justify-content-end pr-4">
-                                                                        <img class='nav_img' src="{{asset('public/wb/img/categories/'.$category->image)}}" alt="">
+                                                                        <img class='nav_img' src="{{asset('public/wb/img/categories/'.$category->image)}}" alt="{{ Str::limit($category->category1, 35) }}">
                                                                     </div>
                                                                 </ul>
                                                             </li>

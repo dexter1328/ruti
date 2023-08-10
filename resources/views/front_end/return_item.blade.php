@@ -50,7 +50,7 @@
                             <h5><a href="{{route('user-account-page')}}" style="color:#E96725">Back To Orders</a></h5>
                             <div class="main_page_body_ri w-100 p-2 justify-content-center">
                                 <div class="product_detail_ri col-lg-12 col-xs-12 pl-0 d-flex align-items-center mx-auto">
-                                    <img src="{{$product->original_image_url}}" width="100px" height="100px" alt="">
+                                    <img src="{{$product->original_image_url}}" width="100px" height="100px" alt="{{ Str::limit($product->title, 35) }}">
                                     <div class="ml-4"> {{$product->title}}</div>
                                 </div>
                                 <form method="post" action="{{ route('return-item-submit') }}" enctype="multipart/form-data">

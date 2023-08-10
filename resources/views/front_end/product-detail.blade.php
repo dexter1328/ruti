@@ -15,21 +15,21 @@
                 <div class="product-details-tab" style="max-width: 450px; width: 100%;">
                     <div id="img-1" class="zoomWrapper single-zoom">
                         <a href="#">
-                            <img id="zoom1" src="{{$product->original_image_url}}" data-zoom-image="{{$product->original_image_url}}" alt="big-1">
+                            <img id="zoom1" src="{{$product->original_image_url}}" data-zoom-image="{{$product->original_image_url}}" alt="{{ Str::limit($product->title, 35) }}">
                         </a>
                     </div>
                     <div class="single-zoom-thumb">
                         <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
                             <li>
                                 <a href="#" class="elevatezoom-gallery active" data-update="" data-image="{{$product->original_image_url}}" data-zoom-image="{{$product->original_image_url}}">
-                                    <img src="{{$product->original_image_url}}" alt="zo-th-1"/>
+                                    <img src="{{$product->original_image_url}}" alt="{{ Str::limit($product->title, 35) }}"/>
                                 </a>
 
                             </li>
                             @if ($product->extra_img_1)
                             <li>
                                 <a href="#" class="elevatezoom-gallery active" data-update="" data-image="{{$product->extra_img_1}}" data-zoom-image="{{$product->extra_img_1}}">
-                                    <img src="{{$product->extra_img_1}}" alt="zo-th-1"/>
+                                    <img src="{{$product->extra_img_1}}" alt="{{ Str::limit($product->title, 35) }}"/>
                                 </a>
 
                             </li>
@@ -37,7 +37,7 @@
                             @if ($product->extra_img_2)
                             <li >
                                 <a href="#" class="elevatezoom-gallery active" data-update="" data-image="{{$product->extra_img_2}}" data-zoom-image="{{$product->extra_img_2}}">
-                                    <img src="{{$product->extra_img_2}}" alt="zo-th-1"/>
+                                    <img src="{{$product->extra_img_2}}" alt="{{ Str::limit($product->title, 35) }}"/>
                                 </a>
 
                             </li>
@@ -45,7 +45,7 @@
                             @if ($product->extra_img_3)
                             <li >
                                 <a href="#" class="elevatezoom-gallery active" data-update="" data-image="{{$product->extra_img_3}}" data-zoom-image="{{$product->extra_img_3}}">
-                                    <img src="{{$product->extra_img_3}}" alt="zo-th-1"/>
+                                    <img src="{{$product->extra_img_3}}" alt="{{ Str::limit($product->title, 35) }}"/>
                                 </a>
 
                             </li>
@@ -222,7 +222,7 @@
                                         @foreach ($ratings as $rating)
                                         <div class="reviews_comment_box">
                                             <div class="comment_thmb">
-                                                <img src="{{asset('public/wb/img/blog/comment2.jpg')}}" alt="">
+                                                <img src="{{asset('public/wb/img/blog/comment2.jpg')}}" alt="comment">
                                             </div>
                                             <div class="comment_text">
                                                 <div class="reviews_meta">
@@ -387,7 +387,7 @@
 
             <div class='more_products ml-2 py-2 px-4'>
                 <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
-                <img src="{{$p->original_image_url}}" class='more_products_img'  alt="">
+                <img src="{{$p->original_image_url}}" class='more_products_img'  alt="{{ Str::limit($p->title, 35) }}">
                 </a>
 
                 <div class='products_title'>
@@ -417,8 +417,8 @@
             <article class="single_product">
                 <figure>
                     <div class="product_thumb">
-                        <a class="primary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a>
-                        <a class="secondary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a>
+                        <a class="primary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt="{{ Str::limit($p->title, 35) }}"></a>
+                        <a class="secondary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt="{{ Str::limit($p->title, 35) }}"></a>
                         <div class="label_product">
                             <span class="label_sale">Sale</span>
 
@@ -435,7 +435,7 @@
                         </div>
                     </div>
                     <figcaption class="product_content">
-                        <h4 class="product_name double-lines-ellipsis"><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">{{ Str::limit($p->title, 30) }}</a></h4>
+                        <h4 class="product_name double-lines-ellipsis"><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">{{ Str::limit($p->title, 35) }}</a></h4>
                         <h5 class='text-left'><i class='fa fa-check'></i> In Stock</h5>
                         <div class="price_box">
                             <span class="current_price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>

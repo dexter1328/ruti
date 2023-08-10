@@ -273,7 +273,7 @@
                                     @php $tax = ($details['sales_tax_pct'] / 100) * $total @endphp
                                     @php $total_price = $total + $details['shipping_price'] + $tax @endphp
                                     <tr>
-                                        <td><a> {{ Str::limit($details['title'], 30) }} </a><strong> × {{$details['quantity']}}</strong></td>
+                                        <td><a> {{ Str::limit($details['title'], 35) }} </a><strong> × {{$details['quantity']}}</strong></td>
                                         <td> ${{number_format((float)$details['retail_price'] * $details['quantity'], 2, '.', '')}}</td>
                                     </tr>
                                     @endforeach

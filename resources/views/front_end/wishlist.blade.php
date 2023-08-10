@@ -30,7 +30,7 @@
 
 <!--wishlist area start -->
 <div class="wishlist_area mt-70">
-    <div class="container">   
+    <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="table_desc wishlist">
@@ -55,21 +55,21 @@
                                                 @method('DELETE')
                                             <button class="" type="submit">X</button></td>
                                             </form>
-                                         <td class="product_thumb"><a href="#"><img src="{{$wp->original_image_url}}" alt=""></a></td>
+                                         <td class="product_thumb"><a href="#"><img src="{{$wp->original_image_url}}" alt="{{ Str::limit($wp->title, 35) }}"></a></td>
                                          <td class="product_name"><a href="#">{{$wp->title}}</a></td>
                                          <td class="product-price">{{$wp->retail_price}}</td>
                                          <td class="product_quantity">In Stock</td>
                                          <td class="product_total"><a href="{{ route('add.to.cart', $wp->sku) }}">Add To Cart</a></td>
- 
- 
+
+
                                      </tr>
- 
+
                                     @endforeach
-                                    
-                                    
+
+
                                 </tbody>
-                            </table>   
-                        </div>  
+                            </table>
+                        </div>
 
                     </div>
                  </div>
@@ -79,14 +79,14 @@
                  <div class="wishlist_share">
                     <h4>Share on:</h4>
                     <ul>
-                        <li><a href="#"><i class="fa fa-rss"></i></a></li>           
-                        <li><a href="#"><i class="fa fa-vimeo"></i></a></li>           
-                        <li><a href="#"><i class="fa fa-tumblr"></i></a></li>           
-                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>        
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>        
-                    </ul>      
+                        <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                        <li><a href="#"><i class="fa fa-vimeo"></i></a></li>
+                        <li><a href="#"><i class="fa fa-tumblr"></i></a></li>
+                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
                 </div>
-            </div> 
+            </div>
         </div> --}}
 
     </div>
@@ -99,12 +99,12 @@
 
 
 @section('scriptss')
-    
+
 <script>
      $("document").ready(function(){
         setTimeout(function() {
         $('.alert-success').fadeOut('fast');
-        }, 3000);  
+        }, 3000);
 
     });
 </script>

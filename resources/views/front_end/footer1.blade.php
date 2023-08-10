@@ -11,7 +11,7 @@
                                 <a href="tel:+0 (000) 000-0000" class="contact">+0 (000) 000-0000</a>
                             </div> --}}
                             <div class="f-logo mb-25">
-                                <a href="index.html"><img src="assets/img/logo/footer-logo.png" alt=""></a>
+                                <a href="index.html"><img src="assets/img/logo/footer-logo.png" alt="logo"></a>
                             </div>
                             <div class="footer-content">
                                 <p>We provide convenient and

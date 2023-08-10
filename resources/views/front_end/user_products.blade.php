@@ -60,7 +60,7 @@
                         <div class='w-100 order_tab d-flex mt-4'>
                             <div class='w-50 d-flex main_order'>
                                 <div class='product_width d-flex'>
-                                    <img src="{{$order->image}}" class='table_product_image ml-4' alt="">
+                                    <img src="{{$order->image}}" class='table_product_image ml-4' alt="{{ Str::limit($order->title, 35) }}">
                                 </div>
                                 <div class='px-2 product_title_width image_title'>
                                     <span>{{ Str::limit($order->title, 70) }} </span>

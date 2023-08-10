@@ -153,7 +153,7 @@
                                     <input type="hidden" value="{{$details['vendor_id']}}" name="vendor_id[]">
                                     <input type="hidden" value="{{$total_price}}" name="total_price">
                                     <tr>
-                                        <td> {{ Str::limit($details['title'], 30) }} <strong> × {{$details['quantity']}}</strong></td>
+                                        <td> {{ Str::limit($details['title'], 35) }} <strong> × {{$details['quantity']}}</strong></td>
                                         <td> ${{number_format((float)$details['retail_price'] * $details['quantity'], 2, '.', '')}}</td>
                                     </tr>
                                     @endforeach

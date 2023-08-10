@@ -56,7 +56,7 @@
 
                                                                     <div class="row">
                                                                         <div class="col-xs-12">
-                                                                            <h2><img src="{{asset('public/wb/img/logo/logo3.png')}}" alt width="8%"> Nature Checkout Invoice<br>
+                                                                            <h2><img src="{{asset('public/wb/img/logo/logo3.png')}}" alt="Nature Checkout" width="8%"> Nature Checkout Invoice<br>
                                                                             <span class="small">order #{{$order->order_id}}</span></h2>
                                                                         </div>
                                                                     </div>
