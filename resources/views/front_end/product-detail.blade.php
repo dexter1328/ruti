@@ -350,7 +350,7 @@
                         <hr>
                         <div class='p-3 d-flex sets_div justify-content-center main_parent_div'>
                         <div class='more_products sets ml-2 py-2 px-4'>
-                            <img src="{{$product->original_image_url}}" class='more_products_img'  alt="">
+                            <img src="{{$product->original_image_url}}" class='more_products_img'  alt="image">
                             <div class='products_title'>
                                 <h5>The Clean Routine Set</h5>
                                 <h5>$ 165</h5>
@@ -358,7 +358,7 @@
                             </div>
                         </div>
                         <div class='more_products sets py-2 px-4'>
-                            <img src="{{$product->original_image_url}}" class='more_products_img'  alt="">
+                            <img src="{{$product->original_image_url}}" class='more_products_img'  alt="image">
                             <div class='products_title'>
                                 <h5>The Clear Sound Set</h5>
                                 <h5>$ 68</h5>
@@ -366,7 +366,7 @@
                             </div>
                         </div>
                         <div class='more_products sets py-2 px-4'>
-                            <img src="{{$product->original_image_url}}" class='more_products_img'  alt="">
+                            <img src="{{$product->original_image_url}}" class='more_products_img'  alt="image">
                             <div class='products_title'>
                                 <h5>The Car Washing Set</h5>
                                 <h5>$ 83</h5>

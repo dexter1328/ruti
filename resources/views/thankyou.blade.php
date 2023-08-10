@@ -8,7 +8,7 @@
    <!-- download start -->
 <section id="download" class="download">
     <h2 class="heading">
-        <h1><img style="width: 10%" src="{{ asset('public/wb/img/logo/thank-you.gif')}}" alt=""></h1>
+        <h1><img style="width: 10%" src="{{ asset('public/wb/img/logo/thank-you.gif')}}" alt="thank you"></h1>
         <h2>    Thank You For Choosing Nature Checkout. Please login to continue.
         </h2>
     </h2>
@@ -22,10 +22,10 @@
                 @endif
                 <ul class="banner-icon bni1 banner-icon-new">
                     <li class="apple">
-                        <img src="{{ asset('public/frontend/image/ios_qrcode.png')}}" alt="">
+                        <img src="{{ asset('public/frontend/image/ios_qrcode.png')}}" alt="ios QR code">
                     </li>
                     <li>
-                        <img src="{{ asset('public/frontend/image/android_qrcode.png')}}" alt="">
+                        <img src="{{ asset('public/frontend/image/android_qrcode.png')}}" alt="Android QR code">
                     </li>
                 </ul><br>
                 <ul class="banner-icon bni2">

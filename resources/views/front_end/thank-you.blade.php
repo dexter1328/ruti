@@ -7,15 +7,15 @@
         <div class="row">
             <div class="col-12">
                 <div class="error_form">
-                    <h1><img style="width: 10%" src="{{ asset('public/wb/img/logo/thank-you.gif')}}" alt=""></h1>
+                    <h1><img style="width: 10%" src="{{ asset('public/wb/img/logo/thank-you.gif')}}" alt="image"></h1>
                     <h2>Thank You For Ordering</h2>
                     <h5>A Smart Shopping Experience Right In Your Hand</h5>
                     <ul class="banneer-icon banneer-icon-new text center">
                         <li class="apple">
-                            <img src="{{ asset('public/frontend/image/ios_qrcode.png')}}" alt="">
+                            <img src="{{ asset('public/frontend/image/ios_qrcode.png')}}" alt="image">
                         </li>
                         <li>
-                            <img src="{{ asset('public/frontend/image/android_qrcode.png')}}" alt="">
+                            <img src="{{ asset('public/frontend/image/android_qrcode.png')}}" alt="image">
                         </li>
                     </ul>
                     <ul class="banneer-icon"  style="margin-top: 111px">

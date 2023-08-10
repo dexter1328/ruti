@@ -15,7 +15,7 @@
                             </div>
                         </div>
                         <div class="category-thumb">
-                            <img src="{{ asset('public/wb/img/banner/banner_img.png')}}" alt="">
+                            <img src="{{ asset('public/wb/img/banner/banner_img.png')}}" alt="Banner image">
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                             <span class="shop-now">$10.5</span>
                         </div>
                         <div class="category-thumb">
-                            <img src="{{ asset('public/wb/img/banner/cat_banner_img01.png')}}" alt="">
+                            <img src="{{ asset('public/wb/img/banner/cat_banner_img01.png')}}" alt="banner image">
                         </div>
                     </div>
                     <div class="category-banner-item right-bottom-banner mb-20 align-items-center">
@@ -43,7 +43,7 @@
                             <span class="shop-now">$15.5</span>
                         </div>
                         <div class="category-thumb">
-                            <img src="{{ asset('public/wb/img/banner/cat_banner_img02.png')}}" alt="">
+                            <img src="{{ asset('public/wb/img/banner/cat_banner_img02.png')}}" alt="banner image">
                         </div>
                     </div>
                 </div>

@@ -318,7 +318,7 @@
             @foreach ($suggested_products as $p)
             <div class='more_products ml-2 py-2 px-4'>
                 <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
-                <img src="{{$p->original_image_url}}" class='more_products_img'  alt="">
+                <img src="{{$p->original_image_url}}" class='more_products_img'  alt="image">
                 </a>
                 <div class='products_title'>
                     <h5><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">{{ Str::limit($p->title, 20) }}</a></h5>

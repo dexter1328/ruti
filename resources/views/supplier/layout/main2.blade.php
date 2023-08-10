@@ -20,9 +20,9 @@
             <div class="user_image d-flex align-items-center top_bar_elements">
                 @if(Auth::user()->image)
                 @php $image = asset('public/images/suppliers/'.Auth::user()->image); @endphp
-                <img src="{{$image}}" alt="" class="user_image me-2 img-circle">
+                <img src="{{$image}}" alt="{{Auth::user()->name}}" class="user_image me-2 img-circle">
                 @else
-                <img src="{{asset('public/images/User-Avatar.png')}}" alt="" class="user_image me-2 img-circle">
+                <img src="{{asset('public/images/User-Avatar.png')}}" alt="{{Auth::user()->name}}" class="user_image me-2 img-circle">
                 @endif
                 <p>{{Auth::user()->name}}</p>
             </div>
@@ -48,7 +48,7 @@
     <div class="search-container p-2">
         <input type="text" placeholder="Search...">
         <span class="">
-            <img  id="search-btn" src="{{ asset('public/panel/images/downcaret.png') }}" class="drop_icon" alt="">
+            <img  id="search-btn" src="{{ asset('public/panel/images/downcaret.png') }}" class="drop_icon" alt="Down">
         </span>
     </div>
     <div class="first_main_div p-4 m-auto">
@@ -57,7 +57,7 @@
                 <p class="mt-2">SUPER ADMIN PANEL</p>
             </div>
             <div class="col-xl-3 col-lg-3 col-md-12 first_column">
-                <p class="headings"><img src="{{ asset('public/panel/images/icon8_market.png') }}" width="30px" height="30px" alt=""> AFFILIATES</p>
+                <p class="headings"><img src="{{ asset('public/panel/images/icon8_market.png') }}" width="30px" height="30px" alt="Market"> AFFILIATES</p>
                 <ul class="no_decoration_list list">
                     <li class="li_elements"><a class="links" href="">Suppliers</a></li>
                     <li class="li_elements"><a class="links" href="">Retailers</a></li>
@@ -67,7 +67,7 @@
                     <li class="li_elements"><a class="links" href="">Deliver Drivers</a></li>
                     <li class="li_elements"><a class="links" href="">Bussiness Relations(Owners)</a></li>
                 </ul>
-                <p class="headings"><img src="{{ asset('public/panel/images/icon8_g1.png') }}" width="30px" height="30px" alt=""> GENERAL</p>
+                <p class="headings"><img src="{{ asset('public/panel/images/icon8_g1.png') }}" width="30px" height="30px" alt="general"> GENERAL</p>
                 <ul class="no_decoration_list list">
                     <li class="li_elements"><a class="links" href="">Roles/Permissions</a></li>
                     <li class="li_elements"><a class="links" href="">Notifications</a></li>
@@ -75,7 +75,7 @@
                     <li class="li_elements"><a class="links" href="">Transaction</a></li>
                     <li class="li_elements"><a class="links" href="">Reports</a></li>
                 </ul>
-                <p class="headings"><img src="{{ asset('public/panel/images/receive_dollar.png') }}" width="30px" height="30px" alt=""> ADDITIONAL FUNDS RECEIVED</p>
+                <p class="headings"><img src="{{ asset('public/panel/images/receive_dollar.png') }}" width="30px" height="30px" alt="additional"> ADDITIONAL FUNDS RECEIVED</p>
                 <ul class="no_decoration_list list">
                     <li class="li_elements"><div class="d-flex justify-content-between">Supplier Funds <span>$3458</span></div></li>
                     <li class="li_elements"><div class="d-flex justify-content-between">Retailer Funds <span>$3451</span></div></li>
@@ -84,7 +84,7 @@
                 </ul>
             </div>
             <div class="col-xl-3 col-lg-3 col-md-12 second_column">
-                <p class="headings"><img src="{{ asset('public/panel/images/Program.png') }}" width="30px" height="30px" alt=""> PROGRAMS</p>
+                <p class="headings"><img src="{{ asset('public/panel/images/Program.png') }}" width="30px" height="30px" alt="programs"> PROGRAMS</p>
                 <ul class="no_decoration_list list">
                     @if(vendor_has_permission(Auth::user()->role_id,'products','read'))
                     <li class="li_elements {{ (request()->is('supplier/products') or (request()->is('supplier/products/*') && !request()->is('supplier/products/inventory'))) ? 'active' : '' }}">
@@ -104,14 +104,14 @@
                     <li class="li_elements">Stores</li>
                     <li class="li_elements">Sales</li> --}}
                 </ul>
-                <p class="headings"><img src="{{ asset('public/panel/images/icon_c1.png') }}" width="30px" height="30px" alt="">Manage Plans</p>
+                <p class="headings"><img src="{{ asset('public/panel/images/icon_c1.png') }}" width="30px" height="30px" alt="manage plans">Manage Plans</p>
                 <ul class="list">
                     <li class="li_elements "><div class="d-flex justify-content-between"><a class="links" href="{{url('supplier/choose-ruti-fullfill-page')}}"> Fulfillment Plan </a></div></li>
                     <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('supplier/supplier-wallet')}}">Add Funds to Wallet </a></div></li>
                     <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('supplier/receive-wallet')}}">Receive Funds to Wallet </a></div></li>
                     <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('supplier/withdraw-wallet')}}">Withdraw Funds </a></div></li>
                 </ul>
-                <p class="headings"><img src="{{ asset('public/panel/images/icon_c1.png') }}" width="30px" height="30px" alt=""> Manage Product Details</p>
+                <p class="headings"><img src="{{ asset('public/panel/images/icon_c1.png') }}" width="30px" height="30px" alt="manage product"> Manage Product Details</p>
                 <ul class="list">
                     <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('supplier/categories')}}">Manage Category </a></div></li>
                     <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('supplier/brand')}}">Manage Brands</a></div></li>
@@ -121,7 +121,7 @@
                     <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('supplier/product_reviews')}}">Manage Product Review</a></div></li>
                 </ul>
 
-                <p class="headings"><img src="{{ asset('public/panel/images/membership_card.png') }}" width="30px" height="30px" alt=""> VENDOR MEMBERSHIP</p>
+                <p class="headings"><img src="{{ asset('public/panel/images/membership_card.png') }}" width="30px" height="30px" alt="vendor"> VENDOR MEMBERSHIP</p>
                 <ul class="list">
                     <li class="li_elements"><div class="d-flex justify-content-between">Seed <span>1214</span></div></li>
                     <li class="li_elements"><div class="d-flex justify-content-between">Sprout <span>4232</span></div></li>
@@ -136,7 +136,7 @@
             </div>
             <div class="col-xl-3 col-lg-3 col-md-12 third_column">
                 <div class="d-flex justify-content-between">
-                    <p class="headings"><img src="{{ asset('public/panel/images/receive_dollar.png') }}" width="30px" height="30px" alt=""> FUNDS RECEIVED</p>
+                    <p class="headings"><img src="{{ asset('public/panel/images/receive_dollar.png') }}" width="30px" height="30px" alt="funds"> FUNDS RECEIVED</p>
                 </div>
                 <p>Membership</p>
                 <ul class="list">
@@ -151,7 +151,7 @@
                     <li class="li_elements"><div class="d-flex justify-content-between">Email Campaign <span>$3458</span></div></li>
                     <li class="li_elements"><div class="d-flex justify-content-between">Digital Wallets Balance <span>$3458</span></div></li>
                 </ul>
-                <p class="headings"><img src="{{ asset('public/panel/images/Paid.png') }}" width="30px" height="30px" alt=""> FUNDS PAID OUT</p>
+                <p class="headings"><img src="{{ asset('public/panel/images/Paid.png') }}" width="30px" height="30px" alt="funds paid out"> FUNDS PAID OUT</p>
                 <ul class="no_decoration_list list">
                     <li class="li_elements"><div class="d-flex justify-content-between">Suppliers <span>$8394</span></div></li>
                     <li class="li_elements"><div class="d-flex justify-content-between">Retailers <span>$8394</span></div></li>
@@ -163,7 +163,7 @@
                     <li class="li_elements"><div class="d-flex justify-content-between">Others <span>$8394</span></div></li>
                     <li class="li_elements"><div class="d-flex justify-content-between">Refund <span>$8394</span></div></li>
                 </ul>
-                <p class="headings"><img src="{{ asset('public/panel/images/request_service.png') }}" width="30px" height="30px" alt=""> FUNDS REQUEST</p>
+                <p class="headings"><img src="{{ asset('public/panel/images/request_service.png') }}" width="30px" height="30px" alt="funds request"> FUNDS REQUEST</p>
                 <ul class="no_decoration_list list">
                     <li class="li_elements"><div class="d-flex justify-content-between">Customer <span>$34.00</span></div></li>
                     <li class="fw-bold li_elements text-light">Rewards</li>

@@ -19,7 +19,7 @@
                             <h5 class="price">Price: <span>${{number_format((float)$product1->retail_price, 2, '.', '')}}</span></h5>
                             <a href="{{ route('product-detail',['slug' => $product1->slug, 'sku' => $product1->sku]) }}" class="btn btn-primary-blue" data-animation="fadeInUp" data-delay=".8s" tabindex="0" style="animation-delay: 0.8s;">Shop Now</a>
                             </div>
-                            {{-- <a class="primary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a> --}}
+                            {{-- <a class="primary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt="image"></a> --}}
 
                         </div>
                         <div class="category-thumb">
