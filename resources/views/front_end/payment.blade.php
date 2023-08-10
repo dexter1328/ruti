@@ -20,6 +20,7 @@
 </div>
 <!--breadcrumbs area end-->
 {{-- xyz --}}
+{{-- xyz2 --}}
 <!--Checkout page section-->
 <div class="Checkout_section mt-70">
    <div class="container">
