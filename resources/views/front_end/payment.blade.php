@@ -21,6 +21,7 @@
 <!--breadcrumbs area end-->
 {{-- xyz --}}
 {{-- xyz2 --}}
+{{-- xyz3 --}}
 <!--Checkout page section-->
 <div class="Checkout_section mt-70">
    <div class="container">
