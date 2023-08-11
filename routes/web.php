@@ -628,14 +628,14 @@ Route::group(['prefix' => 'vendor'], function () {
 
 
         Route::get('choose-ruti-fullfill-page', 'Vendor\VendorController@chooseRutiFullfillPage')->name('vendor.choose-ruti-fullfill-page');
-        Route::get('choose-ruti-fullfill', 'Vendor\VendorController@chooseRutiFullfill')->name('supplier.choose-ruti-fullfill');
-        Route::post('ruti-fullfill-submit', 'Vendor\VendorController@rutiFulfillSubmit')->name('ruti-fullfill-submit');
-        Route::post('fulfill-with-wallet', 'Vendor\VendorController@fulfillWithWallet')->name('fulfill-with-wallet');
+        Route::get('choose-ruti-fullfill', 'Vendor\VendorController@chooseRutiFullfill')->name('vendor.choose-ruti-fullfill');
+        Route::post('ruti-fullfill-submit', 'Vendor\VendorController@rutiFulfillSubmit')->name('vendor.ruti-fullfill-submit');
+        Route::post('fulfill-with-wallet', 'Vendor\VendorController@fulfillWithWallet')->name('vendor.fulfill-with-wallet');
         Route::post('vendor_fulfill', 'Vendor\VendorController@vendorFulfill')->name('vendor_fulfill');
         Route::get('vendor-wallet', 'Vendor\VendorController@vendorWallet')->name('vendor.wallet');
         Route::get('receive-wallet', 'Vendor\VendorController@receiveWallet')->name('vendor.receive.wallet');
         Route::get('withdraw-wallet', 'Vendor\VendorController@withdrawWallet')->name('vendor.withdraw.wallet');
-        Route::post('withdraw-to-bank', 'Vendor\VendorController@withdrawToBank')->name('withdraw-to-bank');
+        Route::post('withdraw-to-bank', 'Vendor\VendorController@withdrawToBank')->name('vendor.withdraw-to-bank');
         Route::post('add-to-vendor-wallet', 'Vendor\VendorController@addToWallet')->name('add-to-vendor-wallet');
         Route::post('/vendor-wallet-payment/{amount}', 'Vendor\VendorController@vendorWalletPayment')->name('vendor-wallet-payment');
 

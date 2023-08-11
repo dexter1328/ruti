@@ -19,11 +19,11 @@
                             <h5 class="price">Price: <span>${{number_format((float)$product1->retail_price, 2, '.', '')}}</span></h5>
                             <a href="{{ route('product-detail',['slug' => $product1->slug, 'sku' => $product1->sku]) }}" class="btn btn-primary-blue" data-animation="fadeInUp" data-delay=".8s" tabindex="0" style="animation-delay: 0.8s;">Shop Now</a>
                             </div>
-                            {{-- <a class="primary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a> --}}
+                            {{-- <a class="primary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt="image"></a> --}}
 
                         </div>
                         <div class="category-thumb">
-                            <img style="width:  100%; height: 100%; object-fit: contain;" src="{{$product1->original_image_url}}" alt="">
+                            <img style="width:  100%; height: 100%; object-fit: contain;" src="{{$product1->original_image_url}}" alt="{{ Str::limit($product1->title, 35) }}">
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                             <span class="shop-now">${{number_format((float)$product2->retail_price, 2, '.', '')}}</span>
                         </div>
                         <div class="category-thumb">
-                            <img src="{{$product2->original_image_url}}" alt="">
+                            <img src="{{$product2->original_image_url}}" alt="{{ Str::limit($product2->title, 35) }}">
                         </div>
                     </div>
                     <div class="category-banner-item right-bottom-banner mb-20 align-items-center banner_thumb">
@@ -45,7 +45,7 @@
                             <span class="shop-now">${{number_format((float)$product3->retail_price, 2, '.', '')}}</span>
                         </div>
                         <div class="category-thumb">
-                            <img src="{{$product3->original_image_url}}" alt="">
+                            <img src="{{$product3->original_image_url}}" alt="{{ Str::limit($product3->title, 35) }}">
                         </div>
                     </div>
                 </div>
@@ -123,7 +123,7 @@
         <div class="row">
             <div class="col-xl-8 mt-3 counter-wrapper">
                 <div class="product-counter-image float-start banner_thumb">
-                    <a href="{{ route('product-detail',['slug' => $product4->slug, 'sku' => $product4->sku]) }}"><img style="width:  100%; height: 100%; object-fit: contain;" src="{{$product4->original_image_url}}"></a>
+                    <a href="{{ route('product-detail',['slug' => $product4->slug, 'sku' => $product4->sku]) }}"><img style="width:  100%; height: 100%; object-fit: contain;" src="{{$product4->original_image_url}}" alt="{{ Str::limit($product4->title, 35) }}"></a>
                 </div>
                 <div class="countdown-wrap">
                     <span>DEAL OF THE DAY</span>
@@ -177,7 +177,7 @@
                             <span class="shop-now">${{number_format((float)$product5->retail_price, 2, '.', '')}}</span>
                         </div>
                         <div class="category-thumb">
-                            <a href="{{ route('product-detail',['slug' => $product5->slug, 'sku' => $product5->sku]) }}"><img src="{{$product5->original_image_url}}" alt=""></a>
+                            <a href="{{ route('product-detail',['slug' => $product5->slug, 'sku' => $product5->sku]) }}"><img src="{{$product5->original_image_url}}" alt="{{ Str::limit($product5->title, 35) }}"></a>
                         </div>
                     </div>
                     <div class="category-banner-item right-bottom-banner align-items-center banner_thumb">
@@ -187,7 +187,7 @@
                             <span class="shop-now">${{number_format((float)$product6->retail_price, 2, '.', '')}}</span>
                         </div>
                         <div class="category-thumb">
-                            <a href="{{ route('product-detail',['slug' => $product6->slug, 'sku' => $product6->sku]) }}"><img src="{{$product6->original_image_url}}" alt=""></a>
+                            <a href="{{ route('product-detail',['slug' => $product6->slug, 'sku' => $product6->sku]) }}"><img src="{{$product6->original_image_url}}" alt="{{ Str::limit($product6->title, 35) }}"></a>
                         </div>
                     </div>
                 </div>
@@ -229,8 +229,8 @@
                                 <article class="single_product">
                                     <figure>
                                         <div class="product_thumb">
-                                            <a class="primary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a>
-                                            <a class="secondary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a>
+                                            <a class="primary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt="{{ Str::limit($p->title, 35) }}"></a>
+                                            <a class="secondary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt="{{ Str::limit($p->title, 35) }}"></a>
                                             <div class="label_product">
                                                 <span class="label_sale">Sale</span>
 
@@ -247,7 +247,7 @@
                                             </div>
                                         </div>
                                         <figcaption class="product_content">
-                                            <h4 class="product_name double-lines-ellipsis"><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">{{ Str::limit($p->title, 30) }}</a></h4>
+                                            <h4 class="product_name double-lines-ellipsis"><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">{{ Str::limit($p->title, 35) }}</a></h4>
                                             <h5 class='text-left'><i class='fa fa-check'></i> In Stock</h5>
                                             <div class="price_box">
                                                 <span class="current_price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
@@ -268,7 +268,7 @@
                <div class="productbg_right_left">
                     <div class="arrivals-add">
                         <div class="thumb mb-100">
-                            <a href="{{ route('product-detail',['slug' => $product8->slug, 'sku' => $product8->sku]) }}"><img src="{{$product8->original_image_url}}" alt="img"></a>
+                            <a href="{{ route('product-detail',['slug' => $product8->slug, 'sku' => $product8->sku]) }}"><img src="{{$product8->original_image_url}}" alt="{{ Str::limit($product8->title, 35) }}"></a>
                             <h4 class="price text-end"><span>${{number_format((float)$product8->retail_price, 2, '.', '')}}</span></h4>
                         </div>
                         <div class="content">
@@ -301,7 +301,7 @@
                         </div>
                         <div class="category-thumb">
                             <a href="{{ route('product-detail',['slug' => $product9->slug, 'sku' => $product9->sku]) }}">
-                            <img src="{{$product9->original_image_url}}" alt="">
+                            <img src="{{$product9->original_image_url}}" alt="{{ Str::limit($product9->title, 35) }}">
                             </a>
                         </div>
                     </div>
@@ -325,7 +325,7 @@
                        </div>
                        <div class="category-thumb">
                            <a href="{{ route('product-detail',['slug' => $product10->slug, 'sku' => $product10->sku]) }}">
-                           <img src="{{$product10->original_image_url}}" alt="">
+                           <img src="{{$product10->original_image_url}}" alt="{{ Str::limit($product10->title, 35) }}">
                            </a>
                        </div>
                     </div>
@@ -357,7 +357,7 @@
                 <h3 class="card-title"> <a href="{{route('cat-products', $cat->category1)}}">{{$cat->category1}}</a></h3>
               </div> -->
                 <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image">
-                    <img class="w-100 h-100" src="{{asset('public/wb/img/categories/'.$cat->image)}}" alt="Card image cap">
+                    <img class="w-100 h-100" src="{{asset('public/wb/img/categories/'.$cat->image)}}" alt="{{$cat->category1}}">
                 </div>
                 <div class="card-body text-center mt-2">
                     <h3 class="card-title"> <a href="{{route('cat-products', $cat->category1)}}">{{$cat->category1}}</a></h3>

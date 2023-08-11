@@ -36,14 +36,14 @@
             </div>
             <div class="top_bar_last d-flex justify-content-end w-100 align-items-center">
             {{-- <div class="notifications top_bar_elements text-center">
-                <img src="{{ asset('public/panel/images/notification.png') }}" class="notification_icon" alt="">
+                <img src="{{ asset('public/panel/images/notification.png') }}" class="notification_icon" alt="image">
             </div> --}}
             <div class="user_image d-flex align-items-center top_bar_elements">
                 @if(Auth::user()->image)
                 @php $image = asset('public/images/'.Auth::user()->image); @endphp
-                <img src="{{$image}}" alt="" class="user_image me-2 img-circle">
+                <img src="{{$image}}" alt="{{Auth::user()->name}}" class="user_image me-2 img-circle">
                 @else
-                <img src="{{asset('public/images/User-Avatar.png')}}" alt="" class="user_image me-2 img-circle">
+                <img src="{{asset('public/images/User-Avatar.png')}}" alt="{{Auth::user()->name}}" class="user_image me-2 img-circle">
                 @endif
                 <p>{{Auth::user()->name}}</p>
             </div>
@@ -63,19 +63,19 @@
             </div>
             <div class="sub_header_last justify-content-around pe-3 col-md-12 col-lg-6">
                 {{-- <div class="restaurant d-flex align-items-center">
-                    <img src="{{ asset('public/panel/images/RestaurantBuilding.png') }}" class="sub_header_icons" alt="">
+                    <img src="{{ asset('public/panel/images/RestaurantBuilding.png') }}" class="sub_header_icons" alt="image">
                     <p><a href='www.google.com' class='header_link'> Restaurant </a></p>
                 </div>
                 <div class="super_admin d-flex align-items-center">
-                    <img src="{{ asset('public/panel/images/Administrator.png') }}" alt="">
+                    <img src="{{ asset('public/panel/images/Administrator.png') }}" alt="image">
                     <p><a href='#' class='header_link'> Super Admin </a></p>
                 </div>
                 <div class="sales_receipts d-flex align-items-center">
-                    <img src="{{ asset('public/panel/images/Totalsales.png') }}" alt="">
+                    <img src="{{ asset('public/panel/images/Totalsales.png') }}" alt="image">
                     <p><a href='#' class='header_link'> Sales Receipts </a></p>
                 </div>
                 <div class="duration d-flex align-items-center">
-                    <img src="{{ asset('public/panel/images/Weekview.png') }}" alt="">
+                    <img src="{{ asset('public/panel/images/Weekview.png') }}" alt="image">
                     <p><a href='#' class='header_link'> Duration  </a></p>
                 </div> --}}
             </div>
@@ -84,7 +84,7 @@
     <div class="search-container2 p-2">
         <input type="text" placeholder="Search...">
         <span class="">
-            <img  id="search-btn2" src="{{ asset('public/panel/images/downcaret.png') }}" class="drop_icon" alt="">
+            <img  id="search-btn2" src="{{ asset('public/panel/images/downcaret.png') }}" class="drop_icon" alt="down button">
         </span>
     </div>
     <div class="first_main_div2 p-4 m-auto">
@@ -92,62 +92,62 @@
             <div class="col-xl-2 col-lg-12 col-md-12">
                 <ul class="no_decoration_list list">
                     @if(has_permission(Auth::user()->role_id,'vendor','read'))
-                    <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/supplier') or request()->is('admin/supplier/*')) ? 'active' : '' }}"><img src="{{ asset('public/panel/images/Supplier.png') }}" class="me-2" width="30px" height="30px" alt="">
+                    <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/supplier') or request()->is('admin/supplier/*')) ? 'active' : '' }}"><img src="{{ asset('public/panel/images/Supplier.png') }}" class="me-2" width="30px" height="30px" alt="supplier image">
                         <a class="links" href="{{url('admin/supplier')}}">Suppliers </a>
                     </li>
                     @endif
                     @if(has_permission(Auth::user()->role_id,'products','read') || has_permission(Auth::user()->role_id,'brand','read') || has_permission(Auth::user()->role_id,'categories','read') || has_permission(Auth::user()->role_id,'attributes','read') || has_permission(Auth::user()->role_id,'discount_offers','read')|| has_permission(Auth::user()->role_id,'product_reviews','read') )
-                    <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/w2b_products/*')) ? 'active menu-open' : '' }}"> <img src="{{ asset('public/panel/images/icon8_wholesale.png') }}" class="me-2" width="30px" height="30px" alt="">
+                    <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/w2b_products/*')) ? 'active menu-open' : '' }}"> <img src="{{ asset('public/panel/images/icon8_wholesale.png') }}" class="me-2" width="30px" height="30px" alt="wholesale icon">
                         <a class="links" href="{{url('admin/w2b_products')}}">Wholesale2b </a>
                     </li>
                     @endif
                     @if(has_permission(Auth::user()->role_id,'vendor','read'))
-                    <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/supplier') or request()->is('admin/supplier/*')) ? 'active' : '' }}"><img src="{{ asset('public/panel/images/icon8_adv.png') }}" class="me-2" width="30px" height="30px" alt="">
+                    <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/supplier') or request()->is('admin/supplier/*')) ? 'active' : '' }}"><img src="{{ asset('public/panel/images/icon8_adv.png') }}" class="me-2" width="30px" height="30px" alt="advertisement">
                         <a class="links" href="#">Advertising Promotions </a>
                     </li>
                     @endif
                     @if(has_permission(Auth::user()->role_id,'vendor','read'))
-                    <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/supplier') or request()->is('admin/supplier/*')) ? 'active' : '' }}"><img src="{{ asset('public/panel/images/icon8_shipping.png') }}" class="me-2" width="30px" height="30px" alt="">
+                    <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/supplier') or request()->is('admin/supplier/*')) ? 'active' : '' }}"><img src="{{ asset('public/panel/images/icon8_shipping.png') }}" class="me-2" width="30px" height="30px" alt="shipping">
                         <a class="links" href="#">Fullfilment Center </a>
                     </li>
                     @endif
                     @if(has_permission(Auth::user()->role_id,'vendor','read'))
-                    <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/vendor') or request()->is('admin/vendor/*')) ? 'active' : '' }}"><img src="{{ asset('public/panel/images/best_seller.png') }}" class="me-2" width="30px" height="30px" alt="">
+                    <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/vendor') or request()->is('admin/vendor/*')) ? 'active' : '' }}"><img src="{{ asset('public/panel/images/best_seller.png') }}" class="me-2" width="30px" height="30px" alt="best seller">
                         <a class="links" href="{{url('admin/vendor')}}">Sellers </a>
                     </li>
                     @endif
                     @if(has_permission(Auth::user()->role_id,'vendor','read'))
-                    <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/supplier') or request()->is('admin/supplier/*')) ? 'active' : '' }}"><img src="{{ asset('public/panel/images/icon8_general2.png') }}" class="me-2" width="30px" height="30px" alt="">
+                    <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/supplier') or request()->is('admin/supplier/*')) ? 'active' : '' }}"><img src="{{ asset('public/panel/images/icon8_general2.png') }}" class="me-2" width="30px" height="30px" alt="General">
                         <a class="links" href="#">General </a>
                     </li>
                     @endif
                     @if(has_permission(Auth::user()->role_id,'vendor','read'))
-                    <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/supplier') or request()->is('admin/supplier/*')) ? 'active' : '' }}"><img src="{{ asset('public/panel/images/Management.png') }}" class="me-2" width="30px" height="30px" alt="">
+                    <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/supplier') or request()->is('admin/supplier/*')) ? 'active' : '' }}"><img src="{{ asset('public/panel/images/Management.png') }}" class="me-2" width="30px" height="30px" alt="Management">
                         <a class="links" href="#">Fund Management </a>
                     </li>
                     @endif
                     @if(has_permission(Auth::user()->role_id,'vendor','read'))
-                    <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/supplier') or request()->is('admin/supplier/*')) ? 'active' : '' }}"><img src="{{ asset('public/panel/images/Shipped.png') }}" class="me-2" width="30px" height="30px" alt="">
+                    <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/supplier') or request()->is('admin/supplier/*')) ? 'active' : '' }}"><img src="{{ asset('public/panel/images/Shipped.png') }}" class="me-2" width="30px" height="30px" alt="Shipped">
                         <a class="links" href="#">Shipping </a>
                     </li>
                     @endif
                     @if(has_permission(Auth::user()->role_id,'vendor','read'))
-                    <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/supplier') or request()->is('admin/supplier/*')) ? 'active' : '' }}"><img src="{{ asset('public/panel/images/graph_report.png') }}" class="me-2" width="30px" height="30px" alt="">
+                    <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/supplier') or request()->is('admin/supplier/*')) ? 'active' : '' }}"><img src="{{ asset('public/panel/images/graph_report.png') }}" class="me-2" width="30px" height="30px" alt="Graph Report">
                         <a class="links" href="#">Reports </a>
                     </li>
                     @endif
-                    {{-- <li class="mt-2 li_elements mb-2"><img src="{{ asset('public/panel/images/icon8_wholesale.png') }}" class="me-2" width="30px" height="30px" alt="">Wholesale  2 B</li>
-                    <li class="mt-2 li_elements mb-2"><img src="{{ asset('public/panel/images/icon8_adv.png') }}" class="me-2" width="30px" height="30px" alt="">Advertising Promotion</li>
-                    <li class="mt-2 li_elements mb-2"><img src="{{ asset('public/panel/images/icon8_shipping.png') }}" class="me-2" width="30px" height="30px" alt="">Fulfillment Center</li>
-                    <li class="mt-2 li_elements mb-2"><img src="{{ asset('public/panel/images/best_seller.png') }}" class="me-2" width="30px" height="30px" alt="">Seller</li>
-                    <li class="mt-2 li_elements mb-2"><img src="{{ asset('public/panel/images/icon8_general2.png') }}" class="me-2" width="30px" height="30px" alt="">General</li>
-                    <li class="mt-2 li_elements mb-2"><img src="{{ asset('public/panel/images/Management.png') }}" class="me-2" width="30px" height="30px" alt="">Fund Management</li>
-                    <li class="mt-2 li_elements mb-2"><img src="{{ asset('public/panel/images/Shipped.png') }}" class="me-2" width="30px" height="30px" alt="">Shiping</li>
-                    <li class="mt-2 li_elements mb-2"><img src="{{ asset('public/panel/images/graph_report.png') }}" class="me-2" width="30px" height="30px" alt="">Reports</li> --}}
+                    {{-- <li class="mt-2 li_elements mb-2"><img src="{{ asset('public/panel/images/icon8_wholesale.png') }}" class="me-2" width="30px" height="30px" alt="image">Wholesale  2 B</li>
+                    <li class="mt-2 li_elements mb-2"><img src="{{ asset('public/panel/images/icon8_adv.png') }}" class="me-2" width="30px" height="30px" alt="image">Advertising Promotion</li>
+                    <li class="mt-2 li_elements mb-2"><img src="{{ asset('public/panel/images/icon8_shipping.png') }}" class="me-2" width="30px" height="30px" alt="image">Fulfillment Center</li>
+                    <li class="mt-2 li_elements mb-2"><img src="{{ asset('public/panel/images/best_seller.png') }}" class="me-2" width="30px" height="30px" alt="image">Seller</li>
+                    <li class="mt-2 li_elements mb-2"><img src="{{ asset('public/panel/images/icon8_general2.png') }}" class="me-2" width="30px" height="30px" alt="image">General</li>
+                    <li class="mt-2 li_elements mb-2"><img src="{{ asset('public/panel/images/Management.png') }}" class="me-2" width="30px" height="30px" alt="image">Fund Management</li>
+                    <li class="mt-2 li_elements mb-2"><img src="{{ asset('public/panel/images/Shipped.png') }}" class="me-2" width="30px" height="30px" alt="image">Shiping</li>
+                    <li class="mt-2 li_elements mb-2"><img src="{{ asset('public/panel/images/graph_report.png') }}" class="me-2" width="30px" height="30px" alt="image">Reports</li> --}}
                 </ul>
             </div>
             <div class="first_column col-xl-3 col-lg-12 col-md-12">
-                <h5 class="headings"><img src="{{ asset('public/panel/images/Supplier.png') }}" width="30px" height="30px" alt="" class="me-2">Supplier</h5>
+                <h5 class="headings"><img src="{{ asset('public/panel/images/Supplier.png') }}" width="30px" height="30px" alt="Supplier" class="me-2">Supplier</h5>
                 <ul class="no_decoration_list">
                     {{-- <li class="mt-2 underlined"><a href='#' class='links'>Inventory Management</a></li> --}}
                     @if(has_permission(Auth::user()->role_id,'vendor','read') || has_permission(Auth::user()->role_id,'vendor_store','read') || has_permission(Auth::user()->role_id,'vendor_configuration','read') || has_permission(Auth::user()->role_id,'vendor_coupons','read') || has_permission(Auth::user()->role_id,'vendor_coupons_used','read') )
@@ -194,7 +194,7 @@
                     <li class="mt-2 underlined"><a href='#' class='links'>Fulfillment Reports</a></li>
                     @endif
                 </ul>
-                <h5 class="headings"><img src="{{ asset('public/panel/images/icon8_wholesale.png') }}" width="30px" height="30px" alt="" class="me-2">Wholesale 2 B</h5>
+                <h5 class="headings"><img src="{{ asset('public/panel/images/icon8_wholesale.png') }}" width="30px" height="30px" alt="Wholesale" class="me-2">Wholesale 2 B</h5>
                 <ul class="no_decoration_list">
                     {{-- <li class="mt-2 underlined">
                         <div class="accordion" id="accordionExample">
@@ -233,7 +233,7 @@
 					@endif
 
                 </ul>
-                <h5 class="headings"><img src="{{ asset('public/panel/images/icon8_adv.png') }}" width="30px" height="30px" alt="" class="me-2">Advertising/Promotion</h5>
+                <h5 class="headings"><img src="{{ asset('public/panel/images/icon8_adv.png') }}" width="30px" height="30px" alt="advertisement" class="me-2">Advertising/Promotion</h5>
                 <ul class="no_decoration_list">
                     <li class="mt-2 underlined">Create Campaign</li>
                     <li class="mt-2 underlined">Advertising Management</li>
@@ -248,7 +248,7 @@
                 <div>
                     <canvas style="height: 200px;" id="myChart"></canvas>
                 </div>
-                <h5 class="headings"><img src="{{ asset('public/panel/images/icon8_shipping.png') }}" width="30px" height="30px" alt="" class="me-2">Fulfillment Center</h5>
+                <h5 class="headings"><img src="{{ asset('public/panel/images/icon8_shipping.png') }}" width="30px" height="30px" alt="Shipping" class="me-2">Fulfillment Center</h5>
                 <ul class="no_decoration_list">
                     <li class="mt-2 underlined">Fulfillment Setup/Edits</li>
                     <li class="mt-2 underlined">Fulfillment Management</li>
@@ -256,7 +256,7 @@
                     <li class="mt-2 underlined">Inventory Management</li>
                     <li class="mt-2 underlined">Returns/Cancellations</li>
                 </ul>
-                <h5 class="headings"><img src="{{ asset('public/panel/images/best_seller.png') }}" width="30px" height="30px" alt="" class="me-2">Seller</h5>
+                <h5 class="headings"><img src="{{ asset('public/panel/images/best_seller.png') }}" width="30px" height="30px" alt="Best seller" class="me-2">Seller</h5>
                 <ul class="no_decoration_list">
                     @if(has_permission(Auth::user()->role_id,'vendor','read') || has_permission(Auth::user()->role_id,'vendor_store','read') || has_permission(Auth::user()->role_id,'vendor_configuration','read') || has_permission(Auth::user()->role_id,'vendor_coupons','read') || has_permission(Auth::user()->role_id,'vendor_coupons_used','read') )
                     <li class="mt-2 underlined {{ (request()->is('admin/vendor/*') or request()->is('admin/vendor_store/*') or request()->is('admin/vendor_configuration/*') or request()->is('admin/vendor_coupons/*') or request()->is('admin/vendor_coupons_used/*') or request()->is('admin/vendor_unverified_coupons/*')) ? 'active menu-open' : '' }}">
@@ -338,7 +338,7 @@
                 <div id="map" class="my-2" style="height: 200px;"></div>
                 <div class="double_column justify-content-between">
                     <div>
-                        <h5 class="headings"><img src="{{ asset('public/panel/images/icon8_general2.png') }}" width="30px" height="30px" alt="" class="me-2">General</h5>
+                        <h5 class="headings"><img src="{{ asset('public/panel/images/icon8_general2.png') }}" width="30px" height="30px" alt="General" class="me-2">General</h5>
                     <ul class="no_decoration_list">
                         @if(has_permission(Auth::user()->role_id,'admins','read'))
                         <li class="mt-2 underlined {{ (request()->is('admin/admins') or request()->is('admin/admins/*')) ? 'active' : '' }}">
@@ -364,7 +364,7 @@
                         <li class="mt-2 underlined">Login History</li>
                         <li class="mt-2 underlined">Notifications</li> --}}
                     </ul>
-                    <h5 class="headings"><img src="{{ asset('public/panel/images/Management.png') }}" width="30px" height="30px" alt="" class="me-2">Fund Management</h5>
+                    <h5 class="headings"><img src="{{ asset('public/panel/images/Management.png') }}" width="30px" height="30px" alt="Management" class="me-2">Fund Management</h5>
                     <ul class="no_decoration_list">
                     <li class="mt-2 underlined">Create/View Bank Details</li>
                     <li class="mt-2 underlined">Create/View/Add/Edit Card</li>
@@ -374,7 +374,7 @@
                     </ul>
                     </div>
                     <div>
-                    <h5 class="headings"><img src="{{ asset('public/panel/images/Shipped.png') }}" width="30px" height="30px" alt="" class="me-2">Help</h5>
+                    <h5 class="headings"><img src="{{ asset('public/panel/images/Shipped.png') }}" width="30px" height="30px" alt="Shipped" class="me-2">Help</h5>
                     <ul class="no_decoration_list">
                         <li class="mt-2 underlined">Manage Tickets</li>
                         <li class="mt-2 underlined">Sign In</li>
@@ -383,7 +383,7 @@
                         <li class="mt-2 underlined">Demo Video</li>
                         <li class="mt-2 underlined">Returns</li>
                     </ul>
-                    <h5 class="headings"><img src="{{ asset('public/panel/images/graph_report.png') }}" width="30px" height="30px" alt="" class="me-2">Reports</h5>
+                    <h5 class="headings"><img src="{{ asset('public/panel/images/graph_report.png') }}" width="30px" height="30px" alt="Graph report" class="me-2">Reports</h5>
                     <ul class="no_decoration_list">
                     <li class="mt-2 underlined">Top Selling Products</li>
                     <li class="mt-2 underlined">Sales</li>

@@ -56,10 +56,10 @@
 
                 <div class='width-20'>
                     <a role="button" class="remove-from-cart"><i class="fa fa-trash-o"></i></a>
-                    <img src="{{ $details['original_image_url'] }}" class='table_product_image ml-4' alt="">
+                    <img src="{{ $details['original_image_url'] }}" class='table_product_image ml-4' alt="{{ Str::limit($details['title'], 35) }}">
                 </div>
                 <div class='px-2 width-20 image_title'>
-                    <span>{{ Str::limit($details['title'], 30) }}</span>
+                    <span>{{ Str::limit($details['title'], 35) }}</span>
                     <br>
                     {{-- <button class='border buy_again'>Buy it again</button> --}}
                 </div>
@@ -121,7 +121,7 @@
 
                     <div class='more_products ml-2 py-2 px-4'>
                         <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
-                        <img src="{{$p->original_image_url}}" class='more_products_img'  alt="">
+                        <img src="{{$p->original_image_url}}" class='more_products_img'  alt="{{ Str::limit($p->title, 35) }}">
                         </a>
                         <div class='products_title'>
                             <h5><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">{{ Str::limit($p->title, 20) }}</a></h5>

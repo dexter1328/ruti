@@ -7,15 +7,15 @@
         <div class="row">
             <div class="col-12">
                 <div class="error_form">
-                    <h1><img style="width: 10%" src="{{ asset('public/wb/img/logo/thank-you.gif')}}" alt=""></h1>
+                    <h1><img style="width: 10%" src="{{ asset('public/wb/img/logo/thank-you.gif')}}" alt="image"></h1>
                     <h2>Thank You For Ordering</h2>
                     <h5>A Smart Shopping Experience Right In Your Hand</h5>
                     <ul class="banneer-icon banneer-icon-new text center">
                         <li class="apple">
-                            <img src="{{ asset('public/frontend/image/ios_qrcode.png')}}" alt="">
+                            <img src="{{ asset('public/frontend/image/ios_qrcode.png')}}" alt="image">
                         </li>
                         <li>
-                            <img src="{{ asset('public/frontend/image/android_qrcode.png')}}" alt="">
+                            <img src="{{ asset('public/frontend/image/android_qrcode.png')}}" alt="image">
                         </li>
                     </ul>
                     <ul class="banneer-icon"  style="margin-top: 111px">
@@ -35,7 +35,7 @@
 <!-- download start -->
 <section id="download" class="download">
     <h2 class="heading">
-        <h1><img style="width: 10%" src="{{ asset('public/wb/img/logo/thank-you.gif')}}" alt=""></h1>
+        <h1><img style="width: 10%" src="{{ asset('public/wb/img/logo/thank-you.gif')}}" alt="thank you!"></h1>
         <h2>Thank You For Ordering</h2>
     </h2>
     <div class="container">
@@ -48,10 +48,10 @@
                 @endif
                 <ul class="banner-icon bni1 banner-icon-new">
                     <li class="apple">
-                        <img src="{{ asset('public/frontend/image/ios_qrcode.png')}}" alt="">
+                        <img src="{{ asset('public/frontend/image/ios_qrcode.png')}}" alt="ios QR code">
                     </li>
                     <li>
-                        <img src="{{ asset('public/frontend/image/android_qrcode.png')}}" alt="">
+                        <img src="{{ asset('public/frontend/image/android_qrcode.png')}}" alt="android QR code">
                     </li>
                 </ul><br>
                 <ul class="banner-icon bni2">
@@ -92,8 +92,8 @@
                                 <article class="single_product">
                                     <figure>
                                         <div class="product_thumb">
-                                            <a class="primary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a>
-                                            <a class="secondary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt=""></a>
+                                            <a class="primary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt="{{ Str::limit($p->title, 35) }}"></a>
+                                            <a class="secondary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt="{{ Str::limit($p->title, 35) }}"></a>
                                             <div class="label_product">
                                                 <span class="label_sale">Sale</span>
 
@@ -110,7 +110,7 @@
                                             </div>
                                         </div>
                                         <figcaption class="product_content">
-                                            <h4 class="product_name double-lines-ellipsis"><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">{{ Str::limit($p->title, 30) }}</a></h4>
+                                            <h4 class="product_name double-lines-ellipsis"><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">{{ Str::limit($p->title, 35) }}</a></h4>
                                             <h5 class='text-left'><i class='fa fa-check'></i> In Stock</h5>
                                             <div class="price_box">
                                                 <span class="current_price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>

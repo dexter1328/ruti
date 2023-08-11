@@ -14,10 +14,10 @@
                         </h5>
                         <ul class="banner-icon banner-icon-new">
                             <li class="apple">
-                                <img src="{{ asset('public/frontend/image/ios_qrcode.png')}}" alt="">
+                                <img src="{{ asset('public/frontend/image/ios_qrcode.png')}}" alt="image">
                             </li>
                             <li>
-                                <img src="{{ asset('public/frontend/image/android_qrcode.png')}}" alt="">
+                                <img src="{{ asset('public/frontend/image/android_qrcode.png')}}" alt="image">
                             </li>
                         </ul>
                         <ul class="banner-icon"  style="margin-top: 111px">
@@ -30,9 +30,9 @@
                 </div>
                 <div class="col-lg-7 col-md-7 no-padding banner-img d-md-block d-none">
                     @if(isset($page_meta['header_image']) && $page_meta['header_image']!='')
-                        <img src="{{asset('public/images/pagemeta/'.$page_meta['header_image'])}}" class="img-fluid" alt="">
+                        <img src="{{asset('public/images/pagemeta/'.$page_meta['header_image'])}}" class="img-fluid" alt="image">
                     @else
-                        <img src="{{asset('public/frontend/image/banner-tab-image.png')}}" class="img-fluid" alt="">
+                        <img src="{{asset('public/frontend/image/banner-tab-image.png')}}" class="img-fluid" alt="image">
                     @endif
                 </div>
             </div>
@@ -60,9 +60,9 @@
                 <div class="col-md-5 side-video">
                     <div class="about-ss video-watch detail-side-video">
                         @if(isset($page_meta['about_image']) && $page_meta['about_image']!='')
-                            <img src="{{asset('public/images/pagemeta/'.$page_meta['about_image'])}}" class="img-fluid" alt="">
+                            <img src="{{asset('public/images/pagemeta/'.$page_meta['about_image'])}}" class="img-fluid" alt="image">
                         @else
-                            <img src="{{asset('public/frontend/image/about-ss-with-phone.png')}}" class="img-fluid" alt="">
+                            <img src="{{asset('public/frontend/image/about-ss-with-phone.png')}}" class="img-fluid" alt="image">
                         @endif
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                             @foreach($vendors as $vendor)
                                 <div class="col-md-4 @if($i==1) text-left @endif">
                                     <div class="vendors-details">
-                                        <img src="{{asset('public/images/pagemeta/'.$vendor->image)}}" alt="" class="vendorImage" />
+                                        <img src="{{asset('public/images/pagemeta/'.$vendor->image)}}" alt="image" class="vendorImage" />
                                         <h5>{{$vendor->name}}</h5>
                                     </div>
                                 </div>
@@ -106,25 +106,25 @@
                         @else
                             <div class="col-md-4 text-left">
                                 <div class="vendors-details">
-                                    <img src="{{ asset('public/frontend/image/brand-name/kroger.png')}}" alt="" />
+                                    <img src="{{ asset('public/frontend/image/brand-name/kroger.png')}}" alt="image" />
                                     <h5>kroger</h5>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="vendors-details">
-                                    <img src="{{ asset('public/frontend/image/brand-name/fresh-by-honestbee.png')}}" alt="" />
+                                    <img src="{{ asset('public/frontend/image/brand-name/fresh-by-honestbee.png')}}" alt="image" />
                                     <h5>Fresh Supermarket</h5>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="vendors-details">
-                                    <img src="{{ asset('public/frontend/image/brand-name/Mall_of_america_logo13.png')}}" alt="" />
+                                    <img src="{{ asset('public/frontend/image/brand-name/Mall_of_america_logo13.png')}}" alt="image" />
                                     <h5>Mall of America</h5>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="vendors-details">
-                                    <img src="{{ asset('public/frontend/image/brand-name/Associated.png')}}" alt="" />
+                                    <img src="{{ asset('public/frontend/image/brand-name/Associated.png')}}" alt="image" />
                                     <h5>Associated</h5>
                                 </div>
                             </div>
@@ -154,27 +154,27 @@
                         @if(!empty($features))
                             @foreach($features as $feature)
                                 <div class="slick-feature-img">
-                                    <img src="{{asset('public/images/pagemeta/'.$feature->image)}}" alt="">
+                                    <img src="{{asset('public/images/pagemeta/'.$feature->image)}}" alt="image">
                                 </div>
                             @endforeach
                         @else
                             <div class="slick-feature-img">
-                                <img src="{{asset('public/frontend/image/pickup.png')}}" class="img-fluid')}}" alt="">
+                                <img src="{{asset('public/frontend/image/pickup.png')}}" class="img-fluid')}}" alt="image">
                             </div>
                             <div class="slick-feature-img">
-                                <img src="{{asset('public/frontend/image/scan-shop.png')}}" class="img-fluid')}}" alt="">
+                                <img src="{{asset('public/frontend/image/scan-shop.png')}}" class="img-fluid')}}" alt="image">
                             </div>
                             <div class="slick-feature-img">
-                                <img src="{{asset('public/frontend/image/easy-checkout.png')}}" class="img-fluid')}}" alt="">
+                                <img src="{{asset('public/frontend/image/easy-checkout.png')}}" class="img-fluid')}}" alt="image">
                             </div>
                             <div class="slick-feature-img">
-                                <img src="{{asset('public/frontend/image/caseless.png')}}" class="img-fluid')}}" alt="">
+                                <img src="{{asset('public/frontend/image/caseless.png')}}" class="img-fluid')}}" alt="image">
                             </div>
                             <div class="slick-feature-img">
-                                <img src="{{asset('public/frontend/image/coupon-deals.png')}}" class="img-fluid')}}" alt="">
+                                <img src="{{asset('public/frontend/image/coupon-deals.png')}}" class="img-fluid')}}" alt="image">
                             </div>
                             <div class="slick-feature-img">
-                                <img src="{{asset('public/frontend/image/rewards.png')}}" class="img-fluid')}}" alt="">
+                                <img src="{{asset('public/frontend/image/rewards.png')}}" class="img-fluid')}}" alt="image">
                             </div>
                         @endif
                     </div>
@@ -357,7 +357,7 @@
                             <div class="col-md-4 text-center">
                                 <div class="feedback-details">
                                     @php if($feedback->image!='' && file_exists(public_path('images/pagemeta/'.$feedback->image))){ @endphp
-                                        <img src="{{asset('public/images/pagemeta/'.$feedback->image)}}" class="img-fluid feedbackImage" alt="">
+                                        <img src="{{asset('public/images/pagemeta/'.$feedback->image)}}" class="img-fluid feedbackImage" alt="image">
                                     @php } @endphp
                                     @php /* if($feedback->image!=''){
                                         $image = asset('public/images/pagemeta/'.$feedback->image);
@@ -375,21 +375,21 @@
                         @else
                             <div class="col-md-4 text-center">
                                 <div class="feedback-details">
-                                    <img src="{{ asset('public/frontend/image/feedback-image-1.png')}}" class="img-fluid" alt="">
+                                    <img src="{{ asset('public/frontend/image/feedback-image-1.png')}}" class="img-fluid" alt="image">
                                     <h2>Johnson</h2>
                                     <p>Nature checkout is the future of grocery shopping! The App is very easy to use and the highlight of this whole idea for me is that I do not have to wait in a long queue for the Billing Process. Scan, Confirm, Checkout and  Vola! I am out of the Store. Highly Recommended</p>
                                 </div>
                             </div>
                             <div class="col-md-4 text-center">
                                 <div class="feedback-details">
-                                    <img src="{{ asset('public/frontend/image/feedback-image-2.png')}}" class="img-fluid" alt="">
+                                    <img src="{{ asset('public/frontend/image/feedback-image-2.png')}}" class="img-fluid" alt="image">
                                     <h2>Sophia</h2>
                                     <p>Hi Guys, I am sharing my experience with Nature checkout. I am a regular user of Nature checkout as while going back home from my office, I always order fresh groceries from the Store on my way and ask them for a Pick Up option, so by the time I reach the Store, my order is ready and good to go. It has saved me a lot of time.</p>
                                 </div>
                             </div>
                             <div class="col-md-4 text-center">
                                 <div class="feedback-details">
-                                    <img src="{{ asset('public/frontend/image/feedback-image-3.png')}}" class="img-fluid" alt="">
+                                    <img src="{{ asset('public/frontend/image/feedback-image-3.png')}}" class="img-fluid" alt="image">
                                     <h2>Hailey</h2>
                                     <p>Thanks to Nature checkout, I can now transfer money from my wallet to my daughter’s wallet for her shopping which helps me keep tab on her expenses. Also, pick up option is something I frequently use</p>
                                 </div>

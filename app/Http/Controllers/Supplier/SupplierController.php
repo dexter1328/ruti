@@ -358,7 +358,10 @@ class SupplierController extends Controller
         $countries = Country::all();
         //$data = $this->getChecklist();
         $cards = $this->retriveVendorCards();
-        return view('supplier.suppliers.profile', compact('vendor', 'countries'/*,'data'*/, 'cards'));
+        $stripe_key = $this->stripe_key;
+
+
+        return view('supplier.suppliers.profile', compact('vendor', 'countries'/*,'data'*/, 'cards','stripe_key'));
     }
 
     public function editprofile(Request $request)
@@ -1113,7 +1116,7 @@ class SupplierController extends Controller
 
             } else {
                 try {
-                    Stripe::setApiKey('sk_test_51IarbDGIhb5eK2lSAhS5c8HvzuCmQh8CuCx81iR1hYfzSIwGpS1gLnTWs4xfhI9cwcpS8XYKbep9N8h1ZDSSxr0Y00NoFqGE3J');
+                    Stripe::setApiKey($this->stripe_secret);
 
                     $customer = \Stripe\Customer::create([
                         "name" => $name,
@@ -1155,7 +1158,7 @@ class SupplierController extends Controller
             }
 
             try {
-                \Stripe\Stripe::setApiKey('sk_test_51IarbDGIhb5eK2lSAhS5c8HvzuCmQh8CuCx81iR1hYfzSIwGpS1gLnTWs4xfhI9cwcpS8XYKbep9N8h1ZDSSxr0Y00NoFqGE3J');
+                \Stripe\Stripe::setApiKey($this->stripe_secret);
                 $card = \Stripe\Customer::createSource(
                     $customer_id,
                     ['source' => $request->get('stripeToken')]

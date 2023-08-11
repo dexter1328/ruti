@@ -153,7 +153,7 @@
                                     <input type="hidden" value="{{$details['vendor_id']}}" name="vendor_id[]">
                                     <input type="hidden" value="{{$total_price}}" name="total_price">
                                     <tr>
-                                        <td> {{ Str::limit($details['title'], 30) }} <strong> × {{$details['quantity']}}</strong></td>
+                                        <td> {{ Str::limit($details['title'], 35) }} <strong> × {{$details['quantity']}}</strong></td>
                                         <td> ${{number_format((float)$details['retail_price'] * $details['quantity'], 2, '.', '')}}</td>
                                     </tr>
                                     @endforeach
@@ -183,7 +183,7 @@
 
                             {{-- <div class="order_button d-flex">
                                 <button class='mt-2 w-50' type="submit">Payment from Digital Wallet</button>
-                                <button class='paypal_button ml-2 mt-2 w-50' type="submit"><img class='paypal_btn_image' src="public\images\paypal.png" alt=""></button>
+                                <button class='paypal_button ml-2 mt-2 w-50' type="submit"><img class='paypal_btn_image' src="public\images\paypal.png" alt="image"></button>
                             </div> --}}
                             <div class='order_button'>
                                 <button class='mt-2 w-100' type="submit">Proceed to Payment</button>

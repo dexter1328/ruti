@@ -33,14 +33,29 @@ class W2bCustomerController extends Controller
 {
 
     private $stripe_secret;
+    private $stripe_key;
+
     public function __construct()
 	{
 
 		$page_meta = PageMeta::pluck('meta_value', 'meta_key')->all();
 		View::share('page_meta', $page_meta);
+
         $categories = W2bCategory::with('childrens')->get();
         View::share('categories', $categories);
+        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])->get();
+        View::share('categories2', $categories2);
+        $wb_wishlist = null;
+
+        if (Auth::guard('w2bcustomer')->user()) {
+            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
+            ->get();
+        }
+        View::share('wb_wishlist', $wb_wishlist);
+
+
         $this->stripe_secret = config('services.stripe.secret');
+        $this->stripe_key = config('services.stripe.key');
 
 
 	}
@@ -62,12 +77,7 @@ class W2bCustomerController extends Controller
     //
     public function userAccount($filter = "orders")
     {
-        $wb_wishlist = null;
 
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
         if ($filter == "shipped") {
             # code...
             $orders = DB::table('w2b_orders')
@@ -147,42 +157,33 @@ class W2bCustomerController extends Controller
         }
         $user = User::where('id', Auth::guard('w2bcustomer')->user()->id)->first();
         // dd($user_info);
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-        ->get();
-        return view('front_end.user_account',compact('wb_wishlist','orders','categories2','user'));
+
+        $stripe_key = $this->stripe_key;
+
+        return view('front_end.user_account',compact('orders','user','stripe_key'));
     }
     public function userProduct($id)
     {
-        $wb_wishlist = null;
 
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
 
         $ordered_products = DB::table('w2b_orders')
         ->join('ordered_products', 'ordered_products.order_id', '=', 'w2b_orders.order_id')
+        ->join('w2b_products', 'w2b_products.sku', '=', 'ordered_products.sku')
         ->where('w2b_orders.user_id', Auth::guard('w2bcustomer')->user()->id)
         ->where('w2b_orders.is_paid','yes')
         ->where('w2b_orders.order_id', $id)
-        ->select('ordered_products.*', 'w2b_orders.order_id as p_order_id', 'w2b_orders.total_price as p_total_price',
+        ->select('ordered_products.*','w2b_products.slug as slug', 'w2b_orders.order_id as p_order_id', 'w2b_orders.total_price as p_total_price',
          'w2b_orders.created_at as p_created_at', 'w2b_orders.status as p_status', 'w2b_orders.user_id as p_user_id')
         ->get();
         //  dd($ordered_products);
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-        ->get();
 
-        return view('front_end.user_products',compact('wb_wishlist','ordered_products','categories2'));
+
+        return view('front_end.user_products',compact('ordered_products'));
     }
 
     public function orderInvoice($id)
     {
-        $wb_wishlist = null;
 
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
         $order = DB::table('w2b_orders')
         ->join('users', 'users.id', '=', 'w2b_orders.user_id')
         ->join('states', 'states.id', '=', 'users.state')
@@ -202,10 +203,9 @@ class W2bCustomerController extends Controller
          'w2b_orders.created_at as p_created_at', 'w2b_orders.status as p_status')
         ->get();
         //   dd($ordered_products);
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-        ->get();
 
-        return view('front_end.order_invoice',compact('wb_wishlist','order', 'ordered_products','categories2'));
+
+        return view('front_end.order_invoice',compact('order', 'ordered_products'));
     }
 
     public function userProfileUpdate(Request $request, $id)
@@ -245,15 +245,9 @@ class W2bCustomerController extends Controller
     public function giftReceipt($orderId)
     {
         # code...
-        $wb_wishlist = null;
 
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-        ->get();
-        return view('front_end.gift_receipt', compact('wb_wishlist','categories2','orderId'));
+
+        return view('front_end.gift_receipt', compact('orderId'));
 
     }
 
@@ -275,18 +269,9 @@ class W2bCustomerController extends Controller
 
     public function returnItem($sku, $orderId, $userId)
     {
-        // dd($sku, $orderId, $userId);
-        $wb_wishlist = null;
-
-        if (Auth::guard('w2bcustomer')->user()) {
-            $wb_wishlist = WbWishlist::where('user_id', Auth::guard('w2bcustomer')->user()->id)
-            ->get();
-        }
-        $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
-        ->get();
 
         $product = W2bProduct::where('sku', $sku)->first();
-        return view('front_end.return_item', compact('sku','orderId','userId','wb_wishlist','categories2','product'));
+        return view('front_end.return_item', compact('sku','orderId','userId','product'));
     }
 
     public function returnItemSubmit(Request $request)

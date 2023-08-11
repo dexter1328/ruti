@@ -47,16 +47,6 @@
                                 again.</div>
                         </div>
                     </div>
-                    {{-- <form
-                    role="form"
-                    action="{{ route('order-payment') }}"
-                    method="post"
-                    class="require-validation"
-                    data-cc-on-file="false"
-                    data-stripe-publishable-key="pk_test_51IarbDGIhb5eK2lSKrWKttm9gweug3yv8EqP2PoVRAhD6HWsuviQWzKOszgIf7imZZ5sjUXHdQhF759Khm3J3nYF00Ved0Wutj"
-                    id="payment-form">
-                    @csrf --}}
-
 
                         <h3 class='sections_coupons_header'>Payment Details</h3>
                         <div class="row m-auto w-100" >
@@ -80,7 +70,7 @@
                                                     method="post"
                                                     class="require-validation"
                                                     data-cc-on-file="false"
-                                                    data-stripe-publishable-key="pk_test_51IarbDGIhb5eK2lSKrWKttm9gweug3yv8EqP2PoVRAhD6HWsuviQWzKOszgIf7imZZ5sjUXHdQhF759Khm3J3nYF00Ved0Wutj"
+                                                    data-stripe-publishable-key="{{$stripe_key}}"
                                                     id="payment-form">
                                                     @csrf
                                                 <div class="card-body">
@@ -283,7 +273,7 @@
                                     @php $tax = ($details['sales_tax_pct'] / 100) * $total @endphp
                                     @php $total_price = $total + $details['shipping_price'] + $tax @endphp
                                     <tr>
-                                        <td><a> {{ Str::limit($details['title'], 30) }} </a><strong> × {{$details['quantity']}}</strong></td>
+                                        <td><a> {{ Str::limit($details['title'], 35) }} </a><strong> × {{$details['quantity']}}</strong></td>
                                         <td> ${{number_format((float)$details['retail_price'] * $details['quantity'], 2, '.', '')}}</td>
                                     </tr>
                                     @endforeach
@@ -328,7 +318,7 @@
             @foreach ($suggested_products as $p)
             <div class='more_products ml-2 py-2 px-4'>
                 <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
-                <img src="{{$p->original_image_url}}" class='more_products_img'  alt="">
+                <img src="{{$p->original_image_url}}" class='more_products_img'  alt="image">
                 </a>
                 <div class='products_title'>
                     <h5><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">{{ Str::limit($p->title, 20) }}</a></h5>

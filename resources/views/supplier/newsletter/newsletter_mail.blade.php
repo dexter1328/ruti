@@ -410,7 +410,7 @@ table{
                                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                                     <tr>
                                                         <td class="icon">
-                                                            <img src="images/001-diet.png" alt="" style="width: 60px; max-width: 600px; height: auto; margin: auto; display: block;">
+                                                            <img src="images/001-diet.png" alt="newsletter" style="width: 60px; max-width: 600px; height: auto; margin: auto; display: block;">
                                                         </td>
                                                     </tr>
                                                     <tr>

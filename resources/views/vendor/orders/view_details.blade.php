@@ -25,7 +25,7 @@
                     <tr class="border-bottom">
                         @foreach ($od as $o)
 
-                        <td class="py-2"><img src="{{$o->image}}" width="60px" height="50px" alt=""></td>
+                        <td class="py-2"><img src="{{$o->image}}" width="60px" height="50px" alt="{{ Str::limit($o->title, 35) }}"></td>
                         <td class="py-2">{{$o->sku}}</td>
                         <td class="py-2">{{$o->title}}</td>
                         <td class="py-2">${{$o->price}}</td>

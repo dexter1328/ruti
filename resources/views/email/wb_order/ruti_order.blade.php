@@ -35,7 +35,7 @@
                 height="60px"
                 style="margin-left: 5%"
                 src="{{asset('public/wb/img/logo/logo.png')}}"
-                alt=""
+                alt="Nature Checkout"
               />
             </td>
             <td style="text-align: right; padding-right: 3%">
@@ -163,7 +163,7 @@
                 <img
                   src="assets/img/product/flash_product01.jpg"
                   style="width: 80px; height: 80px"
-                  alt=""
+                  alt="Product"
                 />
                 <div style="margin-left: 10px">
                   Smart watch i18, with all features <br />
@@ -176,7 +176,7 @@
                 <img
                   src="assets/img/product/flash_product03.jpg"
                   style="width: 80px; height: 80px"
-                  alt=""
+                  alt="Flash Product"
                 />
                 <div style="margin-left: 10px">
                   Leather gloves for men (1 pair) <br />

@@ -55,6 +55,8 @@ use PayPal\Exception\PPConnectionException;
 class FrontEndController extends Controller
 {
     private $_api_context;
+    private $stripe_secret;
+    private $stripe_key;
 
 	public function __construct()
 	{
@@ -72,6 +74,11 @@ class FrontEndController extends Controller
             ->get();
         }
         View::share('wb_wishlist', $wb_wishlist);
+
+
+        $this->stripe_secret = config('services.stripe.secret');
+        $this->stripe_key = config('services.stripe.key');
+
 
         $paypal_configuration = Config::get('paypal');
         $this->_api_context = new ApiContext(new OAuthTokenCredential($paypal_configuration['client_id'], $paypal_configuration['secret']));
@@ -547,8 +554,9 @@ class FrontEndController extends Controller
         $sp2 = DB::table('products')->where('status', 'enable')->inRandomOrder()->limit(2000)->get();
         $suggested_products = $sp2->merge($sp1)->paginate(7);
         $suggested_products = $suggested_products->sortBy('title');
+        $stripe_key = $this->stripe_key;
 
-        return view('front_end.payment',compact('suggested_products'));
+        return view('front_end.payment',compact('suggested_products','stripe_key'));
     }
 
     public function orderPayment(Request $request)
@@ -557,7 +565,7 @@ class FrontEndController extends Controller
         $user_details = session()->get('user_details');
         $order = W2bOrder::where('id', $w2border->id)->first();
 
-        Stripe::setApiKey('sk_test_51IarbDGIhb5eK2lSAhS5c8HvzuCmQh8CuCx81iR1hYfzSIwGpS1gLnTWs4xfhI9cwcpS8XYKbep9N8h1ZDSSxr0Y00NoFqGE3J');
+        Stripe::setApiKey($this->stripe_secret);
 
         $user = User::where('id', $w2border->user_id)->first();
         $customer = Customer::create(array(
@@ -638,11 +646,31 @@ class FrontEndController extends Controller
 
     public function trendingProducts()
     {
+    //     $string = 'hEl#lo 1244nabeel 74bu%Tt';
+    //     $string = str_replace(' ', '-', $string);
+
+    // // Removes special chars.
+    //     $string = preg_replace('/[^A-Za-z\-]/', '', $string);
+    // // Replaces multiple hyphens with single one.
+    //     $string = preg_replace('/-+/', '-', $string);
+    // // Lowercase string
+    //     $string = strtolower($string);
+    //     // $words = preg_replace('/[0-9]+/', '', $str);
+
+    //     // $words = preg_replace('/[^a-z ]/', '', $str);
+    //     // $words = preg_replace('/[^a-z ]/', '', $str);
+
+    //     dd($string);
         // $all_products = W2bProduct::all();
         // foreach ($all_products as $all_p) {
-        //     $str1 = str_replace(" ","-",$all_p->title);
-        //     $str2 = str_replace("/","-",$str1);
-        //     $all_p->update(['slug' => $str2]);
+        //     $string = str_replace(' ', '-', $all_p->title);
+        // // Removes special chars.
+        //     $string = preg_replace('/[^A-Za-z\-]/', '', $string);
+        // // Replaces multiple hyphens with single one.
+        //     $string = preg_replace('/-+/', '-', $string);
+        // // Lowercase string
+        //     $string = strtolower($string);
+        //     $all_p->update(['slug' => $string]);
         // }
 
 
