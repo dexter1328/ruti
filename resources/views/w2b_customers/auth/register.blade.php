@@ -292,6 +292,7 @@
                                <a class='ml-2' href="{{ url("/supplier/login") }}">Sign in as Supplier</a>
                             </div>
                         </div>
+                        <a href="{{url('/')}}" style="background-color:#ee7322;color:#fff !important;" class="btn btn-block">Home</a>
                     </div>
                 </div>
             </div>

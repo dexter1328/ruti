@@ -341,7 +341,7 @@ class CommonController extends Controller
 			$request->validate([
 				// 'sales_person_name'=>'required',
 				// 'sales_person_mobile_number'=>'required',
-				// 'g-recaptcha-response' => 'required|captcha',
+				'g-recaptcha-response' => 'required|captcha',
 				'office_number'=>'nullable|regex:/^([0-9\s\-\+\(\)]*)$/',
 				'mobile_number' =>'required|regex:/^([0-9\s\-\+\(\)]*)$/',
 				'email'=>'required|email|unique:vendors',

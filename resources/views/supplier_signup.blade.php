@@ -230,11 +230,12 @@
                                      I've read and accept the <a href="{{url('/privacy-policy')}}" style="color:navy !important;text-decoration: revert;">privacy</a> and <a href="{{url('/terms-condition')}}" style="color:navy !important;text-decoration: revert;">terms.</a>
                                 </label>
                               </div><br>
-                            <div class="form-group row">
+                            <div class="form-group row {{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
                                 <div class="col-sm-4">
                                     {!! app('captcha')->display() !!}
                                     @if ($errors->has('g-recaptcha-response'))
-                                        <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
                                     </span>
                                     @endif
                                 </div>

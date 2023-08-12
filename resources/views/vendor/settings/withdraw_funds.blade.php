@@ -27,7 +27,7 @@
                     </div>
                     <h5 class="i_text_color my-3">Bank Details:</h5>
                     <div>
-                        <form action="{{ route('withdraw-to-bank') }}" method="post">
+                        <form action="{{ route('vendor.withdraw-to-bank') }}" method="post">
                             @csrf
                             <div class="col-lg-12 mb-3">
                                 <label>Bank Name<span class="text-danger">*</span></label>

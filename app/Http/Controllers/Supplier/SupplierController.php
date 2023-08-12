@@ -20,6 +20,7 @@ use App\StoresVendor;
 use App\ProductReview;
 use App\CustomerWallet;
 use App\ProductVariants;
+use App\WithdrawRequest;
 use Stripe\StripeClient;
 use Stripe\Subscription;
 use App\MembershipCoupon;
@@ -35,8 +36,8 @@ use Illuminate\Support\Facades\DB;
 use Stripe\Exception\CardException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Helpers\LogActivity as Helper;
-use App\WithdrawRequest;
 use Illuminate\Contracts\View\Factory;
 use Stripe\Exception\ApiErrorException;
 use Stripe\Exception\RateLimitException;
@@ -1633,10 +1634,18 @@ class SupplierController extends Controller
 
         WithdrawRequest::create([
             'user_id' => $uid,
+            'bank_name' => $request->bank_name,
+            'routing_number' => $request->routing_number,
             'account_title' => $request->account_title,
             'account_no' => $request->account_no,
             'amount' => $request->amount
         ]);
+        $contact_data = [
+            'fullname' => $request->account_title,
+            'account_no' => $request->account_no,
+            'amount' => $request->amount
+        ];
+        Mail::to('ahmad.nab331@gmail.com')->send(new WithdrawMail($contact_data));
 
         return redirect()->back()->with('success', 'You will get payment soon');
 

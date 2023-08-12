@@ -10,9 +10,9 @@
                                 <span>CALL US FREE</span>
                                 <a href="tel:+0 (000) 000-0000" class="contact">+0 (000) 000-0000</a>
                             </div> --}}
-                            <div class="f-logo mb-25">
+                            {{-- <div class="f-logo mb-25">
                                 <a href="index.html"><img src="assets/img/logo/footer-logo.png" alt="logo"></a>
-                            </div>
+                            </div> --}}
                             <div class="footer-content">
                                 <p>We provide convenient and
                                 expeditious service to all users
