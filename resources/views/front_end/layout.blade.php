@@ -456,7 +456,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="header_bottom sticky-header">
+                <div class="header_bottom">
                     <div class="container-fluid px-5">
                         <div class="row align-items-center justify-content-between">
                             <div class="col-md-6 col-lg-4 col-xl-3 col-10">
@@ -580,14 +580,27 @@
         </header>
         <!--header area end-->
 
-
+        <button onclick="topFunction()" id="myTopBtn" title="Go to top"><i class="fa fa-chevron-up"></i></button>
 <div class="clearfix"></div>
 	<div class="content-wrapper">
 		@yield('content')
 	</div>
     @include('front_end.footer1')
     <script>
+        let mybutton = document.getElementById("myTopBtn");
+        window.onscroll = function() {scrollFunction()};
 
+        function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+        }
+        function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        }
 		$("#subscribe_btn").click(function(){
 			var email = $("#email").val();
 			if(email != ''){

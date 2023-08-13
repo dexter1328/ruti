@@ -70,9 +70,21 @@
                             </ul> --}}
 
                         </div>
-                        <div class="price_box">
-                            <span class="current_price">${{number_format((float)$product->retail_price, 2, '.', '')}}</span>
-                            {{-- <span class="old_price">$80.00</span> --}}
+                        <div class="d-flex justify-content-between">
+                            <div class="price_box">
+                                <span class="current_price">${{number_format((float)$product->retail_price, 2, '.', '')}}</span>
+                                {{-- <span class="old_price">$80.00</span> --}}
+                            </div>
+                            <div class="mr-4">
+                                <span class="tooltip-container mr-3">
+                                    <button class="btn_vote btn-secondary-orange"><img src="{{asset('public/wb/img/icons/profile-user.png')}}" width="25px" height="25px" alt=""></button>
+                                    <div class="tooltip-message">Vote for best seller.</div>
+                                </span>
+                                <span class="tooltip-container mx-3">
+                                    <button class="btn_vote btn-primary-blue"><img src="{{asset('public/wb/img/icons/product.png')}}" width="25px" height="25px" alt=""></button>
+                                    <div class="tooltip-message">Vote for best product.</div>
+                                </span>
+                            </div>
                         </div>
                        <div class="category-type">
                             <ul>
@@ -91,6 +103,16 @@
                                 </li>
                                 <li>
                                     {{$product->brand ? $product->brand : 'Not Specified'}}
+                                </li>
+                            </ul>
+                        </div>
+                       <div class="category-type">
+                            <ul>
+                                <li>
+                                    Seller Name:
+                                </li>
+                                <li>
+                                    John Doe
                                 </li>
                             </ul>
                         </div>
@@ -149,7 +171,33 @@
                         <div class="container mt-4 ">
                             {!! $shareComponent !!}
                         </div>
-
+                        <div class="seller_section mt-4">
+                            <p class="h4">Seller Services: </p>
+                            <div class="d-flex align-items-center mt-2">
+                                <span class="seller_icon d-flex justify-content-center align-items-center">
+                                <img src="{{asset('public/wb/img/icons/fast-delivery.png')}}" width="25px" height="25px" alt="">
+                                </span>
+                                <h4 class="seller_name my-auto ml-2">Shipping</h4>
+                            </div>
+                            <div class="d-flex align-items-center mt-2">
+                                <span class="seller_icon d-flex justify-content-center align-items-center">
+                                    <img src="{{asset('public/wb/img/icons/delivery.png')}}" width="25px" height="25px" alt="">
+                                </span>
+                                <h4 class="seller_name my-auto ml-2">Store Pickup</h4>
+                            </div>
+                            <div class="d-flex align-items-center mt-2">
+                                <span class="seller_icon d-flex justify-content-center align-items-center">
+                                    <img src="{{asset('public/wb/img/icons/check.png')}}" width="25px" height="25px" alt="">
+                                </span>
+                                <h4 class="seller_name my-auto ml-2">Self Checkout</h4>
+                            </div>
+                            <div class="d-flex align-items-center mt-2">
+                                <span class="seller_icon d-flex justify-content-center align-items-center">
+                                    <img src="{{asset('public/wb/img/icons/online-shop.png')}}" width="25px" height="25px" alt="">
+                                </span>
+                                <h4 class="seller_name my-auto ml-2">Sell Online</h4>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -385,7 +433,7 @@
         <div class='p-3 d-flex products_inner'>
             @foreach ($related_productss as $p)
 
-            <div class='more_products ml-2 py-2 px-4'>
+            <div class='more_products ml-2 py-2 px-4 d-flex flex-column'>
                 <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
                 <img src="{{$p->original_image_url}}" class='more_products_img'  alt="">
                 </a>
@@ -393,7 +441,7 @@
                 <div class='products_title'>
                     <h5><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">{{ Str::limit($p->title, 17) }}</a></h5>
                 </div>
-                <div class='products_title'>
+                <div class='products_title mt-auto'>
                     <h5 class="text-center"><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}" class="btn btn-danger btn-sm" style="border-radius:5px; font-size:12px; padding:10px 20px;">Select</a></h5>
                 </div>
             </div>
@@ -440,7 +488,7 @@
                         <div class="price_box">
                             <span class="current_price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
                         </div>
-                        <button class='btn btn-primary rounded p-2 my-2 w-100'>Add to Cart</button>
+                        <a href="{{ route('add.to.cart1', $p->sku) }}"><button class='btn btn-primary rounded p-2 my-2 w-100 cart_btn'>Add to Cart</button></a>
                     </figcaption>
                 </figure>
             </article>

@@ -35,12 +35,12 @@
         <p>{{ Session::get('error') }}</p>
     </div>
     @endif
-        <div class="checkout_form">
+        <div class="checkout_form row">
 
-            <div class="row justify-content-between">
+            <div class="col-lg-6 col-md-6 col-12 justify-content-between px-4">
 
 
-                <div class="col-lg-6 col-md-6 border main_parent_div p-0 mt-2">
+                <div class="border main_parent_div p-0 mt-2">
                     <div class='form-row row '>
                         <div class='col-md-12 error form-group d-none'>
                             <div class='alert-danger alert'>Please correct the errors and try
@@ -106,7 +106,7 @@
                                                             <input class='form-control card-expiry-year' placeholder='YYYY' size='4'type='text'>
                                                         </div>
                                                     </div>
-                                                    <div class="col-6 order_button">
+                                                    <div class="col-12 text-center order_button">
                                                         <button  type="submit">Pay Now</button>
                                                     </div>
                                                 </div>
@@ -114,7 +114,7 @@
 
                                             </div>
                                         </div>
-                                        <div class="card">
+                                        <!-- <div class="card">
                                         <div class="card-header" id="headingTwo">
                                         <h5 class="mb-0">
                                             <button class="btn btn-link collapsed w-100" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -160,7 +160,7 @@
                                       </div>
                                     </form>
 
-                                    </div>
+                                    </div> -->
                                     <div class="card">
                                         <div class="card-header" id="headingTwo">
                                         <h5 class="mb-0">
@@ -186,8 +186,8 @@
 
                                             <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
                                                 {{-- <label for="amount" class="col-md-4 control-label">Pay ${{$tp}}</label> --}}
-                                                <h3>Your Balance : ${{Auth::guard('w2bcustomer')->user()->wallet_amount}}</h3>
-                                                <h3>Order Total : {{$tp}}</h3>
+                                                <h4 class="d-flex justify-content-around">Your Balance : <span>${{Auth::guard('w2bcustomer')->user()->wallet_amount}}</span></h4>
+                                                <h4 class="d-flex justify-content-around">Order Total : <span>{{$tp}}</span></h4>
                                                 <input  type="hidden" class="form-control" name="amount" value="{{$tp}}"  />
                                                 @if ($errors->has('amount'))
                                                 <span class="help-block">
@@ -198,8 +198,8 @@
 
                                             </div>
                                             <div class="form-group">
-                                                <div class="col-lg-6 offset-2">
-                                                    <button type="submit" class="btn btn-primary">
+                                                <div class="col-lg-12 order_button text-center">
+                                                    <button type="submit" class="">
                                                       Click to Pay
                                                     </button>
                                                 </div>
@@ -208,8 +208,8 @@
                                     </form>
                                     @else
                                     <div class="form-group">
-                                        <div class="col-lg-6 offset-2">
-                                            <button type="" onclick="window.location='{{ url("w2bcustomer/login") }}'" class="btn btn-primary">
+                                        <div class="offset-2 order_button mt-3">
+                                            <button type="" onclick="window.location='{{ url("w2bcustomer/login") }}'" class="col-10">
                                               Login First to pay with Digital wallet
                                             </button>
                                         </div>
@@ -262,7 +262,8 @@
 
 
                 </div>
-                <div class="col-lg-5 col-md-5 border main_parent_div p-0 mt-2">
+                <div class="col-lg-6 col-md-6 col-12 justify-content-between px-4">
+                    <div class="border main_parent_div mt-2">
                     {{-- <form action="#"> --}}
 
                         <h3 class='sections_coupons_header'>Your order</h3>
