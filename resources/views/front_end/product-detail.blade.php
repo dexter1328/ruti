@@ -81,7 +81,7 @@
                                     <div class="tooltip-message">Vote for best seller.</div>
                                 </span>
                                 <span class="tooltip-container mx-3">
-                                    <button class="btn_vote btn-primary-blue"><img src="{{asset('public/wb/img/icons/product.png')}}" width="25px" height="25px" alt=""></button>
+                                    <button class="btn_vote btn-primary-blue"><img src="{{asset('public/wb/img/icons/box.png')}}" width="25px" height="25px" alt=""></button>
                                     <div class="tooltip-message">Vote for best product.</div>
                                 </span>
                             </div>
