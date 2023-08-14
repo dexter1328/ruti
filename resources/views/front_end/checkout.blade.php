@@ -114,7 +114,7 @@
                     </form>
                 </div>
                 <div class="col-lg-6 col-md-6 mt-4">
-                    <div class='mb-4 border main_parent_div'>
+                    <!-- <div class='mb-4 border main_parent_div'>
                        <h3 class='sections_coupons_header'>PROMOTION CODE</h3>
                        <div class='p-3'>
                            <div class='h6'>Only one code can be applied per order</div>
@@ -130,7 +130,7 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     {{-- <form action="#"> --}}
 
                         <div class="order_table table-responsive main_parent_div border">

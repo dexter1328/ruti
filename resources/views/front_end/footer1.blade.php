@@ -99,12 +99,12 @@
                             </div>
                         </div>
                         <div class="row justify-content-center justify-content-lg-start justify-content-md-start justify-content-sm-start">
-                            <div class="col-xl-4 col-lg-6 col-md-12 col-sm-6 col-12 align-self-center mb-4">
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-6 col-12 align-self-center mb-4">
                                 <div class="footer-widget">
                                     <p class="web-address mb-0">@naturecheckout.com/</p>
                                 </div>
                             </div>
-                            <div class="col-xl-4 col-lg-5 col-md-6 col-sm-6 col-12 align-self-center mb-md-3 mb-xl-4">
+                            <div class="col-xl-6 col-lg-5 col-md-6 col-sm-6 col-12 align-self-center mb-md-3 mb-xl-4">
                                 <div class="privacy-terms">
                                     <ul class="d-flex">
                                         <li><a href="{{url('privacy-policy')}}"> Privacy</a></li>
@@ -112,7 +112,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-xl-4 col-lg-5 col-md-6 col-sm-6 col-12 align-self-center mb-md-0 mb-xl-4">
+                            <div class="col-xl-12 col-12 align-self-center mb-md-0 mb-xl-4">
                                 <div class="">
                                     <div class="footer-social">
                                         <ul>

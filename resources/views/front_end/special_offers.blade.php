@@ -122,7 +122,7 @@
                                 <div class="price_box">
                                     <span class="current_price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
                                 </div>
-                                <button class='btn btn-primary rounded p-2 my-2 w-100'>Add to Cart</button>
+                                <a href="{{ route('add.to.cart1', $p->sku) }}"><button class='btn btn-primary rounded p-2 my-2 w-100 cart_btn'>Add to Cart</button></a>
                             </figcaption>
                         </figure>
                     </article>

@@ -64,7 +64,7 @@
                     {{-- <button class='border buy_again'>Buy it again</button> --}}
                 </div>
                 <div class='width-20'>
-                    <span><label>Quantity</label> <input min="1" max="100" class="quantity update-cart" value="{{$details['quantity']}}" type="number"></span>
+                    <span><input min="1" max="100" class="quantity update-cart" value="{{$details['quantity']}}" type="number"></span>
                 </div>
                 <div class='width-20'>
                     <span>${{number_format((float)$details['retail_price'], 2, '.', '')}}</span>
@@ -77,8 +77,10 @@
             @endforeach
             @endif
         </div>
-        <div class="orders_footer border-top text-right">
-        <a class='text-danger pr-3' href="{{ route('remove-everything') }}">Remove Everything</a>
+        <div class="orders_footer border-top text-right p-2">
+            <button class="checkout_btn mr-3 p-0 border-0">
+                <a class='' href="{{ route('remove-everything') }}">Remove Everything</a>
+            </button>
         </div>
     </div>
     <div class="coupon_area mt-5 col-12">
@@ -119,12 +121,15 @@
                 <div class='p-3 d-flex products_inner'>
                     @foreach ($suggested_products as $p)
 
-                    <div class='more_products ml-2 py-2 px-4'>
+                    <div class='more_products ml-2 py-2 px-4 d-flex flex-column'>
                         <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
                         <img src="{{$p->original_image_url}}" class='more_products_img'  alt="{{ Str::limit($p->title, 35) }}">
                         </a>
                         <div class='products_title'>
                             <h5><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">{{ Str::limit($p->title, 20) }}</a></h5>
+                        </div>
+                        <div class='products_title mt-auto'>
+                            <h5 class="text-center"><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}" class="btn btn-danger btn-sm" style="border-radius:5px; font-size:12px; padding:10px 20px;">Select</a></h5>
                         </div>
                     </div>
                     @endforeach
