@@ -130,21 +130,21 @@ class FrontEndController extends Controller
         $sold = rand(20, 50);
         $available = rand(60, 99);
 
-        $product1 = W2bProduct::take(300)->inRandomOrder()->first();
-        // dd($product1);
-        $product2 =  W2bProduct::take(300)->inRandomOrder()->first();;
-        $product3 =  W2bProduct::take(300)->inRandomOrder()->first();;
-        $product4 = W2bProduct::take(300)->inRandomOrder()->first();;
-        $product5 = W2bProduct::take(300)->inRandomOrder()->first();;
-        $product6 = W2bProduct::take(300)->inRandomOrder()->first();;
-        $product7 = W2bProduct::take(300)->inRandomOrder()->first();;
-        $product8 = W2bProduct::take(300)->inRandomOrder()->first();;
-        $product9 = W2bProduct::take(300)->inRandomOrder()->first();;
-        $product10 = W2bProduct::take(300)->inRandomOrder()->first();;
+        $product1 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->limit(300)->inRandomOrder()->first();
+        //  dd($product1);
+        $product2 =  W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->limit(300)->inRandomOrder()->first();
+        $product3 =  W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->limit(300)->inRandomOrder()->first();
+        $product4 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->limit(300)->inRandomOrder()->first();
+        $product5 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->limit(300)->inRandomOrder()->first();
+        $product6 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->limit(300)->inRandomOrder()->first();
+        $product7 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->limit(300)->inRandomOrder()->first();
+        $product8 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->limit(300)->inRandomOrder()->first();
+        $product9 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->limit(300)->inRandomOrder()->first();
+        $product10 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->limit(300)->inRandomOrder()->first();
 
 
 
-        $products = W2bProduct::take(3000)->inRandomOrder()->limit(3000)->paginate(6);
+        $products = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250')->take(3000)->inRandomOrder()->limit(3000)->paginate(6);
         return view('front_end.shop',compact('products',
         'categories1','sold','available','product1','product2','product3','product4','product5',
         'product6','product7','product8','product9','product10'));

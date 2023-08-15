@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "68bde3bf229a70aabafc77afe42b1432",
+    "content-hash": "6f050f051b343d7597af679702f3b8a4",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -2047,6 +2047,74 @@
             "time": "2021-07-21T13:50:14+00:00"
         },
         {
+            "name": "itsgoingd/clockwork",
+            "version": "v5.1.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/itsgoingd/clockwork.git",
+                "reference": "c9dbdbb1f0efd19bb80f1080ef63f1b9b1bc3b1b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/itsgoingd/clockwork/zipball/c9dbdbb1f0efd19bb80f1080ef63f1b9b1bc3b1b",
+                "reference": "c9dbdbb1f0efd19bb80f1080ef63f1b9b1bc3b1b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Clockwork\\Support\\Laravel\\ClockworkServiceProvider"
+                    ],
+                    "aliases": {
+                        "Clockwork": "Clockwork\\Support\\Laravel\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Clockwork\\": "Clockwork/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "itsgoingd",
+                    "email": "itsgoingd@luzer.sk",
+                    "homepage": "https://twitter.com/itsgoingd"
+                }
+            ],
+            "description": "php dev tools in your browser",
+            "homepage": "https://underground.works/clockwork",
+            "keywords": [
+                "Devtools",
+                "debugging",
+                "laravel",
+                "logging",
+                "lumen",
+                "profiling",
+                "slim"
+            ],
+            "support": {
+                "issues": "https://github.com/itsgoingd/clockwork/issues",
+                "source": "https://github.com/itsgoingd/clockwork/tree/v5.1.12"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/itsgoingd",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-12-13T00:04:12+00:00"
+        },
+        {
             "name": "jean85/pretty-package-versions",
             "version": "2.0.5",
             "source": {
@@ -3571,6 +3639,63 @@
             "time": "2022-06-09T08:53:42+00:00"
         },
         {
+            "name": "mrclay/jsmin-php",
+            "version": "2.4.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mrclay/jsmin-php.git",
+                "reference": "49feaa85933458c15bb62ae65644bf22d60b7610"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mrclay/jsmin-php/zipball/49feaa85933458c15bb62ae65644bf22d60b7610",
+                "reference": "49feaa85933458c15bb62ae65644bf22d60b7610",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pcre": "*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.36|^9.5.26"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JSMin\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Clay",
+                    "email": "steve@mrclay.org",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Ryan Grove",
+                    "email": "ryan@wonko.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Provides a modified port of Douglas Crockford's jsmin.c, which removes unnecessary whitespace from JavaScript files.",
+            "homepage": "https://github.com/mrclay/jsmin-php/",
+            "keywords": [
+                "compress",
+                "jsmin",
+                "minify"
+            ],
+            "support": {
+                "email": "minify@googlegroups.com",
+                "issues": "https://github.com/mrclay/jsmin-php/issues",
+                "source": "https://github.com/mrclay/jsmin-php/tree/2.4.3"
+            },
+            "time": "2022-12-13T20:15:15+00:00"
+        },
+        {
             "name": "myclabs/php-enum",
             "version": "1.8.4",
             "source": {
@@ -3737,16 +3862,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.16.0",
+            "version": "v4.17.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "19526a33fb561ef417e822e85f08a00db4059c17"
+                "reference": "a6303e50c90c355c7eeee2c4a8b27fe8dc8fef1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/19526a33fb561ef417e822e85f08a00db4059c17",
-                "reference": "19526a33fb561ef417e822e85f08a00db4059c17",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/a6303e50c90c355c7eeee2c4a8b27fe8dc8fef1d",
+                "reference": "a6303e50c90c355c7eeee2c4a8b27fe8dc8fef1d",
                 "shasum": ""
             },
             "require": {
@@ -3787,9 +3912,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v4.16.0"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v4.17.1"
             },
-            "time": "2023-06-25T14:52:30+00:00"
+            "time": "2023-08-13T19:53:39+00:00"
         },
         {
             "name": "nyholm/psr7",
@@ -5794,6 +5919,193 @@
                 }
             ],
             "time": "2022-10-03T14:25:29+00:00"
+        },
+        {
+            "name": "shinsenter/defer-laravel",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/shinsenter/defer-laravel.git",
+                "reference": "d8096594f55af37d75ce0734fd2385947f3eb2f6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/shinsenter/defer-laravel/zipball/d8096594f55af37d75ce0734fd2385947f3eb2f6",
+                "reference": "d8096594f55af37d75ce0734fd2385947f3eb2f6",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": ">=5",
+                "illuminate/support": ">=5",
+                "php": ">=5.6",
+                "shinsenter/defer.php": "^2.4",
+                "symfony/http-foundation": ">=2",
+                "symfony/http-kernel": ">=2"
+            },
+            "require-dev": {
+                "laravel/framework": ">=5"
+            },
+            "suggest": {
+                "ext-mbstring": "*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "AppSeeds\\DeferLaravel\\DeferServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "AppSeeds\\DeferLaravel\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mai Nhut Tan",
+                    "email": "shin@shin.company",
+                    "homepage": "https://code.shin.company",
+                    "role": "Owner"
+                }
+            ],
+            "description": "🚀 A Laravel package that focuses on minimizing payload size of HTML document and optimizing processing on the browser when rendering the web page.",
+            "homepage": "https://github.com/shinsenter/defer-laravel",
+            "keywords": [
+                "defer-laravel",
+                "defer.php",
+                "laravel",
+                "lazy loading",
+                "lazyload",
+                "lazyload css",
+                "lazyload font",
+                "lazyload image",
+                "lazyload js",
+                "lazyload video",
+                "loading lazy",
+                "lumen",
+                "performance",
+                "shinsenter"
+            ],
+            "support": {
+                "issues": "https://github.com/shinsenter/defer-laravel/issues",
+                "source": "https://github.com/shinsenter/defer-laravel"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/shinsenter/defer-laravel/stargazers",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/shinsenter",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://www.patreon.com/appseeds",
+                    "type": "paypal"
+                }
+            ],
+            "time": "2021-05-21T03:58:45+00:00"
+        },
+        {
+            "name": "shinsenter/defer.php",
+            "version": "2.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/shinsenter/defer.php.git",
+                "reference": "1d9f476077c6cf2aa1a8d7b97367cb8d7e719655"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/shinsenter/defer.php/zipball/1d9f476077c6cf2aa1a8d7b97367cb8d7e719655",
+                "reference": "1d9f476077c6cf2aa1a8d7b97367cb8d7e719655",
+                "shasum": ""
+            },
+            "require": {
+                "ext-libxml": "*",
+                "lib-libxml": ">=2.7.7",
+                "mrclay/jsmin-php": "^2.0",
+                "php": "^5.6 || ^7.0 || ^8.0",
+                "psr/simple-cache": "^1.0",
+                "symfony/css-selector": "^2.0 || ^3.0 || ^4.0 || ^5.0",
+                "symfony/options-resolver": "^2.0 || ^3.0 || ^4.0 || ^5.0",
+                "symfony/polyfill-mbstring": "^1.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": ">=2"
+            },
+            "suggest": {
+                "ext-mbstring": "*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": []
+            },
+            "autoload": {
+                "psr-4": {
+                    "AppSeeds\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mai Nhut Tan",
+                    "email": "shin@shin.company",
+                    "homepage": "https://code.shin.company",
+                    "role": "Owner"
+                }
+            ],
+            "description": "🚀 A PHP library that focuses on minimizing payload size of HTML document and optimizing processing on the browser when rendering the web page.",
+            "keywords": [
+                "HTML minify",
+                "PHP Library",
+                "PageSpeed",
+                "avoid render blocking",
+                "defer",
+                "defer.php",
+                "dom optimization",
+                "gtmetrix",
+                "lazy loading",
+                "lazyload",
+                "lazyload css",
+                "lazyload facebook",
+                "lazyload font",
+                "lazyload image",
+                "lazyload js",
+                "lazyload video",
+                "lazyload wordpress",
+                "lazyload youtube",
+                "loading lazy",
+                "page speed",
+                "site performance",
+                "speed optimization"
+            ],
+            "support": {
+                "issues": "https://github.com/shinsenter/defer.php/issues",
+                "source": "https://github.com/shinsenter/defer.php"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/shinsenter/defer.php/stargazers",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/shinsenter",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://www.patreon.com/appseeds",
+                    "type": "paypal"
+                }
+            ],
+            "time": "2021-08-15T02:17:20+00:00"
         },
         {
             "name": "spatie/laravel-cors",

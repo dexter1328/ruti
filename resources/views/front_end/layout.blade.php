@@ -350,11 +350,11 @@
                                         <li class="header-sine-in dropdown">
                                             <a href="" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 @if (Auth::guard('w2bcustomer')->user()->image)
-                                                <img class="rounded-circle" src="{{asset('public/user_photo/'.Auth::guard('w2bcustomer')->user()->image)}}" style="max-width: 45px; margin-right: 8px;" alt="{{Auth::guard('w2bcustomer')->user()->first_name}}">
+                                                <img class="rounded-circle" src="{{asset('public/user_photo/'.Auth::guard('w2bcustomer')->user()->image)}}" style="max-width: 45px; margin-right: 8px;" alt="{{Auth::guard('w2bcustomer')->user()->fullName()}}">
                                                 @else
                                                 <i class="lnr lnr-user fa-3x d-flex"></i>
                                                 @endif
-                                                <p class="sign-in-text">{{Auth::guard('w2bcustomer')->user()->first_name}} <span>{{Auth::guard('w2bcustomer')->user()->last_name}}</span></p>
+                                                <p class="sign-in-text">{{Auth::guard('w2bcustomer')->user()->fullName()}} </p>
                                             </a>
                                             <div class="dropdown-menu login-dropdown" aria-labelledby="dropdownMenuLink">
 

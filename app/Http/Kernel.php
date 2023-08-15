@@ -29,6 +29,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
+        \AppSeeds\DeferLaravel\DeferMiddleware::class,
         \App\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,

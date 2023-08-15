@@ -126,6 +126,10 @@
                     <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('vendor/receive-wallet')}}">Receive Funds to Wallet </a></div></li>
                     <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('vendor/withdraw-wallet')}}">Withdraw Funds </a></div></li>
                 </ul>
+                <p class="headings"><img src="{{ asset('public/panel/images/icon_c1.png') }}" width="30px" height="30px" alt="manage plans">Marketplace</p>
+                <ul class="list">
+                    <li class="li_elements "><div class="d-flex justify-content-between"><a class="links" href="{{route('vendor.marketplace-page')}}"> Marketplace </a></div></li>
+                </ul>
                 <p class="headings"><img src="{{ asset('public/panel/images/icon_c1.png') }}" width="30px" height="30px" alt="customer membership"> CUSTOMER MEMBERSHIP</p>
                 <ul class="list">
                     <li class="li_elements"><div class="d-flex justify-content-between">Explorer <span>2000</span></div></li>

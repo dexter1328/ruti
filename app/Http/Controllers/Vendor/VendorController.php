@@ -2239,6 +2239,13 @@ class VendorController extends Controller
         $stripe_key = $this->stripe_key;
         return view('vendor.settings.ruti_fulfill_page', compact('stripe_key','supplier'));
     }
+
+
+    public function marketplacePage()
+    {
+        // dd('123');
+        return view('vendor.marketplace.index');
+    }
 }
 
 

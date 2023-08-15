@@ -195,6 +195,7 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Sentry\Laravel\ServiceProvider::class,
+        Clockwork\Support\Laravel\ClockworkServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -267,6 +268,7 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Sentry' => Sentry\Laravel\Facade::class,
+        'Clockwork' => Clockwork\Support\Laravel\Facade::class,
 
     ],
 

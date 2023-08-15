@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Supplier;
 
-use DebugBar\DataCollector\Renderable;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
