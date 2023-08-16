@@ -826,4 +826,8 @@ class FrontEndController extends Controller
     {
         throw new Exception('My first Sentry error!');
     }
+    public function sessionFlush()
+    {
+        session()->flush();
+    }
 }
