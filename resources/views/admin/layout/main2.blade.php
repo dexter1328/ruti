@@ -38,6 +38,14 @@
             {{-- <div class="notifications top_bar_elements text-center">
                 <img src="{{ asset('public/panel/images/notification.png') }}" class="notification_icon" alt="image">
             </div> --}}
+            <div class="sign_out_btn top_bar_elements">
+                <a href="{{ url('/admin/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-outline-secondary px-2">
+                    Sign Out
+                </a>
+                <form id="logout-form" action="{{ url('/admin/logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+            </div>
             <div class="user_image d-flex align-items-center top_bar_elements">
                 @if(Auth::user()->image)
                 @php $image = asset('public/images/'.Auth::user()->image); @endphp
@@ -46,14 +54,6 @@
                 <img src="{{asset('public/images/User-Avatar.png')}}" alt="{{Auth::user()->name}}" class="user_image me-2 img-circle">
                 @endif
                 <p>{{Auth::user()->name}}</p>
-            </div>
-            <div class="sign_out_btn top_bar_elements">
-                <a href="{{ url('/admin/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-outline-secondary px-2">
-                    Sign Out
-                </a>
-                <form id="logout-form" action="{{ url('/admin/logout') }}" method="POST" style="display: none;">
-                    {{ csrf_field() }}
-                </form>
             </div>
             </div>
         </div>
@@ -81,11 +81,8 @@
             </div>
         </div>
     </div>
-    <div class="search-container2 p-2">
+    <div class="search-container2 w-100 justify-content-center p-2">
         <input type="text" placeholder="Search...">
-        <span class="">
-            <img  id="search-btn2" src="{{ asset('public/panel/images/downcaret.png') }}" class="drop_icon" alt="down button">
-        </span>
     </div>
     <div class="first_main_div2 p-4 m-auto">
         <div class="row ">

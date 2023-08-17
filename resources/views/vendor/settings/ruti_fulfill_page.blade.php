@@ -104,7 +104,7 @@
             <p class="subtitle">And Want to switch to Seller Fulfillment plan.</p>
             <form class="form-horizontal" method="POST" id="payment-form" role="form" action="{{route('vendor_fulfill')}}" >
                 @csrf
-                <input type="hidden" name="fulfill_type" value="self">
+                <input type="hidden" name="f  ulfill_type" value="self">
                 <div class="i_buttons">
                     <button id="unsubscribe" type="submit">Unsubscribe</button>
                 </div>
@@ -192,8 +192,8 @@
                                     @endphp
                                     <div class="text-center">
                                         <div class="my-4">
-                                            <h4>Your Balance: <span>${{$supplier->wallet_amount}}</span></h4>
-                                            <h4>Subscription fee: <span>$25</span></h4>
+                                            <h4 class="d-flex justify-content-between">Your Balance: <span>${{$supplier->wallet_amount}}</span></h4>
+                                            <h4 class="d-flex justify-content-between">Subscription fee: <span>$25</span></h4>
                                             <input type="hidden" name="amount" value="{{$tp}}">
                                         </div>
                                             @if ($errors->has('amount'))

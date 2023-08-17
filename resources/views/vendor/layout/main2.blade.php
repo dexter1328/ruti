@@ -33,9 +33,14 @@
             </div> --}}
             </div>
             <div class="top_bar_last d-flex justify-content-end w-100 align-items-center">
-            <div class="notifications top_bar_elements text-center">
-                <img src="{{ asset('public/panel/images/notification.png') }}" class="notification_icon" alt="Notification">
-            </div>
+                <div class="sign_out_btn top_bar_elements">
+                    <a href="{{ url('/admin/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-outline-secondary px-2">
+                        Sign Out
+                    </a>
+                    <form id="logout-form" action="{{ url('/vendor/logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                </div>
             <div class="user_image d-flex align-items-center top_bar_elements">
                 @if(Auth::user()->image)
                 @php $image = asset('public/images/vendors/'.Auth::user()->image); @endphp
@@ -45,14 +50,6 @@
                 @endif
                 <p>{{Auth::user()->name}}</p>
             </div>
-            <div class="sign_out_btn top_bar_elements">
-                <a href="{{ url('/admin/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-outline-secondary px-2">
-                    Sign Out
-                </a>
-                <form id="logout-form" action="{{ url('/vendor/logout') }}" method="POST" style="display: none;">
-                    {{ csrf_field() }}
-                </form>
-            </div>
             </div>
         </div>
         <div class="sub_header row justify-content-between p-2 align-items-center">
@@ -61,11 +58,8 @@
             </div>
         </div>
     </div>
-    <div class="search-container p-2">
+    <div class="search-container p-2 w-100 justify-content-center">
         <input type="text" placeholder="Search...">
-        <span class="">
-            <img  id="search-btn" src="{{ asset('public/panel/images/downcaret.png') }}" class="drop_icon" alt="down">
-        </span>
     </div>
     <div class="first_main_div p-4 m-auto">
         <div class="row justify-content-between">
