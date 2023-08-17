@@ -17,6 +17,14 @@
             </div>
             <div class="top_bar_last d-flex justify-content-end w-100 align-items-center">
 
+                <div class="sign_out_btn top_bar_elements">
+                    <a href="{{ url('/admin/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-outline-secondary px-2">
+                        Sign Out
+                    </a>
+                    <form id="logout-form" action="{{ url('/supplier/logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                </div>
             <div class="user_image d-flex align-items-center top_bar_elements">
                 @if(Auth::user()->image)
                 @php $image = asset('public/images/suppliers/'.Auth::user()->image); @endphp
@@ -25,14 +33,6 @@
                 <img src="{{asset('public/images/User-Avatar.png')}}" alt="{{Auth::user()->name}}" class="user_image me-2 img-circle">
                 @endif
                 <p>{{Auth::user()->name}}</p>
-            </div>
-            <div class="sign_out_btn top_bar_elements">
-                <a href="{{ url('/admin/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-outline-secondary px-2">
-                    Sign Out
-                </a>
-                <form id="logout-form" action="{{ url('/supplier/logout') }}" method="POST" style="display: none;">
-                    {{ csrf_field() }}
-                </form>
             </div>
             </div>
         </div>
@@ -45,11 +45,8 @@
             </div>
         </div>
     </div>
-    <div class="search-container p-2">
+    <div class="search-container p-2 w-100 justify-content-center">
         <input type="text" placeholder="Search...">
-        <span class="">
-            <img  id="search-btn" src="{{ asset('public/panel/images/downcaret.png') }}" class="drop_icon" alt="Down">
-        </span>
     </div>
     <div class="first_main_div p-4 m-auto">
         <div class="row justify-content-between">

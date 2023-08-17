@@ -58,6 +58,9 @@ li:hover {
     width: 30px;
     cursor: pointer;
 }
+.user_image img {
+    border-radius: 50%;
+}
 .sub_header {
     background-color: #5f5cdd;
 }
@@ -65,7 +68,7 @@ li:hover {
     color: #5f5cdd;
 }
 .top_bar_elements {
-    width: 20%;
+    width: 30%;
 }
 .sub_header {
     color: #fff;
@@ -106,6 +109,9 @@ li:hover {
     }
 }
 @media screen and (max-width: 992px) {
+    .top_bar_elements {
+        width: 50% !important;
+    }
 .page_heading {
     justify-content: center !important;
 }
@@ -124,7 +130,7 @@ li:hover {
 .search-container input[type=text] {
     padding: 8px 40px 8px 8px !important;
     border-radius: 20px;
-    width: 100%;
+    width: 50%;
     font-size: 16px;
     border: none;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, .4);

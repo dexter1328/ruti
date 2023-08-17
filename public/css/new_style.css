@@ -21,13 +21,13 @@
 .price_option3,
 .price_option4,
 .price_option5 {
-    background-color: #d960ae;
+    background-color: #e96725;
     color: #fff;
     cursor: pointer;
     min-width: 60px;
 }
 .checked_price {
-    background-color: #543093;
+    background-color: #063464;
     color: #fff;
 }
 .i_heading_main span,
@@ -38,7 +38,7 @@
     font-weight: normal;
     font-style: italic;
     font-family: "Playfair Display", "Bookman", serif !important;
-    color: #cf3799;
+    color: #e96725;
     letter-spacing: -0.005em;
     word-spacing: 1px;
     letter-spacing: none;
@@ -89,7 +89,7 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#543093", endColorstr="#d960ae", GradientType=1);
 }
 .i_text_color {
-    color: #543093;
+    color: #063464;
 }
 #i_svg {
     max-width: 90%;
@@ -129,7 +129,7 @@
 .i_buttons button {
     padding: 10px 30px;
     font-size: 20px;
-    background-color: #d960ae;
+    background-color: #e96725;
     border: 0;
     cursor: pointer;
     border-radius: 4px;
@@ -140,7 +140,7 @@
     transition: all 0.25s ease-in-out;
 }
 .i_buttons button:hover {
-    background-color: #cf3799;
+    background-color: #000;
 }
 .i_buttons button#cancel {
     margin-right: 0;
@@ -240,7 +240,7 @@
     display: flex;
 }
 .i_heading_main h1 {
-    color: #543093;
+    color: #063464;
     font-family: Georgia, "Times New Roman", Times, serif;
 }
 .body_subscribtion {
@@ -313,7 +313,7 @@
     font-family: 'Kaushan Script', cursive;
     font-size:4em;
     letter-spacing:3px;
-    color: #543093;
+    color: #063464;
     margin:0;
     margin-bottom:20px;
    }
@@ -326,13 +326,13 @@
   }
   .go-home{
     color:#fff;
-    background:#543093;
+    background:#063464;
     border:none;
     padding:10px 50px;
     margin:30px 0;
     border-radius:30px;
     text-transform:capitalize;
-    box-shadow: 0 3px 5px 1px #543093;
+    box-shadow: 0 3px 5px 1px #063464;
   }
   .go-home a {
     color: #fff !important;
@@ -386,3 +386,134 @@
     background-color: #3d95ee9d;
     color: #fff;
   }
+
+.main_div {
+    /* background-color: #f2f5f6; */
+    min-height: 100vh;
+}
+.filter_div {
+    background-color: #fff;
+    display: flex;
+}
+.details_table {
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,.12), inset 0 -1px 0 0 #dadce0;
+
+    /* overflow-x: scroll;
+    max-width: 100vw; */
+}
+.details_table tr {
+    border-bottom: 10px solid #fff;
+}
+.details_table td, .details_table th {
+    padding: 10px;
+}
+.details_table th {
+    color: #008EE2;
+}
+.product_image {
+    width: 50px;
+    height: 50px;
+}
+.header {
+    height: 65px;
+    background-color: #063464;
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,.12), inset 0 -1px 0 0 #dadce0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.header h4 {
+    color: #fff !important;
+}
+.filter_div select {
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), inset 0 -1px 0 0 #dadce0;
+    padding: 5px;
+}
+.filter_div select, .filter_div select:focus {
+    border: none;
+    outline: none;
+}
+.search_parent input {
+    width: 100%;
+}
+.search_parent {
+    /* width: 50%; */
+    margin: auto;
+}
+.link_div a {
+    text-decoration: none;
+}
+.button_color {
+    background-color: #e96725;
+    color: #fff;
+}
+.button_color:hover {
+    background-color: #000;
+    color: #fff;
+    opacity: 90%;
+}
+.search_bar {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+.search_btn {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+table input {
+    max-width: 100px;
+}
+a {
+    text-decoration: none;
+}
+ul li {
+    list-style-type: none;
+}
+.accordion-button:not(.collapsed) {
+    background-color: #f2f5f6;
+}
+.accordion-button {
+    background-color: #f2f5f6;
+}
+.accordion-button:focus {
+    border: none;
+    box-shadow: none;
+}
+input:focus {
+    box-shadow: none !important;
+    border-color: #413f3f !important;
+}
+.main_area_table {
+    width: 90%;
+}
+.table_overflow {
+    overflow-x: auto;
+}
+.fulfil_filter {
+    width: 50%;
+}
+.second_filter_form {
+    display: flex;
+}
+.first_table_body {
+    background-color: #fff;
+}
+@media screen and (max-width: 600px) {
+    .first_table_body {
+        display: grid;
+    }
+    .fulfil_filter {
+        width: 100%;
+    }
+    .filter_div {
+        display: block;
+    }
+}
+@media screen and (max-width: 450px) {
+    .second_filter_form {
+        display: grid;
+    }
+}
+.text-secondary {
+    color: #797c8098!important;
+}
