@@ -7,10 +7,10 @@
         </div>
         <div class="row mx-0">
             <div class="search_parent pl-2 col-lg-6 col-sm-12">
-                <form class="d-flex align-items-center" role="search">
-                    <input class="form-control search_bar" type="search" placeholder="Search Products" aria-label="Search">
+                <form class="d-flex align-items-center" action="{{route('vendor.product-search')}}" method="get">
+                    <input class="form-control search_bar" placeholder="Search Products" aria-label="Search" type="text" name="query" id="query" value="{{request()->input('query')}}" >
                     <button class="btn button_color search_btn" type="submit"><i class="fa fa-search"></i></button>
-                  <span class="ml-2">76 product(s)</span>
+                  <span class="ml-2"><b>{{$supplier_products->count()}}</b> product(s)</span>
                 </form>
             </div>
         </div>
@@ -18,7 +18,7 @@
         <div class="col-lg-6">
         <table class="m-2 mt-4 border mx-auto main_area_table">
             <tr class="table_head border-bottom">
-                <th colspan="3" class="p-3">Main Areas: 
+                <th colspan="3" class="p-3">Main Areas:
                     <span><input type="checkbox" name="" id=""> Supplier</span>
                     <span><input type="checkbox" name="" id=""> Seller</span>
                     <span><input type="checkbox" name="" id=""> Affiliate</span>
@@ -41,14 +41,16 @@
             </tr>
             <tr class="first_table_body">
                 <td class="px-4 py-4">
-                    <ul class="mb-0">
-                        <input type="checkbox" name="" id=""> General
-                        <input type="checkbox" name="" id=""> Grocery
-                        <input type="checkbox" name="" id=""> Fashion
-                        <input type="checkbox" name="" id=""> Digital
-                        <input type="checkbox" name="" id=""> Designer
-                        <input type="checkbox" name="" id=""> Pharmacy
-                    </ul>
+                    <form action="{{route('vendor.product-search')}}" method="get">
+                    @foreach ($categories as $c)
+                        <ul class="mb-0">
+                            <input type="checkbox" name="category_name[]" value="{{ $c->category1 }}"> {{ $c->category1 }}
+
+                        </ul>
+
+                    @endforeach
+                    <button type="submit">submit</button>
+                </form>
                 </td>
             </tr>
         </table>
@@ -126,7 +128,55 @@
                     <th>WholeSale Price + Profit Expected = Retail Price</th>
                     <th><button class="btn button_color">Save All</button></th>
                 </tr>
+                @foreach ($supplier_products as $p)
+                @php
+                    $pct = ($p->wholesale_price/100) * 30;
+                @endphp
                 <tr>
+                    <td><input type="checkbox" name="" id=""></td>
+                    <td>{{$p->status == 'enable' ? 'active' : 'inactive'}}</td>
+                    <td><img src="{{$p->original_image_url}}" class="product_image" alt=""></td>
+                    <td>{{$p->sku}}</td>
+                    <td>{{$p->title}}</td>
+                    <td>{{$p->created_at->format('d/m/Y')}}<br> </td>
+                    <td><input type="number" value="{{$p->stock}}" disabled></td>
+                    <td>${{$pct}}</td>
+                    <td><input type="number" value="{{$p->wholesale_price}}" disabled>+$0.00</td>
+                    <td><input type="number"></td>
+                    <td>$50</td>
+                    <td><button class="btn button_color">Edit</button></td>
+                </tr>
+                @endforeach
+
+                {{-- <tr>
+                    <td><input type="checkbox" name="" id=""></td>
+                    <td>Active</td>
+                    <td><img src="images/new.jpg" class="product_image" alt=""></td>
+                    <td>YL-87-98-AB</td>
+                    <td>Wireless Headphones</td>
+                    <td>07/11/2023 12:50</td>
+                    <td><input type="number" value="4"></td>
+                    <td>$5.55</td>
+                    <td><input type="number" value="24.99">+$0.00</td>
+                    <td><input type="number" value="24.99"></td>
+                    <td>$2.5</td>
+                    <td><button class="btn button_color">Edit</button></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="" id=""></td>
+                    <td>Active</td>
+                    <td><img src="images/new.jpg" class="product_image" alt=""></td>
+                    <td>YL-87-98-AB</td>
+                    <td>Wireless Headphones</td>
+                    <td>07/11/2023 12:50</td>
+                    <td><input type="number" value="4"></td>
+                    <td>$5.55</td>
+                    <td><input type="number" value="24.99">+$0.00</td>
+                    <td><input type="number" value="24.99"></td>
+                    <td>$2.5</td>
+                    <td><button class="btn button_color">Edit</button></td>
+                </tr> --}}
+                {{-- <tr>
                     <td><input type="checkbox" name="" id=""></td>
                     <td>Active</td>
                     <td><img src="images/new.jpg" class="product_image" alt=""></td>
@@ -181,49 +231,7 @@
                     <td><input type="number" value="24.99"></td>
                     <td>$2.5</td>
                     <td><button class="btn button_color">Edit</button></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="" id=""></td>
-                    <td>Active</td>
-                    <td><img src="images/new.jpg" class="product_image" alt=""></td>
-                    <td>YL-87-98-AB</td>
-                    <td>Wireless Headphones</td>
-                    <td>07/11/2023 12:50</td>
-                    <td><input type="number" value="4"></td>
-                    <td>$5.55</td>
-                    <td><input type="number" value="24.99">+$0.00</td>
-                    <td><input type="number" value="24.99"></td>
-                    <td>$2.5</td>
-                    <td><button class="btn button_color">Edit</button></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="" id=""></td>
-                    <td>Active</td>
-                    <td><img src="images/new.jpg" class="product_image" alt=""></td>
-                    <td>YL-87-98-AB</td>
-                    <td>Wireless Headphones</td>
-                    <td>07/11/2023 12:50</td>
-                    <td><input type="number" value="4"></td>
-                    <td>$5.55</td>
-                    <td><input type="number" value="24.99">+$0.00</td>
-                    <td><input type="number" value="24.99"></td>
-                    <td>$2.5</td>
-                    <td><button class="btn button_color">Edit</button></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="" id=""></td>
-                    <td>Active</td>
-                    <td><img src="images/new.jpg" class="product_image" alt=""></td>
-                    <td>YL-87-98-AB</td>
-                    <td>Wireless Headphones</td>
-                    <td>07/11/2023 12:50</td>
-                    <td><input type="number" value="4"></td>
-                    <td>$5.55</td>
-                    <td><input type="number" value="24.99">+$0.00</td>
-                    <td><input type="number" value="24.99"></td>
-                    <td>$2.5</td>
-                    <td><button class="btn button_color">Edit</button></td>
-                </tr>
+                </tr> --}}
             </table>
         </div>
     </div>

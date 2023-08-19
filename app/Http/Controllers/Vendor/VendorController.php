@@ -40,11 +40,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Helpers\LogActivity as Helper;
 use App\Mail\WithdrawMail;
+use App\Products;
+use App\W2bCategory;
 use Stripe\Exception\ApiErrorException;
 use Stripe\Exception\RateLimitException;
 use Stripe\Exception\ApiConnectionException;
 use Stripe\Exception\AuthenticationException;
 use Stripe\Exception\InvalidRequestException;
+use Stripe\Product;
 
 class VendorController extends Controller
 {
@@ -2244,7 +2247,31 @@ class VendorController extends Controller
     public function marketplacePage()
     {
         // dd('123');
-        return view('vendor.marketplace.index');
+        $categories = W2bCategory::take(9)->get();
+        // dd($categories);
+        $supplier_products = Products::where('seller_type', 'supplier')->get();
+        // dd($supplier_products);
+        return view('vendor.marketplace.index', compact('supplier_products','categories'));
+    }
+    public function productSearch(Request $request)
+    {
+        // dd($request->all());
+        $categories = W2bCategory::take(9)->get();
+        if ($request->input('query')) {
+            $query = $request->input('query');
+            $supplier_products = Products::where('seller_type', 'supplier')
+            ->where('title', 'like', "%$query%")->get();
+        }
+        elseif ($request->input('category_name')) {
+            $supplier_products = Products::where('seller_type', 'supplier')
+            ->whereIn('w2b_category_1', $request->category_name)->get();
+            // dd($supplier_products);
+        }
+
+
+
+
+        return view('vendor.marketplace.index', compact('supplier_products','categories'));
     }
 }
 
