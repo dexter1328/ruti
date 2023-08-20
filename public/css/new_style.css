@@ -433,7 +433,7 @@
     border: none;
     outline: none;
 }
-.search_parent input {
+.search_parent .search_bar {
     width: 100%;
 }
 .search_parent {
@@ -516,4 +516,7 @@ input:focus {
 }
 .text-secondary {
     color: #797c8098!important;
+}
+.filters_sec span {
+    display: block;
 }
