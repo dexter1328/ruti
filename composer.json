@@ -28,7 +28,6 @@
         "paypal/rest-api-sdk-php": "^1.14",
         "predis/predis": "^1.1",
         "sentry/sentry-laravel": "2.14",
-        "shinsenter/defer-laravel": "^1.0",
         "spatie/laravel-cors": "^1.6",
         "spatie/laravel-sluggable": "2.1.7",
         "stevebauman/location": "^6.6",
