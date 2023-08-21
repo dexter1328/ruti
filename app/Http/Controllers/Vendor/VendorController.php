@@ -2253,25 +2253,162 @@ class VendorController extends Controller
         // dd($supplier_products);
         return view('vendor.marketplace.index', compact('supplier_products','categories'));
     }
+    // public function productSearch(Request $request)
+    // {
+    //     //   dd($request->all());
+
+    //     $query = $request->input('query');
+    //     $categories = W2bCategory::take(9)->get();
+    //     if ($request->input('query') && $request->input('category_name') && $request->input('status') && $request->input('fulfill_by')) {
+
+    //         $supplier_products = Products::
+    //         join('vendors','vendors.id', 'products.vendor_id')
+    //         ->where('products.seller_type', 'supplier')
+    //         ->whereIn('products.w2b_category_1', $request->category_name)
+    //         ->where('products.status', $request->status)
+    //         ->where('vendors.fulfill_type', $request->fulfill_type)
+    //         ->where('products.title', 'like', "%$query%")
+    //         ->select('products.*')
+    //         ->get();
+    //     }
+    //     elseif ($request->input('query') && $request->input('category_name') && $request->input('status') && !$request->input('status')) {
+    //         $supplier_products = Products::
+    //           where('seller_type', 'supplier')
+    //         ->whereIn('w2b_category_1', $request->category_name)
+    //         ->where('status', $request->status)
+    //         ->where('title', 'like', "%$query%")
+    //         ->get();
+    //     }
+    //     elseif ($request->input('query') && $request->input('category_name')) {
+    //         $supplier_products = Products::
+    //           where('seller_type', 'supplier')
+    //         ->whereIn('w2b_category_1', $request->category_name)
+    //         ->where('title', 'like', "%$query%")
+    //         ->get();
+    //     }
+
+    //     elseif ($request->input('query') && $request->input('status')) {
+    //         $supplier_products = Products::
+    //           where('seller_type', 'supplier')
+    //         ->where('status', $request->status)
+    //         ->where('title', 'like', "%$query%")
+    //         ->get();
+    //     }
+    //     elseif ($request->input('query') && $request->input('fulfill_by')) {
+    //         $supplier_products = Products::
+    //         join('vendors','vendors.id', 'products.vendor_id')
+    //         ->where('products.seller_type', 'supplier')
+    //         ->where('vendors.fulfill_type', $request->fulfill_type)
+    //         ->where('products.title', 'like', "%$query%")
+    //         ->select('products.*')
+    //         ->get();
+    //     }
+    //     elseif ($request->input('category_name') && $request->status) {
+    //         dd('cs');
+    //         $supplier_products = Products::
+    //           where('seller_type', 'supplier')
+    //         ->whereIn('w2b_category_1', $request->category_name)
+    //         ->where('status', $request->status)
+    //         ->get();
+    //     }
+    //     elseif ($request->input('category_name') && $request->input('fulfill_by')) {
+    //         $supplier_products = Products::
+    //         join('vendors','vendors.id', 'products.vendor_id')
+    //         ->where('products.seller_type', 'supplier')
+    //         ->where('vendors.fulfill_type', $request->fulfill_type)
+    //         ->whereIn('products.w2b_category_1', $request->category_name)
+    //         ->select('products.*')
+    //         ->get();
+    //     }
+    //     elseif ($request->input('status') && $request->input('fulfill_by')) {
+    //         $supplier_products = Products::
+    //         join('vendors','vendors.id', 'products.vendor_id')
+    //         ->where('products.seller_type', 'supplier')
+    //         ->where('vendors.fulfill_type', $request->fulfill_type)
+    //         ->where('products.status', $request->status)
+    //         ->select('products.*')
+    //         ->get();
+    //     }
+    //     elseif ($request->input('query')) {
+    //         $supplier_products = Products::
+    //           where('seller_type', 'supplier')
+    //         ->where('title', 'like', "%$query%")
+    //         ->get();
+    //     }
+    //     elseif ($request->input('category_name')) {
+    //         dd('c');
+    //         $supplier_products = Products::
+    //           where('seller_type', 'supplier')
+    //           ->whereIn('w2b_category_1', $request->category_name)
+    //         ->get();
+    //     }
+    //     elseif ($request->input('status')) {
+    //         $supplier_products = Products::
+    //           where('seller_type', 'supplier')
+    //           ->where('status', $request->status)
+    //         ->get();
+    //     }
+    //     elseif ($request->input('fulfill_by')) {
+    //         $supplier_products = Products::
+    //         join('vendors','vendors.id', 'products.vendor_id')
+    //         ->where('products.seller_type', 'supplier')
+    //         ->where('vendors.fulfill_type', $request->fulfill_type)
+    //         ->select('products.*')
+    //         ->get();
+    //     }
+    //     else  {
+    //         $supplier_products = Products::
+    //           where('seller_type', 'supplier')
+    //         ->get();
+    //     }
+
+
+
+
+    //     return view('vendor.marketplace.index', compact('supplier_products','categories'));
+    // }
     public function productSearch(Request $request)
     {
-        // dd($request->all());
+        //   dd($request->all());
+        //         join('vendors','vendors.id', 'products.vendor_id')
+        //         ->where('products.seller_type', 'supplier')
+        //         ->whereIn('products.w2b_category_1', $request->category_name)
+        //         ->where('products.status', $request->status)
+        //         ->where('vendors.fulfill_type', $request->fulfill_type)
+        //         ->where('products.title', 'like', "%$query%")
+        //         ->select('products.*')
+        //         ->get();
+
+        $query1 = $request->input('query');
         $categories = W2bCategory::take(9)->get();
-        if ($request->input('query')) {
-            $query = $request->input('query');
-            $supplier_products = Products::where('seller_type', 'supplier')
-            ->where('title', 'like', "%$query%")->get();
-        }
-        elseif ($request->input('category_name')) {
-            $supplier_products = Products::where('seller_type', 'supplier')
-            ->whereIn('w2b_category_1', $request->category_name)->get();
-            // dd($supplier_products);
-        }
+        $query = Products::select('products.*')
+                ->join('vendors','vendors.id', 'products.vendor_id')
+                ->where('products.seller_type', 'supplier');
+
+            $query->when(isset($query1), function ($q) use($query1){
+                return $q->where('products.title', 'like', "%$query1%");
+            });
+
+            $query->when(isset($request->category_name), function ($q) use($request){
+                return $q->whereIn('products.w2b_category_1', $request->category_name);
+            });
+            $query->when(isset($request->status), function ($q) use($request){
+                return $q->where('products.status', $request->status);
+            });
+            $query->when(isset($request->fulfill_type), function ($q) use($request){
+                return $q->where('vendors.fulfill_type', $request->fulfill_type);
+            });
+
+
+
+            $supplier_products = $query->orderBy('created_at', 'ASC')->get();
+
 
 
 
 
         return view('vendor.marketplace.index', compact('supplier_products','categories'));
+
     }
 }
 

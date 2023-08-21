@@ -535,5 +535,6 @@
     <!--End Back To Top Button-->
     <!--Start footer-->
     <!--End footer-->
+    @yield('customJS')
 </body>
 </html>

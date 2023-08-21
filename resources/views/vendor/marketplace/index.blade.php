@@ -14,9 +14,8 @@
                         <button class="btn button_color search_btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-filter"></i></button>
                         <div class="dropdown-menu p-3">
                             <div class='d-flex'>
-                                <form action="{{route('vendor.product-search')}}" method="get">
                                 <div class='filters_sec mr-3'>
-                                    <h4>Product Categories:</h4>
+                                    <h5>Product Categories:</h5>
                                     @foreach ($categories as $c)
                                     <ul class="mb-0">
                                     <input type="checkbox" name="category_name[]" value="{{ $c->category1 }}"> {{ $c->category1 }}
@@ -24,48 +23,36 @@
                                     @endforeach
                                 </div>
                                 <div class='filters_sec mr-3'>
-                                    <h4>Status:</h4>
+                                    <h5>Status:</h5>
                                     <span>
-                                        <input type="radio" name="first_section" value="all">
+                                        <input type="radio"  value="">
                                         <label for="">All</label>
                                     </span>
                                     <span>
-                                        <input type="radio" name="first_section" value="active">
+                                        <input type="radio" name="status" value="enable">
                                         <label for="">Active</label>
                                         </span>
                                     <span>
-                                        <input type="radio" name="first_section" value="inactive">
+                                        <input type="radio" name="status" value="disable">
                                         <label for="">InActive</label>
                                         </span>
-                                    <span>
-                                        <input type="radio" name="first_section" value="incomplete">
-                                        <label for="">Incomplete</label>
-                                        </span>
-                                    <span>
-                                        <input type="radio" name="first_section" value="listing_removed">
-                                        <label for="">Listing Removed</label>
-                                        </span>
-                                    <span>
-                                        <input type="radio" name="first_section" value="listing_removed">
-                                        <label for="">Search Suppressed</label>
-                                    </span>
+
                                 </div>
                                 <div class='filters_sec mr-3'>
-                                    <h4>Fulfilled By:</h4>
+                                    <h5>Fulfilled By:</h5>
                                     <span>
-                                        <input type="radio" name="second_section" value="all">
+                                        <input type="radio"  value="">
                                         <label for="">All</label>
                                     </span>
                                     <span>
-                                        <input type="radio" name="second_section" value="amazon">
+                                        <input type="radio" name="fulfill_type" value="nature">
                                         <label for="">Nature Checkout</label>
                                     </span>
                                     <span>
-                                        <input type="radio" name="second_section" value="merchant">
+                                        <input type="radio" name="fulfill_type" value="seller">
                                         <label for="">Vendor</label>
                                     </span>
                                 </div>
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -94,7 +81,9 @@
         </table>
         </div>
         </div>
+
         <div class="row mt-4 mx-0 table_overflow">
+            <button class="btn button_color mt-2 mt-sm-0 mb-2" type="submit">Buy</button>
             <table class="details_table rounded col-12 border">
                 <tr class="table_head">
                     <th><input type="checkbox" name="" id=""></th>
@@ -118,116 +107,42 @@
                 <tr>
                     <td><input type="checkbox" name="" id=""></td>
                     <td>{{$p->status == 'enable' ? 'active' : 'inactive'}}</td>
-                    <td><input type="number" value="1" disabled></td>
+                    <td><input type="number" value="1" ></td>
                     <td><img src="{{$p->original_image_url}}" class="product_image" alt=""></td>
                     <td>{{$p->sku}}</td>
                     <td>{{$p->title}}</td>
                     <td>{{$p->created_at->format('d/m/Y')}}<br> </td>
                     <td><input type="number" value="{{$p->stock}}" disabled></td>
                     <td>${{$pct}}</td>
-                    <td><input type="number" id="wholesale_price" value="{{$p->wholesale_price}}" disabled>+$0.00</td>
-                    <td><input type="number" onblur={calculateRetailPrice()} id="profit_expected"></td>
-                    <td><input type="number" id="retail_price" disabled></td>
+                    <td><input type="number" id="wholesale_price{{ $p->sku }}" value="{{$p->wholesale_price}}" disabled>+$0.00</td>
+                    <td><input type="number" onblur="calculateRetailPrice('{{ $p->sku }}');" id="profit_expected{{ $p->sku }}" value="0"></td>
+                    <td><input type="number" id="retail_price{{ $p->sku }}" value="{{$p->wholesale_price}}" disabled ></td>
                     <td><button class="btn button_color">Edit</button></td>
                 </tr>
                 @endforeach
 
-                {{-- <tr>
-                    <td><input type="checkbox" name="" id=""></td>
-                    <td>Active</td>
-                    <td><img src="images/new.jpg" class="product_image" alt=""></td>
-                    <td>YL-87-98-AB</td>
-                    <td>Wireless Headphones</td>
-                    <td>07/11/2023 12:50</td>
-                    <td><input type="number" value="4"></td>
-                    <td>$5.55</td>
-                    <td><input type="number" value="24.99">+$0.00</td>
-                    <td><input type="number" value="24.99"></td>
-                    <td>$2.5</td>
-                    <td><button class="btn button_color">Edit</button></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="" id=""></td>
-                    <td>Active</td>
-                    <td><img src="images/new.jpg" class="product_image" alt=""></td>
-                    <td>YL-87-98-AB</td>
-                    <td>Wireless Headphones</td>
-                    <td>07/11/2023 12:50</td>
-                    <td><input type="number" value="4"></td>
-                    <td>$5.55</td>
-                    <td><input type="number" value="24.99">+$0.00</td>
-                    <td><input type="number" value="24.99"></td>
-                    <td>$2.5</td>
-                    <td><button class="btn button_color">Edit</button></td>
-                </tr> --}}
-                {{-- <tr>
-                    <td><input type="checkbox" name="" id=""></td>
-                    <td>Active</td>
-                    <td><img src="images/new.jpg" class="product_image" alt=""></td>
-                    <td>YL-87-98-AB</td>
-                    <td>Wireless Headphones</td>
-                    <td>07/11/2023 12:50</td>
-                    <td><input type="number" value="4"></td>
-                    <td>$5.55</td>
-                    <td><input type="number" value="24.99">+$0.00</td>
-                    <td><input type="number" value="24.99"></td>
-                    <td>$2.5</td>
-                    <td><button class="btn button_color">Edit</button></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="" id=""></td>
-                    <td>Active</td>
-                    <td><img src="images/new.jpg" class="product_image" alt=""></td>
-                    <td>YL-87-98-AB</td>
-                    <td>Wireless Headphones</td>
-                    <td>07/11/2023 12:50</td>
-                    <td><input type="number" value="4"></td>
-                    <td>$5.55</td>
-                    <td><input type="number" value="24.99">+$0.00</td>
-                    <td><input type="number" value="24.99"></td>
-                    <td>$2.5</td>
-                    <td><button class="btn button_color">Edit</button></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="" id=""></td>
-                    <td>Active</td>
-                    <td><img src="images/new.jpg" class="product_image" alt=""></td>
-                    <td>YL-87-98-AB</td>
-                    <td>Wireless Headphones</td>
-                    <td>07/11/2023 12:50</td>
-                    <td><input type="number" value="4"></td>
-                    <td>$5.55</td>
-                    <td><input type="number" value="24.99">+$0.00</td>
-                    <td><input type="number" value="24.99"></td>
-                    <td>$2.5</td>
-                    <td><button class="btn button_color">Edit</button></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="" id=""></td>
-                    <td>Active</td>
-                    <td><img src="images/new.jpg" class="product_image" alt=""></td>
-                    <td>YL-87-98-AB</td>
-                    <td>Wireless Headphones</td>
-                    <td>07/11/2023 12:50</td>
-                    <td><input type="number" value="4"></td>
-                    <td>$5.55</td>
-                    <td><input type="number" value="24.99">+$0.00</td>
-                    <td><input type="number" value="24.99"></td>
-                    <td>$2.5</td>
-                    <td><button class="btn button_color">Edit</button></td>
-                </tr> --}}
             </table>
         </div>
     </div>
+
+
+
+
+@endsection
+
+@section('customJS')
 <script type="text/javascript">
-    var wholesale_price = document.getElementById('wholesale_price')
-    var profit_expected = document.getElementById('profit_expected')
-    var retail_price = document.getElementById('retail_price')
-    function calculateRetailPrice() {
-        console.log(retail_price.value)
-        if(profit_expected.value > 1) {
-            retail_price.value = profit_expected + wholesale_price
-        }
+
+    function calculateRetailPrice($this) {
+        console.log($this);
+        var wholesale_price = document.getElementById('wholesale_price'+$this).value;
+        var profit_expected = document.getElementById('profit_expected'+$this).value;
+        var retail_price = document.getElementById('retail_price'+$this).value;
+         console.log(profit_expected)
+
+            total_retail_price = parseInt(profit_expected)+parseInt(wholesale_price);
+            document.getElementById('retail_price'+$this).value  = total_retail_price;
+            console.log(total_retail_price)
     }
 </script>
 @endsection
