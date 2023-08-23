@@ -14,21 +14,26 @@ use App\Orders;
 use App\Vendor;
 use App\Country;
 use App\Category;
+use App\Products;
 use Carbon\Carbon;
 use Stripe\Charge;
 use Stripe\Stripe;
 use App\Membership;
 use App\UserDevice;
+use Stripe\Product;
 use App\VendorRoles;
 use App\VendorStore;
+use App\W2bCategory;
 use Stripe\Customer;
 use App\StoresVendor;
 use App\ProductReview;
+use App\SellerProduct;
 use App\CustomerWallet;
 use App\ProductVariants;
 use App\WithdrawRequest;
 use App\MembershipCoupon;
 use App\VendorPaidModule;
+use App\Mail\WithdrawMail;
 use App\StoreSubscription;
 use App\Traits\Permission;
 use Illuminate\Support\Arr;
@@ -39,15 +44,11 @@ use Stripe\Exception\CardException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Helpers\LogActivity as Helper;
-use App\Mail\WithdrawMail;
-use App\Products;
-use App\W2bCategory;
 use Stripe\Exception\ApiErrorException;
 use Stripe\Exception\RateLimitException;
 use Stripe\Exception\ApiConnectionException;
 use Stripe\Exception\AuthenticationException;
 use Stripe\Exception\InvalidRequestException;
-use Stripe\Product;
 
 class VendorController extends Controller
 {
@@ -2253,131 +2254,125 @@ class VendorController extends Controller
         // dd($supplier_products);
         return view('vendor.marketplace.index', compact('supplier_products','categories'));
     }
-    // public function productSearch(Request $request)
-    // {
-    //     //   dd($request->all());
-
-    //     $query = $request->input('query');
-    //     $categories = W2bCategory::take(9)->get();
-    //     if ($request->input('query') && $request->input('category_name') && $request->input('status') && $request->input('fulfill_by')) {
-
-    //         $supplier_products = Products::
-    //         join('vendors','vendors.id', 'products.vendor_id')
-    //         ->where('products.seller_type', 'supplier')
-    //         ->whereIn('products.w2b_category_1', $request->category_name)
-    //         ->where('products.status', $request->status)
-    //         ->where('vendors.fulfill_type', $request->fulfill_type)
-    //         ->where('products.title', 'like', "%$query%")
-    //         ->select('products.*')
-    //         ->get();
-    //     }
-    //     elseif ($request->input('query') && $request->input('category_name') && $request->input('status') && !$request->input('status')) {
-    //         $supplier_products = Products::
-    //           where('seller_type', 'supplier')
-    //         ->whereIn('w2b_category_1', $request->category_name)
-    //         ->where('status', $request->status)
-    //         ->where('title', 'like', "%$query%")
-    //         ->get();
-    //     }
-    //     elseif ($request->input('query') && $request->input('category_name')) {
-    //         $supplier_products = Products::
-    //           where('seller_type', 'supplier')
-    //         ->whereIn('w2b_category_1', $request->category_name)
-    //         ->where('title', 'like', "%$query%")
-    //         ->get();
-    //     }
-
-    //     elseif ($request->input('query') && $request->input('status')) {
-    //         $supplier_products = Products::
-    //           where('seller_type', 'supplier')
-    //         ->where('status', $request->status)
-    //         ->where('title', 'like', "%$query%")
-    //         ->get();
-    //     }
-    //     elseif ($request->input('query') && $request->input('fulfill_by')) {
-    //         $supplier_products = Products::
-    //         join('vendors','vendors.id', 'products.vendor_id')
-    //         ->where('products.seller_type', 'supplier')
-    //         ->where('vendors.fulfill_type', $request->fulfill_type)
-    //         ->where('products.title', 'like', "%$query%")
-    //         ->select('products.*')
-    //         ->get();
-    //     }
-    //     elseif ($request->input('category_name') && $request->status) {
-    //         dd('cs');
-    //         $supplier_products = Products::
-    //           where('seller_type', 'supplier')
-    //         ->whereIn('w2b_category_1', $request->category_name)
-    //         ->where('status', $request->status)
-    //         ->get();
-    //     }
-    //     elseif ($request->input('category_name') && $request->input('fulfill_by')) {
-    //         $supplier_products = Products::
-    //         join('vendors','vendors.id', 'products.vendor_id')
-    //         ->where('products.seller_type', 'supplier')
-    //         ->where('vendors.fulfill_type', $request->fulfill_type)
-    //         ->whereIn('products.w2b_category_1', $request->category_name)
-    //         ->select('products.*')
-    //         ->get();
-    //     }
-    //     elseif ($request->input('status') && $request->input('fulfill_by')) {
-    //         $supplier_products = Products::
-    //         join('vendors','vendors.id', 'products.vendor_id')
-    //         ->where('products.seller_type', 'supplier')
-    //         ->where('vendors.fulfill_type', $request->fulfill_type)
-    //         ->where('products.status', $request->status)
-    //         ->select('products.*')
-    //         ->get();
-    //     }
-    //     elseif ($request->input('query')) {
-    //         $supplier_products = Products::
-    //           where('seller_type', 'supplier')
-    //         ->where('title', 'like', "%$query%")
-    //         ->get();
-    //     }
-    //     elseif ($request->input('category_name')) {
-    //         dd('c');
-    //         $supplier_products = Products::
-    //           where('seller_type', 'supplier')
-    //           ->whereIn('w2b_category_1', $request->category_name)
-    //         ->get();
-    //     }
-    //     elseif ($request->input('status')) {
-    //         $supplier_products = Products::
-    //           where('seller_type', 'supplier')
-    //           ->where('status', $request->status)
-    //         ->get();
-    //     }
-    //     elseif ($request->input('fulfill_by')) {
-    //         $supplier_products = Products::
-    //         join('vendors','vendors.id', 'products.vendor_id')
-    //         ->where('products.seller_type', 'supplier')
-    //         ->where('vendors.fulfill_type', $request->fulfill_type)
-    //         ->select('products.*')
-    //         ->get();
-    //     }
-    //     else  {
-    //         $supplier_products = Products::
-    //           where('seller_type', 'supplier')
-    //         ->get();
-    //     }
-
-
-
-
-    //     return view('vendor.marketplace.index', compact('supplier_products','categories'));
-    // }
-    public function productSearch(Request $request)
+    public function productSearch2(Request $request)
     {
         //   dd($request->all());
-        //         join('vendors','vendors.id', 'products.vendor_id')
-        //         ->where('products.seller_type', 'supplier')
-        //         ->whereIn('products.w2b_category_1', $request->category_name)
-        //         ->where('products.status', $request->status)
-        //         ->where('vendors.fulfill_type', $request->fulfill_type)
-        //         ->where('products.title', 'like', "%$query%")
-        //         ->select('products.*')
-        //         ->get();
+
+        $query = $request->input('query');
+        $categories = W2bCategory::take(9)->get();
+        if ($request->input('query') && $request->input('category_name') && $request->input('status') && $request->input('fulfill_by')) {
+
+            $supplier_products = Products::
+            join('vendors','vendors.id', 'products.vendor_id')
+            ->where('products.seller_type', 'supplier')
+            ->whereIn('products.w2b_category_1', $request->category_name)
+            ->where('products.status', $request->status)
+            ->where('vendors.fulfill_type', $request->fulfill_type)
+            ->where('products.title', 'like', "%$query%")
+            ->select('products.*')
+            ->get();
+        }
+        elseif ($request->input('query') && $request->input('category_name') && $request->input('status') && !$request->input('status')) {
+            $supplier_products = Products::
+              where('seller_type', 'supplier')
+            ->whereIn('w2b_category_1', $request->category_name)
+            ->where('status', $request->status)
+            ->where('title', 'like', "%$query%")
+            ->get();
+        }
+        elseif ($request->input('query') && $request->input('category_name')) {
+            $supplier_products = Products::
+              where('seller_type', 'supplier')
+            ->whereIn('w2b_category_1', $request->category_name)
+            ->where('title', 'like', "%$query%")
+            ->get();
+        }
+
+        elseif ($request->input('query') && $request->input('status')) {
+            $supplier_products = Products::
+              where('seller_type', 'supplier')
+            ->where('status', $request->status)
+            ->where('title', 'like', "%$query%")
+            ->get();
+        }
+        elseif ($request->input('query') && $request->input('fulfill_by')) {
+            $supplier_products = Products::
+            join('vendors','vendors.id', 'products.vendor_id')
+            ->where('products.seller_type', 'supplier')
+            ->where('vendors.fulfill_type', $request->fulfill_type)
+            ->where('products.title', 'like', "%$query%")
+            ->select('products.*')
+            ->get();
+        }
+        elseif ($request->input('category_name') && $request->status) {
+            dd('cs');
+            $supplier_products = Products::
+              where('seller_type', 'supplier')
+            ->whereIn('w2b_category_1', $request->category_name)
+            ->where('status', $request->status)
+            ->get();
+        }
+        elseif ($request->input('category_name') && $request->input('fulfill_by')) {
+            $supplier_products = Products::
+            join('vendors','vendors.id', 'products.vendor_id')
+            ->where('products.seller_type', 'supplier')
+            ->where('vendors.fulfill_type', $request->fulfill_type)
+            ->whereIn('products.w2b_category_1', $request->category_name)
+            ->select('products.*')
+            ->get();
+        }
+        elseif ($request->input('status') && $request->input('fulfill_by')) {
+            $supplier_products = Products::
+            join('vendors','vendors.id', 'products.vendor_id')
+            ->where('products.seller_type', 'supplier')
+            ->where('vendors.fulfill_type', $request->fulfill_type)
+            ->where('products.status', $request->status)
+            ->select('products.*')
+            ->get();
+        }
+        elseif ($request->input('query')) {
+            $supplier_products = Products::
+              where('seller_type', 'supplier')
+            ->where('title', 'like', "%$query%")
+            ->get();
+        }
+        elseif ($request->input('category_name')) {
+            dd('c');
+            $supplier_products = Products::
+              where('seller_type', 'supplier')
+              ->whereIn('w2b_category_1', $request->category_name)
+            ->get();
+        }
+        elseif ($request->input('status')) {
+            $supplier_products = Products::
+              where('seller_type', 'supplier')
+              ->where('status', $request->status)
+            ->get();
+        }
+        elseif ($request->input('fulfill_by')) {
+            $supplier_products = Products::
+            join('vendors','vendors.id', 'products.vendor_id')
+            ->where('products.seller_type', 'supplier')
+            ->where('vendors.fulfill_type', $request->fulfill_type)
+            ->select('products.*')
+            ->get();
+        }
+        else  {
+            $supplier_products = Products::
+              where('seller_type', 'supplier')
+            ->get();
+        }
+
+
+
+
+        return view('vendor.marketplace.index', compact('supplier_products','categories'));
+    }
+
+
+    public function productSearch(Request $request)
+    {
+
 
         $query1 = $request->input('query');
         $categories = W2bCategory::take(9)->get();
@@ -2403,12 +2398,39 @@ class VendorController extends Controller
 
             $supplier_products = $query->orderBy('created_at', 'ASC')->get();
 
-
-
-
-
         return view('vendor.marketplace.index', compact('supplier_products','categories'));
 
+    }
+
+    public function buyProduct(Request $request)
+    {
+        $sellerId = auth()->user()->id;
+
+        $quantity = $request->quantity;
+        $input_q = array_filter($quantity, fn ($quantity) => !is_null($quantity));
+
+        $retail_price = $request->retail_price;
+        $input_r = array_filter($retail_price, fn ($retail_price) => !is_null($retail_price));
+
+
+        $selectedProducts = $request->input('product_sku', []);
+        // $products =   Products::whereIn('sku', $request->product_sku)->get();
+            // dd($selectedProducts);
+        //   dd($input_q);
+
+        foreach ($selectedProducts as $productId) {
+            $quantity2 = $input_q[$productId];
+            $retail2 = $input_r[$productId];
+
+            // Store the selected product and quantity in the seller's products table
+            SellerProduct::create([
+                'seller_id' => $sellerId,
+                'product_sku' => $productId,
+                'quantity' => $quantity2,
+                'retail_price' => $retail2
+            ]);
+        }
+        return redirect()->route('vendor.marketplace-page');
     }
 }
 

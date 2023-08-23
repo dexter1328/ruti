@@ -83,10 +83,12 @@
         </div>
 
         <div class="row mt-4 mx-0 table_overflow">
-            <button class="btn button_color mt-2 mt-sm-0 mb-2" type="submit">Buy</button>
+            <form action="{{ route('vendor.marketplace-buy-products') }}" method="POST">
+            @csrf
+            <button class="btn button_color mt-2 mt-sm-0 mb-2" type="submit" id="buyBtn" disabled >Buy</button>
             <table class="details_table rounded col-12 border">
                 <tr class="table_head">
-                    <th><input type="checkbox" name="" id=""></th>
+                    <th><input type="checkbox" name="" id="checkAll"></th>
                     <th>Status</th>
                     <th>Quantity</th>
                     <th>Image</th>
@@ -100,14 +102,14 @@
                     <th>WholeSale Price + Profit Expected = Retail Price</th>
                     <th><button class="btn button_color">Save All</button></th>
                 </tr>
-                @foreach ($supplier_products as $p)
+                @foreach ($supplier_products as $key => $p)
                 @php
                     $pct = ($p->wholesale_price/100) * 30;
                 @endphp
-                <tr>
-                    <td><input type="checkbox" name="" id=""></td>
+                <tr class="row-item2">
+                    <td><input type="checkbox"  id="chkk1" class="checkItem1" name="product_sku[]" value="{{ $p->sku }}" ></td>
                     <td>{{$p->status == 'enable' ? 'active' : 'inactive'}}</td>
-                    <td><input type="number" value="1" ></td>
+                    <td><input type="number"  name="quantity[{{ $p->sku }}]"></td>
                     <td><img src="{{$p->original_image_url}}" class="product_image" alt=""></td>
                     <td>{{$p->sku}}</td>
                     <td>{{$p->title}}</td>
@@ -116,12 +118,13 @@
                     <td>${{$pct}}</td>
                     <td><input type="number" id="wholesale_price{{ $p->sku }}" value="{{$p->wholesale_price}}" disabled>+$0.00</td>
                     <td><input type="number" onblur="calculateRetailPrice('{{ $p->sku }}');" id="profit_expected{{ $p->sku }}" value="0"></td>
-                    <td><input type="number" id="retail_price{{ $p->sku }}" value="{{$p->wholesale_price}}" disabled ></td>
+                    <td><input type="number" name="retail_price[{{ $p->sku }}]" id="retail_price{{ $p->sku }}"    ></td>
                     <td><button class="btn button_color">Edit</button></td>
                 </tr>
                 @endforeach
 
             </table>
+            </form>
         </div>
     </div>
 
@@ -145,4 +148,42 @@
             console.log(total_retail_price)
     }
 </script>
+
+<script>
+    $('#checkAll').click(function () {
+     $(':checkbox.checkItem1').prop('checked', this.checked);
+ });
+
+</script>
+<script>
+   var checker = document.getElementById('checkAll');
+    var checker2 = document.getElementById('chkk1');
+ var buyBtn = document.getElementById('buyBtn');
+//  when unchecked or checked, run the function
+ checker.onchange = function(){
+if(this.checked){
+    buyBtn.disabled = false;
+} else {
+    buyBtn.disabled = true;
+}
+}
+
+checker2.onchange = function(){
+    if(this.checked){
+    buyBtn.disabled = false;
+} else {
+    buyBtn.disabled = true;
+}
+}
+
+
+
+
+</script>
+
+
+<script>
+
+</script>
+
 @endsection
