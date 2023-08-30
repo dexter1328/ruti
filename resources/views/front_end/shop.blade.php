@@ -19,7 +19,7 @@
                             <h5 class="price">Price: <span>${{number_format((float)$product1->retail_price, 2, '.', '')}}</span></h5>
                             <a href="{{ route('product-detail',['slug' => $product1->slug, 'sku' => $product1->sku]) }}" class="btn btn-primary-blue" data-animation="fadeInUp" data-delay=".8s" tabindex="0" style="animation-delay: 0.8s;">Shop Now</a>
                             </div>
-                            {{-- <a class="primary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt="image"></a> --}}
+
 
                         </div>
                         <div class="category-thumb">
@@ -129,7 +129,7 @@
                     <span>DEAL OF THE DAY</span>
                     <h2 class="title"><a href="{{ route('product-detail',['slug' => $product4->slug, 'sku' => $product4->sku]) }}">{{ Str::limit($product4->title, 50) }}</a></h2>
                     <p class="counter-price">${{number_format((float)$product4->retail_price, 2, '.', '')}}</p>
-                    {{-- <p class="custom-breadcrumb"><span>Potato</span>/<span>Potato</span>/<span>Potato</span></p> --}}
+
                     <h5 class="counter-size">Package Size: <span>5.8 OZ(165 g)</span></h5>
                     <div class="flash-sale-item mb-20">
                         <div class="fs-content">
@@ -173,7 +173,7 @@
                     <div class="category-banner-item right-top-banner mb-xl-3 mb-lg-0 mb-md-0 mb-0 align-items-center banner_thumb">
                        <div class="content align-self-center">
                             <h2 class="counter-area-product-heading"><a href="{{ route('product-detail',['slug' => $product5->slug, 'sku' => $product5->sku]) }}">{{ Str::limit($product5->title, 40) }}</a></h2>
-                            {{-- <p class="counter-area-product-breadcrumb d-flex"><span>Potato</span>/ <span>Potato</span>/ <span>Potato</span></p> --}}
+
                             <span class="shop-now">${{number_format((float)$product5->retail_price, 2, '.', '')}}</span>
                         </div>
                         <div class="category-thumb">
@@ -183,7 +183,7 @@
                     <div class="category-banner-item right-bottom-banner align-items-center banner_thumb">
                         <div class="content align-self-center">
                             <h2 class="counter-area-product-heading"><a href="{{ route('product-detail',['slug' => $product6->slug, 'sku' => $product6->sku]) }}">{{ Str::limit($product6->title, 40) }}</a></h2>
-                            {{-- <p class="counter-area-product-breadcrumb d-flex"><span>Potato</span>/ <span>Potato</span>/ <span>Potato</span></p> --}}
+
                             <span class="shop-now">${{number_format((float)$product6->retail_price, 2, '.', '')}}</span>
                         </div>
                         <div class="category-thumb">
@@ -238,11 +238,11 @@
                                             <div class="action_links">
                                                 <ul>
                                                     <li class="add_to_cart"><a href="{{ route('add.to.cart1', $p->sku) }}" title="Add to cart"><span class="lnr lnr-cart"></span></a></li>
-                                                    {{-- <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box"  title="quick view"> <span class="lnr lnr-magnifier"></span></a></li> --}}
+
                                                     @if(Auth::guard('w2bcustomer')->user())
                                                     <li class="wishlist"><a href="{{route('wb-wishlist', $p->sku)}}" title="Add to Wishlist"><span class="fa fa-heart"></span></a></li>
                                                     @endif
-                                                 {{-- <li class="compare"><a href="#" title="Add to Compare"><span class="lnr lnr-sync"></span></a></li> --}}
+
                                                 </ul>
                                             </div>
                                         </div>

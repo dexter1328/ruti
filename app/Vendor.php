@@ -128,6 +128,15 @@ class Vendor extends Authenticatable
         return $this->belongsTo('App\VendorRoles', 'role_id');
     }
 
+    public function products()
+    {
+        return $this->hasMany('App\Products', 'id','vendor_id');
+    }
+    public function w2bProducts()
+    {
+        return $this->hasMany('App\W2bProduct', 'id','vendor_id');
+    }
+
     //Get Country name
 
     public function supplierCountry()

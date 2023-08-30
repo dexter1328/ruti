@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:image" content="{{asset('public/wb/img/logo/logo2.png')}}" />
     <title>Nature Admin Panel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('public/panel/style2.css') }}">
@@ -89,10 +90,16 @@
             <div class="col-xl-2 col-lg-12 col-md-12">
                 <ul class="no_decoration_list list">
                     @if(has_permission(Auth::user()->role_id,'vendor','read'))
+                    <li class="mt-2 li_elements mb-2"><img src="{{ asset('public/panel/images/Supplier.png') }}" class="me-2" width="30px" height="30px" alt="supplier image">
+                        <a class="links" href="https://admin.naturemenu.net" target="_blank">Nature Menu Admin </a>
+                    </li>
+                    @endif
+                    @if(has_permission(Auth::user()->role_id,'vendor','read'))
                     <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/supplier') or request()->is('admin/supplier/*')) ? 'active' : '' }}"><img src="{{ asset('public/panel/images/Supplier.png') }}" class="me-2" width="30px" height="30px" alt="supplier image">
                         <a class="links" href="{{url('admin/supplier')}}">Suppliers </a>
                     </li>
                     @endif
+
                     @if(has_permission(Auth::user()->role_id,'products','read') || has_permission(Auth::user()->role_id,'brand','read') || has_permission(Auth::user()->role_id,'categories','read') || has_permission(Auth::user()->role_id,'attributes','read') || has_permission(Auth::user()->role_id,'discount_offers','read')|| has_permission(Auth::user()->role_id,'product_reviews','read') )
                     <li class="mt-2 li_elements mb-2 {{ (request()->is('admin/w2b_products/*')) ? 'active menu-open' : '' }}"> <img src="{{ asset('public/panel/images/icon8_wholesale.png') }}" class="me-2" width="30px" height="30px" alt="wholesale icon">
                         <a class="links" href="{{url('admin/w2b_products')}}">Wholesale2b </a>

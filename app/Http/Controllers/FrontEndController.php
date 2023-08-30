@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\BestProduct;
+use App\BestSeller;
 use Mail;
 use View;
 use Share;
@@ -46,6 +48,7 @@ use PayPal\Api\PaymentExecution;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use App\Jobs\OrderMailToSupplierJob;
+use App\Products;
 use Illuminate\Support\Facades\Auth;
 use PayPal\Auth\OAuthTokenCredential;
 use Illuminate\Support\Facades\Redirect;
@@ -215,10 +218,12 @@ class FrontEndController extends Controller
         ->first();
 
         if ($p1 == Null) {
-            $product = DB::table('products')->where('sku', $sku)->first();
+            $product = Products::with('vendor')->where('sku', $sku)->first();
+            // dd($product);
         }
         else {
-            $product = DB::table('w2b_products')->where('sku', $sku)->first();
+            $product = W2bProduct::with('vendor')->where('sku', $sku)->first();
+            // dd($product);
         }
 
 
@@ -281,6 +286,41 @@ class FrontEndController extends Controller
         $input = $request->all();
         Rating::create($input);
         return redirect()->back();
+    }
+
+    public function voteBestSeller(Request $request)
+    {
+        if (Auth::guard('w2bcustomer')->user()) {
+            BestSeller::create([
+                'vendor_id' => $request->vendor_id,
+                'user_id' => Auth::guard('w2bcustomer')->user()->id
+            ]);
+        }
+        else {
+            BestSeller::create([
+                'vendor_id' => $request->vendor_id,
+                'user_id' => Null
+            ]);
+        }
+        return redirect()->back()->with('success', 'Thank you for voting best seller');
+
+
+    }
+    public function voteBestProduct(Request $request)
+    {
+        if (Auth::guard('w2bcustomer')->user()) {
+            BestProduct::create([
+                'product_sku' => $request->product_sku,
+                'user_id' => Auth::guard('w2bcustomer')->user()->id
+            ]);
+        }
+        else {
+            BestProduct::create([
+                'product_sku' => $request->product_sku,
+                'user_id' => Null
+            ]);
+        }
+        return redirect()->back()->with('success', 'Thank you for voting best product');
     }
     public function cart()
     {

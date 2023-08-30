@@ -119,6 +119,8 @@ Route::get('/shop/search', 'FrontEndController@shopSearch')->name('shop-search')
 Route::get('/shop/search/autocomplete', 'FrontEndController@autocomplete')->name('shop-search-autocomplete');
 Route::get('/shop/product_detail/{slug}/{sku}', 'FrontEndController@ProductDetail')->name('product-detail');
 Route::post('/user-rating', 'FrontEndController@rating')->name('user-rating');
+Route::post('/vote-best-seller', 'FrontEndController@voteBestSeller')->name('vote-best-seller');
+Route::post('/vote-best-product', 'FrontEndController@voteBestProduct')->name('vote-best-product');
 Route::get('/user_wishlist', 'FrontEndController@wishlistPage')->name('wb-wishlist-page');
 Route::delete('/user_wishlist/delete/{sku}', 'FrontEndController@removeWishlist')->name('remove-from-wishlist');
 Route::get('/wishlist/{sku}', 'FrontEndController@wishlist')->name('wb-wishlist');

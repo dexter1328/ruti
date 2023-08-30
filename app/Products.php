@@ -31,6 +31,10 @@ class Products extends Model
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
     }
+    public function vendor()
+    {
+        return $this->belongsTo('App\Vendor', 'vendor_id','id');
+    }
 
 
 }

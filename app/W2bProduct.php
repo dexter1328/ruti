@@ -19,4 +19,8 @@ class W2bProduct extends Model
     {
         return $this->hasMany('App\Rating', 'product_id', 'sku');
     }
+    public function vendor()
+    {
+        return $this->belongsTo('App\Vendor', 'vendor_id','id');
+    }
 }

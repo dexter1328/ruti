@@ -88,11 +88,11 @@
                                                             <input autocomplete='off' class='form-control card-cvc' placeholder='e.g 415' size='4'type='text'>
                                                         </div>
                                                         <div class="col-4 mb-20 expiration required">
-                                                            <label>Expiration Month  <span>*</span></label>
+                                                            <label>Exp Month  <span>*</span></label>
                                                             <input class='form-control card-expiry-month' placeholder='MM' size='2'type='text'>
                                                         </div>
                                                         <div class="col-4 mb-20 expiration required">
-                                                            <label>Expiration Year <span>*</span></label>
+                                                            <label>Exp Year <span>*</span></label>
                                                             <input class='form-control card-expiry-year' placeholder='YYYY' size='4'type='text'>
                                                         </div>
                                                     </div>
@@ -313,23 +313,7 @@
             </div>
 
     </div>
-    {{-- <div class='main_parent_div border col-lg-8 col-sm-12 m-auto px-0'>
-        <h3 class='sections_coupons_header like_products_heading p-2' >Products You may like</h3>
-        <div class='p-3 d-flex products_inner'>
-            @foreach ($suggested_products as $p)
-            <div class='more_products ml-2 py-2 px-4'>
-                <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
-                <img src="{{$p->original_image_url}}" class='more_products_img'  alt="image">
-                </a>
-                <div class='products_title'>
-                    <h5><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">{{ Str::limit($p->title, 20) }}</a></h5>
-                </div>
-            </div>
-            @endforeach
 
-
-        </div>
-    </div> --}}
 </div>
 <!--Checkout page section end-->
 @endsection

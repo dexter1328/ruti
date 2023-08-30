@@ -566,7 +566,7 @@
                                             <li><a class="{{ Route::is('product-shop') ? 'active' : '' }}"  href="{{url('/')}}">Home</a></li>
                                             <li><a class=""  href="{{url('/trending-products')}}">Trending Products</a></li>
                                             <li><a class=""  href="{{url('/special-offers')}}">Special Offers</a></li>
-                                            <li><a class=""  href="#">Restaurants</a></li>
+                                            <li><a class=""  href="https://naturemenu.net" target="_blank">Restaurants</a></li>
                                             {{-- <li><a class=""  href="#">Support</a></li> --}}
                                         </ul>
                                     </nav>

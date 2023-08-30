@@ -64,7 +64,7 @@
     <div class="first_main_div p-4 m-auto">
         <div class="row justify-content-between">
             <div class="col-xl-2 col-lg-3 col-md-12">
-                <p class="mt-2">SUPER ADMIN PANEL</p>
+                <p class="mt-2">VENDOR PANEL</p>
             </div>
             <div class="col-xl-3 col-lg-3 col-md-12 first_column">
                 <p class="headings"><img src="{{ asset('public/panel/images/icon8_market.png') }}" width="30px" height="30px" alt="affliliates"> AFFILIATES</p>

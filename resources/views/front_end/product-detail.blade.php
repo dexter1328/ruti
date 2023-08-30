@@ -56,34 +56,35 @@
             </div>
             <div class="col-lg-7 col-md-7 mt-4 mt-lg-0">
                 <div class="product_d_right">
-                   <form action="#">
                         <span class="shop-details-content"><i class="lnr lnr-checkmark-circle"></i>In Stock</span>
                         <h1><a href="#">{{$product->title}}</a></h1>
                         <div class=" product_ratting">
-                            {{-- <ul>
-                                <li><a href="#"><i class="icon-star"></i></a></li>
-                               <li><a href="#"><i class="icon-star"></i></a></li>
-                               <li><a href="#"><i class="icon-star"></i></a></li>
-                               <li><a href="#"><i class="icon-star"></i></a></li>
-                               <li><a href="#"><i class="icon-star"></i></a></li>
-                                <li class="review"><a href="#"> (customer review ) </a></li>
-                            </ul> --}}
 
                         </div>
                         <div class="d-flex justify-content-between">
                             <div class="price_box">
                                 <span class="current_price">${{number_format((float)$product->retail_price, 2, '.', '')}}</span>
-                                {{-- <span class="old_price">$80.00</span> --}}
+
                             </div>
                             <div class="mr-4">
-                                <span class="tooltip-container mr-3">
-                                    <button class="btn_vote btn-secondary-orange"><img src="{{asset('public/wb/img/icons/profile-user.png')}}" width="25px" height="25px" alt=""></button>
+                                <form class="" action="{{ route("vote-best-seller") }}"  method="POST">
+                                    @csrf
+                                    <input type="hidden" name="vendor_id" value="{{$product->vendor_id}}">
+
+                                    <span class="tooltip-container mr-3">
+                                    <button class="btn_vote btn-secondary-orange" type="submit"><img src="{{asset('public/wb/img/icons/profile-user.png')}}" width="25px" height="25px" alt=""></button>
                                     <div class="tooltip-message">Vote for best seller.</div>
-                                </span>
+                                    </span>
+                                </form>
+                                <form class="" action="{{ route("vote-best-product") }}"  method="POST">
+                                    @csrf
+                                    <input type="hidden" name="product_sku" value="{{$product->sku}}">
+
                                 <span class="tooltip-container mx-3">
-                                    <button class="btn_vote btn-primary-blue"><img src="{{asset('public/wb/img/icons/box.png')}}" width="25px" height="25px" alt=""></button>
+                                    <button class="btn_vote btn-primary-blue"  type="submit"><img src="{{asset('public/wb/img/icons/box.png')}}" width="25px" height="25px" alt=""></button>
                                     <div class="tooltip-message">Vote for best product.</div>
                                 </span>
+                                </form>
                             </div>
                         </div>
                        <div class="category-type">
@@ -112,39 +113,13 @@
                                     Seller Name:
                                 </li>
                                 <li>
-                                    John Doe
+                                    {{ $product->vendor->id == 1 ? 'Nature Checkout' : $product->vendor->name }}
                                 </li>
                             </ul>
                         </div>
-                        {{-- <div class="product_desc">
-                            <span>Usage :</span>
-                            <p>Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in </p>
-                        </div>
-                        <div class="product_variant color">
-                            <h3>Available Options</h3>
-                            <label>color</label>
-                            <ul>
-                                <li class="color1"><a href="#"></a></li>
-                                <li class="color2"><a href="#"></a></li>
-                                <li class="color3"><a href="#"></a></li>
-                                <li class="color4"><a href="#"></a></li>
-                            </ul>
-                        </div>
-                       <div class="shop-details-quantity-default">
-                           <span>Amount</span>
-                            <ul class="d-flex align-items-center">
-                                <li><p>2 Pcs</p></li>
-                                <li><p>3 Pcs</p></li>
-                            </ul>
-                        </div> --}}
+
                         <div class="quantity-option">
-                            {{-- <div class="">
-                                <span>Quantity</span>
-                                <div class="cart-plus-minus">
-                                    <input type="text" value="1">
-                                    <div class="dec qtybutton">-</div><div class="inc qtybutton">+</div>
-                                </div>
-                            </div> --}}
+
                             <div class="">
                                 <a class="btn btn-secondary-orange" href="{{ route('add.to.cart', $product->sku) }}"  >add to cart</a>
                                 <a class="btn btn-primary-blue" href="{{ route('product-shop') }}" >Back To Shopping</a>
@@ -154,14 +129,14 @@
                        <div class="shop-details-Wishlist">
                             <ul>
                                 <li><a href="{{route('wb-wishlist', $product->sku)}}"><i class="lnr lnr-heart"></i><p>Add to Wishlist</p></a></li>
-                                {{-- <li><a href="#"><i class="lnr lnr-chart-bars"></i><p>Compare</p></a></li> --}}
+
                             </ul>
                         </div>
                         @else
                         <div class="shop-details-Wishlist">
                             <ul>
                                 <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal29"><i class="lnr lnr-heart"></i><p>Add to Wishlist</p></a></li>
-                                {{-- <li><a href="#"><i class="lnr lnr-chart-bars"></i><p>Compare</p></a></li> --}}
+
                             </ul>
                         </div>
                         @endif
@@ -198,7 +173,6 @@
                                 <h4 class="seller_name my-auto ml-2">Sell Online</h4>
                             </div>
                         </div>
-                    </form>
                 </div>
             </div>
         </div>
@@ -218,9 +192,6 @@
                                 <a class="active" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="false">Description</a>
                             </li>
                             <li>
-                                 {{-- <a data-toggle="tab" href="#sheet" role="tab" aria-controls="sheet" aria-selected="false">Specification</a> --}}
-                            </li>
-                            <li>
                                <a data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews ({{$ratings->count()}})</a>
                             </li>
                         </ul>
@@ -233,35 +204,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="tab-pane fade" id="sheet" role="tabpanel" >
-                           <div class="container">
-                                <div class="product_d_table">
-                                    <form action="#">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="first_child">Compositions</td>
-                                        <td>Polyester</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="first_child">Styles</td>
-                                        <td>Girly</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="first_child">Properties</td>
-                                        <td>Short Dress</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </form>
-                                </div>
-                            </div>
-                            <div class="product_info_content">
-                                <div class="container">
-                                    <p>Fashion has been creating well-designed collections since 2010. The brand offers feminine designs delivering stylish separates and statement dresses which have since evolved into a full ready-to-wear collection in which every item is a vital part of a woman's wardrobe. The result? Cool, easy, chic looks with youthful elegance and unmistakable signature style. All the beautiful pieces are made in Italy and manufactured with the greatest attention. Now Fashion extends to a range of accessories including shoes, hats, belts and more!</p>
-                                </div>
-                            </div>
-                        </div> --}}
 
                         <div class="tab-pane fade" id="reviews" role="tabpanel" >
                             <div class="reviews_wrapper">
@@ -392,40 +334,8 @@
 </div>
 </section>
 
-{{-- <section class='w-100 d-flex mb-3 justify-content-center'>
-<div class='m-0 border product_sets mt-2 px-0'>
-                        <h3 class='like_products_heading text-center p-2' >Most Popular Sets</h3>
-                        <hr>
-                        <div class='p-3 d-flex sets_div justify-content-center main_parent_div'>
-                        <div class='more_products sets ml-2 py-2 px-4'>
-                            <img src="{{$product->original_image_url}}" class='more_products_img'  alt="image">
-                            <div class='products_title'>
-                                <h5>The Clean Routine Set</h5>
-                                <h5>$ 165</h5>
-                                <div><button class='set-search'><i class="fa fa-search"></i></button> <button class='set-select sold' >Sold Out</button></div>
-                            </div>
-                        </div>
-                        <div class='more_products sets py-2 px-4'>
-                            <img src="{{$product->original_image_url}}" class='more_products_img'  alt="image">
-                            <div class='products_title'>
-                                <h5>The Clear Sound Set</h5>
-                                <h5>$ 68</h5>
-                                <div><button class='set-search'><i class="fa fa-search"></i></button> <button class='set-select' >Select</button></div>
-                            </div>
-                        </div>
-                        <div class='more_products sets py-2 px-4'>
-                            <img src="{{$product->original_image_url}}" class='more_products_img'  alt="image">
-                            <div class='products_title'>
-                                <h5>The Car Washing Set</h5>
-                                <h5>$ 83</h5>
-                                <div><button class='set-search'><i class="fa fa-search"></i></button> <button class='set-select' >Select</button></div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-</section> --}}
 <!--product info end-->
+
 <!--product area start-->
 <section class="product_area related_products">
     <div class='main_parent_div border col-lg-8 col-sm-12 m-auto px-0'>
@@ -474,11 +384,11 @@
                         <div class="action_links">
                             <ul>
                                 <li class="add_to_cart"><a href="{{ route('add.to.cart1', $p->sku) }}" title="Add to cart"><span class="lnr lnr-cart"></span></a></li>
-                                {{-- <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box"  title="quick view"> <span class="lnr lnr-magnifier"></span></a></li> --}}
+
                                 @if(Auth::guard('w2bcustomer')->user())
                                 <li class="wishlist"><a href="{{route('wb-wishlist', $p->sku)}}" title="Add to Wishlist"><span class="fa fa-heart"></span></a></li>
                                 @endif
-                             {{-- <li class="compare"><a href="#" title="Add to Compare"><span class="lnr lnr-sync"></span></a></li> --}}
+
                             </ul>
                         </div>
                     </div>
