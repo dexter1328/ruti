@@ -3,7 +3,7 @@
 
 <div class="main_div pb-4">
         <div class="header d-flex align-items-center justify-content-center px-4 mb-2 w-100 t">
-            <h4>Marketplace</h4>
+            <a href=""><h4>Marketplace</h4></a>
         </div>
         <div class="row mx-0">
             <div class="search_parent pl-2 col-lg-6 col-sm-12">
@@ -54,38 +54,27 @@
                                     </span>
                                 </div>
                             </div>
+                            <div class="col-lg-12 d-flex p-3">
+                                <button class="btn button_color min_width_btn">Clear Filter</button>
+                            </div>
                         </div>
                     </div>
                   <span class="ml-2"><b>{{$supplier_products->count()}}</b> product(s)</span>
                 </form>
             </div>
         </div>
-        <div class="row mx-0">
-        <div class="col-lg-12">
-        <table class="m-2 mt-4 border mx-auto main_area_table">
-            <tr class="table_head border-bottom">
-                <th colspan="3" class="p-3">Main Areas:
-                    <span><input type="checkbox" name="" id=""> Supplier</span>
-                    <span><input type="checkbox" name="" id=""> Seller</span>
-                    <span><input type="checkbox" name="" id=""> Affiliate</span>
-                </th>
-            </tr>
-            <tr class="first_table_body">
-                <td class="px-4 py-4"><span class="me-4"><a href="">Seller Api</a></span></td>
-                <td class="px-4 py-4"><span class="me-4"><a href="">Commission Details</a></span></td>
-                <td class="px-2">
-                    <button class="btn button_color mt-2 mt-sm-0 mb-2">Add Variation</button>
-                    <button class="btn button_color mt-2 mt-sm-0 mb-2">Add Product</button>
-                </td>
-            </tr>
-        </table>
-        </div>
+        <div class="row mx-0 my-3">
+            <div class="col-lg-12 justify-content-center d-flex">
+                <button class="btn button_color min_width_btn">Get Seller Api</button>
+            </div>
         </div>
 
-        <div class="row mt-4 mx-0 table_overflow">
-            <form action="{{ route('vendor.marketplace-buy-products') }}" method="POST">
+        <form action="{{ route('vendor.marketplace-buy-products') }}" method="POST">
             @csrf
-            <button class="btn button_color mt-2 mt-sm-0 mb-2" type="submit" id="buyBtn" disabled >Buy</button>
+            <div class="d-flex mx-auto justify-content-center">
+                <button class="btn button_color mt-2 min_width_btn mt-sm-0 mb-2" type="submit" id="buyBtn" disabled >Buy</button>
+            </div>
+            <div class="row mt-4 mx-0 table_overflow">
             <table class="details_table rounded col-12 border">
                 <tr class="table_head">
                     <th><input type="checkbox" name="" id="checkAll"></th>
@@ -107,9 +96,9 @@
                     $pct = ($p->wholesale_price/100) * 30;
                 @endphp
                 <tr class="row-item2">
-                    <td><input type="checkbox"  id="chkk1" class="checkItem1" name="product_sku[]" value="{{ $p->sku }}" ></td>
+                    <td><input type="checkbox" onclick={EnableInputFields()}  id="checkItem_{{ $p->sku }}" class="dynamic-checkbox checkItem1" name="product_sku[]" value="{{ $p->sku }}" ></td>
                     <td>{{$p->status == 'enable' ? 'active' : 'inactive'}}</td>
-                    <td><input type="number"  name="quantity[{{ $p->sku }}]"></td>
+                    <td><input type="number" class="{{ $p->sku }}" disabled name="quantity[{{ $p->sku }}]"></td>
                     <td><img src="{{$p->original_image_url}}" class="product_image" alt=""></td>
                     <td>{{$p->sku}}</td>
                     <td>{{$p->title}}</td>
@@ -117,8 +106,11 @@
                     <td><input type="number" value="{{$p->stock}}" disabled></td>
                     <td>${{$pct}}</td>
                     <td><input type="number" id="wholesale_price{{ $p->sku }}" value="{{$p->wholesale_price}}" disabled>+$0.00</td>
-                    <td><input type="number" onblur="calculateRetailPrice('{{ $p->sku }}');" id="profit_expected{{ $p->sku }}" value="0"></td>
-                    <td><input type="number" name="retail_price[{{ $p->sku }}]" id="retail_price{{ $p->sku }}"    ></td>
+                    <td><input type="number" class="{{ $p->sku }}" onblur="calculateRetailPrice('{{ $p->sku }}');" id="profit_expected{{ $p->sku }}" disabled value="0"></td>
+                    <td>
+                        <input type="number" class="d-none" name="retail_price[{{ $p->sku }}]" id="retail_price{{ $p->sku }}">
+                        <input type="number" disabled name="retail_price[{{ $p->sku }}]" id="retail_price_span{{ $p->sku }}">
+                    </td>
                     <td><button class="btn button_color">Edit</button></td>
                 </tr>
                 @endforeach
@@ -137,21 +129,40 @@
 <script type="text/javascript">
 
     function calculateRetailPrice($this) {
-        console.log($this);
         var wholesale_price = document.getElementById('wholesale_price'+$this).value;
         var profit_expected = document.getElementById('profit_expected'+$this).value;
         var retail_price = document.getElementById('retail_price'+$this).value;
-         console.log(profit_expected)
+        total_retail_price = parseInt(profit_expected)+parseInt(wholesale_price);
+        document.getElementById('retail_price'+$this).value  = total_retail_price;
+        document.getElementById('retail_price_span'+$this).value  = total_retail_price;
+    }
+    function EnableInputFields() {
 
-            total_retail_price = parseInt(profit_expected)+parseInt(wholesale_price);
-            document.getElementById('retail_price'+$this).value  = total_retail_price;
-            console.log(total_retail_price)
+        document.getElementById('buyBtn').disabled = true
+        // Get all checkboxes with the class "dynamic-checkbox"
+        const checkboxes = document.querySelectorAll('.dynamic-checkbox');
+        // Loop through each checkbox and check its checked property
+        checkboxes.forEach(checkbox => {
+            const checkboxId = checkbox.id; 
+            const dynamicId = checkboxId.slice('checkItem_'.length);
+        if (checkbox.checked) {
+            document.querySelectorAll(`.${dynamicId}`)[0].disabled = false
+            document.querySelectorAll(`.${dynamicId}`)[1].disabled = false
+            document.getElementById('buyBtn').disabled = false
+        }
+        else {
+            document.querySelectorAll(`.${dynamicId}`)[0].disabled = true
+            document.querySelectorAll(`.${dynamicId}`)[1].disabled = true
+        }
+    });
+
     }
 </script>
 
 <script>
     $('#checkAll').click(function () {
      $(':checkbox.checkItem1').prop('checked', this.checked);
+     EnableInputFields()
  });
 
 </script>

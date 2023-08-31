@@ -520,3 +520,6 @@ input:focus {
 .filters_sec span {
     display: block;
 }
+.min_width_btn {
+    min-width: 190px;
+}
