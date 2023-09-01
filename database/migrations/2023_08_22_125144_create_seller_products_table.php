@@ -18,6 +18,7 @@ class CreateSellerProductsTable extends Migration
             $table->bigInteger('seller_id');
             $table->string('product_sku');
             $table->bigInteger('quantity');
+            $table->bigInteger('nature_fee');
             $table->bigInteger('retail_price');
             $table->timestamps();
         });

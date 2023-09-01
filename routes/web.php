@@ -631,6 +631,7 @@ Route::group(['prefix' => 'vendor'], function () {
 
 
         Route::get('marketplace-page', 'Vendor\VendorController@marketplacePage')->name('vendor.marketplace-page');
+        Route::get('thank-you-seller', 'Vendor\VendorController@thankYou')->name('vendor.thank-you-seller');
         Route::post('marketplace/buy-products', 'Vendor\VendorController@buyProduct')->name('vendor.marketplace-buy-products');
         Route::get('marketplace-page/product-search', 'Vendor\VendorController@productSearch')->name('vendor.product-search');
         Route::get('choose-ruti-fullfill-page', 'Vendor\VendorController@chooseRutiFullfillPage')->name('vendor.choose-ruti-fullfill-page');

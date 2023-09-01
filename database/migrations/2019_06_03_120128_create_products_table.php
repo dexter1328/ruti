@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->longText('description');
-            $table->bigInteger('supplier_id');
+            $table->bigInteger('supplier_id')->nullable();
             $table->bigInteger('vendor_id');
             $table->string('seller_type');
             $table->bigInteger('store_id')->nullable();

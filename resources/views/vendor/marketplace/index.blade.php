@@ -89,29 +89,30 @@
                     <th>Price and Shipping Unit = Wholesale Price</th>
                     <th>Profit Expected / Commission</th>
                     <th>WholeSale Price + Profit Expected = Retail Price</th>
-                    <th><button class="btn button_color">Save All</button></th>
+                    {{-- <th><button class="btn button_color">Save All</button></th> --}}
                 </tr>
                 @foreach ($supplier_products as $key => $p)
                 @php
-                    $pct = ($p->wholesale_price/100) * 30;
+                    $pct = ($p->wholesale_price/100) * 20;
                 @endphp
                 <tr class="row-item2">
                     <td><input type="checkbox" onclick={EnableInputFields()}  id="checkItem_{{ $p->sku }}" class="dynamic-checkbox checkItem1" name="product_sku[]" value="{{ $p->sku }}" ></td>
                     <td>{{$p->status == 'enable' ? 'active' : 'inactive'}}</td>
-                    <td><input type="number" class="{{ $p->sku }}" disabled name="quantity[{{ $p->sku }}]"></td>
+                    <td><input type="number" class="{{ $p->sku }}" disabled name="quantity[{{ $p->sku }}]" required></td>
                     <td><img src="{{$p->original_image_url}}" class="product_image" alt=""></td>
                     <td>{{$p->sku}}</td>
                     <td>{{$p->title}}</td>
                     <td>{{$p->created_at->format('d/m/Y')}}<br> </td>
                     <td><input type="number" value="{{$p->stock}}" disabled></td>
                     <td>${{$pct}}</td>
+                    <input type="hidden" value="{{$pct}}" name="nature_fee[{{ $p->sku }}]">
                     <td><input type="number" id="wholesale_price{{ $p->sku }}" value="{{$p->wholesale_price}}" disabled>+$0.00</td>
-                    <td><input type="number" class="{{ $p->sku }}" onblur="calculateRetailPrice('{{ $p->sku }}');" id="profit_expected{{ $p->sku }}" disabled value="0"></td>
+                    <td><input type="number" class="{{ $p->sku }}" onblur="calculateRetailPrice('{{ $p->sku }}');" id="profit_expected{{ $p->sku }}" required disabled ></td>
                     <td>
                         <input type="number" class="d-none" name="retail_price[{{ $p->sku }}]" id="retail_price{{ $p->sku }}">
                         <input type="number" disabled name="retail_price[{{ $p->sku }}]" id="retail_price_span{{ $p->sku }}">
                     </td>
-                    <td><button class="btn button_color">Edit</button></td>
+                    {{-- <td><button class="btn button_color">Edit</button></td> --}}
                 </tr>
                 @endforeach
 
@@ -143,7 +144,7 @@
         const checkboxes = document.querySelectorAll('.dynamic-checkbox');
         // Loop through each checkbox and check its checked property
         checkboxes.forEach(checkbox => {
-            const checkboxId = checkbox.id; 
+            const checkboxId = checkbox.id;
             const dynamicId = checkboxId.slice('checkItem_'.length);
         if (checkbox.checked) {
             document.querySelectorAll(`.${dynamicId}`)[0].disabled = false

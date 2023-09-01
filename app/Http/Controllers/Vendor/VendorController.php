@@ -2412,25 +2412,66 @@ class VendorController extends Controller
         $retail_price = $request->retail_price;
         $input_r = array_filter($retail_price, fn ($retail_price) => !is_null($retail_price));
 
+        $nature_fee = $request->nature_fee;
+        $input_nf = array_filter($nature_fee, fn ($nature_fee) => !is_null($nature_fee));
 
         $selectedProducts = $request->input('product_sku', []);
-        // $products =   Products::whereIn('sku', $request->product_sku)->get();
-            // dd($selectedProducts);
-        //   dd($input_q);
+        $user_id = Auth::user()->id;
 
         foreach ($selectedProducts as $productId) {
             $quantity2 = $input_q[$productId];
             $retail2 = $input_r[$productId];
+            $nature_fee2 = $input_nf[$productId];
 
             // Store the selected product and quantity in the seller's products table
             SellerProduct::create([
                 'seller_id' => $sellerId,
                 'product_sku' => $productId,
                 'quantity' => $quantity2,
-                'retail_price' => $retail2
+                'retail_price' => $retail2,
+                'nature_fee' => $nature_fee2
+            ]);
+            $skuWithUserId = $productId.$user_id;
+
+            $existingProduct = Products::where('sku', $skuWithUserId)->first();
+
+            if ($existingProduct) {
+                $existingStock = $existingProduct->stock;
+                $updatedStock = $existingStock + $quantity2;
+
+                $existingProduct->update([
+                    'retail_price' => $retail2,
+                    'stock' => $updatedStock,
+                    // Update other fields as needed
+                ]);
+            } else {
+            $newProduct = Products::where('sku',$productId)->first();
+            if ($newProduct) {
+            Products::updateOrCreate([
+                'sku' => $skuWithUserId,
+                'title' => $newProduct->title,
+                'slug' => $newProduct->slug,
+                'description' => $newProduct->description,
+                'original_image_url' => $newProduct->original_image_url,
+                'large_image_url_250x250' => $newProduct->large_image_url_250x250,
+                'large_image_url_500x500' => $newProduct->large_image_url_500x500,
+                'retail_price' => $retail2,
+                'vendor_id' => $user_id,
+                'seller_type' => 'vendor',
+                'w2b_category_1' => $newProduct->w2b_category_1,
+                'stock' => $quantity2,
+                'in_stock' => 'Y',
+                'condition' => $newProduct->condition,
             ]);
         }
-        return redirect()->route('vendor.marketplace-page');
+        }
+        }
+        return redirect()->route('vendor.thank-you-seller');
+    }
+
+    public function thankYou()
+    {
+        return view('vendor.marketplace.thank-you');
     }
 }
 
