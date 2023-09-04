@@ -6586,7 +6586,7 @@ font-size: 33px;
 .left-footer-section{
     background: rgb(153,153,161);
     background: linear-gradient(0deg, rgba(153,153,161,1) 0%, rgba(245,174,138,1) 56%);
-    padding: 60px 75px 60px 75px;
+    padding: 60px 55px 60px 55px;
 }
 .footer-contact span {
     display: block;

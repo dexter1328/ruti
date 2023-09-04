@@ -168,7 +168,7 @@
         <!--<script src="/js/app.js"></script>-->
         <!--<script src="{{ asset('public/js/app.js') }}"></script>-->
 
-        <script type="text/javascript">
+        <!-- <script type="text/javascript">
         window.Trengo = window.Trengo || {};
         window.Trengo.key = 'oxmtCRRS03uVdb6mASWz';
         (function(d, script, t) {
@@ -178,7 +178,7 @@
         script.src = 'https://static.widget.trengo.eu/embed.js';
         d.getElementsByTagName('head')[0].appendChild(script);
         }(document));
-        </script>
+        </script> -->
     </head>
 <body>
     <!-- start loader -->

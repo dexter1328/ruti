@@ -28,7 +28,7 @@
                                     <li>
                                         <i class="lnr lnr-map"></i>
                                         <div class="contact">
-                                            829 W Palmdale Blvd, Suite <br />
+                                            829 W Palmdale Blvd, Suite
                                             133 Palmdale, California 93551
                                         </div>
                                     </li>

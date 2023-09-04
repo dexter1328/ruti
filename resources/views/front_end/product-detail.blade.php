@@ -66,7 +66,7 @@
                                 <span class="current_price">${{number_format((float)$product->retail_price, 2, '.', '')}}</span>
 
                             </div>
-                            <div class="mr-4">
+                            <div class="mr-4 d-flex">
                                 <form class="" action="{{ route("vote-best-seller") }}"  method="POST">
                                     @csrf
                                     <input type="hidden" name="vendor_id" value="{{$product->vendor_id}}">
@@ -147,30 +147,30 @@
                             {!! $shareComponent !!}
                         </div>
                         <div class="seller_section mt-4">
-                            <p class="h4">Seller Services: </p>
+                            <h4>Seller Services: </h4>
                             <div class="d-flex align-items-center mt-2">
                                 <span class="seller_icon d-flex justify-content-center align-items-center">
                                 <img src="{{asset('public/wb/img/icons/fast-delivery.png')}}" width="25px" height="25px" alt="">
                                 </span>
-                                <h4 class="seller_name my-auto ml-2">Shipping</h4>
+                                <h5 class="seller_name my-auto ml-2">Shipping</h5>
                             </div>
                             <div class="d-flex align-items-center mt-2">
                                 <span class="seller_icon d-flex justify-content-center align-items-center">
                                     <img src="{{asset('public/wb/img/icons/delivery.png')}}" width="25px" height="25px" alt="">
                                 </span>
-                                <h4 class="seller_name my-auto ml-2">Store Pickup</h4>
+                                <h5 class="seller_name my-auto ml-2">Store Pickup</h5>
                             </div>
                             <div class="d-flex align-items-center mt-2">
                                 <span class="seller_icon d-flex justify-content-center align-items-center">
                                     <img src="{{asset('public/wb/img/icons/check.png')}}" width="25px" height="25px" alt="">
                                 </span>
-                                <h4 class="seller_name my-auto ml-2">Self Checkout</h4>
+                                <h5 class="seller_name my-auto ml-2">Self Checkout</h5>
                             </div>
                             <div class="d-flex align-items-center mt-2">
                                 <span class="seller_icon d-flex justify-content-center align-items-center">
                                     <img src="{{asset('public/wb/img/icons/online-shop.png')}}" width="25px" height="25px" alt="">
                                 </span>
-                                <h4 class="seller_name my-auto ml-2">Sell Online</h4>
+                                <h5 class="seller_name my-auto ml-2">Sell Online</h5>
                             </div>
                         </div>
                 </div>
