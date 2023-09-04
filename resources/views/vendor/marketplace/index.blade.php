@@ -150,8 +150,10 @@
             document.querySelectorAll(`.${dynamicId}`)[0].disabled = false
             document.querySelectorAll(`.${dynamicId}`)[1].disabled = false
             document.getElementById('buyBtn').disabled = false
+            document.querySelectorAll(`.${dynamicId}`)[0].parentNode.parentNode.style.backgroundColor = "#008ee25e"
         }
         else {
+            document.querySelectorAll(`.${dynamicId}`)[0].parentNode.parentNode.style.backgroundColor = "#e9eaec"
             document.querySelectorAll(`.${dynamicId}`)[0].disabled = true
             document.querySelectorAll(`.${dynamicId}`)[1].disabled = true
         }
