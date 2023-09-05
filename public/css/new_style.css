@@ -523,3 +523,8 @@ input:focus {
 .min_width_btn {
     min-width: 190px;
 }
+.marketplace_payment {
+    background-color: #fff;
+    min-height: 80vh;
+    width: 90%;
+}
