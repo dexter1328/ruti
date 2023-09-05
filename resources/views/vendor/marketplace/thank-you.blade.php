@@ -24,35 +24,56 @@
     </div>
     </div>
     </div> -->
+    <div class="mx-auto marketplace_payment">
+        <div class="row w-100">
+            <div class="p-3 mx-4 col-md-4 col-lg-4 col-sm-12">
+                <h4 class="i_text_color">Order Details: </h4>
+                <table class="w-100" border=1>
+                <thead class='no_bg'>
+                                    <tr>
+                                        <th class="p-3">Product</th>
+                                        <th class="p-3">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php $total = 0 @endphp
 
-    <div class="body_subscribtion d-flex justify-content-center">
-    <div class="i_sub_container m-auto p-4">
-        <h4>Order Details: </h4>
-        <div class="inner-container w-100 justify-content-center d-flex my-4">
-            <table class="w-100 ml-4">
-                <tr>
-                    <td class="ml-4">Quantity</td>
-                    <td>4</td>
-                </tr>
-                <tr>
-                    <td class="ml-4">Products</td>
-                    <td>Test</td>
-                </tr>
-                <tr>
-                    <td class="ml-4">Price</td>
-                    <td>$100</td>
-                </tr>
-                <tr>
-                    <td class="ml-4">Total Price</td>
-                    <td>$400</td>
-                </tr>
-            </table>
-        </div>
-        <h4>Payment Options: </h4>
-        <div class="inner-container">
-          <div class="row my-2 mx-0">
+                                    @if(session('cart'))
+                                    @foreach(session('cart') as $sku => $details)
+                                    @php $total += $details['retail_price'] * $details['quantity'] @endphp
+                                    @php $tax = ($details['sales_tax_pct'] / 100) * $total @endphp
+                                    @php $total_price = $total + $details['shipping_price'] + $tax @endphp
+                                    <tr>
+                                        <td class="p-3"><a> {{ Str::limit($details['title'], 35) }} </a><strong> × {{$details['quantity']}}</strong></td>
+                                        <td class="p-3"> ${{number_format((float)$details['retail_price'] * $details['quantity'], 2, '.', '')}}</td>
+                                    </tr>
+                                    @endforeach
+                                    @endif
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th class="p-3">Cart Subtotal</th>
+                                        <td class="p-3">${{number_format((float)$total, 2, '.', '')}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="p-3">Shipping</th>
+                                        <td class="p-3"><strong>${{number_format((float)$details['shipping_price'], 2, '.', '')}}</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="p-3">Sales Tax</th>
+                                        <td class="p-3"><strong>${{number_format((float)$tax, 2, '.', '')}}</strong></td>
+                                    </tr>
+                                    <tr class="order_total">
+                                        <th class="p-3">Order Total</th>
+                                        <td class="p-3"><strong>${{number_format((float)$total_price, 2, '.', '')}}</strong></td>
+                                    </tr>
+                                </tfoot>
+                </table>
+            </div>
+            <div class="p-3 mx-4 col-md-6 col-lg-6 col-sm-12">
+                <h4 class="i_text_color">Payment Options: </h4>
                 <div class="accordion w-100" id="faq">
-                    <div class="card w-75 mx-auto">
+                    <div class="card mx-auto">
                         <div class="card-header" id="faqhead1">
                             <a href="#" class="btn btn-header-link text-dark i_link w-100 text-left" data-toggle="collapse" data-target="#faq1"
                             aria-expanded="true" aria-controls="faq1">Pay with Card</a>
@@ -96,7 +117,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card w-75 mx-auto">
+                    <div class="card mx-auto">
                         <div class="card-header" id="faqhead2">
                             <a href="#" class="btn btn-header-link collapsed text-dark i_link w-100 text-left" data-toggle="collapse" data-target="#faq2"
                             aria-expanded="true" aria-controls="faq2">Pay with Digital Wallet</a>
@@ -121,7 +142,6 @@
                     </div>
                 </div>
             </div>
-          </div>
         </div>
     </div>
 @endsection
