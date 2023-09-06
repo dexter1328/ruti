@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\VendorAuth;
+namespace App\Http\Controllers\W2bCustomerAuth;
 
 use DB;
 use Str;
-use App\Vendor;
-use App\Notifications\VendorResetPassword;
+use App\User;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Password;
+use App\Notifications\W2bCustomerResetPassword;
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller
 {
@@ -34,7 +34,7 @@ class ForgotPasswordController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('vendor.guest');
+        $this->middleware('w2bcustomer.guest');
     }
 
     /**
@@ -44,7 +44,7 @@ class ForgotPasswordController extends Controller
      */
     public function showLinkRequestForm()
     {
-        return view('vendor.auth.passwords.email');
+        return view('w2b_customers.auth.passwords.email');
     }
 
     /**
@@ -58,28 +58,28 @@ class ForgotPasswordController extends Controller
         $data = $request->all();
         $this->validate($request, [
             'email' => [
-                'required', 'email', 'exists:vendors'
+                'required', 'email', 'exists:users'
             ],
         ]);
 
-        $vendor = Vendor::where('email', $data['email'])->first();
+        $user = User::where('email', $data['email'])->first();
 
-        $existPasswordReset = DB::table('vendor_password_resets')->where('email', $vendor->email)->exists();
+        $existPasswordReset = DB::table('password_resets')->where('email', $user->email)->exists();
 
         if($existPasswordReset){
-            DB::table('vendor_password_resets')->where('email', $vendor->email)
+            DB::table('password_resets')->where('email', $user->email)
             ->update(['token' => Str::random(60), 'created_at' => date('Y-m-d H:i:s')]);
         }else{
-            DB::table('vendor_password_resets')->insert([
-                ['email' => $vendor->email, 'token' => Str::random(60), 'created_at' => date('Y-m-d H:i:s')],
+            DB::table('password_resets')->insert([
+                ['email' => $user->email, 'token' => Str::random(60), 'created_at' => date('Y-m-d H:i:s')],
             ]);
         }
 
-        $passwordReset = DB::table('vendor_password_resets')->where('email', $vendor->email)->first();
+        $passwordReset = DB::table('password_resets')->where('email', $user->email)->first();
 
-        if ($vendor && $passwordReset)
-            $vendor->notify(
-                new VendorResetPassword($passwordReset->token)
+        if ($user && $passwordReset)
+            $user->notify(
+                new W2bCustomerResetPassword($passwordReset->token)
             );
 
         return back()->with('status', "We have e-mailed your password reset link!");
@@ -92,6 +92,6 @@ class ForgotPasswordController extends Controller
      */
     public function broker()
     {
-        return Password::broker('vendors');
+        return Password::broker('w2bcustomers');
     }
 }

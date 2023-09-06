@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSellerProductsTable extends Migration
+class CreateMarketplaceOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateSellerProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('seller_products', function (Blueprint $table) {
+        Schema::create('marketplace_orders', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('order_id');
             $table->bigInteger('vendor_id');
             $table->bigInteger('supplier_id');
             $table->string('product_sku');
@@ -33,6 +34,6 @@ class CreateSellerProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seller_products');
+        Schema::dropIfExists('marketplace_orders');
     }
 }

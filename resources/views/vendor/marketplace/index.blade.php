@@ -107,6 +107,7 @@
                     <td>${{$pct}}</td>
                     <input type="hidden" value="{{$pct}}" name="nature_fee[{{ $p->sku }}]">
                     <td><input type="number" id="wholesale_price{{ $p->sku }}" value="{{$p->wholesale_price}}" disabled>+$0.00</td>
+                    <input type="hidden" name="wholesale_price[{{ $p->sku }}]" value="{{$p->wholesale_price}}">
                     <td><input type="number" class="{{ $p->sku }}" onblur="calculateRetailPrice('{{ $p->sku }}');" id="profit_expected{{ $p->sku }}" required disabled ></td>
                     <td>
                         <input type="number" class="d-none" name="retail_price[{{ $p->sku }}]" id="retail_price{{ $p->sku }}">

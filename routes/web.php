@@ -632,8 +632,9 @@ Route::group(['prefix' => 'vendor'], function () {
 
 
         Route::get('marketplace-page', 'Vendor\VendorController@marketplacePage')->name('vendor.marketplace-page');
-        Route::get('thank-you-seller', 'Vendor\VendorController@thankYou')->name('vendor.thank-you-seller');
+        Route::post('marketplace-store-payment', 'Vendor\VendorController@storePayment')->name('marketplace-store-payment');
         Route::post('marketplace/buy-products', 'Vendor\VendorController@buyProduct')->name('vendor.marketplace-buy-products');
+        Route::get('marketplace-thank-you', 'Vendor\VendorController@thankYou')->name('marketplace-thank-you');
         Route::get('marketplace-page/product-search', 'Vendor\VendorController@productSearch')->name('vendor.product-search');
         Route::get('choose-ruti-fullfill-page', 'Vendor\VendorController@chooseRutiFullfillPage')->name('vendor.choose-ruti-fullfill-page');
         Route::get('choose-ruti-fullfill', 'Vendor\VendorController@chooseRutiFullfill')->name('vendor.choose-ruti-fullfill');
@@ -824,6 +825,13 @@ Route::group(['prefix' => 'w2bcustomer'], function () {
     Route::post('/login', 'W2bCustomerAuth\LoginController@login');
     Route::post('/logout', 'W2bCustomerAuth\LoginController@logout')->name('w2bcustomer.logout');
     // Route::post('/logout', 'EmployeeAuth\LoginController@logout')->name('employee.logout');
+
+
+    Route::post('/password/email', 'W2bCustomerAuth\ForgotPasswordController@sendResetLinkEmail')->name('w2bcustomer.password.request');
+    Route::post('/password/reset', 'W2bCustomerAuth\ResetPasswordController@reset')->name('w2bcustomer.password.email');
+    Route::get('/password/reset', 'W2bCustomerAuth\ForgotPasswordController@showLinkRequestForm')->name('w2bcustomer.password.reset');
+    Route::get('/password/reset/{token}', 'W2bCustomerAuth\ResetPasswordController@showResetForm');
+
 
     Route::get('/register', 'W2bCustomerAuth\RegisterController@showRegistrationForm')->name('register');
     Route::post('/register', 'W2bCustomerAuth\RegisterController@register');

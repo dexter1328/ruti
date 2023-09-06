@@ -44,6 +44,7 @@ use Stripe\Exception\CardException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Helpers\LogActivity as Helper;
+use App\marketplaceOrder;
 use Stripe\Exception\ApiErrorException;
 use Stripe\Exception\RateLimitException;
 use Stripe\Exception\ApiConnectionException;
@@ -2404,7 +2405,6 @@ class VendorController extends Controller
 
     public function buyProduct(Request $request)
     {
-        $sellerId = auth()->user()->id;
 
         $quantity = $request->quantity;
         $input_q = array_filter($quantity, fn ($quantity) => !is_null($quantity));
@@ -2412,63 +2412,177 @@ class VendorController extends Controller
         $retail_price = $request->retail_price;
         $input_r = array_filter($retail_price, fn ($retail_price) => !is_null($retail_price));
 
+        $wholesale_price = $request->wholesale_price;
+        $input_w = array_filter($wholesale_price, fn ($wholesale_price) => !is_null($wholesale_price));
+
         $nature_fee = $request->nature_fee;
         $input_nf = array_filter($nature_fee, fn ($nature_fee) => !is_null($nature_fee));
 
         $selectedProducts = $request->input('product_sku', []);
         $user_id = Auth::user()->id;
 
-        foreach ($selectedProducts as $productId) {
-            $quantity2 = $input_q[$productId];
-            $retail2 = $input_r[$productId];
-            $nature_fee2 = $input_nf[$productId];
+        session()->put('input_q', $input_q);
+        session()->put('input_r', $input_r);
+        session()->put('input_w', $input_w);
+        session()->put('input_nf', $input_nf);
+        session()->put('selectedProducts', $selectedProducts);
 
-            // Store the selected product and quantity in the seller's products table
-            SellerProduct::create([
-                'seller_id' => $sellerId,
-                'product_sku' => $productId,
-                'quantity' => $quantity2,
-                'retail_price' => $retail2,
-                'nature_fee' => $nature_fee2
-            ]);
-            $skuWithUserId = $productId.$user_id;
+        $productDetails = []; // Initialize an array to store product details
 
-            $existingProduct = Products::where('sku', $skuWithUserId)->first();
+foreach ($selectedProducts as $productId) {
+    $quantity2 = $input_q[$productId];
+    $retail2 = $input_r[$productId];
+    $nature_fee2 = $input_nf[$productId];
+    $wholesale2 = $input_w[$productId];
 
-            if ($existingProduct) {
-                $existingStock = $existingProduct->stock;
-                $updatedStock = $existingStock + $quantity2;
+    // Calculate the total price for this product
+    $totalPrice = $quantity2 * $wholesale2;
 
-                $existingProduct->update([
-                    'retail_price' => $retail2,
-                    'stock' => $updatedStock,
-                    // Update other fields as needed
-                ]);
-            } else {
-            $newProduct = Products::where('sku',$productId)->first();
-            if ($newProduct) {
-            Products::updateOrCreate([
-                'sku' => $skuWithUserId,
-                'title' => $newProduct->title,
-                'slug' => $newProduct->slug,
-                'description' => $newProduct->description,
-                'original_image_url' => $newProduct->original_image_url,
-                'large_image_url_250x250' => $newProduct->large_image_url_250x250,
-                'large_image_url_500x500' => $newProduct->large_image_url_500x500,
-                'retail_price' => $retail2,
-                'vendor_id' => $user_id,
-                'seller_type' => 'vendor',
-                'w2b_category_1' => $newProduct->w2b_category_1,
-                'stock' => $quantity2,
-                'in_stock' => 'Y',
-                'condition' => $newProduct->condition,
-            ]);
-        }
-        }
-        }
-        return redirect()->route('vendor.thank-you-seller');
+    // Retrieve the product title (you should have a way to do this)
+    $product = DB::table('products')
+        ->select('title')
+        ->where('sku', $productId)
+        ->first(); // Replace with your method to fetch product titles
+        $productTitle = $product ? $product->title : 'Unknown Product';
+
+    // Store product details in the array
+        $productDetails[] = [
+            'title' => $productTitle,
+            'quantity' => $quantity2,
+            'price' => $wholesale2,
+            'total_price' => $totalPrice,
+        ];
+    }
+    $stripe_key = $this->stripe_key;
+    //  dd($productDetails);
+
+    // Pass the product details to the 'thank-you' view
+    return view('vendor.marketplace.payment_page', compact('productDetails','stripe_key'));
+    // return view('vendor.marketplace.payment_page', compact('productDetails'));
     }
 
+    public function storePayment( Request $request)
+    {
+        // dd($request->all());
+        $vendorId = auth()->user()->id;
+        $input_q = session()->get('input_q');
+        $input_r = session()->get('input_r');
+        $input_w = session()->get('input_w');
+        $input_nf = session()->get('input_nf');
+        $selectedProducts = session()->get('selectedProducts');
+
+        $order_id =  strtoupper(substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 9));
+        $user_id = Auth::user()->id;
+
+        Stripe::setApiKey($this->stripe_secret);
+
+        $user = Vendor::where('id', Auth::user()->id)->first();
+        $city = City::where('id', $user->city)->first();
+        $customer = Customer::create(array(
+
+            "email" => $user->email,
+
+            "name" => $user->name,
+
+            "source" => $request->stripeToken
+
+         ));
+
+        $charge = Charge::create ([
+
+            "amount" => round($request->total_price * 100),
+
+            "currency" => "usd",
+
+            "customer" => $customer->id,
+
+            "description" => "Payment from Nature Checkout",
+
+            "shipping" => [
+
+              "name" => $user->name,
+
+              "address" => [
+
+                "line1" => $user->address,
+
+                "city" => $city->name,
+
+                "country" => "US",
+
+              ],
+
+            ]
+
+        ]);
+        if ($charge) {
+
+            foreach ($selectedProducts as $productId) {
+                $quantity2 = $input_q[$productId];
+                $retail2 = $input_r[$productId];
+                $nature_fee2 = $input_nf[$productId];
+                $wholesale2 = $input_w[$productId];
+
+
+                $newProduct1 = Products::where('sku',$productId)->first();
+
+                // Store the selected product and quantity in the seller's products table
+                marketplaceOrder::create([
+                    'order_id' => $order_id,
+                    'vendor_id' => $vendorId,
+                    'supplier_id' => $newProduct1->vendor_id,
+                    'product_sku' => $productId,
+                    'quantity' => $quantity2,
+                    'wholesale_price' => $wholesale2,
+                    'retail_price' => $retail2,
+                    'nature_fee' => $nature_fee2
+                ]);
+                $skuWithUserId = $productId.$user_id;
+
+                $existingProduct = Products::where('sku', $skuWithUserId)->first();
+
+                if ($existingProduct) {
+                    $existingStock = $existingProduct->stock;
+                    $updatedStock = $existingStock + $quantity2;
+
+                    $existingProduct->update([
+                        'retail_price' => $retail2,
+                        'stock' => $updatedStock,
+                        // Update other fields as needed
+                    ]);
+                } else {
+                $newProduct = Products::where('sku',$productId)->first();
+                if ($newProduct) {
+                        Products::updateOrCreate([
+                            'sku' => $skuWithUserId,
+                            'title' => $newProduct->title,
+                            'slug' => $newProduct->slug,
+                            'description' => $newProduct->description,
+                            'original_image_url' => $newProduct->original_image_url,
+                            'large_image_url_250x250' => $newProduct->large_image_url_250x250,
+                            'large_image_url_500x500' => $newProduct->large_image_url_500x500,
+                            'retail_price' => $retail2,
+                            'vendor_id' => $user_id,
+                            'seller_type' => 'vendor',
+                            'w2b_category_1' => $newProduct->w2b_category_1,
+                            'stock' => $quantity2,
+                            'in_stock' => 'Y',
+                            'condition' => $newProduct->condition,
+                        ]);
+                    }
+                }
+            }
+            session()->forget('input_q');
+            session()->forget('input_r');
+            session()->forget('input_w');
+            session()->forget('input_nf');
+            session()->forget('selectedProducts');
+            return redirect()->route('marketplace-thank-you');
+
+        }
+        return redirect()->back();
+
+    }
     public function thankYou()
     {
         return view('vendor.marketplace.thank-you');
