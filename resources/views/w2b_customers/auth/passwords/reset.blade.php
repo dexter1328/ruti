@@ -7,7 +7,7 @@
             <img src="{{ asset('public/images/logo-icon-xx.png') }}" alt="logo icon">
         </div>
         <div class="card-title text-uppercase text-center py-3">Reset Password</div>
-       <form class="form-horizontal" role="form" method="POST" action="{{ url('/vendor/password/reset') }}">
+       <form class="form-horizontal" role="form" method="POST" action="{{ url('/w2bcustomer/password/reset') }}">
         @csrf
             <input type="hidden" name="token" value="{{ $token }}">
             <div class="form-group">
