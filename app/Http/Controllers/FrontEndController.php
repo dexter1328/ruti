@@ -124,6 +124,14 @@ class FrontEndController extends Controller
 
         return view('front_end.read-first');
     }
+
+    public function blog()
+    {
+
+        return view('front_end.blog.blog');
+    }
+
+
     public function shop()
     {
 

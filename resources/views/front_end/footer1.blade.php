@@ -50,6 +50,7 @@
                                         <li><a href="{{url('/trending-products')}}">Trending Products</a></li>
                                         <li><a href="{{url('/special-offers')}}">Special Offers</a></li>
                                         <li><a href="https://naturemenu.net" target="_blank">Restaurants</a></li>
+                                        <li><a href="{{url('/blog')}}" >Blog</a></li>
                                         {{-- <li><a href="contact.html">Privacy Policy</a></li>
                                         <li><a href="contact.html">Term and Conditions</a></li> --}}
                                     </ul>
