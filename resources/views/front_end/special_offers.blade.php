@@ -150,3 +150,6 @@
 
 
 @endsection
+
+
+@section('title', 'Special Offers')

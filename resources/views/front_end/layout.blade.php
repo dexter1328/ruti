@@ -2,10 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Nature Checkout | One-Stop E-commerce hub for online selling, in-store buying and self-checkout.</title>
-<meta name="description" content="Nature checkout, a free mobile app that provides safe and convenient grocery shopping during post pandemic- Smart grocery app - Free delivery Nature checkout - buy groceries online – grocery stores online services">
-<meta name="keywords" content="Smart grocery app store near me, Free delivery Nature checkout, Closest store near me Nature checkout, Shop groceries stores online, Mobile app for grocery shopping, Smart in-store shopping app, Get online coupon from Nature checkout, Scan and go mobile app from Nature checkout, Smart way to buy and sell online from Nature checkout, Smart and convenient shopping mobile app from Nature checkout, Best way to sell, Sell online, Online sells, Online seller, E-commerce selling, Ecommerce sells, Sales hub, Where to sell, Sell on instacart, Sell on Etsy, Sell on Amazon, Best place to sell, Where to sell, Best Buy and sell center ">
+{{-- <title>Nature Checkout | One-Stop E-commerce hub for online selling, in-store buying and self-checkout.</title> --}}
+<title>Nature Checkout - @yield('title')</title>
+{{-- <meta name="description" content="Nature checkout, a free mobile app that provides safe and convenient grocery shopping during post pandemic- Smart grocery app - Free delivery Nature checkout - buy groceries online – grocery stores online services">
+<meta name="keywords" content="Smart grocery app store near me, Free delivery Nature checkout, Closest store near me Nature checkout, Shop groceries stores online, Mobile app for grocery shopping, Smart in-store shopping app, Get online coupon from Nature checkout, Scan and go mobile app from Nature checkout, Smart way to buy and sell online from Nature checkout, Smart and convenient shopping mobile app from Nature checkout, Best way to sell, Sell online, Online sells, Online seller, E-commerce selling, Ecommerce sells, Sales hub, Where to sell, Sell on instacart, Sell on Etsy, Sell on Amazon, Best place to sell, Where to sell, Best Buy and sell center "> --}}
+<meta name="description" content="@yield('description')">
+<meta name="keywords" content="@yield('keywords')">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
 <!-- <meta http-equiv="Content-type" content="text/html; charset=UTF-8"> -->
 <meta name="theme-color" content="#003366" />

@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\Supplier;
 
-use App\City;
 use Auth;
 use Shippo;
+use App\City;
 use App\User;
+use App\State;
+use App\Vendor;
 use App\W2bOrder;
+use App\W2bProduct;
 use App\OrderedProduct;
 use App\SuppliersOrder;
 use App\Traits\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\State;
-use App\Vendor;
-use App\W2bProduct;
 
 class OrdersController extends Controller
 {
@@ -84,8 +85,15 @@ class OrdersController extends Controller
         ->where('ordered_products.seller_type', 'supplier')
         ->groupBy('ordered_products.order_id')
 
-        ->select('ordered_products.*', 'w2b_orders.status as status', 'w2b_orders.is_paid as is_paid', 'users.first_name as user_name', 'users.id as user_id')
+        ->select('ordered_products.*', 'w2b_orders.is_paid as is_paid', 'users.first_name as user_name', 'users.id as user_id', DB::raw('SUM(ordered_products.total_price) as o_total_price'))
         ->get();
+        // $orders = DB::table('ordered_products')
+        // ->select('w2b_orders.*', 'ordered_products.status as item_status')
+        // ->join('w2b_orders', 'ordered_products.order_id', '=', 'w2b_orders.order_id')
+        // ->where('ordered_products.vendor_id', Auth::user()->id)
+        // ->get();
+
+        // dd($orders);
 
 
 
@@ -126,6 +134,14 @@ class OrdersController extends Controller
 
 		return view('supplier.orders.view_details',compact('od','order1','grand_total'));
 	}
+
+    public function shippingDetails($orderId, $productSku)
+    {
+        // dd($orderId.' and '.$productSku);
+        // $product =  OrderedProduct::where('order_id', $orderId)->where('sku', $productSku)->first();
+        // dd($product);
+        return view('supplier.orders.ship_detail');
+    }
 
 	/**
 	* Display the specified resource.

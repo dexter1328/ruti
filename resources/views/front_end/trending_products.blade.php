@@ -151,3 +151,6 @@
 
 
 @endsection
+
+
+@section('title', 'Trending Products')

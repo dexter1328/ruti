@@ -548,6 +548,7 @@ Route::group(['middleware' => array('supplierChecklist')], function () {
         Route::resource('orders', 'Supplier\OrdersController', ['as' => 'supplier'])->only('index', 'update');
         Route::get('supplier_shippo/{userId}/{sku}/{supplierId}', 'Supplier\OrdersController@supplierShippo')->name('supplier.supplier_shippo');
 
+        Route::get('orders/shipping_details/{orderId?}/{productSku?}', 'Supplier\OrdersController@shippingDetails')->name('supplier.orders.shipping_details');
         Route::get('orders/view_details/{id}', 'Supplier\OrdersController@view_details')->name('supplier.orders.view_details');
         Route::get('orders/view_order/{id}', 'Supplier\OrdersController@view_order')->name('supplier.orders.view_order');
         Route::resource('order_return', 'Supplier\OrderReturnController', ['as' => 'supplier']);

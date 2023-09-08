@@ -37,12 +37,12 @@
                             <th>#</th>
                             <th style="width: 15%">Order No</th>
                             <th style="width: 25%">Customer Name</th>
-                            {{-- <th>Total Price</th> --}}
+                            <th>Total Price</th>
                             <th>Is Paid</th>
-                            <th>Status</th>
+                            {{-- <th>Status</th> --}}
                             {{-- <th>Products</th> --}}
                             <th>Actions</th>
-                            <th>Details</th>
+                            {{-- <th>Details</th> --}}
 						</tr>
 					</thead>
 					<tbody>
@@ -51,12 +51,12 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$item->order_id}}</td>
                             <td>{{$item->user_name}}</td>
-                            {{-- <td>{{$item->price}}</td> --}}
+                            <td>${{$item->o_total_price}}</td>
                             <td>{{$item->is_paid}}</td>
-                            <td>{{$item->status}}</td>
+                            {{-- <td>{{$item->status}}</td> --}}
                             {{-- <td>{{$item->title}}</td> --}}
                             {{-- <td><a href="{{route('supplier.supplier_shippo',['user_id'=>$item->user_id,'product_sku'=>$item->sku,'supplier_id'=>$item->supplier_id])}}" class="btn btn-info">Ship</a></td> --}}
-                            <td><a href="#" class="btn btn-info">Ship</a></td>
+                            {{-- <td><a href="{{route('supplier.orders.shipping_details', $item->order_id)}}" class="btn btn-info">Shipping Details</a></td> --}}
                             <td><a href="{{route('supplier.orders.view_details', $item->order_id)}}" class="btn btn-info">Details</a></td>
                         </tr>
                         @endforeach

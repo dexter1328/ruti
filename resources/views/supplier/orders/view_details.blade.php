@@ -12,7 +12,7 @@
 
 
         <div class="i_first_section">
-            <div class="i_my_container mx-5 p-3">
+            <div class="i_my_container mx-3 p-3">
                 <table class="w-100">
                     <tr class="border-bottom">
                         <th class="py-2">Image</th>
@@ -20,7 +20,8 @@
                         <th class="py-2">Title</th>
                         <th class="py-2">Price</th>
                         <th class="py-2">QTY</th>
-                        <th class="py-2">Total Price (Incl. Taxes)</th>
+                        <th class="py-2">Price</th>
+                        <th class="py-2">Ship Details</th>
                     </tr>
                     <tr class="border-bottom">
                         @foreach ($od as $o)
@@ -31,6 +32,7 @@
                         <td class="py-2">${{$o->price}}</td>
                         <td class="py-2">x{{$o->quantity}}</td>
                         <td class="py-2">${{$o->total_price}}</td>
+                        <td><a href="{{route('supplier.orders.shipping_details',['orderId' => $o->order_id, 'productSku' => $o->sku])}}" class="btn btn-info btn-sm">Shipping Details</a></td>
                     </tr>
                     @endforeach
                 </table>

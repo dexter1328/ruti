@@ -1,9 +1,11 @@
 @extends('front_end.layout')
+
 @section('content')
 
 {{-- @include('front_end.banner')
 @include('front_end.features') --}}
 <!-- banner-area -->
+
 
 <section class="banner-area-two banner-bg">
     <div class="container-fluid px-xl-5 px-5">
@@ -374,3 +376,11 @@
 
 
 @endsection
+
+@section('title', 'One-Stop E-commerce hub for online selling, in-store buying and self-checkout.')
+@section('description', 'Nature checkout, a free mobile app that provides safe and convenient grocery shopping during post pandemic- Smart grocery app - Free delivery Nature checkout - buy groceries online – grocery stores online services')
+@section('keywords', 'Smart grocery app store near me, Free delivery Nature checkout, Closest store near me Nature checkout, Shop groceries stores online, Mobile app for grocery shopping, Smart in-store shopping app, Get online coupon from Nature checkout, Scan and go mobile app from Nature checkout, Smart way to buy and sell online from Nature checkout, Smart and convenient shopping mobile app from Nature checkout, Best way to sell, Sell online, Online sells, Online seller, E-commerce selling, Ecommerce sells, Sales hub, Where to sell, Sell on instacart, Sell on Etsy, Sell on Amazon, Best place to sell, Where to sell, Best Buy and sell center')
+
+
+
+
