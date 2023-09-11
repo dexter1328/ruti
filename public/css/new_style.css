@@ -9,8 +9,9 @@
     background: #fefefe;
     padding-bottom: 30px;
     box-shadow: 5px 10px 40px 0 rgba(0, 0, 0, 0.2);
-    width: 600px;
     border-radius: 5px;
+    width: 100%;
+    overflow: auto;
 }
 .form-control:focus {
     border-color: none !important;
@@ -69,6 +70,7 @@
     box-shadow: 5px 10px 40px 0 rgba(0, 0, 0, 0.2);
     width: 500px;
     border-radius: 5px;
+    overflow: auto;
 }
 .i_funds_body {
     min-height: 100vh;
@@ -302,7 +304,10 @@
     .i_my_container2 {
         width: 600px;
         margin-top: 30px;
-        overflow-x: scroll;
+        overflow-x: auto;
+    }
+    .detail_ship {
+        width: 100%;
     }
 }
   .tick_pic {
@@ -527,4 +532,17 @@ input:focus {
     background-color: #fff;
     min-height: 80vh;
     width: 90%;
+}
+.ship_details_form h4{
+    font-size: 1.4rem !important;
+}
+.ship_details_form input{
+    border: none;
+    border-bottom: 2px solid #afabab;
+    width: 100%;
+    background-color: #afabab31;
+    padding: 10px;
+}
+.ship_details_form {
+    overflow-x: auto;
 }

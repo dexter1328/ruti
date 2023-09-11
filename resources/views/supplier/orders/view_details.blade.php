@@ -8,12 +8,11 @@
 <div class="i_body_details pb-5">
     <div class="pt-4 mx-0 mx-lg-5">
 
-        <h4 class="i_details_heading text-dark mx-5">Order No: <span>#{{$order1->order_id}}</span></h4>
+        <h4 class="i_details_heading text-dark mb-3 text-center">Order No: <span>#{{$order1->order_id}}</span></h4>
 
 
-        <div class="i_first_section">
-            <div class="i_my_container mx-3 p-3">
-                <table class="w-100">
+        <div class="i_my_container p-3">
+            <table class="w-100">
                     <tr class="border-bottom">
                         <th class="py-2">Image</th>
                         <th class="py-2">Sku</th>
@@ -25,7 +24,7 @@
                     </tr>
                     <tr class="border-bottom">
                         @foreach ($od as $o)
-
+                        
                         <td class="py-2"><img src="{{$o->image}}" width="60px" height="50px" alt="{{ Str::limit($o->title, 35) }}"></td>
                         <td class="py-2">{{$o->sku}}</td>
                         <td class="py-2">{{$o->title}}</td>
@@ -37,7 +36,8 @@
                     @endforeach
                 </table>
             </div>
-            <div class="i_my_container2 mx-5 mx-lg-0 p-3">
+        <div class="i_first_section">
+            <div class="i_my_container mr-3 mt-3 p-3">
                 <table class="w-100">
                     <tr class="border-bottom">
                         <th class="py-2">Shipping Details</th>
@@ -68,33 +68,33 @@
                     </tr>
                 </table>
             </div>
-        </div>
-        <div class="i_my_container mx-5 mt-5 p-3">
-            <table class="w-100">
-                <tr class="border-bottom" class="border-bottom">
-                    <th class="py-2">Customer And Order Details</th>
-                </tr>
+            <div class="i_my_container p-3 mt-3">
+                <table class="w-100">
+                    <tr class="border-bottom" class="border-bottom">
+                        <th class="py-2">Customer And Order Details</th>
+                    </tr>
 
-                <tr class="border-bottom">
-                    <td class="py-2">Customer Name</td>
-                    <td class="py-2 text-end">{{$order1->user_fname}} {{$order1->user_lname}}</td>
-                </tr>
-                <tr class="border-bottom">
-                    <td class="py-2">Phone Number</td>
-                    <td class="py-2 text-end">{{$order1->user_phone}}</td>
-                </tr>
-                <tr class="border-bottom">
-                    <td class="py-2">Fulfillment Type</td>
-                    <td class="py-2 text-end">Seller Fulfill</td>
-                </tr>
-                <tr class="border-bottom">
-                    <td class="py-2">Note</td>
-                    <td class="py-2 text-end">N/A</td>
-                </tr>
-            </table>
+                    <tr class="border-bottom">
+                        <td class="py-2">Customer Name</td>
+                        <td class="py-2 text-end">{{$order1->user_fname}} {{$order1->user_lname}}</td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <td class="py-2">Phone Number</td>
+                        <td class="py-2 text-end">{{$order1->user_phone}}</td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <td class="py-2">Fulfillment Type</td>
+                        <td class="py-2 text-end">Seller Fulfill</td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <td class="py-2">Note</td>
+                        <td class="py-2 text-end">N/A</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
-    </div>
+</div>
 
 {{--  Order details end --}}
 

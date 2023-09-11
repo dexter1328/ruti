@@ -285,15 +285,15 @@
      @if(request()->is('read-first') || request()->is('vendor-signup'))
     <!-- Support Widget -->
     <script type="text/javascript">
-    window.Trengo = window.Trengo || {};
-    window.Trengo.key = 'oxmtCRRS03uVdb6mASWz';
-    (function(d, script, t) {
-    script = d.createElement('script');
-    script.type = 'text/javascript';
-    script.async = true;
-    script.src = 'https://static.widget.trengo.eu/embed.js';
-    d.getElementsByTagName('head')[0].appendChild(script);
-    }(document));
+    // window.Trengo = window.Trengo || {};
+    // window.Trengo.key = 'oxmtCRRS03uVdb6mASWz';
+    // (function(d, script, t) {
+    // script = d.createElement('script');
+    // script.type = 'text/javascript';
+    // script.async = true;
+    // script.src = 'https://static.widget.trengo.eu/embed.js';
+    // d.getElementsByTagName('head')[0].appendChild(script);
+    // }(document));
 
     $(document).ready(function () {
         $('.back-top-btn').css('right', '90px');
