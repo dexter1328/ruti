@@ -35,7 +35,7 @@ class OrderMailJob implements ShouldQueue
     public function handle()
     {
         //
-        $email = new WbOrderMail($this->details);
-        Mail::to($this->details['email'])->send($email);
+        // $email = new WbOrderMail($this->details);
+        // Mail::to($this->details['email'])->send($email);
     }
 }

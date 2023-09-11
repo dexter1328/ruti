@@ -33,7 +33,7 @@ class RutiMailJob implements ShouldQueue
      */
     public function handle()
     {
-        $email = new WbRutiOrderMail($this->details);
-        Mail::to($this->details['email'])->send($email);
+        // $email = new WbRutiOrderMail($this->details);
+        // Mail::to($this->details['email'])->send($email);
     }
 }
