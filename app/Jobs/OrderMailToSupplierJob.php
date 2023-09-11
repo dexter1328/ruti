@@ -32,9 +32,9 @@ class OrderMailToSupplierJob implements ShouldQueue
      */
     public function handle()
     {
-        $emails = Vendor::where('seller_type', 'supplier')->whereIn('id', $this->suppliersIds)->pluck('email');
-        foreach ($emails as $email) {
-            Mail::to($email)->send(new OrderMailtoSupplier($this->details));
-        }
+        // $emails = Vendor::where('seller_type', 'supplier')->whereIn('id', $this->suppliersIds)->pluck('email');
+        // foreach ($emails as $email) {
+        //     Mail::to($email)->send(new OrderMailtoSupplier($this->details));
+        // }
     }
 }
