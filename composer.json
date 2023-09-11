@@ -15,7 +15,6 @@
         "doctrine/dbal": "2.12.1",
         "fideloper/proxy": "^4.0",
         "hesto/multi-auth": "^2.0",
-        "itsgoingd/clockwork": "^5.1",
         "jorenvanhocht/laravel-share": "^4.2",
         "laravel/framework": "5.8.*",
         "laravel/passport": "7.5.1 | 8.0.*",
