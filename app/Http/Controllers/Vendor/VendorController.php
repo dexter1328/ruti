@@ -2527,6 +2527,9 @@ foreach ($selectedProducts as $productId) {
                 $newProduct1 = Products::where('sku',$productId)->first();
 
                 // Store the selected product and quantity in the seller's products table
+                $total_price = $wholesale2 * $quantity2;
+                $nature_total_fee = $nature_fee2 * $quantity2;
+                $supplier_total_price = $total_price - $nature_total_fee;
                 marketplaceOrder::create([
                     'order_id' => $order_id,
                     'vendor_id' => $vendorId,
@@ -2535,7 +2538,10 @@ foreach ($selectedProducts as $productId) {
                     'quantity' => $quantity2,
                     'wholesale_price' => $wholesale2,
                     'retail_price' => $retail2,
-                    'nature_fee' => $nature_fee2
+                    'nature_fee' => $nature_fee2,
+                    'total_price' => $total_price,
+                    'nature_total_fee' => $nature_total_fee,
+                    'supplier_total_price' => $supplier_total_price,
                 ]);
                 $skuWithUserId = $productId.$user_id;
 

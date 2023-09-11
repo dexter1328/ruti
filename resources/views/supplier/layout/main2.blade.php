@@ -97,6 +97,13 @@
                         </a>
                     </li>
                     @endif
+                    @if(vendor_has_permission(Auth::user()->role_id,'orders','read'))
+                    <li class="li_elements {{ (request()->is('supplier/marketplace-orders') || request()->is('supplier/marketplace-orders/*')) ? 'active' : '' }}">
+                        <a class="links" href="{{url('supplier/marketplace-orders')}}">
+                        Marketplace Orders
+                        </a>
+                    </li>
+                    @endif
                     {{-- <li class="li_elements">Fulfillments</li>
                     <li class="li_elements">Stores</li>
                     <li class="li_elements">Sales</li> --}}

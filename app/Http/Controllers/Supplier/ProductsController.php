@@ -19,11 +19,11 @@ use App\Imports\CsvImport;
 use App\Traits\Permission;
 use Illuminate\Http\Request;
 use App\Imports\ProductImport;
+use Illuminate\Validation\Rule;
 use App\SupplierSubscriptionTemp;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Helpers\LogActivity as Helper;
-use Illuminate\Validation\Rules\Exists;
 use Maatwebsite\Excel\HeadingRowImport;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -135,11 +135,14 @@ class ProductsController extends Controller
             'title' => 'required',
             'description' => 'required',
             'brand' => 'nullable',
-            'category' => 'nullable',
+            'w2b_category_1' => 'required',
             'retail_price' => 'required',
             'wholesale_price' => 'nullable',
             'shipping_price' => 'nullable',
-            'sku' => 'required|unique:products,sku',
+            "sku" => [
+                "regex:/^[a-zA-Z0-9]+$/",
+                "required", "min:2","max:20","unique:products",
+            ],
             'stock' => 'required',
             'image' => 'required',
         ]);
@@ -155,6 +158,7 @@ class ProductsController extends Controller
         $product->brand = $request->input('brand');
         $product->retail_price = $request->input('retail_price');
         $product->wholesale_price = $request->input('wholesale_price');
+        $product->shipping_price = $request->input('shipping_price');
         $product->sku = $request->input('sku');
         $product->in_stock = 'Y';
         $product->stock = $request->input('stock');
@@ -252,11 +256,14 @@ class ProductsController extends Controller
 	/**
 	* Show the form for editing the specified resource.
 	*/
-	public function edit(W2bProduct $product)
+	public function edit($id)
 	{
+        $product = Products::find($id);
+        // dd($product);
 
         $brands = Brand::where('vendor_id', auth()->id())->get();
-        $categories = W2bCategory::where('supplier_id', auth()->id())->get();
+        // $categories = W2bCategory::where('vendor_id', auth()->id())->get();
+        $categories = W2bCategory::where('parent_id', 0)->get();
 
 		return view('supplier/products/edit', [
             'product' => $product,
@@ -270,50 +277,49 @@ class ProductsController extends Controller
 	*/
 	public function update(Request $request, $product)
 	{
-        $product = W2bProduct::where('sku', $product)->firstOrFail();
+        // dd($request->all());
+        $product = Products::where('sku', $product)->firstOrFail();
 
         $request->validate([
-            'title'             => 'required',
-            'description'       => 'required',
-            'meta_title'        => 'nullable',
-            'meta_description'  => 'nullable',
-            'brand'             => 'nullable',
-            'category'          => 'required',
-            'retail_price'      => 'required',
-            'wholesale'         => 'nullable',
-            'wholesale_price'   => 'nullable',
-            'sku'               => 'required|unique:w2b_products,sku,'. $product->sku . ',sku',
-            'stock'             => 'required',
-            'image'             => 'nullable',
-            'min_wholesale_qty' => 'nullable',
+            'title' => 'required',
+            'description' => 'required',
+            'brand' => 'nullable',
+            'w2b_category_1' => 'required',
+            'retail_price' => 'required',
+            'wholesale_price' => 'nullable',
+            'shipping_price' => 'nullable',
+            "sku" => [
+                "regex:/^[a-zA-Z0-9]+$/",
+                "required", "min:2","max:20",
+                Rule::unique('products')->ignore($product),
+            ],
+            'stock' => 'required',
         ]);
 
-        $category = W2bCategory::find($request->input('category'));
+        $category = W2bCategory::find($request->input('w2b_category_1'));
 
         $data['seller_type'] = 'supplier';
-        $data['supplier_category_1'] = $category->category1 ?? null;
-        $data['w2b_category_1'] = $category->source->category1 ?? null;
+        $data['w2b_category_1'] = $request->input('w2b_category_1');
         $data['title'] = $request->input('title');
         $data['description'] = $request->input('description');
         $data['brand'] = $request->input('brand');
-        $data['meta_title'] = $request->input('meta_title');
-        $data['meta_description'] = $request->input('meta_description');
         $data['retail_price'] = $request->input('retail_price');
-        $data['wholesale'] = $request->input('wholesale_price');
+        $data['wholesale_price'] = $request->input('wholesale_price');
+        $data['shipping_price'] = $request->input('shipping_price');
         $data['sku'] = $request->input('sku');
         $data['stock'] = $request->input('stock');
-        $data['min_wholesale_qty'] = $request->input('min_wholesale_qty');
+        // $data['min_wholesale_qty'] = $request->input('min_wholesale_qty');
 
-        $wholesale_price_range = [];
-        foreach ($request->input('wholesale')['min_order_qty'] as $key => $value) {
-            $wholesale_price_range[] = [
-                'min_order_qty' => $request->input('wholesale')['min_order_qty'][$key],
-                'max_order_qty' => $request->input('wholesale')['max_order_qty'][$key],
-                'wholesale_price' => $request->input('wholesale')['wholesale_price'][$key],
-            ];
-        }
+        // $wholesale_price_range = [];
+        // foreach ($request->input('wholesale')['min_order_qty'] as $key => $value) {
+        //     $wholesale_price_range[] = [
+        //         'min_order_qty' => $request->input('wholesale')['min_order_qty'][$key],
+        //         'max_order_qty' => $request->input('wholesale')['max_order_qty'][$key],
+        //         'wholesale_price' => $request->input('wholesale')['wholesale_price'][$key],
+        //     ];
+        // }
 
-        $data['wholesale_price_range'] = json_encode($wholesale_price_range);
+        // $data['wholesale_price_range'] = json_encode($wholesale_price_range);
 
 
         if($request->file('image')){
@@ -361,7 +367,7 @@ class ProductsController extends Controller
 
         }
 
-        W2bProduct::where('sku', $product->sku)->update($data);
+        Products::where('sku', $product->sku)->update($data);
 
 		return redirect('/supplier/products')->with('success',"Product has been updated.");
 	}
@@ -369,8 +375,9 @@ class ProductsController extends Controller
 	/**
 	* Remove the specified resource from storage.
 	*/
-	public function destroy(W2bProduct $product)
+	public function destroy($id)
 	{
+        $product = Products::find($id);
 		$product_variants = ProductVariants::where('product_id',$product->id)->get()->each->delete();
 		$product_images = ProductImages::where('product_id',$product->id)->get()->each->delete();
 		$product->delete();

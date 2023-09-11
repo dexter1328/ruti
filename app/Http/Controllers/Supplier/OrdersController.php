@@ -16,6 +16,7 @@ use App\Traits\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\marketplaceOrder;
 
 class OrdersController extends Controller
 {
@@ -260,6 +261,53 @@ class OrdersController extends Controller
             //     echo "--> " . $message . "\n";
             // }
         }
+    }
+
+    public function marketplaceOrder()
+    {
+        $op = marketplaceOrder::join('vendors', 'marketplace_orders.vendor_id', 'vendors.id')
+        ->where('marketplace_orders.supplier_id', Auth::user()->id)
+        ->groupBy('marketplace_orders.order_id')
+        ->select('marketplace_orders.*', 'vendors.name as vendor_name')
+        ->get();
+        // dd($op);
+
+
+        return view('supplier.orders.mp_order', compact('op'));
+    }
+
+    public function marketplaceOrderDetail($id)
+    {
+        $od = marketplaceOrder::join('vendors', 'marketplace_orders.vendor_id', 'vendors.id')
+        ->join('products', 'marketplace_orders.product_sku', 'products.sku')
+        ->where('marketplace_orders.supplier_id', !empty(auth()->user()->parent_id)?auth()->user()->parent_id:auth()->id())
+        ->where('marketplace_orders.order_id', $id)
+        ->select('marketplace_orders.*','products.original_image_url as p_img','products.title as p_title')
+        ->get();
+        $supplier_grand_total = marketplaceOrder::where('order_id', $id)
+        ->where('supplier_id', !empty(auth()->user()->parent_id)?auth()->user()->parent_id:auth()->id())
+        ->sum('supplier_total_price');
+        // dd($supplier_grand_total);
+        $grand_total = marketplaceOrder::where('order_id', $id)
+        ->where('supplier_id', !empty(auth()->user()->parent_id)?auth()->user()->parent_id:auth()->id())
+        ->sum('total_price');
+        // dd($hello);
+        $order1 = marketplaceOrder::join('vendors', 'marketplace_orders.vendor_id', 'vendors.id')
+        ->join('states', 'states.id', 'vendors.state')
+        ->join('cities', 'cities.id', 'vendors.city')
+        ->where('marketplace_orders.supplier_id', !empty(auth()->user()->parent_id)?auth()->user()->parent_id:auth()->id())
+        ->where('marketplace_orders.order_id', $id)
+        ->select('marketplace_orders.*',
+         'vendors.name as vendor_name',
+         'vendors.address as vendor_address',
+         'vendors.mobile_number as vendor_phone',
+         'states.name as state_name',
+         'cities.name as city_name')
+        ->first();
+
+        //  dd($od);
+
+		return view('supplier.orders.mp_view_detail',compact('od','order1','grand_total','supplier_grand_total'));
     }
 
 

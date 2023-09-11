@@ -23,6 +23,9 @@ class CreateMarketplaceOrdersTable extends Migration
             $table->bigInteger('wholesale_price');
             $table->bigInteger('nature_fee');
             $table->bigInteger('retail_price');
+            $table->bigInteger('total_price');
+            $table->bigInteger('nature_total_fee');
+            $table->bigInteger('supplier_total_price');
             $table->timestamps();
         });
     }

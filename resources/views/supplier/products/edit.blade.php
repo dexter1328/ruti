@@ -132,13 +132,7 @@ button .fa {
                                                         @if ($errors->has('title')) <span class="text-danger">{{ $errors->first('title') }}</span> @endif
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
-                                                    <div class="col-sm-12">
-                                                        <label>Meta Title<span class="text-danger">*</span></label>
-                                                        <input type="text" name="meta_title" class="form-control" value="{{old('meta_title', $product->meta_title)}}" placeholder="Enter Meta Title">
-                                                        @if ($errors->has('meta_title')) <span class="text-danger">{{ $errors->first('meta_title') }}</span> @endif
-                                                    </div>
-                                                </div>
+
 
                                                 <div class="form-group row">
                                                     <div class="col-sm-12">
@@ -147,25 +141,14 @@ button .fa {
                                                         @if ($errors->has('description')) <span class="text-danger"> {{ $errors->first('description') }}</span> @endif
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
-                                                    <div class="col-sm-12">
-                                                        <label>Meta Description</label>
-                                                        <textarea name="meta_description" class="form-control">{{old('meta_description', $product->meta_description)}}</textarea>
-                                                        @if ($errors->has('meta_description')) <span class="text-danger"> {{ $errors->first('meta_description') }}</span> @endif
-                                                    </div>
-                                                </div>
+
 
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-group row">
                                                     <div class="col-sm-12">
                                                         <label>Brand</label>
-                                                        <select name="brand" id="brand" class="form-control">
-                                                            <option value="">Select Brand</option>
-                                                            @foreach($brands as $brand)
-                                                                <option value="{{$brand->name}}" {{old('brand', $product->brand) == $brand->name}}>{{$brand->name}}</option>
-                                                            @endforeach
-                                                        </select>
+                                                        <input type="text" name="brand" class="form-control" value="{{old('brand', $product->brand)}}" placeholder="Enter Brand">
                                                         @if ($errors->has('brand'))
                                                             <span class="text-danger">{{ $errors->first('brand') }}</span>
                                                         @endif
@@ -174,10 +157,10 @@ button .fa {
                                                 <div class="form-group row">
                                                     <div class="col-sm-12">
                                                         <label>Category</label>
-                                                        <select name="category" id="category" class="form-control">
+                                                        <select name="w2b_category_1" id="w2b_category_1" class="form-control">
                                                             <option value="">Select Category</option>
                                                             @foreach($categories as $category)
-                                                                <option value="{{$category->id}}" {{old('category', $product->supplier_category_1) == $category->category1}}>{{$category->category1}}</option>
+                                                                <option value="{{ $category->category1 }}" {{ $category->category1 == $product->w2b_category_1 ? 'selected' : '' }}>{{$category->category1}}</option>
                                                             @endforeach
                                                         </select>
                                                         @if ($errors->has('brand'))
@@ -195,16 +178,23 @@ button .fa {
                                                     <div class="row">
                                                         <div class="col-xs-12 col-md-6">
                                                             <label for="input-11" >Regular Price<span class="text-danger">*</span></label>
-                                                            <input type="text" name="retail_price" class="form-control" value="{{old('retail_price', $product->retail_price)}}" placeholder="Enter Price">
+                                                            <input type="number" name="retail_price" class="form-control" value="{{old('retail_price', $product->retail_price)}}" placeholder="Enter Price">
                                                             @if ($errors->has('retail_price'))
                                                                 <span class="text-danger">{{ $errors->first('retail_price') }}</span>
                                                             @endif
                                                         </div>
                                                         <div class="col-xs-12 col-md-6">
                                                             <label for="input-11" >Wholesale Price<span class="text-danger">*</span></label>
-                                                            <input type="text" name="wholesale_price" class="form-control" value="{{old('wholesale_price', $product->wholesale_price)}}" placeholder="Enter Wholesale">
+                                                            <input type="number" name="wholesale_price" class="form-control" value="{{old('wholesale_price', $product->wholesale_price)}}" placeholder="Enter Wholesale">
                                                             @if ($errors->has('wholesale_price'))
                                                                 <span class="text-danger">{{ $errors->first('wholesale_price') }}</span>
+                                                            @endif
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-6">
+                                                            <label for="input-11" >Shipping Price<span class="text-danger">*</span></label>
+                                                            <input type="number" name="shipping_price" class="form-control" value="{{old('shipping_price', $product->shipping_price)}}" placeholder="Enter Shipping Price">
+                                                            @if ($errors->has('shipping_price'))
+                                                                <span class="text-danger">{{ $errors->first('shipping_price') }}</span>
                                                             @endif
                                                         </div>
                                                         <div class="col-xs-12 col-md-6">
@@ -222,14 +212,33 @@ button .fa {
                                                             @endif
                                                         </div>
                                                         <div class="col-xs-12 col-md-6">
-                                                            <label for="input-11" >Image<span class="text-danger">*</span></label>
+                                                            <label for="input-11" >Change Images<span class="text-danger">*</span></label>
                                                             <input type="file" class="form-control" name="image[]" multiple="multiple">
                                                             @if ($errors->has('image'))
                                                                 <span class="text-danger">{{ $errors->first('image') }}</span>
                                                             @endif
+                                                            @if ($product->original_image_url)
+                                                                <img src="{{ $product->original_image_url}}" alt="Image" style="width: 15%">
+                                                            @endif
+                                                            @if ($product->extra_img_1)
+                                                                <img src="{{ $product->extra_img_1}}" alt="Image" style="width: 15%">
+                                                            @endif
+                                                            @if ($product->extra_img_2)
+                                                                <img src="{{ $product->extra_img_2}}" alt="Image" style="width: 15%">
+                                                            @endif
+                                                            @if ($product->extra_img_3)
+                                                                <img src="{{ $product->extra_img_3}}" alt="Image" style="width: 15%">
+                                                            @endif
+                                                            @if ($product->extra_img_4)
+                                                                <img src="{{ $product->extra_img_4}}" alt="Image" style="width: 15%">
+                                                            @endif
+                                                            @if ($product->extra_img_5)
+                                                                <img src="{{ $product->extra_img_5}}" alt="Image" style="width: 15%">
+                                                            @endif
+
                                                         </div>
                                                     </div>
-                                                    <div class="row">
+                                                    {{-- <div class="row">
                                                         <div class="col-md-12">
                                                             <label for="" >Wholesale Settings</label>
 
@@ -312,7 +321,7 @@ button .fa {
                                                                 @endif
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>

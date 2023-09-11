@@ -76,10 +76,14 @@
         <!--<link href="/css/app.css" rel="stylesheet">-->
         <!-- <link href="{{ asset('public/css/app.css') }}" rel="stylesheet"> -->
         <!-- Scripts -->
+        @php
+        $csrfToken = csrf_token();
+        @endphp
+
         <script>
-        window.Laravel = <?php echo json_encode([
-        'csrfToken' => csrf_token(),
-        ]); ?>
+            window.Laravel = {
+                csrfToken: @json($csrfToken)
+            };
         </script>
         <!-- Bootstrap core JavaScript-->
         <script src="{{ asset('public/js/jquery.min.js') }}"></script>
@@ -468,7 +472,7 @@
                         </li>
                     @endif
                 </ul> -->
-                <a class='text-dark mr-4 back_btn' href="{{url('supplier/home')}}">
+                <a class='text-dark mr-4 back_btn' id="goBackButton" href="#">
                     <i class="fa fa-arrow-left"></i> Back
                 </a>
                 <ul class="navbar-nav align-items-center right-nav-link">
@@ -551,4 +555,17 @@
     <!--Start footer-->
     <!--End footer-->
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const backButton = document.getElementById("goBackButton");
+
+    if (backButton) {
+        backButton.addEventListener("click", function () {
+            window.history.back();
+        });
+    }
+});
+</script>
+
+
 </html>

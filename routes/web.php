@@ -101,10 +101,11 @@ Auth::routes();
 
 Route::get('api/password/reset/{token}', 'API\AuthController@resetPassword');
 Route::post('api/password/reset', 'API\AuthController@reset');
-
 Route::get('api/vendor/password/reset/{token}', 'API\Vendor\AuthController@resetPassword');
 Route::post('api/vendor/password/reset', 'API\Vendor\AuthController@reset');
 Route::post('api/vendor/password/api_reset', 'API\Vendor\AuthController@ApiReset');
+
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 // Route::get('/debug-sentry', function () {
@@ -184,19 +185,6 @@ Route::match(['get', 'post'], '/vendor-signup', 'CommonController@vendorSignup')
 Route::match(['get', 'post'], '/supplier/signup', 'CommonController@supplierSignup');
 Route::get('/thank-you', 'CommonController@thankYou');
 
-
-
-// Route::get('/mailTest', function () {
-
-//     $mailTemp = EmailTemplate::find(1);
-//     $email = "Azhar1";
-//     $password = "Azhar2";
-//     $vendor_name = "Azhar3";
-
-//     Mail::to('azharul321@gmail.com')->send(new SupplierSuccess($email,$password,$vendor_name,$mailTemp));
-
-//     return "success";
-// })->name('mailTest');
 
 // strip webhook response
 Route::post('/stripe', 'StripeController@index');
@@ -438,6 +426,9 @@ Route::group(['middleware' => 'sessionExpired'], function () {
     });
 });
 
+
+
+
 Route::group(['middleware' => array('supplierChecklist')], function () {
     Route::group(['prefix' => 'supplier'], function () {
         Route::match(['get', 'post'], '/home', 'Supplier\DashboardController')->name('home');
@@ -481,6 +472,8 @@ Route::group(['middleware' => array('supplierChecklist')], function () {
         Route::post('withdraw-to-bank', 'Supplier\SupplierController@withdrawToBank')->name('withdraw-to-bank');
         Route::post('add-to-supplier-wallet', 'Supplier\SupplierController@addToWallet')->name('add-to-supplier-wallet');
         Route::post('/supplier-wallet-payment/{amount}', 'Supplier\SupplierController@supplierWalletPayment')->name('supplier-wallet-payment');
+
+
 
         Route::get('get-plan-by-interval-license/{interval}/{license?}', 'Supplier\SupplierController@getPlanByIntervalLicense')->name('supplier.get-plan-by-interval-license');
         Route::post('one-time-setup-fee/{store_id}', 'Supplier\SupplierController@oneTimeSetupFee')->name('supplier.one-time-setup-fee');
@@ -558,6 +551,11 @@ Route::group(['middleware' => array('supplierChecklist')], function () {
         Route::resource('cancelled_orders', 'Supplier\CancelledOrdersController', ['as' => 'supplier']);
         Route::resource('attributes', 'Supplier\AttributeController', ['as' => 'supplier']);
         Route::resource('discount_offers', 'Supplier\DiscountOffersController', ['as' => 'supplier']);
+
+        // marketplace routes
+        Route::get('marketplace-orders', 'Supplier\OrdersController@marketplaceOrder')->name('supplier.marketplace-orders');
+        Route::get('marketplace-orders/view_details/{id}', 'Supplier\OrdersController@marketplaceOrderDetail')->name('supplier.marketplace_orders.view_details');
+
 
         //        Route::resource('stores_supplier', 'Supplier\StoresSupplierController', ['as' => 'supplier']);
         Route::resource('supplier_roles', 'Supplier\RoleController', ['as' => 'supplier']);
@@ -804,22 +802,6 @@ Route::group(['prefix' => 'employee'], function () {
   Route::get('/remove-privacy-policy/{id}', 'Employee\EmployeeController@removePrivacyPolicy')->name('pagemeta.remove-privacy-policy');
 });
 
-
-// Route::group(['prefix' => 'w2bcustomers'], function () {
-//     Route::get('/login', 'EmployeeAuth\LoginController@showLoginForm')->name('employee.login');
-//     Route::post('/login', 'EmployeeAuth\LoginController@login');
-//     Route::post('/logout', 'EmployeeAuth\LoginController@logout')->name('employee.logout');
-
-//     Route::get('/register', 'EmployeeAuth\RegisterController@showRegistrationForm')->name('register');
-//     Route::post('/register', 'EmployeeAuth\RegisterController@register');
-
-//     Route::post('/password/email', 'EmployeeAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-//     Route::post('/password/reset', 'EmployeeAuth\ResetPasswordController@reset')->name('password.email');
-//     Route::get('/password/reset', 'EmployeeAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-//     Route::get('/password/reset/{token}', 'EmployeeAuth\ResetPasswordController@showResetForm');
-//   });
-
-// });
 
 Route::group(['prefix' => 'w2bcustomer'], function () {
     Route::get('/login', 'W2bCustomerAuth\LoginController@showLoginForm')->name('w2bcustomer.login');
