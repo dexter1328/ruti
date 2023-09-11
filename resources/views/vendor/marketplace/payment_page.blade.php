@@ -49,6 +49,14 @@
                 </table>
             </div>
             <div class="p-3 mx-4 col-md-6 col-lg-6 col-sm-12">
+                @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
                 <h4 class="i_text_color">Payment Options: </h4>
                 <div class="accordion w-100" id="faq">
                     <div class="card mx-auto">
@@ -106,17 +114,26 @@
                         </div>
 
                         <div id="faq2" class="collapse" aria-labelledby="faqhead2" data-parent="#faq">
-                            <form class="form-horizontal" method="POST" id="payment-form" role="form" action="" >
+                            <form class="form-horizontal" method="POST" id="payment-form" role="form" action="{{route('marketplace-store-wallet-payment')}}">
+                                @csrf
+
                                 <div class="card-body">
                                     <div class="text-center">
                                         <div class="my-4">
-                                            <h4>Your Balance: <span>{{ Auth::user()->wallet_amount }}</span></h4>
+                                            <h4>Your Balance: <span>${{ Auth::user()->wallet_amount }}</span></h4>
                                             <h4>Order Total: <span>${{ $subtotal }}</span></h4>
-                                            <input type="hidden" name="amount" value="">
+                                            <input type="hidden" type="number" name="amount" value="{{ $subtotal }}">
                                         </div>
+                                        @if (Auth::user()->wallet_amount < $subtotal)
                                         <div class="mx-auto i_buttons">
-                                            <button class="btn custom-button w-100" type="submit">Click to Pay</button>
+                                            <button class="btn custom-button w-100" type="submit" disabled>Not Enough Balance</button>
                                         </div>
+                                        @else
+                                        <div class="mx-auto i_buttons">
+                                            <button class="btn custom-button w-100" type="submit">Click to pay</button>
+                                        </div>
+                                        @endif
+
                                     </div>
                                 </div>
                             </form>

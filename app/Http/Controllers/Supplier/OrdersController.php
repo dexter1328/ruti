@@ -141,7 +141,33 @@ class OrdersController extends Controller
         // dd($orderId.' and '.$productSku);
         // $product =  OrderedProduct::where('order_id', $orderId)->where('sku', $productSku)->first();
         // dd($product);
-        return view('supplier.orders.ship_detail');
+        return view('supplier.orders.ship_detail',compact('orderId','productSku'));
+    }
+    public function postShippingDetails(Request $request, $orderId, $productSku)
+    {
+        $request->validate([
+            'tracking_no' => 'required',
+            'tracking_link' => 'required'
+        ]);
+
+        $order = OrderedProduct::where('order_id', $orderId)
+                  ->where('sku', $productSku)
+                  ->first();
+
+            if (!$order) {
+                return abort(404); // Or handle the case when the order is not found
+            }
+
+            // Update the tracking information
+            $order->update([
+                'tracking_no' => $request->input('tracking_no'),
+                'tracking_link' => $request->input('tracking_link')
+            ]);
+
+            session()->flash('success', 'Tracking information updated successfully');
+
+            // Redirect back to the previous page
+            return redirect()->route('supplier.orders.view_details', ['orderId' => $orderId]);
     }
 
 	/**

@@ -542,6 +542,7 @@ Route::group(['middleware' => array('supplierChecklist')], function () {
         Route::get('supplier_shippo/{userId}/{sku}/{supplierId}', 'Supplier\OrdersController@supplierShippo')->name('supplier.supplier_shippo');
 
         Route::get('orders/shipping_details/{orderId?}/{productSku?}', 'Supplier\OrdersController@shippingDetails')->name('supplier.orders.shipping_details');
+        Route::post('orders/post_shipping_details/{orderId?}/{productSku?}', 'Supplier\OrdersController@postShippingDetails')->name('supplier.orders.post_shipping_details');
         Route::get('orders/view_details/{id}', 'Supplier\OrdersController@view_details')->name('supplier.orders.view_details');
         Route::get('orders/view_order/{id}', 'Supplier\OrdersController@view_order')->name('supplier.orders.view_order');
         Route::resource('order_return', 'Supplier\OrderReturnController', ['as' => 'supplier']);
@@ -632,6 +633,7 @@ Route::group(['prefix' => 'vendor'], function () {
 
         Route::get('marketplace-page', 'Vendor\VendorController@marketplacePage')->name('vendor.marketplace-page');
         Route::post('marketplace-store-payment', 'Vendor\VendorController@storePayment')->name('marketplace-store-payment');
+        Route::post('marketplace-store-wallet-payment', 'Vendor\VendorController@marketplaceWalletPayment')->name('marketplace-store-wallet-payment');
         Route::post('marketplace/buy-products', 'Vendor\VendorController@buyProduct')->name('vendor.marketplace-buy-products');
         Route::get('marketplace-thank-you', 'Vendor\VendorController@thankYou')->name('marketplace-thank-you');
         Route::get('marketplace-page/product-search', 'Vendor\VendorController@productSearch')->name('vendor.product-search');

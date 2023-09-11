@@ -2589,6 +2589,100 @@ foreach ($selectedProducts as $productId) {
         return redirect()->back();
 
     }
+    public function marketplaceWalletPayment(Request $request)
+    {
+        $amount = $request->amount;
+        $vendorId = auth()->user()->id;
+        $input_q = session()->get('input_q');
+        $input_r = session()->get('input_r');
+        $input_w = session()->get('input_w');
+        $input_nf = session()->get('input_nf');
+        $selectedProducts = session()->get('selectedProducts');
+
+        $order_id =  strtoupper(substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 9));
+        $user_id = Auth::user()->id;
+        $user = Vendor::where('id', $user_id)->first();
+
+        if ($user->wallet_amount < $amount) {
+            return redirect()->back()->with('error', 'Your balance is not enough');
+        }
+        else {
+            $debit = $user->wallet_amount - $amount;
+            $user->update([
+                'wallet_amount' => $debit,
+            ]);
+            foreach ($selectedProducts as $productId) {
+                $quantity2 = $input_q[$productId];
+                $retail2 = $input_r[$productId];
+                $nature_fee2 = $input_nf[$productId];
+                $wholesale2 = $input_w[$productId];
+
+
+                $newProduct1 = Products::where('sku',$productId)->first();
+
+                // Store the selected product and quantity in the seller's products table
+                $total_price = $wholesale2 * $quantity2;
+                $nature_total_fee = $nature_fee2 * $quantity2;
+                $supplier_total_price = $total_price - $nature_total_fee;
+                marketplaceOrder::create([
+                    'order_id' => $order_id,
+                    'vendor_id' => $vendorId,
+                    'supplier_id' => $newProduct1->vendor_id,
+                    'product_sku' => $productId,
+                    'quantity' => $quantity2,
+                    'wholesale_price' => $wholesale2,
+                    'retail_price' => $retail2,
+                    'nature_fee' => $nature_fee2,
+                    'total_price' => $total_price,
+                    'nature_total_fee' => $nature_total_fee,
+                    'supplier_total_price' => $supplier_total_price,
+                ]);
+                $skuWithUserId = $productId.$user_id;
+
+                $existingProduct = Products::where('sku', $skuWithUserId)->first();
+
+                if ($existingProduct) {
+                    $existingStock = $existingProduct->stock;
+                    $updatedStock = $existingStock + $quantity2;
+
+                    $existingProduct->update([
+                        'retail_price' => $retail2,
+                        'stock' => $updatedStock,
+                        // Update other fields as needed
+                    ]);
+                } else {
+                $newProduct = Products::where('sku',$productId)->first();
+                if ($newProduct) {
+                        Products::updateOrCreate([
+                            'sku' => $skuWithUserId,
+                            'title' => $newProduct->title,
+                            'slug' => $newProduct->slug,
+                            'description' => $newProduct->description,
+                            'original_image_url' => $newProduct->original_image_url,
+                            'large_image_url_250x250' => $newProduct->large_image_url_250x250,
+                            'large_image_url_500x500' => $newProduct->large_image_url_500x500,
+                            'retail_price' => $retail2,
+                            'vendor_id' => $user_id,
+                            'seller_type' => 'vendor',
+                            'w2b_category_1' => $newProduct->w2b_category_1,
+                            'stock' => $quantity2,
+                            'in_stock' => 'Y',
+                            'condition' => $newProduct->condition,
+                        ]);
+                    }
+                }
+            }
+            session()->forget('input_q');
+            session()->forget('input_r');
+            session()->forget('input_w');
+            session()->forget('input_nf');
+            session()->forget('selectedProducts');
+            return redirect()->route('marketplace-thank-you');
+
+        }
+        return redirect()->back();
+    }
+
     public function thankYou()
     {
         return view('vendor.marketplace.thank-you');
