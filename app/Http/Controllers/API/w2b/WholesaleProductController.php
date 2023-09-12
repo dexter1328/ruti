@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API\w2b;
 
+use App\BestProduct;
+use App\BestSeller;
 use App\User;
 use Validator;
 use App\W2bOrder;
@@ -322,6 +324,48 @@ class WholesaleProductController extends Controller
         ]);
         return $this->sendResponse(['order_repeat' => $w2border], 'order_repeat.');
 
+    }
+
+    public function bestProduct()
+    {
+        $p1 = BestProduct::join('w2b_products', 'w2b_products.sku', '=', 'best_products.product_sku')
+        ->leftJoin('users', 'users.id', '=', 'best_products.user_id')
+        ->selectRaw('w2b_products.sku as product_sku,
+            w2b_products.title as product_title,
+            COALESCE(users.first_name, "not defined") as user_fname,
+            COALESCE(users.last_name, "not defined") as user_lname,
+            COALESCE(users.mobile, "not defined") as user_phone,
+            COALESCE(users.email, "not defined") as user_email');
+
+        $p2 = BestProduct::join('products', 'products.sku', '=', 'best_products.product_sku')
+        ->leftJoin('users', 'users.id', '=', 'best_products.user_id')
+        ->selectRaw('products.sku as product_sku,
+                products.title as product_title,
+                COALESCE(users.first_name, "not defined") as user_fname,
+                COALESCE(users.last_name, "not defined") as user_lname,
+                COALESCE(users.mobile, "not defined") as user_phone,
+                COALESCE(users.email, "not defined") as user_email');
+
+        $best_products = $p1->union($p2)->get();
+
+
+
+        return $this->sendResponse(['best_products' => $best_products], 'best_products_list.');
+    }
+
+    public function bestSeller()
+    {
+        $best_sellers = BestSeller::join('vendors', 'vendors.id', '=', 'best_sellers.vendor_id')
+            ->leftJoin('users', 'users.id', '=', 'best_sellers.user_id')
+            ->selectRaw('vendors.name as vendor_name, vendors.mobile_number as vendor_phone,
+                COALESCE(users.first_name, "Not defined") as user_fname,
+                COALESCE(users.last_name, "Not defined") as user_lname,
+                COALESCE(users.mobile, "Not defined") as user_phone,
+                COALESCE(users.email, "Not defined") as user_email')
+            ->get();
+
+
+        return $this->sendResponse(['best_sellers' => $best_sellers], 'best_sellers_list.');
     }
 
 }

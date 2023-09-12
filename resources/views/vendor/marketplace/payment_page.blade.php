@@ -9,7 +9,7 @@
                 <thead class='no_bg'>
                                     <tr>
                                         <th class="p-3">Product</th>
-                                        <th class="p-3">Price</th>
+                                        <th class="p-3">Wholesale Price</th>
                                         <th class="p-3">Total</th>
                                     </tr>
                                 </thead>
