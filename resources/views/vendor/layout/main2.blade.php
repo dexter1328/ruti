@@ -54,7 +54,7 @@
         </div>
         <div class="sub_header row justify-content-between p-2 align-items-center">
             <div class="bussiness_name col-lg-4 col-md-12 ps-3">
-                <h4>Bussiness Name</h4>
+                <h4>{{ Auth::user()->name }}</h4>
             </div>
         </div>
     </div>
@@ -67,51 +67,37 @@
                 <p class="mt-2">VENDOR PANEL</p>
             </div>
             <div class="col-xl-3 col-lg-3 col-md-12 first_column">
-                <p class="headings"><img src="{{ asset('public/panel/images/icon8_market.png') }}" width="30px" height="30px" alt="affliliates"> AFFILIATES</p>
-                <ul class="no_decoration_list list">
-                    <li class="li_elements"><a class="links" href="">Suppliers</a></li>
-                    <li class="li_elements"><a class="links" href="">Retailers</a></li>
-                    <li class="li_elements"><a class="links" href="">Sellers</a></li>
-                    <li class="li_elements"><a class="links" href="">Restaurants</a></li>
-                    <li class="li_elements"><a class="links" href="">Influencers</a></li>
-                    <li class="li_elements"><a class="links" href="">Deliver Drivers</a></li>
-                    <li class="li_elements"><a class="links" href="">Bussiness Relations(Owners)</a></li>
-                </ul>
-                <p class="headings"><img src="{{ asset('public/panel/images/icon8_g1.png') }}" width="30px" height="30px" alt="general"> GENERAL</p>
-                <ul class="no_decoration_list list">
-                    <li class="li_elements"><a class="links" href="">Roles/Permissions</a></li>
-                    <li class="li_elements"><a class="links" href="">Notifications</a></li>
-                    <li class="li_elements"><a class="links" href="">Support Responses</a></li>
-                    <li class="li_elements"><a class="links" href="">Transaction</a></li>
-                    <li class="li_elements"><a class="links" href="">Reports</a></li>
-                </ul>
-                <p class="headings"><img src="{{ asset('public/panel/images/receive_dollar.png') }}" width="30px" height="30px" alt="additional funds"> ADDITIONAL FUNDS RECEIVED</p>
-                <ul class="no_decoration_list list">
-                    <li class="li_elements"><div class="d-flex justify-content-between">Supplier Funds <span>$3458</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Retailer Funds <span>$3451</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Sellers Funds <span>$8237</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">W2B Funds <span>$2837</span></div></li>
-                </ul>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-12 second_column">
-                <p class="headings"><img src="{{ asset('public/panel/images/Program.png') }}" width="30px" height="30px" alt="programs"> PROGRAMS</p>
+                <p class="headings"><img src="{{ asset('public/panel/images/Program.png') }}" width="30px" height="30px" alt="programs"> MANAGE PRODUCTS</p>
                 <ul class="no_decoration_list list">
                     @if(vendor_has_permission(Auth::user()->role_id,'products','read'))
                     <li class="li_elements {{ (request()->is('vendor/products') or (request()->is('vendor/products/*') && !request()->is('vendor/products/inventory'))) ? 'active' : '' }}">
                         <a class="links" href="{{url('vendor/products')}}">
-                        Products
+                        View Products
+                        </a>
+                    </li>
+                    <li class="li_elements {{ (request()->is('vendor/products') or (request()->is('vendor/products/*') && !request()->is('vendor/products/inventory'))) ? 'active' : '' }}">
+                        <a class="links" href="{{ route('vendor.products.create') }}">
+                        Add New Product
+                        </a>
+                    </li>
+                    <li class="li_elements {{ (request()->is('vendor/products') or (request()->is('vendor/products/*') && !request()->is('vendor/products/inventory'))) ? 'active' : '' }}">
+                        <a class="links" href="{{route('vendor.inventory.upload')}}">
+                        Import Products
                         </a>
                     </li>
                     @endif
+                </ul>
+                <p class="headings"><img src="{{ asset('public/panel/images/Program.png') }}" width="30px" height="30px" alt="programs"> MANAGE ORDERS</p>
+                <ul class="no_decoration_list list">
                     @if(vendor_has_permission(Auth::user()->role_id,'orders','read'))
                     <li class="li_elements {{ (request()->is('vendor/orders') or request()->is('vendor/orders/*')) ? 'active' : '' }}">
-                        <a href="{{url('vendor/orders')}}" class="links"> Orders </a>
+                        <a href="{{url('vendor/orders')}}" class="links">View Orders </a>
                     </li>
                     @endif
-                    <li class="li_elements">Fulfillments</li>
-                    <li class="li_elements">Stores</li>
-                    <li class="li_elements">Sales</li>
                 </ul>
+
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-12 second_column">
 
                 <p class="headings"><img src="{{ asset('public/panel/images/icon_c1.png') }}" width="30px" height="30px" alt="manage plans">Manage Plans</p>
                 <ul class="list">
@@ -120,74 +106,20 @@
                     <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('vendor/receive-wallet')}}">Receive Funds to Wallet </a></div></li>
                     <li class="li_elements"><div class="d-flex justify-content-between"><a class="links" href="{{url('vendor/withdraw-wallet')}}">Withdraw Funds </a></div></li>
                 </ul>
-                <p class="headings"><img src="{{ asset('public/panel/images/icon_c1.png') }}" width="30px" height="30px" alt="manage plans">Marketplace</p>
-                <ul class="list">
-                    <li class="li_elements "><div class="d-flex justify-content-between"><a class="links" href="{{route('vendor.marketplace-page')}}"> Marketplace </a></div></li>
-                </ul>
-                <p class="headings"><img src="{{ asset('public/panel/images/icon_c1.png') }}" width="30px" height="30px" alt="customer membership"> CUSTOMER MEMBERSHIP</p>
-                <ul class="list">
-                    <li class="li_elements"><div class="d-flex justify-content-between">Explorer <span>2000</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Classic <span>1212</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Bougie <span>8372</span></div></li>
-                </ul>
-                <p class="li_elements">Customer Incentive</p>
-                <ul class="list">
-                    <li class="li_elements"><div class="d-flex justify-content-between">All Year Participants <span>2000</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">All Year Winners <span>1212</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">The Month Entries <span>8372</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">The Month Winners <span>8372</span></div></li>
-                </ul>
-                <p class="headings"><img src="{{ asset('public/panel/images/membership_card.png') }}" width="30px" height="30px" alt="vendor membership"> VENDOR MEMBERSHIP</p>
-                <ul class="list">
-                    <li class="li_elements"><div class="d-flex justify-content-between">Seed <span>1214</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Sprout <span>4232</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Sellers Funds <span>$8237</span></div></li>
-                </ul>
-                <ul class="no_decoration_list list">
-                    <li class="li_elements"><div class="d-flex justify-content-between">Delivery Drivers <span>8372</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Advertiser <span>8372</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Influencers Hired <span>8372</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Bussiness Relations (Owner) <span>8372</span></div></li>
-                </ul>
+
             </div>
             <div class="col-xl-3 col-lg-3 col-md-12 third_column">
-                <div class="d-flex justify-content-between">
-                    <p class="headings"><img src="{{ asset('public/panel/images/receive_dollar.png') }}" width="30px" height="30px" alt="funds receive"> FUNDS RECEIVED</p>
-                </div>
-                <p>Membership</p>
-                <ul class="list">
-                    <li class="li_elements">Customer</li>
-                    <li class="li_elements">Vendor</li>
-                </ul>
-                <ul class="no_decoration_list list">
-                    <li class="li_elements"><div class="d-flex justify-content-between">Advertising <span>$3458</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Influencer Head <span>$3458</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Fulfillment Service <span>$3458</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Customer Incentives <span>$3458</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Email Campaign <span>$3458</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Digital Wallets Balance <span>$3458</span></div></li>
-                </ul>
-                <p class="headings"><img src="{{ asset('public/panel/images/Paid.png') }}" width="30px" height="30px" alt="funds paid out"> FUNDS PAID OUT</p>
-                <ul class="no_decoration_list list">
-                    <li class="li_elements"><div class="d-flex justify-content-between">Suppliers <span>$8394</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Retailers <span>$8394</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Restaurants <span>$8394</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Influencers <span>$8394</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Sellers <span>$8394</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Digital Wallets Payments <span>$8394</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Delivery Drivers <span>$8394</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Others <span>$8394</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Refund <span>$8394</span></div></li>
-                </ul>
-                <p class="headings"><img src="{{ asset('public/panel/images/request_service.png') }}" width="30px" height="30px" alt="funds request"> FUNDS REQUEST</p>
-                <ul class="no_decoration_list list">
-                    <li class="li_elements"><div class="d-flex justify-content-between">Customer <span>$34.00</span></div></li>
-                    <li class="fw-bold li_elements text-light">Rewards</li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Purchases <span>$34,451</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Friends Refferal <span>$8237</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">Store Suggests <span>$54,834</span></div></li>
-                    <li class="li_elements"><div class="d-flex justify-content-between">All Users <span>$23.00</span></div></li>
-                </ul>
+
+                    <p class="headings"><img src="{{ asset('public/panel/images/receive_dollar.png') }}" width="30px" height="30px" alt="funds receive"> MARKETPLACE</p>
+                    {{-- <p class="headings"><img src="{{ asset('public/panel/images/icon_c1.png') }}" width="30px" height="30px" alt="manage plans">Marketplace</p> --}}
+                    <ul class="list">
+                        <li class="li_elements "><div class="d-flex justify-content-between"><a class="links" href="{{route('vendor.marketplace-page')}}"> View Marketplace </a></div></li>
+                    </ul>
+                    <p class="headings"><img src="{{ asset('public/panel/images/icon_c1.png') }}" width="30px" height="30px" alt="manage plans">Manage Account</p>
+                    {{-- <p class="headings"><img src="{{ asset('public/panel/images/icon_c1.png') }}" width="30px" height="30px" alt="manage plans">Marketplace</p> --}}
+                    <ul class="list">
+                        <li class="li_elements "><div class="d-flex justify-content-between"><a class="links" href="{{ url('/vendor/profile') }}"> View Profile </a></div></li>
+                    </ul>
             </div>
         </div>
     </div>

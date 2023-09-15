@@ -88,14 +88,14 @@
                         <div class="col-9">
                             <div class="vendor-btn-right">
                                 <div class="row justify-content-end">
-                                    <div class="col-3" style="margin-top:4px">
+                                    {{-- <div class="col-3" style="margin-top:4px">
                                         <select name="search" id="filter_country" class="form-control waves-effect waves-light mr-2" required>
                                            <option value="">--See Country wise--</option>
 											@foreach ($countries as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
                                         </select>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-xs-12 col-sm-3">
                                         <a href="{{ route('supplier.create') }}"
                                             class="btn btn-outline-primary btn-sm waves-effect waves-light m-1"

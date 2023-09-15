@@ -713,7 +713,7 @@
 								</li>
 								<!--<li class="dropdown-divider"></li>
 								<li class="dropdown-item"><i class="icon-settings mr-2"></i> Setting</li> -->
-								<li class="dropdown-divider"></li>
+								{{-- <li class="dropdown-divider"></li>
 								<li class="dropdown-item">
 									<a href="{{ url('/admin/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 										<i class="icon-power"></i> Logout
@@ -721,7 +721,7 @@
 									<form id="logout-form" action="{{ url('/admin/logout') }}" method="POST" style="display: none;">
 										{{ csrf_field() }}
 									</form>
-								</li>
+								</li> --}}
 							</ul>
 						</li>
 					</ul>

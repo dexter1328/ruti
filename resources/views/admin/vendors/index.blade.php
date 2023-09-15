@@ -3,7 +3,7 @@
 <style type="text/css">
 	div#importModal {
 	    width: 50%;
-	    margin: 
+	    margin:
 	    0 auto;
 	}
 	.vendor-btn-right a,
@@ -19,7 +19,7 @@
 	    height: auto;
 	    margin: 10px auto;
 	}
-	
+
 </style>
 @if(session()->get('success'))
 	<div class="alert alert-success alert-dismissible" role="alert">
@@ -75,7 +75,7 @@
 		<div class="card">
 			<div class="card-header">
 				<!-- <div class="left"><span>Vendors</span></div>
-				<div class="float-sm-right">        
+				<div class="float-sm-right">
 					<a style="padding-bottom: 3px; padding-top: 4px;" href="{{ route('vendor.create') }}" class="btn btn-outline-primary btn-sm waves-effect waves-light m-1" title="Add Vendor">
 						<span class="name">Add Vendor</span>
 					</a>
@@ -85,9 +85,9 @@
 						<div class="left"><!-- <i class="fa fa-product-hunt"></i> --><span>Vendors</span></div>
 					</div>
 					<div class="col-9">
-						<div class="vendor-btn-right"> 
-		                	<div class="row">   
-		                		<div class="col-xs-12 col-sm-3">
+						<div class="vendor-btn-right">
+		                	<div class="row justify-content-end">
+		                		{{-- <div class="col-xs-12 col-sm-3">
 		                			<a href="{{url('/public/ezsiop-vendor-import.csv')}}" download="sample-vendor.csv" class="download-csv">Download Sample CSV</a>
 		                		</div>
 		                      	<div class="col-xs-12 col-sm-3">
@@ -95,7 +95,7 @@
 		                        </div>
 		                        <div class="col-xs-12 col-sm-3">
 		                      		<a href="{{ route('admin.export.vendor') }}" class="btn btn-outline-primary btn-sm waves-effect waves-light m-1"><span class="name">Export</span></a>
-		                        </div>
+		                        </div> --}}
 		                        <div class="col-xs-12 col-sm-3">
 		                        	<a href="{{ route('vendor.create') }}" class="btn btn-outline-primary btn-sm waves-effect waves-light m-1" title="Add Vendor">
 		                            <!-- <i class="fa fa-product-hunt" style="font-size:15px;"></i> --> <span class="name">Add Vendor</span>
@@ -119,7 +119,7 @@
 								<th>Action</th>
 							</tr>
 						</thead>
-						
+
 						<!-- <tfoot>
 							<tr>
 								<th>#</th>
@@ -154,9 +154,9 @@
 					<div class="form-group">
 						<label>File<span class="text-danger">*</span></label>
                         <input type="file" name="import_file" id="import_file" class="form-control">
-                        @if ($errors->has('import_file')) 
-                        	<span class="text-danger">{{ $errors->first('import_file') }}</span> 
-                        @endif 
+                        @if ($errors->has('import_file'))
+                        	<span class="text-danger">{{ $errors->first('import_file') }}</span>
+                        @endif
                         <label style="margin-top:10px;">Note:</label>File must be csv.
 						<span class="text-danger" id="file_preview_error"></span>
 					</div>
@@ -165,7 +165,7 @@
 						<button type="submit" class="btn btn-primary px-5" id="btnImport">Submit</button>
 						<span id="processing" style="display: none;">Processing...</span>
 					</div>
-				</form> 
+				</form>
 			</div>
 		</div>
 	</div>
@@ -209,17 +209,17 @@ $(document).ready(function() {
 	});
 	$("#btnPreview").click(function(){
 		// $("#previewModal").modal('show');
-		
+
 		// alert($("#vendor").val());
-		
+
 		if($('#import_file').val() == '')
-		{	
+		{
 			$('#file_preview_error').html('Please Select File');
-			
+
 		}else{
 			$('#file_preview_error').html(' ');
 		}
-		
+
 
 		if($('#import_file').val() != ''){
 			var form_data = new FormData();
@@ -232,11 +232,11 @@ $(document).ready(function() {
 	              headers: {
 	                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	            	},
-	            	
+
 	              contentType: false,
 	              processData: false,
 	              success: function(response){
-	              
+
 	              	$("#previewModal").modal('show');
 	              	var data = JSON.parse(response);
 	              	var str = '';
@@ -249,7 +249,7 @@ $(document).ready(function() {
 	                });
 	                	// str += '</tbody';
 	                $('#previewtable .previewtbody').html(str);
-	                
+
 	                $('#previewtable').DataTable();
 	              }
 	        });
@@ -354,13 +354,13 @@ $(document).ready(function() {
 				}
 			},
 			'colvis'
-		]	 
+		]
 
     });
 	 table.buttons().container()
 	.appendTo( '#example_wrapper .col-md-6:eq(0)' );
-	
-	
+
+
 
 } );
 // $(document).ready(function() {
@@ -375,10 +375,10 @@ $(document).ready(function() {
 // 		{ "orderable": false, "targets": 9 }
 // 		]
 //     });
-   
+
 // } );
 function deleteRow(id)
-{   
+{
 	$('#deletefrm_'+id).submit();
 }
 
@@ -397,7 +397,7 @@ function changeStatus(id) {
             if(data == 'active'){
                 status = 'activated';
                 $('.status_'+id).css('color','#009933');
-                
+
             }else{
                 status = 'deactivated';
                 $('.status_'+id).css('color','#ff0000');
@@ -428,8 +428,8 @@ function exportVendor()
 		contentType: false,
 		processData: false,
 		success: function(response){
-	              
-	    }	
+
+	    }
 	});
 }
 </script>

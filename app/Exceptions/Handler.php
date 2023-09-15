@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Session\TokenMismatchException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -51,6 +53,24 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        if ($exception instanceof TokenMismatchException) {
+             // Get the current guard name
+            $guardName = Auth::getDefaultDriver();
+
+            if (Auth::guard('w2bcustomer')) {
+                return redirect()->route('w2bcustomer.login');
+            } elseif (Auth::guard('vendor')) {
+                return redirect()->route('vendor.login');
+            } elseif (Auth::guard('vendor')) {
+                return redirect()->route('supplier.login');
+            } else {
+                // Add more conditions for other guards as needed
+                return redirect()->route('admin.login');
+            }
+        }
+        else
+        {
+            return parent::render($request, $exception);
+        }
     }
 }

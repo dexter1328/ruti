@@ -128,7 +128,14 @@
                                 <td>{{$product->w2b_category_1}}</td>
                                 <td>{{$product->retail_price}}</td>
                                 <td>{{$product->stock}}</td>
-                                <td>Action</td>
+                                <td>
+                                    <form method="POST" action="{{ route('vendor.products.destroy', $product->id) }}">
+                                        <a href="{{ route('vendor.products.edit', $product->id) }}" class="btn btn-primary btn-sm">Edit</a>&nbsp;
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                             @endforeach
 

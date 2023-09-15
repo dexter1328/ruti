@@ -76,7 +76,7 @@
                     <div class="font-para SignUPform">
                         <form id="signupForm" method="post" action="{{ url('/vendor-signup') }}" enctype="multipart/form-data">
                             @csrf
-                            <div class="form-group row">
+                            {{-- <div class="form-group row">
                                 <label for="input-12" class="col-sm-2 col-form-label">Sales Person Name<!-- <span class="text-danger">*</span> --></label>
                                 <div class="col-sm-4">
                                     <input type="text" name="sales_person_name" class="form-control" value="{{old('sales_person_name')}}" placeholder="Enter Name">
@@ -91,7 +91,7 @@
                                         <span class="text-danger">{{ $errors->first('sales_person_mobile_number') }}</span>
                                     @endif
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="form-group row">
                                 <label for="input-12" class="col-sm-2 col-form-label">Administrator<span class="text-danger">*</span></label>
                                 <div class="col-sm-4">

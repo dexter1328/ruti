@@ -42,7 +42,7 @@
 					@endif
 				</div>
 				<h4>{{$vendor->name}}</h4>
-				<span class="text-muted d-block mb-2">{{$vendor->role_name}}</span>
+				{{-- <span class="text-muted d-block mb-2">{{$vendor->role_name}}</span> --}}
 			</div>
             {{-- <div class="list-group">
 				<a href="javascript:void(0);" class="list-group-item">
@@ -80,7 +80,7 @@
 				@endforeach
 			</div> --}}
 		</div>
-		@if(Auth::user()->parent_id == '0')
+		{{-- @if(Auth::user()->parent_id == '0')
 		<div class="card card-small" id="manage-card">
 			<div class="card-header">
 				<h5 class="m-0">Manage Cards</h5>
@@ -94,7 +94,6 @@
 				</ul>
 			</div>
 			<div class="card-body">
-				{{-- @php  echo '<pre>'; print_r($cards); echo '</pre>'; @endphp --}}
 				<div id="error" class="text-danger"></div>
 				<div id="success" class="text-success"></div>
 				<div class="tab-content">
@@ -112,17 +111,11 @@
 									<div class="input-group">
 										<select name="month" id="month" class="form-control" required>
 											<option value=""> --Select--</option>
-											<?php for ($i=1; $i<=12; $i++) {
-												$month = str_pad($i, 2, "0", STR_PAD_LEFT);?>
-												<option value="<?php echo $month; ?>"><?php echo $month ?></option>
-											<?php } ?>
+
 										</select>
 										<select name="year" id="year" class="form-control" required>
 											<option value=""> --Select--</option>
-											<?php $start_year = date('Y'); $end_year = date('Y') + 20;
-											for ($i=$start_year; $i<=$end_year; $i++) { ?>
-												<option value="<?php echo substr($i, 2); ?>"><?php echo $i; ?></option>
-											<?php } ?>
+
 										</select>
 									</div>
 								</div>
@@ -140,7 +133,7 @@
 				</div>
 			</div>
 		</div>
-		@endif
+		@endif --}}
 	</div>
 	<div class="col-lg-8">
 		<div class="card">

@@ -31,7 +31,7 @@ class WbOrderMail extends Mailable
     public function build()
     {
         // return $this->view('view.name');
-        return $this->subject('Nature Checkout')
+        return $this->subject('This Mail is from Nature Checkout')
                     ->view('email.wb_order.order');
     }
 }

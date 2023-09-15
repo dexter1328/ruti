@@ -4,8 +4,7 @@
     <title>Nature Checkout</title>
 </head>
 <!-- <body>
-    <h1>{{ $details['title'] }}</h1><br>
-    <p>{{ $details['body'] }}</p><br>
+
 <h3><a href="http://www.naturecheckout.com/admin/w2b_products/orders">Please Go to Admin Panel to take actions.</a></h3> <br>
 
 
@@ -34,7 +33,7 @@
                 width="50%"
                 height="60px"
                 style="margin-left: 5%"
-                src="{{asset('public/wb/img/logo/logo.png')}}"
+                src="https://ibb.co/sWQz5b4"
                 alt="Nature Checkout"
               />
             </td>
@@ -53,54 +52,13 @@
               as our valued customer.
             </td>
           </tr>
+
           <tr>
             <td
               colspan="2"
               style="color: #e96725; border-bottom: 1px solid black"
             >
-              Order 1 of 2
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2" style="">
-              Order <span style="color: #007bff">#114-6598609-7798660</span>
-            </td>
-          </tr>
-          <tr style="background-color: #efefef">
-            <td>
-              <div style="margin-left: 0.5rem">
-                <div>Arriving</div>
-                <div>Wednesday, January 11</div>
-                <button
-                  style="
-                    background-color: #e96725;
-                    border-radius: 10px;
-                    padding: 20px;
-                    width: 250px;
-                    border: 0;
-                    margin: 10px 0;
-                    font-size: 18px;
-                  "
-                >
-                  View or manage order
-                </button>
-              </div>
-            </td>
-            <td style="padding: 20px">
-              <div style="font-weight: bold">
-                Mohsan <br />
-                Lincolin,CA <br />
-                This is a gift order <br />
-                Order Total: <span>$ 0.22</span>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td
-              colspan="2"
-              style="color: #e96725; border-bottom: 1px solid black"
-            >
-              Order 2 of 2
+              Order Details
             </td>
           </tr>
           <tr>
@@ -130,7 +88,7 @@
             </td>
             <td style="padding: 20px">
               <div style="font-weight: bold">
-                Mohsan <br />
+                Aatir <br />
                 Lincolin,CA <br />
                 This is a gift order <br />
                 Order Total: <span>$ 0.22</span>

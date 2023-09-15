@@ -1,13 +1,11 @@
  <center>
-      <img src="{{ asset('public/images/logo-icon-xx.png') }}" style="width:250px; height: auto;border: none; display: block; -ms-interpolation-mode: bicubic;">
+      <img src="{{ asset('public/wb/img/logo/logo2.png') }}" style="width:250px; height: auto;border: none; display: block; -ms-interpolation-mode: bicubic;">
 </center>
 
 <p>Hi Admin,</p>
 
 <p>New Supplier Signup in Nature Checkout</p>
-<a href="{{ route('supplier.edit', $id) }}" class="edit" data-toggle="tooltip" data-placement="bottom" title="Edit Supplier">
-  To view supplier refer this link
-</a>
+
 <br>
 <table class="table table-bordered" style="margin-top:20px;" cellpadding="2" cellspacing="5">
     <tbody>
@@ -63,7 +61,7 @@
       	@endif
 
     </tbody>
-	<a href="{{url('admin/supplier/approve',$id)}}">approve this supplier</a>
+	{{-- <a href="{{url('admin/supplier/approve',$id)}}">approve this supplier</a> --}}
   </table>
   <br><br>
 Regards,<br>

@@ -1550,9 +1550,9 @@ class VendorController extends Controller
     	$cards = [];
     	$stripe_customer_id = Auth::user()->stripe_customer_id;
         if($stripe_customer_id != NULL && $stripe_customer_id != ''){
-        	Stripe\Stripe::setApiKey($this->stripe_secret);
+        	Stripe::setApiKey($this->stripe_secret);
             try {
-                $response = Stripe\Customer::retrieve($stripe_customer_id);
+                $response = Customer::retrieve($stripe_customer_id);
                 if(isset($response->sources->data)){
 	                $stripe_cards = $response->sources->data;
 	                foreach ($stripe_cards as $key => $value) {

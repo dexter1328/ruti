@@ -22,6 +22,7 @@ use App\VendorsSubCategory;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Imports\ProductImport;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Helpers\LogActivity as Helper;
@@ -228,16 +229,20 @@ class ProductsController extends Controller
 	* @param App\Products product
 	* @return \Illuminate\Http\Response
 	*/
-	public function edit(Products $product)
+	public function edit($id)
 	{
+        $product = Products::find($id);
+        // dd($product);
 
-		$store_ids = getVendorStore();
-		$product_variants = ProductVariants::where('product_id',$product->id)->get();
+        $brands = Brand::where('vendor_id', auth()->id())->get();
+        // $categories = W2bCategory::where('vendor_id', auth()->id())->get();
+        $categories = W2bCategory::where('parent_id', 0)->get();
 
-		$lngth = $product_variants->count();
-		$attributes = Attribute::all();
-		$vendor_stores = VendorStore::whereIn('id', $store_ids)->get();
-		return view('vendor/products/edit',compact('product', 'product_variants', 'lngth', 'attributes','vendor_stores'));
+		return view('vendor/products/edit', [
+            'product' => $product,
+            'brands' => $brands,
+            'categories' => $categories
+        ]);
 	}
 
 	/**
@@ -247,78 +252,82 @@ class ProductsController extends Controller
 	* @param  App\Products product
 	* @return \Illuminate\Http\Response
 	*/
-	public function update(Request $request,Products $product)
+	public function update(Request $request,$product)
 	{
-		$request->validate([
-			'store' => 'required',
-			'title' => 'required',
-			'regular_price' => 'required',
-			'discount' => 'required',
-			'sku' => 'required',
-			'quantity' => 'required',
-			'lowstock_threshold' => 'required'
-		]);
+        $product = Products::where('sku', $product)->firstOrFail();
 
-		if($request->attribute)
-		{
-			$type = 'group';
-			$attribute = implode(',',$request->attribute);
-			$attribute_value_id = implode(',',$request->attribute_values);
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'brand' => 'nullable',
+            'w2b_category_1' => 'required',
+            'retail_price' => 'required',
+            'shipping_price' => 'nullable',
+            "sku" => [
+                "regex:/^[a-zA-Z0-9]+$/",
+                "required", "min:2","max:20",
+                Rule::unique('products')->ignore($product),
+            ],
+            'stock' => 'required',
+        ]);
 
-		}else{
-			$type = 'single';
-			$attribute_value_id = NULL;
-			$attribute = NULL;
-		}
+        $category = W2bCategory::find($request->input('w2b_category_1'));
 
-		$product->vendor_id = Auth::user()->id;
-		$product->store_id = $request->input('store');
-		$product->title = $request->input('title');
-		$product->category_id = implode(",", $request->input('category'));
-		$product->description = $request->input('description');
-		$product->brand_id = $request->input('brand');
-		$product->type = $type;
-		$product->tax = $request->input('tax');
-		$product->season = $request->input('season');
-		$product->created_by = Auth::user()->id;
-		$product->aisle = $request->input('aisle');
-		$product->shelf = $request->input('shelf');
-		$product->save();
-
-		$product_variant = ProductVariants::find($request->group_product_variants_id);
-
-		$id = $request->group_product_variants_id;
-		$title = $product->title;
-		$old_price = $product_variant->price;
-		$old_discount = $product_variant->discount;
-		$new_price = $request->regular_price;
-		$new_discount = $request->discount;
-		$this->priceDropAlertNotification($id, $title, $old_price, $old_discount, $new_price, $new_discount);
-
-		$product_variant->attribute_id = $attribute;
-		$product_variant->attribute_value_id = $attribute_value_id;
-		$product_variant->sku_uniquecode = $request->sku;
-		$product_variant->quantity = $request->quantity;
-		$product_variant->price = $request->regular_price;
-		$product_variant->discount = $request->discount;
-		$product_variant->lowstock_threshold = $request->lowstock_threshold;
-		$product_variant->save();
-
+        $data['seller_type'] = 'vendor';
+        $data['w2b_category_1'] = $request->input('w2b_category_1');
+        $data['title'] = $request->input('title');
+        $data['description'] = $request->input('description');
+        $data['brand'] = $request->input('brand');
+        $data['retail_price'] = $request->input('retail_price');
+        $data['shipping_price'] = $request->input('shipping_price');
+        $data['sku'] = $request->input('sku');
+        $data['stock'] = $request->input('stock');
 		if($request->file('image')){
-			ProductImages::where('variant_id',$request->group_product_variants_id)->delete();
-			foreach($request->file('image') as $key => $images){
+            foreach($request->file('image') as $key => $images){
 
-				$path = 'public/images/product_images';
-				$profileImage = date('YmdHis') .$key ."." . $images->getClientOriginalExtension();
-				$images->move($path, $profileImage);
-				$product_images = new ProductImages;
-				$product_images->product_id = $product->id;
-				$product_images->variant_id = $request->group_product_variants_id;
-				$product_images->created_by =Auth::user()->id;
-				$product_images['image'] = $profileImage;
-				$product_images->save();
-			}
-		}
+                $path = 'public/images/product_images';
+                $profileImage = date('YmdHis') .$key ."." . $images->getClientOriginalExtension();
+                $images->move($path, $profileImage);
+
+                if ($key == 0) {
+                    $data['original_image_url'] = asset("$path/$profileImage");
+                }
+                if ($key == 1) {
+                    $data['extra_img_1'] = asset("$path/$profileImage");
+                }
+                if ($key == 2) {
+                    $data['extra_img_2'] = asset("$path/$profileImage");
+                }
+                if ($key == 3) {
+                    $data['extra_img_3'] = asset("$path/$profileImage");
+                }
+                if ($key == 4) {
+                    $data['extra_img_4'] = asset("$path/$profileImage");
+                }
+                if ($key == 5) {
+                    $data['extra_img_5'] = asset("$path/$profileImage");
+                }
+                if ($key == 6) {
+                    $data['extra_img_6'] = asset("$path/$profileImage");
+                }
+                if ($key == 7) {
+                    $data['extra_img_7'] = asset("$path/$profileImage");
+                }
+                if ($key == 8) {
+                    $data['extra_img_8'] = asset("$path/$profileImage");
+                }
+                if ($key == 9) {
+                    $data['extra_img_9'] = asset("$path/$profileImage");
+                }
+                if ($key == 10) {
+                    $data['extra_img_10'] = asset("$path/$profileImage");
+                }
+            }
+
+
+        }
+
+        Products::where('sku', $product->sku)->update($data);
 		return redirect('/vendor/products')->with('success',"Product has been updated.");
 	}
 
@@ -327,10 +336,11 @@ class ProductsController extends Controller
 	* @param App\Products product
 	* @return \Illuminate\Http\Response
 	*/
-	public function destroy(Products $product)
+	public function destroy($id)
 	{
-		$product_variants = ProductVariants::where('product_id',$product->id)->get()->each->delete();
-		$product_images = ProductImages::where('product_id',$product->id)->get()->each->delete();
+        $product = Products::find($id);
+		// $product_variants = ProductVariants::where('product_id',$product->id)->get()->each->delete();
+		// $product_images = ProductImages::where('product_id',$product->id)->get()->each->delete();
 		$product->delete();
 		return redirect('/vendor/products')->with('success',"Products successfully deleted.");
 	}

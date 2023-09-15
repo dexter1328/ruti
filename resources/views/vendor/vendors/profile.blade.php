@@ -41,13 +41,13 @@
 				<div class="mb-3 mx-auto">
 					@if($vendor->image)
 						@php $image = asset('public/images/vendors/'.$vendor->image); @endphp
-						<img class="rounded-circle" src="{{$image}}" alt="User Avatar" width="110"> 
+						<img class="rounded-circle" src="{{$image}}" alt="User Avatar" width="110">
 					@endif
 				</div>
 				<h4>{{$vendor->name}}</h4>
-				<span class="text-muted d-block mb-2">{{$vendor->role_name}}</span>
+				{{-- <span class="text-muted d-block mb-2">{{$vendor->role_name}}</span> --}}
 			</div>
-			<div class="list-group">
+			{{-- <div class="list-group">
 				<a href="javascript:void(0);" class="list-group-item">
 					<div class="progress-wrapper">
 						<strong class="text-muted d-block mb-2 text-center">
@@ -81,9 +81,9 @@
 						<span class="badge {{$status_class}}">{{$status}}</span>
 					</a>
 				@endforeach
-			</div>
+			</div> --}}
 		</div>
-		@if(Auth::user()->parent_id == '0')
+		{{-- @if(Auth::user()->parent_id == '0')
 		<div class="card card-small" id="manage-card">
 			<div class="card-header">
 				<h5 class="m-0">Manage Cards</h5>
@@ -114,17 +114,11 @@
 									<div class="input-group">
 										<select name="month" id="month" class="form-control" required>
 											<option value=""> --Select--</option>
-											<?php for ($i=1; $i<=12; $i++) { 
-												$month = str_pad($i, 2, "0", STR_PAD_LEFT);?>
-												<option value="<?php echo $month; ?>"><?php echo $month ?></option>
-											<?php } ?>
-										</select> 
+
+										</select>
 										<select name="year" id="year" class="form-control" required>
 											<option value=""> --Select--</option>
-											<?php $start_year = date('Y'); $end_year = date('Y') + 20;
-											for ($i=$start_year; $i<=$end_year; $i++) { ?>
-												<option value="<?php echo substr($i, 2); ?>"><?php echo $i; ?></option>
-											<?php } ?>
+
 										</select>
 									</div>
 								</div>
@@ -142,7 +136,7 @@
 				</div>
 			</div>
 		</div>
-		@endif
+		@endif --}}
 	</div>
 	<div class="col-lg-8">
 		<div class="card">
@@ -242,7 +236,7 @@
 							</textarea>
 							@if ($errors->has('address'))
 								<span class="text-danger">{{ $errors->first('address') }}</span>
-							@endif 
+							@endif
 						</div>
 					</div>
 					<div class="form-group row">
@@ -323,7 +317,7 @@
 		</div>
 	</div>
 </div>
-<!--End Row--> 
+<!--End Row-->
 
 <!-- thank you modal -->
 <div class="modal fade" id="editCardModal">
@@ -345,11 +339,11 @@
 							<div class="input-group">
 								<select name="month" id="edit_exp_month" class="form-control" required>
 									<option value=""> --Select--</option>
-									<?php for ($i=1; $i<=12; $i++) { 
+									<?php for ($i=1; $i<=12; $i++) {
 										$month = str_pad($i, 2, "0", STR_PAD_LEFT);?>
 										<option value="<?php echo $month; ?>"><?php echo $month ?></option>
 									<?php } ?>
-								</select> 
+								</select>
 								<select name="year" id="edit_exp_year" class="form-control" required>
 									<option value=""> --Select--</option>
 									<?php $start_year = date('Y'); $end_year = date('Y') + 20;
@@ -371,7 +365,7 @@
 </div>
 <!-- end modal -->
 
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> 
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
 <script type="text/javascript">
@@ -501,7 +495,7 @@ function cardValidation() {
 	if (cvc.trim() == "") {
 		valid = false;
 	}
-	
+
 	if(valid == false) {
 		$("#error").html("All fields are required");
 	}
@@ -532,7 +526,7 @@ function saveCard(token){
 
 	$.ajax({
 		type: "POST",
-		url: "{{url('/vendor/save-vendor-card')}}/", 
+		url: "{{url('/vendor/save-vendor-card')}}/",
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
@@ -545,7 +539,7 @@ function saveCard(token){
 			$("#addCardBtn").show();
 			$("#processing").css("display", "none");
 			if(result.status == 'error'){
-				$("#error").html(result.message);				
+				$("#error").html(result.message);
 			}else{
 				$('#addCardForm')[0].reset();
 				getCard();
@@ -559,7 +553,7 @@ function getCard() {
 
 	$.ajax({
 		type: "GET",
-		url: "{{url('/vendor/get-vendor-card')}}/", 
+		url: "{{url('/vendor/get-vendor-card')}}/",
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
@@ -568,11 +562,11 @@ function getCard() {
 
 			$("#cardList").html(result.data.cardlist);
 		}
-	});	
+	});
 }
 
 function editCard(cid, em, ey) {
-	
+
 	$("#edit_error").html("");
 	$('#card_id').val(cid);
 	$('#edit_exp_month').val(em);
@@ -581,13 +575,13 @@ function editCard(cid, em, ey) {
 }
 
 function updateCard(e) {
-	
+
 	e.preventDefault();
 	$('#editCardBtn').hide();
 	$('#editProcessing').show();
 	$.ajax({
 		type: "POST",
-		url: "{{url('/vendor/edit-vendor-card/')}}/", 
+		url: "{{url('/vendor/edit-vendor-card/')}}/",
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
@@ -598,10 +592,10 @@ function updateCard(e) {
 			$('#editCardBtn').show();
 			$('#editProcessing').hide();
 			if(result.status == 'error'){
-				$("#edit_error").html(result.message);				
+				$("#edit_error").html(result.message);
 			}else{
 				$("#edit_error").html("");
-				$("#editCardModal").modal("hide");	
+				$("#editCardModal").modal("hide");
 				getCard();
 				activaTab('cardList');
 			}
@@ -610,12 +604,12 @@ function updateCard(e) {
 }
 
 function deleteCard(cid) {
-	
+
 	if (confirm("Are you sure!") == true) {
-	
+
 		$.ajax({
 			type: "POST",
-			url: "{{url('/vendor/delete-vendor-card/')}}/", 
+			url: "{{url('/vendor/delete-vendor-card/')}}/",
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
@@ -623,7 +617,7 @@ function deleteCard(cid) {
 			dataType: "json",
 			success: function(result){
 				if(result.status == 'error'){
-					$("#error").html(result.message);				
+					$("#error").html(result.message);
 				}else{
 					$("#error").html("");
 					getCard();
@@ -637,7 +631,7 @@ function setDefaultCard(cid) {
 
 	$.ajax({
 		type: "POST",
-		url: "{{url('/vendor/set-vendor-default-card/')}}/", 
+		url: "{{url('/vendor/set-vendor-default-card/')}}/",
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
@@ -645,7 +639,7 @@ function setDefaultCard(cid) {
 		dataType: "json",
 		success: function(result){
 			if(result.status == 'error'){
-				$("#error").html(result.message);				
+				$("#error").html(result.message);
 			}else{
 				$("#error").html("");
 				getCard();
@@ -660,5 +654,5 @@ function activaTab(tab){
 // End
 </script>
 
-@endsection 
+@endsection
 

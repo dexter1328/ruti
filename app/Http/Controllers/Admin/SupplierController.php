@@ -47,6 +47,7 @@ class SupplierController extends Controller
 
     public function index()
     {
+        // dd('12');
         $countries = Country::all();
 
         return view('admin.suppliers.index', compact('countries'));
@@ -104,9 +105,7 @@ class SupplierController extends Controller
                         <i class="icon-trash icons"></i>
                     </a>
 
-                    <a href="' . url('admin/supplier/add_role', $vendor->id) . '" class="edit" data-toggle="tooltip" data-placement="bottom" title="Add Role">
-                        <i class="icon-plus icons"></i>
-                    </a>
+
 
                     <a href="javascript:void(0);" onclick="changeStatus(' . $vendor->id . ')" >
                         <i class="fa fa-circle status_' . $vendor->id . '" style="' . $color . '" id="active_' . $vendor->id . '" data-toggle="tooltip" data-placement="bottom" title="Change Status" ></i>

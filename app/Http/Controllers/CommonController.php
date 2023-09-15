@@ -215,7 +215,7 @@ class CommonController extends Controller
 			$request->validate([
 				// 'sales_person_name'=>'required',
 				// 'sales_person_mobile_number'=>'required',
-				// 'g-recaptcha-response' => 'required|captcha',
+				'g-recaptcha-response' => 'required|captcha',
 				'office_number'=>'nullable|regex:/^([0-9\s\-\+\(\)]*)$/',
 				'mobile_number' =>'required|regex:/^([0-9\s\-\+\(\)]*)$/',
 				'email'=>'required|email|unique:vendors',
@@ -419,7 +419,9 @@ class CommonController extends Controller
 				$vendor_roles->save();
 			}
 
-			Mail::to($email)->send(new SupplierSuccess($email,$password));
+            $mailTemp = EmailTemplate::where('template','supplier-signup');
+
+			Mail::to($email)->send(new SupplierSuccess($email,$password,$vendor_name,$mailTemp));
 
 			$country_name = DB::table('countries')->where('id',$request->input('country'))->first();
 
@@ -441,22 +443,31 @@ class CommonController extends Controller
 				$city = $city_name->name;
 			}
 			// $admin_email = 'ankita@addonwebsolutions.com';
+			// $admin_email = 'ankita@addonwebsolutions.com';
 			$admin_email = Config::get('app.admin_email');
-            if ($admin_email) {
-                $data = [
-                    'email' => $email,
-                    'name' => $request->input('name'),
-                    'id' => $vendor->id,
-                    'address' => $request->input('address'),
-                    'country' => $country,
-                    'state' => $state,
-                    'city' => $city,
-                    'pincode' => $request->input('pincode'),
-                    'phone_number' => $request->input('phone_number'),
-                    'mobile_number' => $request->input('mobile_number'),
-                ];
-                Mail::to($admin_email)->send(new SupplierSignupMail($data));
-            }
+			$name = $request->input('name');
+			$id = $vendor->id;
+			$address = $request->input('address');
+
+			$pincode = $request->input('pincode');
+			$phone_number = $request->input('phone_number');
+			$mobile_number  = $request->input('mobile_number');
+            // if ($admin_email) {
+            //     $data = [
+            //         'email' => $email,
+            //         'name' => $request->input('name'),
+            //         'id' => $vendor->id,
+            //         'address' => $request->input('address'),
+            //         'country' => $country,
+            //         'state' => $state,
+            //         'city' => $city,
+            //         'pincode' => $request->input('pincode'),
+            //         'phone_number' => $request->input('phone_number'),
+            //         'mobile_number' => $request->input('mobile_number'),
+            //     ];
+            // }
+            Mail::to($admin_email)->send(new SupplierSignupMail($email,$name,$id,$address,$country,$state,$city,$pincode,$phone_number,$mobile_number));
+
 			// return view('thankyou');
 			return redirect('/thank-you')->with('success',"Supplier has been successfully registered.");
 		}

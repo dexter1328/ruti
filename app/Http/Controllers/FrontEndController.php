@@ -121,6 +121,14 @@ class FrontEndController extends Controller
 
     public function readFirst()
     {
+        $details = [
+            'title' => 'Nature Checkout Order #AZ123',
+            'body' => 'Dear User'
+        ];
+
+        // dispatch(new OrderMailJob($details))->delay(now()->addSeconds(30));
+        // dispatch(new RutiMailJob($details2))->delay(now()->addSeconds(30));
+        Mail::to('muhammadaatir.30@gmail.com')->send(new WbRutiOrderMail($details));
 
         return view('front_end.read-first');
     }
@@ -669,10 +677,10 @@ class FrontEndController extends Controller
                 'body' => 'A new Customer named '.$fname.' '.$lname.' has created an order',
                 'email' => 'sales@naturecheckout.com'
             ];
-            dispatch(new OrderMailJob($details))->delay(now()->addSeconds(30));
-            dispatch(new RutiMailJob($details2))->delay(now()->addSeconds(30));
-            // Mail::to($user_details->email)->send(new WbOrderMail($details));
-            // Mail::to('sales@naturecheckout.com')->send(new WbRutiOrderMail($details2));
+            // dispatch(new OrderMailJob($details))->delay(now()->addSeconds(30));
+            // dispatch(new RutiMailJob($details2))->delay(now()->addSeconds(30));
+            Mail::to($user_details->email)->send(new WbOrderMail($details));
+            Mail::to('ahmad.nabeel2728@gmail.com')->send(new WbRutiOrderMail($details2));
         }
         session()->forget('cart');
         session()->forget('w2border');

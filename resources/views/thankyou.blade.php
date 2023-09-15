@@ -9,9 +9,14 @@
 <section id="download" class="download">
     <h2 class="heading">
         <h1><img style="width: 10%" src="{{ asset('public/wb/img/logo/thank-you.gif')}}" alt="thank you"></h1>
-        <h2>    Thank You For Choosing Nature Checkout. Please login to continue.
+        <h2>    Thank You For Choosing Nature Checkout. <br>
+             Please login to continue.
         </h2>
     </h2>
+    <div class='w-25 my-2 mx-auto d-flex '>
+        <button type="button" onclick="window.location='{{ url("vendor/login") }}'" style="background-color:#ee7322;color:#fff !important;" class="btn btn-block w-50">Login as Seller</button>
+        <button type="button" onclick="window.location='{{ url("supplier/login") }}'" class="btn btn-primary ml-1 w-50">Login as Supplier</button>
+    </div>
     <div class="container">
         <div class="row">
             <div class="offset-md-3 col-md-6">

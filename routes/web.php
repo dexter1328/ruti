@@ -719,6 +719,8 @@ Route::group(['prefix' => 'vendor'], function () {
 
         Route::get('orders/view_order/{id}', 'Vendor\OrdersController@view_order')->name('vendor.orders.view_order');
         Route::get('orders/view_detail/{id}', 'Vendor\OrdersController@view_details')->name('vendor.orders.view_details');
+        Route::get('orders/shipping_details/{orderId?}/{productSku?}', 'Vendor\OrdersController@shippingDetails')->name('vendor.orders.shipping_details');
+        Route::post('orders/post_shipping_details/{orderId?}/{productSku?}', 'Vendor\OrdersController@postShippingDetails')->name('vendor.orders.post_shipping_details');
         Route::get('orders/inshop_order', 'Vendor\OrdersController@inshop_order')->name('vendor.orders.inshop_order');
         Route::get('orders/inshop_order_view/{id}', 'Vendor\OrdersController@inshop_order_view')->name('vendor.orders.inshop_order_view');
         Route::get('orders/pickup_order', 'Vendor\OrdersController@pickup_order')->name('vendor.orders.pickup_order');

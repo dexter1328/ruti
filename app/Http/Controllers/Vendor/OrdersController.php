@@ -43,28 +43,25 @@ class OrdersController extends Controller
 
 	public function index()
 	{
-		$op1 = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
+		$op = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
         ->join('users', 'w2b_orders.user_id', 'users.id')
         ->where('ordered_products.vendor_id', Auth::user()->id)
         ->where('ordered_products.seller_type', 'vendor')
         ->groupBy('ordered_products.order_id')
-        ->select('ordered_products.*', 'w2b_orders.status as status', 'w2b_orders.is_paid as is_paid', 'users.first_name as user_name', 'users.id as user_id')
+
+        ->select('ordered_products.*', 'w2b_orders.is_paid as is_paid', 'users.first_name as user_name', 'users.id as user_id', DB::raw('SUM(ordered_products.total_price) as o_total_price'))
         ->get();
-        // $opp = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
-        // ->join('users', 'w2b_orders.user_id', 'users.id')
+        // $orders = DB::table('ordered_products')
+        // ->select('w2b_orders.*', 'ordered_products.status as item_status')
+        // ->join('w2b_orders', 'ordered_products.order_id', '=', 'w2b_orders.order_id')
         // ->where('ordered_products.vendor_id', Auth::user()->id)
-        // ->where('ordered_products.seller_type', 'vendor')
-        // ->sum('ordered_products.total_price');
-        // dd($opp);
-        // $array = Arr::divide(['name' => 'Desk']);
-        // dd($array);
-        $op = W2bOrder::select('w2b_orders.*','users.first_name as user_name', DB::raw('SUM(ordered_products.total_price) as vendor_total_price'))
-        ->leftJoin('ordered_products', 'w2b_orders.order_id', '=', 'ordered_products.order_id')
-        ->join('users', 'w2b_orders.user_id', 'users.id')
-        ->where('ordered_products.vendor_id', Auth::user()->id)
-        ->groupBy('w2b_orders.order_id')
-        ->get();
+        // ->get();
+
         // dd($orders);
+
+
+
+        // dd($op);
 		return view('vendor.orders.index',compact('op'));
 	}
 
@@ -103,6 +100,42 @@ class OrdersController extends Controller
 
 		return view('vendor.orders.view_details',compact('od','order1','grand_total'));
 	}
+
+    public function shippingDetails($orderId, $productSku)
+    {
+        // dd($orderId.' and '.$productSku);
+        // $product =  OrderedProduct::where('order_id', $orderId)->where('sku', $productSku)->first();
+        // dd($product);
+        return view('vendor.orders.ship_detail',compact('orderId','productSku'));
+    }
+
+    public function postShippingDetails(Request $request, $orderId, $productSku)
+    {
+        $request->validate([
+            'tracking_no' => 'required',
+            'tracking_link' => 'required'
+        ]);
+
+        $order = OrderedProduct::where('order_id', $orderId)
+                  ->where('sku', $productSku)
+                  ->first();
+
+            if (!$order) {
+                return abort(404); // Or handle the case when the order is not found
+            }
+
+            // Update the tracking information
+            $order->update([
+                'tracking_no' => $request->input('tracking_no'),
+                'tracking_link' => $request->input('tracking_link')
+            ]);
+
+            session()->flash('success', 'Tracking information updated successfully');
+
+            // Redirect back to the previous page
+            return redirect()->route('vendor.orders.view_details', ['orderId' => $orderId]);
+    }
+
 
 	public function create()
 	{

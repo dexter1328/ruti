@@ -17,6 +17,16 @@ class VendorSignupMail extends Mailable
      * @var Order
      */
     public $user;
+    public $email;
+    public $name;
+    public $id;
+    public $address;
+    public $country;
+    public $state;
+    public $city;
+    public $pincode;
+    public $phone_number;
+    public $mobile_number;
 
     /**
      * Create a new message instance.

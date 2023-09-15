@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\API\w2b;
 
-use App\BestProduct;
-use App\BestSeller;
 use App\User;
 use Validator;
 use App\W2bOrder;
+use App\BestSeller;
+use App\BestProduct;
 use App\W2bCategory;
 use App\OrderedProduct;
 use App\Jobs\RutiMailJob;
@@ -14,6 +14,7 @@ use App\Mail\WbOrderMail;
 use App\Jobs\OrderMailJob;
 use Illuminate\Http\Request;
 use App\Mail\WbRutiOrderMail;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
@@ -328,44 +329,70 @@ class WholesaleProductController extends Controller
 
     public function bestProduct()
     {
-        $p1 = BestProduct::join('w2b_products', 'w2b_products.sku', '=', 'best_products.product_sku')
-        ->leftJoin('users', 'users.id', '=', 'best_products.user_id')
-        ->selectRaw('w2b_products.sku as product_sku,
-            w2b_products.title as product_title,
-            COALESCE(users.first_name, "not defined") as user_fname,
-            COALESCE(users.last_name, "not defined") as user_lname,
-            COALESCE(users.mobile, "not defined") as user_phone,
-            COALESCE(users.email, "not defined") as user_email');
 
-        $p2 = BestProduct::join('products', 'products.sku', '=', 'best_products.product_sku')
+            $best_products = BestProduct::join('products', 'products.sku', '=', 'best_products.product_sku')
         ->leftJoin('users', 'users.id', '=', 'best_products.user_id')
         ->selectRaw('products.sku as product_sku,
                 products.title as product_title,
                 COALESCE(users.first_name, "not defined") as user_fname,
                 COALESCE(users.last_name, "not defined") as user_lname,
                 COALESCE(users.mobile, "not defined") as user_phone,
-                COALESCE(users.email, "not defined") as user_email');
-
-        $best_products = $p1->union($p2)->get();
+                COALESCE(users.email, "not defined") as user_email')
+                ->get();
 
 
 
         return $this->sendResponse(['best_products' => $best_products], 'best_products_list.');
     }
 
+    public function bestProductId($productSku)
+    {
+        $today = Carbon::today(); // Get today's date
+
+        $b_product = BestProduct::join('products', 'products.sku', '=', 'best_products.product_sku')
+        ->selectRaw('best_products.*, products.title as product_title, products.original_image_url as product_image,
+        (SELECT COUNT(*) FROM best_products WHERE product_sku = ?) AS total_vote_count,
+        (SELECT COUNT(*) FROM best_products WHERE product_sku = ? AND DATE(created_at) = ?) AS today_vote_count',
+        [$productSku, $productSku, $today])
+        ->where('best_products.product_sku', $productSku)
+        ->first();
+
+        return $this->sendResponse(['best_Product' => $b_product], 'best_Product.');
+
+    }
+
+
+
     public function bestSeller()
     {
         $best_sellers = BestSeller::join('vendors', 'vendors.id', '=', 'best_sellers.vendor_id')
-            ->leftJoin('users', 'users.id', '=', 'best_sellers.user_id')
-            ->selectRaw('vendors.name as vendor_name, vendors.mobile_number as vendor_phone,
-                COALESCE(users.first_name, "Not defined") as user_fname,
-                COALESCE(users.last_name, "Not defined") as user_lname,
-                COALESCE(users.mobile, "Not defined") as user_phone,
-                COALESCE(users.email, "Not defined") as user_email')
-            ->get();
+        ->leftJoin('users', 'users.id', '=', 'best_sellers.user_id')
+        ->selectRaw('best_sellers.user_id as user_id,vendors.id as vendor_id, vendors.name as vendor_name, vendors.mobile_number as vendor_phone,
+            COALESCE(users.first_name, "Not defined") as user_fname,
+            COALESCE(users.last_name, "Not defined") as user_lname,
+            COALESCE(users.mobile, "Not defined") as user_phone,
+            COALESCE(users.email, "Not defined") as user_email')
+        ->get();
+
 
 
         return $this->sendResponse(['best_sellers' => $best_sellers], 'best_sellers_list.');
+    }
+
+    public function bestSellerId($vendorId)
+    {
+        $today = Carbon::today(); // Get today's date
+
+        $b_seller = BestSeller::join('vendors', 'vendors.id', '=', 'best_sellers.vendor_id')
+        ->selectRaw('best_sellers.*, vendors.name as vendor_name, vendors.image as vendor_image,
+        (SELECT COUNT(*) FROM best_sellers WHERE vendor_id = ?) AS total_vote_count,
+        (SELECT COUNT(*) FROM best_sellers WHERE vendor_id = ? AND DATE(created_at) = ?) AS today_vote_count',
+        [$vendorId, $vendorId, $today])
+        ->where('best_sellers.vendor_id', $vendorId)
+        ->first();
+
+        return $this->sendResponse(['best_seller' => $b_seller], 'best_seller.');
+
     }
 
 }

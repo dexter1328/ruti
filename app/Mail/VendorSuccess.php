@@ -17,6 +17,9 @@ class VendorSuccess extends Mailable
      * @var Order
      */
     public $user;
+    public $email;
+    public $password;
+    public $vendor_name;
 
     /**
      * Create a new message instance.

@@ -45,6 +45,8 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <a href="{{url('/')}}" style="background-color:#ee7322;color:#fff !important;" class="btn btn-block">Home</a>
+
         </form>
     </div>
 </div>

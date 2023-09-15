@@ -12,36 +12,40 @@ class SupplierSuccess extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $email;
-    private $password;
-    private $name;
-    private $template;
-    private $emailParams = [];
+    public $user;
+    public $email;
+    public $password;
+    public $vendor_name;
 
-
-    public function __construct($email, $name)
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
+    public function __construct($email,$password,$vendor_name)
     {
         $this->email = $email;
-        $this->name = $name;
-        $this->template = EmailTemplate::where('template', 'supplier-signup')->first();
-        $this->emailParams['{supplier_name}'] = $name;
-        $this->emailParams['{supplier_email}'] = $email;
+        $this->password = $password;
+        $this->vendor_name = $vendor_name;
+
     }
 
-
-
-
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
     public function build()
     {
-        $messageBody = str_replace(
-            array_keys($this->emailParams),
-            array_values($this->emailParams),
-            $this->template->body
-        );
+       // print_r($user);die();
 
-        return $this->subject($this->template->subject)
-            ->view('admin.suppliers.supplier_success', [
-                'messageBody' => $messageBody
+        // return $this->view('/admin/service_provider/background_check')->with([
+        //         'id' => $this->id
+        //     ]);
+        return $this->subject('Nature Checkout: Welcome to Nature Checkout')->view('admin.suppliers.supplier_success')->with([
+                'email' => $this->email,
+                'password' => $this->password,
+                'name' => $this->vendor_name
             ]);
     }
 }
