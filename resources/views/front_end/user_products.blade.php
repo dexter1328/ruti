@@ -70,6 +70,9 @@
                             </div>
                             <div class='main_button w-50'>
                                 {{-- <button class='order_details_button border boder-rounded yellow_btn'>Track Package</button> --}}
+                                <button type="button" class="mt-1 order_details_button border boder-rounded" data-toggle="modal" data-target="#exampleModalCenter">
+                                    Tracking Information
+                                </button>
                                 <button type="button" onclick="window.location='{{ route('gift-receipt',$order->order_id) }}'" class='mt-1 order_details_button border boder-rounded'>Share gift receipt</button>
                                 <button class='mt-1 order_details_button border boder-rounded' onclick="window.location='{{ route('return-item', ['sku' => $order->sku, 'order_id' => $order->order_id, 'user_id' => $order->p_user_id]) }}'">Return or Replace Items</button>
                                 <button type="button" onclick="window.location='{{ route('product-detail',['slug' => $order->slug, 'sku' => $order->sku]) }}#reviews'" class='mt-1 order_details_button border boder-rounded'>Write a product review</button>
@@ -91,6 +94,31 @@
         </div>
     </div>
 </section>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLongTitle">Tracking Information</h3>
+    </div>
+    <div class="modal-body">
+        <table>
+            <tr>
+                <th class="p-2"><h4>Tracking Number: </h4></th>
+                <td class="p-2"><h4>09834</h4></td>
+            </tr>
+            <tr>
+                <th class="p-2"><h4>Tracking Url: </h4></th>
+                <td class="p-2"><h4 class="text-primary text-lowercase"><a href="">https://helloworld.com</a></h4></td>
+            </tr>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary cart_btn" data-dismiss="modal">Close</button>
+    </div>
+    </div>
+</div>
+</div>
 <!-- my account end   -->
 
 
