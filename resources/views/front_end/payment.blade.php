@@ -189,9 +189,16 @@
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-lg-12 order_button text-center">
-                                                    <button type="submit" class="">
-                                                      Click to Pay
-                                                    </button>
+                                                    @if (Auth::guard('w2bcustomer')->user()->wallet_amount < $tp)
+                                                    <button type="button" class="">
+                                                        You Don't have enough balance to pay
+                                                      </button>
+                                                      @else
+                                                      <button type="submit" class="">
+                                                        Click to Pay
+                                                      </button>
+                                                    @endif
+
                                                 </div>
                                             </div>
                                       </div>

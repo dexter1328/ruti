@@ -470,6 +470,7 @@ Route::group(['middleware' => array('supplierChecklist')], function () {
         Route::get('receive-wallet', 'Supplier\SupplierController@receiveWallet')->name('supplier.receive.wallet');
         Route::get('withdraw-wallet', 'Supplier\SupplierController@withdrawWallet')->name('supplier.withdraw.wallet');
         Route::post('withdraw-to-bank', 'Supplier\SupplierController@withdrawToBank')->name('withdraw-to-bank');
+        Route::get('withdraw-thank-you', 'Supplier\SupplierController@withdrawThankYou')->name('withdraw-thank-you');
         Route::post('add-to-supplier-wallet', 'Supplier\SupplierController@addToWallet')->name('add-to-supplier-wallet');
         Route::post('/supplier-wallet-payment/{amount}', 'Supplier\SupplierController@supplierWalletPayment')->name('supplier-wallet-payment');
 
@@ -646,6 +647,7 @@ Route::group(['prefix' => 'vendor'], function () {
         Route::get('receive-wallet', 'Vendor\VendorController@receiveWallet')->name('vendor.receive.wallet');
         Route::get('withdraw-wallet', 'Vendor\VendorController@withdrawWallet')->name('vendor.withdraw.wallet');
         Route::post('withdraw-to-bank', 'Vendor\VendorController@withdrawToBank')->name('vendor.withdraw-to-bank');
+        Route::get('withdraw-thank-you', 'Vendor\VendorController@withdrawThankYou')->name('vendor.withdraw-thank-you');
         Route::post('add-to-vendor-wallet', 'Vendor\VendorController@addToWallet')->name('add-to-vendor-wallet');
         Route::post('/vendor-wallet-payment/{amount}', 'Vendor\VendorController@vendorWalletPayment')->name('vendor-wallet-payment');
 

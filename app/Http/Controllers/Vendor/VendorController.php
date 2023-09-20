@@ -31,6 +31,7 @@ use App\SellerProduct;
 use App\CustomerWallet;
 use App\ProductVariants;
 use App\WithdrawRequest;
+use App\marketplaceOrder;
 use App\MembershipCoupon;
 use App\VendorPaidModule;
 use App\Mail\WithdrawMail;
@@ -40,11 +41,14 @@ use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\StoreSubscriptionTemp;
 use App\VendorStorePermission;
+use App\Mail\AdminWithdrawMail;
 use Stripe\Exception\CardException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Helpers\LogActivity as Helper;
-use App\marketplaceOrder;
+use App\Mail\SupplierMarketplaceOrderMail;
+use App\Mail\VendorMarketplaceOrderMail;
+use Illuminate\Support\Facades\Config;
 use Stripe\Exception\ApiErrorException;
 use Stripe\Exception\RateLimitException;
 use Stripe\Exception\ApiConnectionException;
@@ -2098,22 +2102,23 @@ class VendorController extends Controller
     {
         # code...
 
-        $supplier = Auth::user();
+        $vendor = Auth::user();
 
-        return view('vendor.settings.withdraw_funds', compact('supplier'));
+        return view('vendor.settings.withdraw_funds', compact('vendor'));
     }
     public function withdrawToBank(Request $request)
     {
-        // dd($request->all());
+        //  dd($request->all());
         $uid = Auth::user()->id;
-        $supplier = Vendor::where('id', $uid)->first();
-        if ($supplier->wallet_amount < $request->amount) {
+        $vendor = Vendor::where('id', $uid)->first();
+        if ($vendor->wallet_amount < $request->amount) {
             return redirect()->back()->with('error', 'Your balance is not enough');
         }
         else {
 
-            $debit = $supplier->wallet_amount - $request->amount;
-            $supplier->update([
+            $debit = $vendor->wallet_amount - $request->amount;
+            // dd($debit);
+            $vendor->update([
                 'wallet_amount' => $debit
             ]);
         }
@@ -2127,14 +2132,28 @@ class VendorController extends Controller
             'amount' => $request->amount
         ]);
         $contact_data = [
-            'fullname' => $request->account_title,
+
+            'name' => $vendor->name,
+            'email' => $vendor->email,
+            'account_title' => $request->account_title,
             'account_no' => $request->account_no,
+            'bank_name' => $request->bank_name,
+            'routing_number' => $request->routing_number,
             'amount' => $request->amount
         ];
-        Mail::to('ahmad.nab331@gmail.com')->send(new WithdrawMail($contact_data));
 
-        return redirect()->back()->with('success', 'You will get payment soon');
+        Mail::to($vendor->email)->send(new WithdrawMail($contact_data));
 
+        $admin_email = Config::get('app.admin_email');
+        Mail::to($admin_email)->send(new AdminWithdrawMail($contact_data));
+
+        return redirect()->route('vendor.withdraw-thank-you');
+
+    }
+
+    public function withdrawThankYou()
+    {
+        return view('vendor.settings.withdraw_thank_you');
     }
 
     public function vendorWalletPayment(Request $request, $amount)
@@ -2525,12 +2544,13 @@ foreach ($selectedProducts as $productId) {
 
 
                 $newProduct1 = Products::where('sku',$productId)->first();
+                $sup =  Vendor::where('id', $newProduct1->vendor_id)->first();
 
                 // Store the selected product and quantity in the seller's products table
                 $total_price = $wholesale2 * $quantity2;
                 $nature_total_fee = $nature_fee2 * $quantity2;
                 $supplier_total_price = $total_price - $nature_total_fee;
-                marketplaceOrder::create([
+                $mpOrder = marketplaceOrder::create([
                     'order_id' => $order_id,
                     'vendor_id' => $vendorId,
                     'supplier_id' => $newProduct1->vendor_id,
@@ -2577,7 +2597,24 @@ foreach ($selectedProducts as $productId) {
                         ]);
                     }
                 }
+
+
+
+                $details2 = [
+                    'order_no' => $order_id
+
+                ];
+                Mail::to($sup->email)->send(new SupplierMarketplaceOrderMail($details2));
             }
+            $grand_total = marketplaceOrder::where('order_id', $order_id)
+                ->sum('total_price');
+                $details = [
+                    'order_no' => $order_id,
+                    'total_price' => $grand_total
+                ];
+                Mail::to($user->email)->send(new VendorMarketplaceOrderMail($details));
+
+
             session()->forget('input_q');
             session()->forget('input_r');
             session()->forget('input_w');
@@ -2672,6 +2709,12 @@ foreach ($selectedProducts as $productId) {
                     }
                 }
             }
+            $contact_data = [
+                'fullname' => $request->account_title,
+                'account_no' => $request->account_no,
+                'amount' => $request->amount
+            ];
+            Mail::to('ahmad.nab331@gmail.com')->send(new WithdrawMail($contact_data));
             session()->forget('input_q');
             session()->forget('input_r');
             session()->forget('input_w');

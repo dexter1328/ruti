@@ -7,19 +7,21 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class WithdrawMail extends Mailable
+class SellerAddWalletMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $contact_data;
+
+    public $details;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($contact_data)
+    public function __construct($details)
     {
         //
-        $this->contact_data = $contact_data;
+        $this->details = $details;
     }
 
     /**
@@ -29,7 +31,8 @@ class WithdrawMail extends Mailable
      */
     public function build()
     {
+        // return $this->view('view.name');
         return $this->subject('Nature Checkout')
-                    ->view('email.withdraw.withdraw_request');
+                    ->view('email.wallet.add_to_wallet');
     }
 }

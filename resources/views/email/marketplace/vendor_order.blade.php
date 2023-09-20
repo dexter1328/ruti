@@ -4,8 +4,7 @@
     <title>Nature Checkout</title>
 </head>
 
-
-<!-- Withdraw funds mail to seller starts -->
+<!-- Marketplace order completion to vendor starts -->
  <body>
     <div
       style="
@@ -30,24 +29,22 @@
               />
             </td>
           </tr>
-          <tr style="text-align: center;">
-            <td><h2>Withdrawal of Money From Wallet</h2></td>
-          </tr>
           <tr>
             <td colspan="2" style="color: #e96725">
-              Dear, <span>Seller/Supplier</span>
+              Dear, <span>Seller</span>
             </td>
           </tr>
-          <tr>
-            <td colspan="2">
-              <h3>We have received your request of money withdrawal. you will soon receive the money in your bank account</h3>
-            </td>
+          <tr style="text-align: center;">
+            <td><h2>Your Order has been placed</h2></td>
+          </tr>
+          <tr style="">
+            <td><p>We are writing this mail to you to confirm that your order on Nature Checkout marketplace has been placed.</p></td>
           </tr>
           <tr style="background-color: #efefef">
             <td colspan="2">
               <div>
-                <div>Account Title: <b>{{ $contact_data['account_title'] }}</b></div>
-                <div>Bank Name: <b>{{ $contact_data['bank_name'] }}</b></div>
+                <div>Order No: <b>{{ $details['order_no'] }}</b></div>
+                <div>Total Price: <b>${{ $details['total_price'] }}</b></div>
               </div>
             </td>
           </tr>
@@ -57,7 +54,7 @@
               style="border-bottom: 1px solid black; padding: 20px 0;"
             >
               <div>
-                We hope to see you sell again soon. <br />
+                We hope to see you again soon. <br />
                 <a
                   href="https://naturecheckout.com/"
                   style="color: black; text-decoration: none; font-weight: bold"
@@ -70,8 +67,7 @@
       </table>
     </div>
   </body>
-<!-- Withdraw funds mail to seller ends -->
-
+<!-- Marketplace order completion to vendor ends -->
 
 
 </html>

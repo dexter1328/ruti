@@ -23,7 +23,7 @@
                         @endif
                     <div class="i_balance_div justify-content-between">
                         <h4 class="i_funds_heading mb-3 p-2">Your Balance: </h4>
-                        <h4 class="i_funds_heading mb-3 p-2">${{$supplier->wallet_amount}} </h4>
+                        <h4 class="i_funds_heading mb-3 p-2">${{$vendor->wallet_amount}} </h4>
                     </div>
                     <h5 class="i_text_color my-3">Bank Details:</h5>
                     <div>

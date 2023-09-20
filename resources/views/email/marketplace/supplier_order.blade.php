@@ -5,7 +5,7 @@
 </head>
 
 
-<!-- Withdraw funds mail to seller starts -->
+<!-- Marketplace order completion to supplier starts -->
  <body>
     <div
       style="
@@ -30,24 +30,26 @@
               />
             </td>
           </tr>
-          <tr style="text-align: center;">
-            <td><h2>Withdrawal of Money From Wallet</h2></td>
-          </tr>
           <tr>
             <td colspan="2" style="color: #e96725">
-              Dear, <span>Seller/Supplier</span>
+              Dear, <span>Supplier</span>
             </td>
           </tr>
-          <tr>
-            <td colspan="2">
-              <h3>We have received your request of money withdrawal. you will soon receive the money in your bank account</h3>
-            </td>
+          <tr style="text-align: center;">
+            <td><h2>You just received an order</h2></td>
+          </tr>
+          <tr style="">
+            <td><p>We are writing this mail to you to confirm that you have received order on marketplace.</p></td>
           </tr>
           <tr style="background-color: #efefef">
             <td colspan="2">
               <div>
-                <div>Account Title: <b>{{ $contact_data['account_title'] }}</b></div>
-                <div>Bank Name: <b>{{ $contact_data['bank_name'] }}</b></div>
+                <div>Order No: <b>{{ $details['order_no'] }}</b></div>
+                {{-- <div>Seller Name: <b>{{ $details['order_no'] }}</b></div>
+                <div>Seller Address: <b>{{ $details['order_no'] }}</b></div>
+                <div>City: <b>{{ $details['order_no'] }}</b></div>
+                <div>State: <b>{{ $details['order_no'] }}</b></div>
+                <div>Zip Code: <b>{{ $details['order_no'] }}</b></div> --}}
               </div>
             </td>
           </tr>
@@ -70,8 +72,7 @@
       </table>
     </div>
   </body>
-<!-- Withdraw funds mail to seller ends -->
-
+<!-- Marketplace order completion to supplier ends -->
 
 
 </html>

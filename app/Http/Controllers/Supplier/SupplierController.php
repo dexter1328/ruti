@@ -25,12 +25,14 @@ use Stripe\StripeClient;
 use Stripe\Subscription;
 use App\MembershipCoupon;
 use Illuminate\View\View;
+use App\Mail\WithdrawMail;
 use App\StoreSubscription;
 use App\Traits\Permission;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\StoreSubscriptionTemp;
 use App\VendorStorePermission;
+use App\Mail\AdminWithdrawMail;
 use App\SupplierSubscriptionTemp;
 use Illuminate\Support\Facades\DB;
 use Stripe\Exception\CardException;
@@ -39,6 +41,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Helpers\LogActivity as Helper;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Config;
 use Stripe\Exception\ApiErrorException;
 use Stripe\Exception\RateLimitException;
 use Illuminate\Support\Facades\Validator;
@@ -1641,14 +1644,28 @@ class SupplierController extends Controller
             'amount' => $request->amount
         ]);
         $contact_data = [
-            'fullname' => $request->account_title,
+
+            'name' => $supplier->name,
+            'email' => $supplier->email,
+            'account_title' => $request->account_title,
             'account_no' => $request->account_no,
+            'bank_name' => $request->bank_name,
+            'routing_number' => $request->routing_number,
             'amount' => $request->amount
         ];
-        Mail::to('ahmad.nab331@gmail.com')->send(new WithdrawMail($contact_data));
 
-        return redirect()->back()->with('success', 'You will get payment soon');
+        Mail::to($supplier->email)->send(new WithdrawMail($contact_data));
 
+        $admin_email = Config::get('app.admin_email');
+        Mail::to($admin_email)->send(new AdminWithdrawMail($contact_data));
+
+        return redirect()->route('withdraw-thank-you');
+
+    }
+
+    public function withdrawThankYou()
+    {
+        return view('supplier.settings.withdraw_thank_you');
     }
 
     public function supplierWalletPayment(Request $request, $amount)

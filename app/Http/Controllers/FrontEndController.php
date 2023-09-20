@@ -48,7 +48,9 @@ use PayPal\Api\PaymentExecution;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use App\Jobs\OrderMailToSupplierJob;
+use App\Mail\SellerOrderMail;
 use App\Products;
+use App\Vendor;
 use Illuminate\Support\Facades\Auth;
 use PayPal\Auth\OAuthTokenCredential;
 use Illuminate\Support\Facades\Redirect;
@@ -620,6 +622,7 @@ class FrontEndController extends Controller
         $w2border = session()->get('w2border');
         $user_details = session()->get('user_details');
         $order = W2bOrder::where('id', $w2border->id)->first();
+        $order_detail = W2bOrder::where('order_id', $w2border->order_id)->first();
 
         Stripe::setApiKey($this->stripe_secret);
 
@@ -667,20 +670,71 @@ class FrontEndController extends Controller
             ]);
             $fname = ucfirst($user->first_name);
             $lname = ucfirst($user->last_name);
+
+			$state_name = DB::table('states')->where('id',$user->state)->first();
+			if(empty($state_name)){
+				$state = NULL;
+			}else{
+				$state = $state_name->name;
+			}
+			$city_name = DB::table('cities')->where('id',$user->city)->first();
+			if(empty($city_name)){
+				$city = NULL;
+			}else{
+				$city = $city_name->name;
+			}
+            if(empty($user->zip_code)){
+				$zip_code = NULL;
+			}else{
+				$zip_code = $user->zip_code;
+			}
             $details = [
-                'title' => 'Nature Checkout Order #'.$w2border->order_id,
-                'body' => 'Dear '.$fname.' '.$lname,
-                'email' => $user->email
+                'email' => $user->email,
+                'name' => $fname.' '.$lname,
+                'order_no' => $order_detail->order_id,
+                'address' => $user->address,
+                'city' => $city,
+                'state' => $state,
+                'zip_code' => $zip_code,
+                'total_price' => $order_detail->total_price
             ];
             $details2 = [
-                'title' => 'New Order Received #'.$w2border->order_id,
-                'body' => 'A new Customer named '.$fname.' '.$lname.' has created an order',
-                'email' => 'sales@naturecheckout.com'
+                'name' => $fname.' '.$lname,
+                'order_no' => $order_detail->order_id,
+                'total_price' => $order_detail->total_price
             ];
+
             // dispatch(new OrderMailJob($details))->delay(now()->addSeconds(30));
             // dispatch(new RutiMailJob($details2))->delay(now()->addSeconds(30));
             Mail::to($user_details->email)->send(new WbOrderMail($details));
-            Mail::to('ahmad.nabeel2728@gmail.com')->send(new WbRutiOrderMail($details2));
+
+            $admin_email = Config::get('app.admin_email');
+            Mail::to($admin_email)->send(new WbRutiOrderMail($details2));
+            if ($order_detail) {
+                // Check if $order_detail is not null
+
+                $orderedProducts = OrderedProduct::where('order_id', $order_detail->order_id)->get();
+
+                foreach ($orderedProducts as $product) {
+                    $seller_id = $product->vendor_id; // Assuming you have a relationship set up
+                    $seller = Vendor::where('id', $seller_id)->first();
+
+                    $details3 = [
+                        'email' => $user->email,
+                        'name' => $fname.' '.$lname,
+                        'order_no' => $order_detail->order_id,
+                        'address' => $user->address,
+                        'city' => $city,
+                        'state' => $state,
+                        'zip_code' => $zip_code
+                    ];
+
+                    // Send an email to the seller
+                    Mail::to($seller->email)->send(new SellerOrderMail($details3));
+                }
+                } else {
+                    return back();
+                }
         }
         session()->forget('cart');
         session()->forget('w2border');
@@ -844,6 +898,7 @@ class FrontEndController extends Controller
         $w2border = session()->get('w2border');
         $user_details = session()->get('user_details');
         $order = W2bOrder::where('id', $w2border->id)->first();
+        $order_detail = W2bOrder::where('order_id', $w2border->order_id)->first();
         $uid = Auth::guard('w2bcustomer')->user()->id;
         $user = User::where('id', $uid)->first();
         if ($user->wallet_amount < $amount) {
@@ -859,18 +914,71 @@ class FrontEndController extends Controller
             ]);
             $fname = ucfirst($user->first_name);
             $lname = ucfirst($user->last_name);
+            $state_name = DB::table('states')->where('id',$user->state)->first();
+			if(empty($state_name)){
+				$state = NULL;
+			}else{
+				$state = $state_name->name;
+			}
+			$city_name = DB::table('cities')->where('id',$user->city)->first();
+			if(empty($city_name)){
+				$city = NULL;
+			}else{
+				$city = $city_name->name;
+			}
+            if(empty($user->zip_code)){
+				$zip_code = NULL;
+			}else{
+				$zip_code = $user->zip_code;
+			}
             $details = [
-                'title' => 'Nature Checkout Order #'.$w2border->order_id,
-                'body' => 'Dear '.$fname.' '.$lname,
-                'email' => $user->email
+                'email' => $user->email,
+                'name' => $fname.' '.$lname,
+                'order_no' => $order_detail->order_id,
+                'address' => $user->address,
+                'city' => $city,
+                'state' => $state,
+                'zip_code' => $zip_code,
+                'total_price' => $order_detail->total_price
             ];
             $details2 = [
-                'title' => 'New Order Received #'.$w2border->order_id,
-                'body' => 'A new Customer named '.$fname.' '.$lname.' has created an order',
-                'email' => 'sales@naturecheckout.com'
+                'name' => $fname.' '.$lname,
+                'order_no' => $order_detail->order_id,
+                'total_price' => $order_detail->total_price
             ];
-            dispatch(new OrderMailJob($details))->delay(now()->addSeconds(30));
-            dispatch(new RutiMailJob($details2))->delay(now()->addSeconds(30));
+
+            // dispatch(new OrderMailJob($details))->delay(now()->addSeconds(30));
+            // dispatch(new RutiMailJob($details2))->delay(now()->addSeconds(30));
+            Mail::to($user_details->email)->send(new WbOrderMail($details));
+
+            $admin_email = Config::get('app.admin_email');
+            Mail::to($admin_email)->send(new WbRutiOrderMail($details2));
+            if ($order_detail) {
+                // Check if $order_detail is not null
+
+                $orderedProducts = OrderedProduct::where('order_id', $order_detail->order_id)->get();
+
+                foreach ($orderedProducts as $product) {
+                    $seller_id = $product->vendor_id; // Assuming you have a relationship set up
+                    $seller = Vendor::where('id', $seller_id)->first();
+
+                    $details3 = [
+                        'email' => $user->email,
+                        'name' => $fname.' '.$lname,
+                        'order_no' => $order_detail->order_id,
+                        'address' => $user->address,
+                        'city' => $city,
+                        'state' => $state,
+                        'zip_code' => $zip_code
+                    ];
+
+                    // Send an email to the seller
+                    Mail::to($seller->email)->send(new SellerOrderMail($details3));
+                }
+                } else {
+                    return back();
+                }
+
             session()->forget('cart');
             session()->forget('w2border');
             session()->forget('user_details');

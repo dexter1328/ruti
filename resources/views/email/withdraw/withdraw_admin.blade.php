@@ -5,7 +5,7 @@
 </head>
 
 
-<!-- Withdraw funds mail to seller starts -->
+<!-- Withdraw funds mail to admin starts -->
  <body>
     <div
       style="
@@ -31,23 +31,27 @@
             </td>
           </tr>
           <tr style="text-align: center;">
-            <td><h2>Withdrawal of Money From Wallet</h2></td>
+            <td><h2>Someone just made a withdrawal request</h2></td>
           </tr>
           <tr>
             <td colspan="2" style="color: #e96725">
-              Dear, <span>Seller/Supplier</span>
+              Dear, <span>Nature Checkout Admin</span>
             </td>
           </tr>
           <tr>
             <td colspan="2">
-              <h3>We have received your request of money withdrawal. you will soon receive the money in your bank account</h3>
+              <h3>We have received the request of money withdrawal.</h3>
             </td>
           </tr>
           <tr style="background-color: #efefef">
             <td colspan="2">
               <div>
-                <div>Account Title: <b>{{ $contact_data['account_title'] }}</b></div>
+                <div>Seller/Supplier Name: <b>{{ $contact_data['name'] }}</b></div>
+                <div>Seller/Supplier Email: <b>{{ $contact_data['email'] }}</b></div>
                 <div>Bank Name: <b>{{ $contact_data['bank_name'] }}</b></div>
+                <div>Account No: <b>{{ $contact_data['account_no'] }}</b></div>
+                <div>Account Title: <b>{{ $contact_data['account_title'] }}</b></div>
+                <div>Routing No: <b>{{ $contact_data['routing_number'] }}</b></div>
               </div>
             </td>
           </tr>
@@ -70,7 +74,7 @@
       </table>
     </div>
   </body>
-<!-- Withdraw funds mail to seller ends -->
+<!-- Withdraw funds mail to admin ends -->
 
 
 
