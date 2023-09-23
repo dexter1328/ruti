@@ -91,6 +91,19 @@ class ProductsController extends Controller
             'stock' => 'required',
             'image' => 'required',
         ]);
+        $keywordsString = $request->input('meta_keywords');
+
+        // Split the keywords into an array
+        $keywordsArray = preg_split('/\r\n|[\r\n]/', $keywordsString, -1, PREG_SPLIT_NO_EMPTY);
+
+        // Trim whitespace from each keyword
+        $keywordsArray = array_map('trim', $keywordsArray);
+
+        // Remove duplicate keywords if needed
+        $keywordsArray = array_unique($keywordsArray);
+
+        // Implode the keywords into a comma-separated string
+        $finalKeywordsString = implode(', ', $keywordsArray);
 
         $category = W2bCategory::find($request->input('w2b_category_1'));
 
@@ -105,6 +118,7 @@ class ProductsController extends Controller
         $product->sku = $request->input('sku');
         $product->in_stock = 'Y';
         $product->stock = $request->input('stock');
+        $product->meta_keywords = $finalKeywordsString;
 
 
 

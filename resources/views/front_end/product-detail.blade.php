@@ -450,3 +450,7 @@
     });
     </script>
 @endsection
+
+
+@section('title', $product->meta_title)
+@section('description', $product->meta_title)
