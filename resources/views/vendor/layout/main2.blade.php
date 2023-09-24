@@ -4,11 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nature Vendor Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('public/panel/style.css') }}">
   </head>
   <body>
     <div class="main_body">
+        <button class="chat_btn">
+            <a href=""><i class="fa fa-comments-o"></i></a>
+        </button>
         <div class="top_header row">
             <h2 class="col-lg-6 col-md-12 page_heading d-flex blue_color ps-4 align-items-center">Vendor Portal</h2>
             <div class="col-lg-6 col-md-12 top_header_div justify-content-around align-items-center">
