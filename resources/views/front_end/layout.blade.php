@@ -585,7 +585,9 @@
             </div>
         </header>
         <!--header area end-->
-
+        <button class="chat_btn">
+            <a href=""><i class="fa fa-comments-o"></i></a>
+        </button>
         <button onclick="topFunction()" id="myTopBtn" title="Go to top"><i class="fa fa-chevron-up"></i></button>
 <div class="clearfix"></div>
 	<div class="content-wrapper">
