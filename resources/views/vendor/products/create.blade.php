@@ -107,6 +107,14 @@ ul.category-tabs li.tabs {
                                                     @if ($errors->has('title')) <span class="text-danger">{{ $errors->first('title') }}</span> @endif
                                                 </div>
                                             </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                    <label for="meta_keywords">keywords<span class="text-danger">*</span></label>
+                                                    <input type="text"  class="form-control"  placeholder="Enter tags" id="new_keyword">
+                                                    <div id="keyword_list"></div>
+                                                    <input type="hidden" name="meta_keywords" id="meta_keywords_hidden">
+                                                </div>
+                                            </div>
 
 
                                             <div class="form-group row">
@@ -210,6 +218,27 @@ ul.category-tabs li.tabs {
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        var keywords = [];
+
+        $('#new_keyword').keypress(function(e) {
+            if (e.which === 13) { // Enter key pressed
+                var keyword = $(this).val().trim();
+                if (keyword !== '') {
+                    keywords.push(keyword);
+                    $('#keyword_list').append('<div>' + keyword + '</div>');
+                    $(this).val(''); // Clear the input field
+                }
+            }
+        });
+
+        $('form').submit(function() {
+            $('#meta_keywords_hidden').val(keywords.join(', '));
+        });
+    });
+</script>
 <script>
     // var attribute_set_length = 0;
 var store_id = "{{old('store')}}";

@@ -17,6 +17,8 @@ use App\Mail\WbRutiOrderMail;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\W2bProduct;
+use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 use Illuminate\Support\Facades\Mail;
 
 class WholesaleProductController extends Controller
@@ -48,13 +50,19 @@ class WholesaleProductController extends Controller
     }
     public function index()
 	{
-        $products = DB::table('w2b_products')->paginate(15);
-        return $this->sendResponse(['Wholesale2b' => $products], 'Wholesale2b_Products_list.');
+        $products = W2bProduct::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'large_image_url_250x250')
+                    ->take(3000)
+                    ->inRandomOrder()
+                    ->limit(3000)
+                    ->paginate(18);
+
+        return $this->sendResponse(['All_Products' => $products], 'Get_All_Products.');
     }
+
     public function categories()
 	{
         $categories = W2bCategory::with('childrens')->get();
-        return $this->sendResponse(['Wholesale2b_Categories' => $categories], 'Wholesale2b_Categories_list.');
+        return $this->sendResponse(['Get_Categories' => $categories], 'Get_All_Categories_list.');
     }
 
     public function get_products($cat_name)

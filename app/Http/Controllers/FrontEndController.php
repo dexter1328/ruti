@@ -159,9 +159,9 @@ class FrontEndController extends Controller
         $product5 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(10)->first();
         $product6 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(120)->first();
         $product7 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(14)->first();
-        $product8 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(180)->first();
+        $product8 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(131)->first();
         $product9 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(20)->first();
-        $product10 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(250)->first();
+        $product10 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(132)->first();
 
 
 

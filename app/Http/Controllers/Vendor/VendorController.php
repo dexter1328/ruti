@@ -54,6 +54,9 @@ use Stripe\Exception\RateLimitException;
 use Stripe\Exception\ApiConnectionException;
 use Stripe\Exception\AuthenticationException;
 use Stripe\Exception\InvalidRequestException;
+use Stripe\Payout;
+use Stripe\Token;
+use Stripe\Transfer;
 
 class VendorController extends Controller
 {
@@ -2108,6 +2111,37 @@ class VendorController extends Controller
     }
     public function withdrawToBank(Request $request)
     {
+        // $request->validate([
+        //     'routing_number' => [
+        //         'required',
+        //         'regex:/^\d{9}$/',
+        //         // Add any additional validation rules for the routing number.
+        //     ],
+        //     'account_no' => [
+        //         'required',
+        //         'regex:/^\d{6,17}$/',
+        //         // Add any additional validation rules for the account number.
+        //     ],
+        // ]);
+        Stripe::setApiKey($this->stripe_secret);
+        // $token = Token::create([
+        //     'bank_account' => [
+        //         'country' => 'US',            // Replace with the appropriate country code
+        //         'currency' => 'usd',
+        //         'account_holder_name' => 'Test User',
+        //         'account_holder_type' => 'individual',
+        //         'routing_number' => '110000000', // Use a valid routing number
+        //         'account_number' => '000123456789', // Use a valid account number
+        //     ],
+        // ]);
+        // dd($token);
+        // $bankAccountToken = $token->id;
+        $payout = Transfer::create([
+            'amount' => 20,
+            'currency' => 'usd', // Change to your desired currency
+            'destination' => 'acct_1NtEpW4fazg3JJUP'
+        ]);
+        dd($payout);
         //  dd($request->all());
         $uid = Auth::user()->id;
         $vendor = Vendor::where('id', $uid)->first();
@@ -2141,6 +2175,7 @@ class VendorController extends Controller
             'routing_number' => $request->routing_number,
             'amount' => $request->amount
         ];
+
 
         Mail::to($vendor->email)->send(new WithdrawMail($contact_data));
 
