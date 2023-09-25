@@ -5,7 +5,7 @@
 
 <div class="blog_main_div">
     <div class="blog_banner w-100 d-flex justify-content-end p-3">
-        <h2 class="align-self-center">Nature Checkout Blog Section</h2>
+        <h2 class="align-self-center">Nature Checkout Blog</h2>
     </div>
     <div class="row mx-0">
         <div class="blog_cards col-lg-8 col-md-7 p-4">
