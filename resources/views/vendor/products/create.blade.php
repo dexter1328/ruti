@@ -79,6 +79,28 @@ ul.category-tabs li.tabs {
     border: 1px solid #ddd;
     background-color:#efefef;padding: 10px;
 }
+#keyword_list > div {
+        margin-top: 5px;
+        margin-right: 10px; /* Adjust the spacing as needed */
+    }
+    #keyword_list {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    #keyword_list > div {
+        background-color: #007bff;
+        color: #fff;
+        padding: 5px 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #keyword_list > div:hover {
+        background-color: #0056b3;
+    }
 </style>
 
 <div class="row">
@@ -109,10 +131,22 @@ ul.category-tabs li.tabs {
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
-                                                    <label for="meta_keywords">keywords<span class="text-danger">*</span></label>
+                                                    <label for="meta_keywords">Meta Title<span class="text-danger">*</span></label>
+                                                    <input type="text" name="meta_title" class="form-control"  placeholder="Enter Meta Title">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                    <label for="meta_keywords">Tags<span class="text-danger">*</span></label>
                                                     <input type="text"  class="form-control"  placeholder="Enter tags" id="new_keyword">
-                                                    <div id="keyword_list"></div>
+                                                    <div id="keyword_list" style="display: flex; flex-wrap: wrap;"></div>
                                                     <input type="hidden" name="meta_keywords" id="meta_keywords_hidden">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                    <label for="meta_keywords">Meta Description<span class="text-danger">*</span></label>
+                                                    <input type="text" name="meta_description" class="form-control"  placeholder="Enter Meta Description" >
                                                 </div>
                                             </div>
 

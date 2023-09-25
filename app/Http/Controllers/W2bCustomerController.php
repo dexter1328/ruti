@@ -166,16 +166,25 @@ class W2bCustomerController extends Controller
     {
 
 
-        $ordered_products = DB::table('w2b_orders')
+        $ordered_product1 = DB::table('w2b_orders')
         ->join('ordered_products', 'ordered_products.order_id', '=', 'w2b_orders.order_id')
         ->join('w2b_products', 'w2b_products.sku', '=', 'ordered_products.sku')
         ->where('w2b_orders.user_id', Auth::guard('w2bcustomer')->user()->id)
         ->where('w2b_orders.is_paid','yes')
         ->where('w2b_orders.order_id', $id)
         ->select('ordered_products.*','w2b_products.slug as slug', 'w2b_orders.order_id as p_order_id', 'w2b_orders.total_price as p_total_price',
-         'w2b_orders.created_at as p_created_at', 'w2b_orders.status as p_status', 'w2b_orders.user_id as p_user_id')
-        ->get();
+         'w2b_orders.created_at as p_created_at', 'w2b_orders.status as p_status', 'w2b_orders.user_id as p_user_id');
+
+         $ordered_product2 = DB::table('w2b_orders')
+        ->join('ordered_products', 'ordered_products.order_id', '=', 'w2b_orders.order_id')
+        ->join('products', 'products.sku', '=', 'ordered_products.sku')
+        ->where('w2b_orders.user_id', Auth::guard('w2bcustomer')->user()->id)
+        ->where('w2b_orders.is_paid','yes')
+        ->where('w2b_orders.order_id', $id)
+        ->select('ordered_products.*','products.slug as slug', 'w2b_orders.order_id as p_order_id', 'w2b_orders.total_price as p_total_price',
+         'w2b_orders.created_at as p_created_at', 'w2b_orders.status as p_status', 'w2b_orders.user_id as p_user_id');
         //  dd($ordered_products);
+        $ordered_products = $ordered_product2->union($ordered_product1)->get();
 
 
         return view('front_end.user_products',compact('ordered_products'));

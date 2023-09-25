@@ -375,8 +375,8 @@
             <article class="single_product">
                 <figure>
                     <div class="product_thumb">
-                        <a class="primary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt="{{ Str::limit($p->title, 35) }}"></a>
-                        <a class="secondary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->large_image_url_250x250}}" alt="{{ Str::limit($p->title, 35) }}"></a>
+                        <a class="primary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}"></a>
+                        <a class="secondary_img" href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}"><img src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}"></a>
                         <div class="label_product">
                             <span class="label_sale">Sale</span>
 
@@ -454,3 +454,4 @@
 
 @section('title', $product->meta_title)
 @section('description', $product->meta_title)
+@section('keywords', $product->meta_keywords)

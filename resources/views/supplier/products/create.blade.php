@@ -79,6 +79,29 @@ ul.category-tabs li.tabs {
     border: 1px solid #ddd;
     background-color:#efefef;padding: 10px;
 }
+
+#keyword_list > div {
+        margin-top: 5px;
+        margin-right: 10px; /* Adjust the spacing as needed */
+    }
+    #keyword_list {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    #keyword_list > div {
+        background-color: #007bff;
+        color: #fff;
+        padding: 5px 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #keyword_list > div:hover {
+        background-color: #0056b3;
+    }
 </style>
 @if(session()->get('success'))
 <div class="alert alert-success alert-dismissible" role="alert">
@@ -120,11 +143,33 @@ ul.category-tabs li.tabs {
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-lg-8">
+
+
                                                 <div class="form-group row">
                                                     <div class="col-sm-12">
                                                         <label>Title<span class="text-danger">*</span></label>
                                                         <input type="text" name="title" class="form-control" value="{{old('title')}}" placeholder="Enter Title">
                                                         @if ($errors->has('title')) <span class="text-danger">{{ $errors->first('title') }}</span> @endif
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12">
+                                                        <label for="meta_keywords">Meta Title<span class="text-danger">*</span></label>
+                                                        <input type="text" name="meta_title" class="form-control"  placeholder="Enter Meta Title">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12">
+                                                        <label for="meta_keywords">Tags<span class="text-danger">*</span></label>
+                                                        <input type="text"  class="form-control"  placeholder="Enter tags" id="new_keyword">
+                                                        <div id="keyword_list" style="display: flex; flex-wrap: wrap;"></div>
+                                                        <input type="hidden" name="meta_keywords" id="meta_keywords_hidden">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12">
+                                                        <label for="meta_keywords">Meta Description<span class="text-danger">*</span></label>
+                                                        <input type="text" name="meta_description" class="form-control"  placeholder="Enter Meta Description" >
                                                     </div>
                                                 </div>
 
@@ -136,6 +181,7 @@ ul.category-tabs li.tabs {
                                                         @if ($errors->has('description')) <span class="text-danger"> {{ $errors->first('description') }}</span> @endif
                                                     </div>
                                                 </div>
+
 
 
                                             </div>
@@ -236,6 +282,29 @@ ul.category-tabs li.tabs {
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        var keywords = [];
+
+        $('#new_keyword').keypress(function(e) {
+            if (e.which === 13) { // Enter key pressed
+                var keyword = $(this).val().trim();
+                if (keyword !== '') {
+                    keywords.push(keyword);
+                    $('#keyword_list').append('<div>' + keyword + '</div>');
+                    $(this).val(''); // Clear the input field
+                }
+            }
+        });
+
+        $('form').submit(function() {
+            $('#meta_keywords_hidden').val(keywords.join(', '));
+        });
+    });
+</script>
+
+
 <script>
     // var attribute_set_length = 0;
 var store_id = "{{old('store')}}";

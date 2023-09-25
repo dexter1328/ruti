@@ -1,5 +1,5 @@
 
-<div class="tab-pane fade show active" id="wallet">
+<div class="tab-pane fade show" id="wallet">
     @if(session('success'))
             <div class="container alert alert-success text-center" id="ordd">
             {{ session('success') }}

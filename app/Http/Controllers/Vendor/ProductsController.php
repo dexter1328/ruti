@@ -82,11 +82,14 @@ class ProductsController extends Controller
 
 		$request->validate([
             'title' => 'required',
+            'meta_title' => 'required',
             'description' => 'required',
+            'meta_description' => 'required',
+            'meta_keywords' => 'nullable',
             'brand' => 'nullable',
             'category' => 'nullable',
             'retail_price' => 'required',
-            'shipping_price' => 'nullable',
+            'shipping_price' => 'required',
             'sku' => 'required|unique:products,sku',
             'stock' => 'required',
             'image' => 'required',
@@ -118,6 +121,8 @@ class ProductsController extends Controller
         $product->sku = $request->input('sku');
         $product->in_stock = 'Y';
         $product->stock = $request->input('stock');
+        $product->meta_title = $request->input('meta_title');
+        $product->meta_description = $request->input('meta_description');
         $product->meta_keywords = $finalKeywordsString;
 
 

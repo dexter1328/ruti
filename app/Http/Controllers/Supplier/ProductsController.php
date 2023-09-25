@@ -133,12 +133,15 @@ class ProductsController extends Controller
 
         $request->validate([
             'title' => 'required',
+            'meta_title' => 'required',
             'description' => 'required',
+            'meta_description' => 'required',
+            'meta_keywords' => 'nullable',
             'brand' => 'nullable',
             'w2b_category_1' => 'required',
             'retail_price' => 'required',
-            'wholesale_price' => 'nullable',
-            'shipping_price' => 'nullable',
+            'wholesale_price' => 'required',
+            'shipping_price' => 'required',
             "sku" => [
                 "regex:/^[a-zA-Z0-9]+$/",
                 "required", "min:2","max:20","unique:products",
@@ -146,6 +149,20 @@ class ProductsController extends Controller
             'stock' => 'required',
             'image' => 'required',
         ]);
+
+        $keywordsString = $request->input('meta_keywords');
+
+        // Split the keywords into an array
+        $keywordsArray = preg_split('/\r\n|[\r\n]/', $keywordsString, -1, PREG_SPLIT_NO_EMPTY);
+
+        // Trim whitespace from each keyword
+        $keywordsArray = array_map('trim', $keywordsArray);
+
+        // Remove duplicate keywords if needed
+        $keywordsArray = array_unique($keywordsArray);
+
+        // Implode the keywords into a comma-separated string
+        $finalKeywordsString = implode(', ', $keywordsArray);
 
         $category = W2bCategory::find($request->input('w2b_category_1'));
 
@@ -162,6 +179,9 @@ class ProductsController extends Controller
         $product->sku = $request->input('sku');
         $product->in_stock = 'Y';
         $product->stock = $request->input('stock');
+        $product->meta_title = $request->input('meta_title');
+        $product->meta_description = $request->input('meta_description');
+        $product->meta_keywords = $finalKeywordsString;
         // $product->save();
 
         // $wholesale_price_range = [];

@@ -70,7 +70,14 @@
                             </div>
                             <div class='main_button w-50'>
                                 {{-- <button class='order_details_button border boder-rounded yellow_btn'>Track Package</button> --}}
-                                <button type="button" class="mt-1 order_details_button border boder-rounded" data-toggle="modal" data-target="#exampleModalCenter">
+                                <button
+                                    type="button"
+                                    class="mt-1 order_details_button border boder-rounded tracking-info-button"
+                                    data-toggle="modal"
+                                    data-target="#exampleModalCenter"
+                                    data-tracking-number="{{$order->tracking_no ? $order->tracking_no : 'Not assigned yet'}}"
+                                    data-tracking-url="{{$order->tracking_link ? $order->tracking_link : 'Not assigned yet'}}"
+                                >
                                     Tracking Information
                                 </button>
                                 <button type="button" onclick="window.location='{{ route('gift-receipt',$order->order_id) }}'" class='mt-1 order_details_button border boder-rounded'>Share gift receipt</button>
@@ -84,6 +91,33 @@
 
     </div>
 
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle">Tracking Information</h3>
+                </div>
+                <div class="modal-body">
+                    <table>
+                        <tr>
+                            <th class="p-2"><h4>Tracking Number: </h4></th>
+                            <td class="p-2"><h4 id="tracking-number"></h4></td>
+                        </tr>
+                        <tr>
+                            <th class="p-2"><h4>Tracking Url: </h4></th>
+                            <td class="p-2"><h4 class="text-primary text-lowercase" id="tracking-url"></h4></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary cart_btn" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- my account end   -->
+
+
     @endforeach
                             </div>
                         </div>
@@ -95,31 +129,6 @@
     </div>
 </section>
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-    <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLongTitle">Tracking Information</h3>
-    </div>
-    <div class="modal-body">
-        <table>
-            <tr>
-                <th class="p-2"><h4>Tracking Number: </h4></th>
-                <td class="p-2"><h4>09834</h4></td>
-            </tr>
-            <tr>
-                <th class="p-2"><h4>Tracking Url: </h4></th>
-                <td class="p-2"><h4 class="text-primary text-lowercase"><a href="">https://helloworld.com</a></h4></td>
-            </tr>
-        </table>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary cart_btn" data-dismiss="modal">Close</button>
-    </div>
-    </div>
-</div>
-</div>
-<!-- my account end   -->
 
 
 @endsection
@@ -127,12 +136,16 @@
 
 @section('scriptss')
 
-{{-- <script>
-    function reviewFunction(){
+<script>
+    $(document).ready(function() {
+        $('.tracking-info-button').click(function() {
+            var trackingNumber = $(this).data('tracking-number');
+            var trackingUrl = $(this).data('tracking-url');
 
-        $("#review12").removeClass('d-none');
-
-    }
-    </script> --}}
+            $('#tracking-number').text(trackingNumber);
+            $('#tracking-url').html('<a href="' + trackingUrl + '">' + trackingUrl + '</a>');
+        });
+    });
+</script>
 
 @endsection
