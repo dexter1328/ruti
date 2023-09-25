@@ -21,6 +21,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Mail\ProductReviewMail;
+use Illuminate\Support\Facades\Mail;
 
 class OrdersController extends Controller
 {
@@ -48,7 +50,7 @@ class OrdersController extends Controller
         ->where('ordered_products.vendor_id', Auth::user()->id)
         ->where('ordered_products.seller_type', 'vendor')
         ->groupBy('ordered_products.order_id')
-
+        ->orderBy('ordered_products.id', 'DESC')
         ->select('ordered_products.*', 'w2b_orders.is_paid as is_paid', 'users.first_name as user_name', 'users.id as user_id', DB::raw('SUM(ordered_products.total_price) as o_total_price'))
         ->get();
         // $orders = DB::table('ordered_products')
@@ -100,6 +102,39 @@ class OrdersController extends Controller
 
 		return view('vendor.orders.view_details',compact('od','order1','grand_total'));
 	}
+    public function orderStatus($orderId, $sku, $status)
+    {
+        $product = OrderedProduct::where('order_id', $orderId)
+            ->where('sku', $sku)
+            ->update(['status' => $status]);
+
+        // Check if the updated status is 'delivered'
+        if ($status === 'delivered') {
+            // Get the order details
+            $order = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
+            ->join('users', 'w2b_orders.user_id', 'users.id')
+            ->join('products', 'ordered_products.sku', 'products.sku')
+            ->where('ordered_products.order_id', $orderId)
+            ->where('ordered_products.sku', $sku)
+            ->select('users.email', 'users.first_name', 'users.last_name','products.title','ordered_products.price','products.slug')
+            ->first();
+            $details = [
+                'name' => $order->first_name.' '.$order->last_name,
+                'product_title' => $order->title,
+                'product_sku' => $sku,
+                'order_no' => $orderId,
+                'price' => $order->price,
+                'slug' => $order->slug
+            ];
+
+            // Send an email to the seller
+            Mail::to($order->email)->send(new ProductReviewMail($details));
+
+            // You can also perform additional actions here if needed
+        }
+
+        return 'success';
+    }
 
     public function shippingDetails($orderId, $productSku)
     {

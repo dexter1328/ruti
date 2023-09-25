@@ -17,6 +17,7 @@ use App\Mail\WbRutiOrderMail;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Products;
 use App\W2bProduct;
 use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 use Illuminate\Support\Facades\Mail;
@@ -50,11 +51,15 @@ class WholesaleProductController extends Controller
     }
     public function index()
 	{
-        $products = W2bProduct::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'large_image_url_250x250')
-                    ->take(3000)
+        $p1 = W2bProduct::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'original_image_url')
                     ->inRandomOrder()
-                    ->limit(3000)
-                    ->paginate(18);
+                    ->limit(3000);
+        $p2 = Products::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'original_image_url')
+                    ->inRandomOrder()
+                    ->limit(3000);
+
+        $products = $p2->union($p1)->paginate(18);
+
 
         return $this->sendResponse(['All_Products' => $products], 'Get_All_Products.');
     }
@@ -77,9 +82,19 @@ class WholesaleProductController extends Controller
     }
     public function ProductDetail($sku)
     {
-        $product = DB::table('w2b_products')
+        $p1 = DB::table('w2b_products')
         ->where('sku', $sku)
         ->first();
+
+        if ($p1 == Null) {
+            $product = Products::where('sku', $sku)->first();
+            // dd($product);
+        }
+        else {
+            $product = W2bProduct::where('sku', $sku)->first();
+            // dd($product);
+        }
+
         return $this->sendResponse(['Product_Details' => $product], 'single product details');
     }
 

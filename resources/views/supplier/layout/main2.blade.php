@@ -130,7 +130,7 @@
             </div>
         </div>
         <button class="chat_btn">
-            <a href=""><i class="fa fa-comments-o"></i></a>
+            <a href="https://helpdesk.naturecheckout.com" target="_blank"><i class="fa fa-comments-o"></i></a>
         </button>
     </div>
 

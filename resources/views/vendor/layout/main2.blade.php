@@ -11,7 +11,7 @@
   <body>
     <div class="main_body">
         <button class="chat_btn">
-            <a href=""><i class="fa fa-comments-o"></i></a>
+            <a href="https://helpdesk.naturecheckout.com" target="_blank"><i class="fa fa-comments-o"></i></a>
         </button>
         <div class="top_header row">
             <h2 class="col-lg-6 col-md-12 page_heading d-flex blue_color ps-4 align-items-center">Vendor Portal</h2>

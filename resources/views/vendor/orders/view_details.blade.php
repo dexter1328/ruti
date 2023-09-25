@@ -1,4 +1,4 @@
-@extends('supplier.layout.main')
+@extends('vendor.layout.main')
 
 @section('content')
 
@@ -29,6 +29,9 @@
                         <th class="py-2">QTY</th>
                         <th class="py-2">Price</th>
                         <th class="py-2">Tracking No</th>
+                        <th class="py-2">Current Status</th>
+                        <th class="py-2">Change Status</th>
+
                     </tr>
                     <tr class="border-bottom">
                         @foreach ($od as $o)
@@ -44,6 +47,38 @@
                         @else
                         <td><a href="{{route('vendor.orders.shipping_details',['orderId' => $o->order_id, 'productSku' => $o->sku])}}" class="btn btn-info btn-sm">Add Tracking Detail</a></td>
                         @endif
+                        <td class="py-2">{{$o->status}}</td>
+                        <td class="py-2">
+                            @if($o->status == "processing")
+                                            <select class="form-control" data-order-id="{{ $o->order_id }}" data-sku="{{ $o->sku }}" onchange="updateStatus1(this)">
+                                                <option value="processing" selected>Processing</option>
+                                                <option value="shipped">Shipped</option>
+                                                <option value="delivered">Delivered</option>
+                                                <option value="cancelled">Cancel</option>
+                                            </select>
+                                         @elseif($o->status == "shipped")
+                                            <select class="form-control" data-order-id="{{ $o->order_id }}" data-sku="{{ $o->sku }}" onchange="updateStatus1(this)">
+                                                <option value="processing" >Processing</option>
+                                                <option value="shipped" selected>Shipped</option>
+                                                <option value="delivered">Delivered</option>
+                                                <option value="cancelled">Cancel</option>
+                                            </select>
+                                        @elseif($o->status == "delivered")
+                                            <select class="form-control" data-order-id="{{ $o->order_id }}" data-sku="{{ $o->sku }}" onchange="updateStatus1(this)">
+                                                <option value="processing" >Processing</option>
+                                                <option value="shipped">Shipped</option>
+                                                <option value="delivered" selected>Delivered</option>
+                                                <option value="cancelled">Cancel</option>
+                                            </select>
+                                         @else
+                                            <select class="form-control" data-order-id="{{ $o->order_id }}" data-sku="{{ $o->sku }}" onchange="updateStatus1(this)">
+                                                <option value="processing" >Processing</option>
+                                                <option value="shipped">Shipped</option>
+                                                <option value="delivered">Delivered</option>
+                                                <option value="cancelled" selected>Cancel</option>
+                                            </select>
+                                        @endif
+                        </td>
                     </tr>
                     @endforeach
                 </table>
@@ -62,22 +97,12 @@
                         <td class="py-2">Shipping Address:</td>
                         <td class="py-2 text-end">{{$order1->user_address}}, {{$order1->city_name}}, {{$order1->state_name}}</td>
                     </tr>
-                    <tr class="border-bottom">
-                        <td class="py-2">Shipping Status:</td>
-                        <td class="py-2 text-end">Processing</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td class="py-2">Status of Process</td>
-                        <td class="py-2 text-end">Processing</td>
-                    </tr>
+
                     <tr class="border-bottom">
                         <td class="py-2">Payment</td>
                         <td class="py-2 text-end">${{$grand_total}}</td>
                     </tr>
-                    <tr class="border-bottom">
-                        <td class="py-2">Payment Process</td>
-                        <td class="py-2 text-end">Cash on Delivery</td>
-                    </tr>
+
                 </table>
             </div>
             <div class="i_my_container p-3 mt-3">
@@ -112,3 +137,21 @@
 
 
 @endsection
+
+<script>
+
+function updateStatus1(select) {
+    var orderId = $(select).data('order-id');
+    var sku = $(select).data('sku');
+    var status = $(select).val();
+
+    $.ajax({
+        url: "{{ url('/vendor/order/status/') }}/" + orderId + '/' + sku + '/' + status,
+    }).done(function(res) {
+        console.log(res);
+        location.reload();
+    });
+}
+
+</script>
+

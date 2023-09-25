@@ -31,13 +31,12 @@
 					<table id="example" class="table table-bordered">
 						<thead>
 							<tr>
-								<th>#</th>
-								<th style="width: 15%">Order No</th>
-								<th style="width: 25%">Customer Name</th>
-								<th>Order Notes</th>
-								<th>Status</th>
-								<th>Products</th>
-								<th>Actions</th>
+                                <th>#</th>
+                                <th style="width: 15%">Order No</th>
+                                <th style="width: 25%">Customer Name</th>
+                                <th>Total Price</th>
+                                <th>Is Paid</th>
+                                <th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -45,47 +44,11 @@
 
 								<tr>
 									<td>{{$loop->iteration}}</td>
-									<td>{{$order->order_id}}</td>
-									<td>{{$order->first_name}} {{$order->last_name}}</td>
-									{{-- <td>{{$order->total_price}}</td> --}}
-									<td>{{$order->order_notes}}</td>
-									<td>{{$order->status}}</td>
-									<td><a href="{{route('admin.wborderedproducts',$order->order_id)}}" class="btn btn-info">Show</a></td>
-									<td class="w-20">
-                                        @if($order->status == "processing")
-                                            <select class="form-control" onchange="updateStatus1({{$order->id}}, $(this))" >
-                                            <option value="processing" selected> processing</option>
-                                            <option value="shipped" > shipped</option>
-                                            <option value="delivered" > Delivered</option>
-                                            <option value="cancelled" > Cancel</option>
-                                            </select>
-                                         @elseif($order->status == "shipped")
-                                            <select class="form-control" onchange="updateStatus1({{$order->id}}, $(this))" >
-                                            <option value="processing" > processing</option>
-                                            <option value="shipped" selected> shipped</option>
-                                            <option value="delivered" > Delivered</option>
-                                            <option value="cancelled" > Cancel</option>
-
-                                            </select>
-                                        @elseif($order->status == "delivered")
-                                            <select class="form-control" onchange="updateStatus1({{$order->id}}, $(this))" >
-                                            <option value="processing" > processing</option>
-                                            <option value="shipped" > shipped</option>
-                                            <option value="delivered" selected> Delivered</option>
-                                            <option value="cancelled" > Cancel</option>
-
-                                            </select>
-                                         @else
-                                            <select class="form-control" onchange="updateStatus1({{$order->id}}, $(this))" >
-                                            <option value="processing" > processing</option>
-                                            <option value="shipped" > shipped</option>
-                                            <option value="delivered" > Delivered</option>
-                                            <option value="cancelled" selected> Cancel</option>
-
-                                            </select>
-
-                                        @endif
-                                    </td>
+                                    <td>{{$order->order_id}}</td>
+                                    <td>{{$order->user_name}}</td>
+                                    <td>${{$order->o_total_price}}</td>
+                                    <td>{{$order->is_paid}}</td>
+									<td><a href="{{route('admin.wborderedproducts',$order->order_id)}}" class="btn btn-info">Detail</a></td>
 
 								</tr>
                                 @endforeach
@@ -93,12 +56,11 @@
 						<tfoot>
 							<tr>
 								<th>#</th>
-								<th style="width: 15%">Order No</th>
-								<th style="width: 25%">Customer Name</th>
-								<th>Order Notes</th>
-								<th>Status</th>
-								<th>Products</th>
-								<th>Actions</th>
+                                <th style="width: 15%">Order No</th>
+                                <th style="width: 25%">Customer Name</th>
+                                <th>Total Price</th>
+                                <th>Is Paid</th>
+                                <th>Actions</th>
 							</tr>
 						</tfoot>
 					</table>

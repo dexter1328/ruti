@@ -60,7 +60,7 @@
 							@if ($errors->has('product_id'))
 								<span class="text-danger">{{ $errors->first('product_id') }}</span>
 							@endif
-						</div>	
+						</div>
 					</div>
 					<div class="form-group row">
 						<label for="input-13" class="col-sm-2 col-form-label date_time"  style="display:none;">Pickup Time</label>
@@ -82,7 +82,7 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						
+
 					</div>
 					<center>
 						<div class="form-footer">
@@ -97,7 +97,7 @@
 
 <script type="text/javascript">
   $(function() {
-   
+
     $("#type").change(function() {
 
      	var type = $(this).val();
@@ -140,4 +140,4 @@
    });
 
 </script>
-@endsection 
+@endsection

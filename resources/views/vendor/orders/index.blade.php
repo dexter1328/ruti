@@ -1,4 +1,4 @@
-@extends('supplier.layout.main')
+@extends('vendor.layout.main')
 
 @section('content')
 @if(session()->get('success'))

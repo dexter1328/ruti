@@ -586,7 +586,7 @@
         </header>
         <!--header area end-->
         <button class="chat_btn">
-            <a href=""><i class="fa fa-comments-o"></i></a>
+            <a href="https://helpdesk.naturecheckout.com" target="_blank"><i class="fa fa-comments-o"></i></a>
         </button>
         <button onclick="topFunction()" id="myTopBtn" title="Go to top"><i class="fa fa-chevron-up"></i></button>
 <div class="clearfix"></div>

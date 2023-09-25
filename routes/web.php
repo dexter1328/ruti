@@ -355,7 +355,9 @@ Route::group(['middleware' => 'sessionExpired'], function () {
     Route::resource('products', 'Admin\ProductsController')->except('show');
     Route::get('w2b_products', 'Admin\WbProductController@index')->name('admin.wbproducts');
     Route::get('w2b_products/orders', 'Admin\WbProductController@order')->name('admin.wbproducts.orders');
-    Route::get('/wborder/status/{id?}/{status?}', 'Admin\WbProductController@orderStatus')->name('admin.wborder-status-change');
+    Route::post('orders/post_shipping_details/{orderId?}/{productSku?}', 'Admin\WbProductController@postShippingDetails')->name('admin.orders.post_shipping_details');
+    Route::get('orders/shipping_details/{orderId?}/{productSku?}', 'Admin\WbProductController@shippingDetails')->name('admin.orders.shipping_details');
+    Route::get('/order/status/{orderId?}/{sku?}/{status?}', 'Admin\WbProductController@orderStatus')->name('admin.order-status-change');
     // Route::get('/wborder/shipped/{id}', 'Admin\WbProductController@shippedStatus')->name('admin.wbstatus.shipped');
     // Route::get('/wborder/status/{id}/{status?}','Admin\WbProductController@orderStatus')->name('wborder-status-change');
     Route::get('w2b_products/ordered_products/{id}', 'Admin\WbProductController@orderedProducts')->name('admin.wborderedproducts');
@@ -544,6 +546,7 @@ Route::group(['middleware' => array('supplierChecklist')], function () {
 
         Route::get('orders/shipping_details/{orderId?}/{productSku?}', 'Supplier\OrdersController@shippingDetails')->name('supplier.orders.shipping_details');
         Route::post('orders/post_shipping_details/{orderId?}/{productSku?}', 'Supplier\OrdersController@postShippingDetails')->name('supplier.orders.post_shipping_details');
+        Route::get('/order/status/{orderId?}/{sku?}/{status?}', 'Supplier\OrdersController@orderStatus')->name('supplier.order-status-change');
         Route::get('orders/view_details/{id}', 'Supplier\OrdersController@view_details')->name('supplier.orders.view_details');
         Route::get('orders/view_order/{id}', 'Supplier\OrdersController@view_order')->name('supplier.orders.view_order');
         Route::resource('order_return', 'Supplier\OrderReturnController', ['as' => 'supplier']);
@@ -721,6 +724,7 @@ Route::group(['prefix' => 'vendor'], function () {
 
         Route::get('orders/view_order/{id}', 'Vendor\OrdersController@view_order')->name('vendor.orders.view_order');
         Route::get('orders/view_detail/{id}', 'Vendor\OrdersController@view_details')->name('vendor.orders.view_details');
+        Route::get('/order/status/{orderId?}/{sku?}/{status?}', 'Vendor\OrdersController@orderStatus')->name('vendor.order-status-change');
         Route::get('orders/shipping_details/{orderId?}/{productSku?}', 'Vendor\OrdersController@shippingDetails')->name('vendor.orders.shipping_details');
         Route::post('orders/post_shipping_details/{orderId?}/{productSku?}', 'Vendor\OrdersController@postShippingDetails')->name('vendor.orders.post_shipping_details');
         Route::get('orders/inshop_order', 'Vendor\OrdersController@inshop_order')->name('vendor.orders.inshop_order');

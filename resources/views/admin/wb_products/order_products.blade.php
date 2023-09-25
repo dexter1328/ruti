@@ -1,157 +1,152 @@
 @extends('admin.layout.main')
 @section('content')
 
-@if(session()->get('success'))
-	<div class="alert alert-success alert-dismissible" role="alert">
-		<button type="button" class="close" data-dismiss="alert">×</button>
-		<div class="alert-icon">
-			<i class="fa fa-check"></i>
-		</div>
-		<div class="alert-message">
-			<span><strong>Success!</strong> {{ session()->get('success') }}</span>
-		</div>
-	</div>
+@if(session('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ session('success') }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
 @endif
-<div class="success-alert" style="display:none;"></div>
-<div class="row">
-	<div class="col-lg-12">
-		<div class="card">
-			<div class="card-header">
-				<div class="left"><!-- <i class="fa fa-group"></i> --><span>Ordered Products</span></div>
-				<div class="float-sm-right">
-					@php /* @endphp
-					<a style="padding-bottom: 3px; padding-top: 4px;" href="{{ route('membership.create', $type) }}" class="btn btn-outline-primary btn-sm waves-effect waves-light m-1" title="Add Membership">
-						<!-- <i class="fa fa-group" style="font-size: 15px;"></i> --> <span class="name">Add Membership</span>
-					@php */ @endphp
-					</a>
-				</div>
-			</div>
-			<div class="card-body">
-				<div class="table-responsive">
-					<table id="examplewbp" class="table table-bordered">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th >Product SKU</th>
-								<th>Title</th>
-								<th>Price</th>
-								<th>Quantity</th>
-								<th>Total Price(Incl. Taxes)</th>
-							</tr>
-						</thead>
-						<tbody>
-                            @foreach($products as  $key=> $product)
+{{-- Order details start --}}
 
-								<tr>
-									<td>{{$loop->iteration}}</td>
-									<td>{{$product->sku}}</td>
-									<td>{{$product->title}}</td>
-									<td>{{$product->price}}</td>
-									<td>{{$product->quantity}}</td>
-									<td>{{$product->total_price}}</td>
+<div class="i_body_details pb-5">
 
-								</tr>
-                                @endforeach
-						</tbody>
-						<tfoot>
-							<tr>
-								<th>#</th>
-								<th >Product SKU</th>
-								<th>Title</th>
-								<th>Price</th>
-								<th>Quantity</th>
-								<th>Total Price(Incl. Taxes)</th>
-							</tr>
-						</tfoot>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-</div><!-- End Row-->
+    <div class="pt-4 mx-0 mx-lg-5">
 
-<script>
-$(document).ready(function() {
-	var table = $('#examplewbp').DataTable( {
-		lengthChange: false,
-		buttons: [
-			{
-				extend: 'copy',
-				title: 'Membership List',
-				exportOptions: {
-				columns: [ 0, 1, 2]
-				}
-			},
-			{
-				extend: 'excelHtml5',
-				title: 'Membership List',
-				exportOptions: {
-				columns: [ 0, 1, 2]
-				}
-			},
-			{
-				extend: 'pdfHtml5',
-				title: 'Membership List',
-				exportOptions: {
-				columns: [ 0, 1, 2]
-				}
-			},
-			{
-				extend: 'print',
-				title: 'Membership List',
-				autoPrint: true,
-				exportOptions: {
-				columns: [ 0, 1, 2]
-				}
-			},
-			'colvis'
-		],
-		columnDefs: [
-			{ "orderable": false, "targets": 3}
-		]
-	});
-	table.buttons().container()
-	.appendTo( '#example_wrapper .col-md-6:eq(0)' );
-});
+        <h4 class="i_details_heading text-dark mb-3 text-center">Order No: <span>#{{$order1->order_id}}</span></h4>
 
-function deleteRow(id)
-{
-	$('#deletefrm_'+id).submit();
-}
 
-function changeStatus(id) {
-    $.ajax({
-        data: {
-        "_token": "{{ csrf_token() }}",
-        "id": id
-        },
-        url: "{{ url('admin/membership') }}/"+id,
-        type: "GET",
-        dataType: 'json',
-        success: function (data) {
-            var status = '';
-            // $('.status_'+id).attr('title',data);
-            if(data == 'active'){
-                status = 'activated';
-                $('.status_'+id).css('color','#009933');
+        <div class="i_my_container p-3">
+            <table class="w-100">
+                    <tr class="border-bottom">
+                        <th class="py-2">Image</th>
+                        <th class="py-2">Sku</th>
+                        <th class="py-2">Title</th>
+                        <th class="py-2">Price</th>
+                        <th class="py-2">QTY</th>
+                        <th class="py-2">Price</th>
+                        <th class="py-2">Tracking No</th>
+                    </tr>
+                    <tr class="border-bottom">
+                        @foreach ($od as $o)
 
-            }else{
-                status = 'deactivated';
-                $('.status_'+id).css('color','#ff0000');
-            }
-            $('.success-alert').show();
-            var suc_str = '';
-            suc_str += '<div class="alert alert-success alert-dismissible" role="alert">';
-            suc_str +='<button type="button" class="close" data-dismiss="alert">×</button>';
-            suc_str +='<div class="alert-icon"><i class="fa fa-check"></i></div>';
-            suc_str +='<div class="alert-message"><span><strong>Success!</strong> Membership has been '+status+'.</span></div>';
-            suc_str +='</div>';
-            $('.success-alert').html(suc_str);
-        },
-        error: function (data) {
-        }
-    });
-}
-</script>
+                        <td class="py-2"><img src="{{$o->image}}" width="60px" height="50px" alt="{{ Str::limit($o->title, 35) }}"></td>
+                        <td class="py-2">{{$o->sku}}</td>
+                        <td class="py-2">{{$o->title}}</td>
+                        <td class="py-2">${{$o->price}}</td>
+                        <td class="py-2">x{{$o->quantity}}</td>
+                        <td class="py-2">${{$o->total_price}}</td>
+                        @if ($o->tracking_no)
+                            <td class="py-2">{{$o->tracking_no}}</td>
+                        @else
+                        <td><a href="{{route('admin.orders.shipping_details',['orderId' => $o->order_id, 'productSku' => $o->sku])}}" class="btn btn-info btn-sm">Add Tracking Detail</a></td>
+                        @endif
+                        <td class="py-2">{{$o->status}}</td>
+                        <td class="py-2">
+                            @if($o->status == "processing")
+                                            <select class="form-control" data-order-id="{{ $o->order_id }}" data-sku="{{ $o->sku }}" onchange="updateStatus1(this)">
+                                                <option value="processing" selected>Processing</option>
+                                                <option value="shipped">Shipped</option>
+                                                <option value="delivered">Delivered</option>
+                                                <option value="cancelled">Cancel</option>
+                                            </select>
+                                         @elseif($o->status == "shipped")
+                                            <select class="form-control" data-order-id="{{ $o->order_id }}" data-sku="{{ $o->sku }}" onchange="updateStatus1(this)">
+                                                <option value="processing" >Processing</option>
+                                                <option value="shipped" selected>Shipped</option>
+                                                <option value="delivered">Delivered</option>
+                                                <option value="cancelled">Cancel</option>
+                                            </select>
+                                        @elseif($o->status == "delivered")
+                                            <select class="form-control" data-order-id="{{ $o->order_id }}" data-sku="{{ $o->sku }}" onchange="updateStatus1(this)">
+                                                <option value="processing" >Processing</option>
+                                                <option value="shipped">Shipped</option>
+                                                <option value="delivered" selected>Delivered</option>
+                                                <option value="cancelled">Cancel</option>
+                                            </select>
+                                         @else
+                                            <select class="form-control" data-order-id="{{ $o->order_id }}" data-sku="{{ $o->sku }}" onchange="updateStatus1(this)">
+                                                <option value="processing" >Processing</option>
+                                                <option value="shipped">Shipped</option>
+                                                <option value="delivered">Delivered</option>
+                                                <option value="cancelled" selected>Cancel</option>
+                                            </select>
+                                        @endif
+                        </td>
+                    </tr>
+                    @endforeach
+                </table>
+            </div>
+        <div class="i_first_section">
+            <div class="i_my_container mr-3 mt-3 p-3">
+                <table class="w-100">
+                    <tr class="border-bottom">
+                        <th class="py-2">Shipping Details</th>
+                    </tr>
+                    <tr class="border-bottom">
+                        <td class="py-2">Customer Name:</td>
+                        <td class="py-2 text-end">{{$order1->user_fname}} {{$order1->user_lname}}</td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <td class="py-2">Shipping Address:</td>
+                        <td class="py-2 text-end">{{$order1->user_address}}, {{$order1->city_name}}, {{$order1->state_name}}</td>
+                    </tr>
+
+                    <tr class="border-bottom">
+                        <td class="py-2">Payment</td>
+                        <td class="py-2 text-end">${{$grand_total}}</td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="i_my_container p-3 mt-3">
+                <table class="w-100">
+                    <tr class="border-bottom" class="border-bottom">
+                        <th class="py-2">Customer And Order Details</th>
+                    </tr>
+
+                    <tr class="border-bottom">
+                        <td class="py-2">Customer Name</td>
+                        <td class="py-2 text-end">{{$order1->user_fname}} {{$order1->user_lname}}</td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <td class="py-2">Phone Number</td>
+                        <td class="py-2 text-end">{{$order1->user_phone}}</td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <td class="py-2">Fulfillment Type</td>
+                        <td class="py-2 text-end">Seller Fulfill</td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <td class="py-2">Note</td>
+                        <td class="py-2 text-end">N/A</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{--  Order details end --}}
+
+
 @endsection
 
+<script>
+
+    function updateStatus1(select) {
+        var orderId = $(select).data('order-id');
+        var sku = $(select).data('sku');
+        var status = $(select).val();
+
+        $.ajax({
+            url: "{{ url('/admin/order/status/') }}/" + orderId + '/' + sku + '/' + status,
+        }).done(function(res) {
+            console.log(res);
+            location.reload();
+        });
+    }
+
+</script>

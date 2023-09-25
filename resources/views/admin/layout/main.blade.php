@@ -54,6 +54,7 @@
 		<link rel="stylesheet" href="{{ asset('public/css/prettyPhoto.css') }}" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
 		<!-- custome_css -->
 		<link href="{{ asset('public/css/custom_style.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('public/css/new_style.css') }}" rel="stylesheet"/>
 		<link href="{{ asset('public/css/wickedpicker.min.css') }}" rel="stylesheet"/>
 		<style type="text/css">
 			.fa.fa-angle-down{

@@ -1,11 +1,12 @@
-@extends('vendor.layout.main')
+@extends('admin.layout.main')
 @section('content')
+
 
 <div class="i_body_details pb-5">
     <div class="pt-4 mx-0 mx-lg-5">
         <h4 class="i_details_heading text-dark mb-3 text-center">Shipping Details</h4>
         <div class="i_my_container2 detail_ship mx-auto p-4">
-            <form class="ship_details_form text-center" method="post" action="{{route('vendor.orders.post_shipping_details',['orderId' => $orderId, 'productSku' => $productSku])}}">
+            <form class="ship_details_form text-center" method="post" action="{{route('admin.orders.post_shipping_details',['orderId' => $orderId, 'productSku' => $productSku])}}">
                 @csrf
                 <h4 class="i_details_heading h4 text-dark mb-3 text-center">Order No: <span>#{{ $orderId }}</span></h4>
                 <h4 class="i_details_heading h4 text-dark mb-4 text-center">Product SKU: <span>{{ $productSku }}</span></h4>
