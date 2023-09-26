@@ -146,7 +146,7 @@
                         <div class="container mt-4 ">
                             {!! $shareComponent !!}
                         </div>
-                        <div class="seller_section mt-4">
+                        {{-- <div class="seller_section mt-4">
                             <h4>Seller Services: </h4>
                             <div class="d-flex align-items-center mt-2">
                                 <span class="seller_icon d-flex justify-content-center align-items-center">
@@ -172,7 +172,7 @@
                                 </span>
                                 <h5 class="seller_name my-auto ml-2">Sell Online</h5>
                             </div>
-                        </div>
+                        </div> --}}
                 </div>
             </div>
         </div>

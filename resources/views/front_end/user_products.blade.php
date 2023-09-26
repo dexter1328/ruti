@@ -25,20 +25,17 @@
     <div class="container">
         <div class="account_dashboard">
             <div class="row">
-                <div class="col-sm-12 col-md-3 col-lg-3">
+                {{-- <div class="col-sm-12 col-md-3 col-lg-3">
                     <!-- Nav tabs -->
                     <div class="dashboard_tab_button">
                         <ul role="tablist" class="nav flex-column dashboard-list">
                             <li><a href="#dashboard" data-toggle="tab" class="nav-link active">Dashboard</a></li>
                             <li> <a href="#orders" data-toggle="tab" class="nav-link">Orders</a></li>
-                            {{-- <li><a href="#downloads" data-toggle="tab" class="nav-link">Downloads</a></li>
-                            <li><a href="#address" data-toggle="tab" class="nav-link">Addresses</a></li>
-                            <li><a href="#account-details" data-toggle="tab" class="nav-link">Account details</a></li>
-                            <li><a href="login.html" class="nav-link">logout</a></li> --}}
+
                         </ul>
                     </div>
-                </div>
-                <div class="col-sm-12 col-md-9 col-lg-9">
+                </div> --}}
+                <div class="col-sm-12 col-md-12 col-lg-12">
                     <!-- Tab panes -->
                     <div class="tab-content dashboard_content">
                         <div class="tab-pane fade" id="dashboard">
@@ -56,7 +53,7 @@
 
                     <div class="orders_body p-3">
                         {{-- <div class='text-success font-weight-bold'>Arriving Soon</div> --}}
-                        <div>{{$order->p_status}}</div>
+                        <div>{{ ucfirst(trans($order->status)) }}</div>
                         <div class='w-100 order_tab d-flex mt-4'>
                             <div class='w-50 d-flex main_order'>
                                 <div class='product_width d-flex'>

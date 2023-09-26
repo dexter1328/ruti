@@ -43,8 +43,8 @@
                                 <span class='d-block'>${{$order->total_price}}</span>
                             </div>
                             <div>
-                                Status
-                                <span class='d-block text-primary'>{{ucfirst(trans($order->status))}}</span>
+                                Order#
+                                <span class='d-block text-primary'>{{ucfirst(trans($order->order_id))}}</span>
                             </div>
                             <div>
                                 Order Duration:
