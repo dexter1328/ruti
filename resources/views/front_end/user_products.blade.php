@@ -78,7 +78,7 @@
                                     Tracking Information
                                 </button>
                                 <button type="button" onclick="window.location='{{ route('gift-receipt',$order->order_id) }}'" class='mt-1 order_details_button border boder-rounded'>Share gift receipt</button>
-                                <button class='mt-1 order_details_button border boder-rounded' onclick="window.location='{{ route('return-item', ['sku' => $order->sku, 'order_id' => $order->order_id, 'user_id' => $order->p_user_id]) }}'">Return or Replace Items</button>
+                                <button class='mt-1 order_details_button border boder-rounded' onclick="window.location='{{ route('return-item', ['sku' => $order->sku, 'order_id' => $order->order_id, 'user_id' => $order->p_user_id, 'vendor_id' => $order->vendor_id]) }}'">Return or Replace Items</button>
                                 <button type="button" onclick="window.location='{{ route('product-detail',['slug' => $order->slug, 'sku' => $order->sku]) }}#reviews'" class='mt-1 order_details_button border boder-rounded'>Write a product review</button>
                                 {{-- <button type="button" onclick="reviewFunction()" class='mt-1 order_details_button border boder-rounded'>Write a product review</button> --}}
                             </div>

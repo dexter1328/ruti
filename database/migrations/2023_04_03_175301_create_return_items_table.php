@@ -16,8 +16,9 @@ class CreateReturnItemsTable extends Migration
         Schema::create('return_items', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('order_id');
-            $table->string('sku');
+            $table->string('product_sku');
             $table->integer('user_id');
+            $table->integer('vendor_id');
             $table->string('reason');
             $table->longText('comment');
 

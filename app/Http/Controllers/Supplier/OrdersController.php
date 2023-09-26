@@ -86,6 +86,7 @@ class OrdersController extends Controller
         ->join('users', 'w2b_orders.user_id', 'users.id')
         ->where('ordered_products.vendor_id', Auth::user()->id)
         ->where('ordered_products.seller_type', 'supplier')
+        ->where('w2b_orders.is_paid', 'yes')
         ->groupBy('ordered_products.order_id')
         ->orderBy('w2b_orders.id', 'DESC')
         ->select('ordered_products.*', 'w2b_orders.is_paid as is_paid', 'users.first_name as user_name', 'users.id as user_id', DB::raw('SUM(ordered_products.total_price) as o_total_price'))

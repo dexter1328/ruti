@@ -20,7 +20,8 @@ class CreateW2bOrdersTable extends Migration
             $table->string('total_price');
             $table->string('order_notes')->nullable();
             $table->string('is_paid')->default('no');
-            $table->enum('status', ['processing', 'shipped', 'delivered', 'cancelled'])->default('processing');
+            $table->enum('status', ['processing', 'shipped', 'delivered', 'cancelled', 'returned'])->default('processing');
+            $table->longText('gift_receipt');
 
             $table->timestamps();
         });

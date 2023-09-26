@@ -25,8 +25,8 @@
                         <tr>
                             <th >SR No.</th>
                             <th >Order Id</th>
+                            <th >Product SKU</th>
                             <th >Supplier</th>
-                            <th >Store</th>
                             <th >Customer</th>
 
                             <th>Action</th>
@@ -35,14 +35,14 @@
                     <tbody>
                         @foreach($return_orders as $key =>$return_order)
                             <tr>
-                                <td>{{$key+1}}</td>
-                                <td >{{$return_order->id}}</td>
+                                <td >{{$loop->iteration}}</td>
+                                <td >{{$return_order->order_no}}</td>
+                                <td >{{$return_order->product_sku}}</td>
                                 <td >{{$return_order->owner_name}}</td>
-                                <td >{{$return_order->store_name}}</td>
                                 <td >{{$return_order->first_name}}</td>
 
                                 <td>
-                                    <a href="{{ route('supplier.order_return.show', $return_order->id) }}" class="edit" data-toggle="tooltip" data-placement="bottom" title="View ReturnOrder">
+                                    <a href="{{ route('supplier.orders.show-return', ['order_no' => $return_order->order_no, 'sku' => $return_order->product_sku]) }}" class="edit" data-toggle="tooltip" data-placement="bottom" title="View ReturnOrder">
                                         <i class="icon-eye icons"></i>
                                     </a>
                                 </td>
@@ -53,8 +53,8 @@
                         <tr>
                             <th >SR No.</th>
                             <th >Order Id</th>
+                            <th >Product SKU</th>
                             <th >Supplier</th>
-                            <th >Store</th>
                             <th >Customer</th>
 
                             <th>Action</th>

@@ -19,6 +19,7 @@ use App\W2bCategory;
 use Stripe\Customer;
 use App\CustomerWallet;
 use App\OrderedProduct;
+use App\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Stripe\Exception\CardException;
@@ -276,11 +277,25 @@ class W2bCustomerController extends Controller
 
     }
 
-    public function returnItem($sku, $orderId, $userId)
+    public function returnItem($sku, $orderId, $userId, $vendorId)
     {
 
-        $product = W2bProduct::where('sku', $sku)->first();
-        return view('front_end.return_item', compact('sku','orderId','userId','product'));
+        // $product1 = W2bProduct::where('sku', $sku);
+        // $product2 = Products::where('sku', $sku);
+        // $product = $product2->union($product1)->first();
+
+        $p1 = W2bProduct::where('sku', $sku)->first();
+
+        if ($p1 == Null) {
+            $product = Products::where('sku', $sku)->first();
+            // dd($product);
+        }
+        else {
+            $product = W2bProduct::where('sku', $sku)->first();
+            // dd($product);
+        }
+
+        return view('front_end.return_item', compact('sku','orderId','userId','product', 'vendorId'));
     }
 
     public function returnItemSubmit(Request $request)
@@ -288,6 +303,9 @@ class W2bCustomerController extends Controller
         # code...
         $input = $request->all();
         ReturnItem::create($input);
+        OrderedProduct::where('sku' , $request->product_sku)
+        ->where('order_id' , $request->order_id)
+        ->update(['status' => 'returned']);
         return redirect('/user-account')->with('success', 'Your Request is in process. One of our representative will contact you soon.');
 
 

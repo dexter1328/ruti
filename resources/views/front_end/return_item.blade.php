@@ -55,9 +55,10 @@
                                 </div>
                                 <form method="post" action="{{ route('return-item-submit') }}" enctype="multipart/form-data">
                                     @csrf
-                                    <input type="hidden" name="sku" value="{{$sku}}">
+                                    <input type="hidden" name="product_sku" value="{{$sku}}">
                                     <input type="hidden" name="order_id" value="{{$orderId}}">
                                     <input type="hidden" name="user_id" value="{{$userId}}">
+                                    <input type="hidden" name="vendor_id" value="{{$vendorId}}">
 
                                 <div class="mt-4 p-3 product_detail_ri col-lg-12 col-xs-12 mx-auto">
                                     <h5 class="text-center">Why are you returning this?</h5>

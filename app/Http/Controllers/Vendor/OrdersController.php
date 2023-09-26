@@ -48,6 +48,7 @@ class OrdersController extends Controller
 		$op = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
         ->join('users', 'w2b_orders.user_id', 'users.id')
         ->where('ordered_products.vendor_id', Auth::user()->id)
+        ->where('w2b_orders.is_paid', 'yes')
         ->where('ordered_products.seller_type', 'vendor')
         ->groupBy('ordered_products.order_id')
         ->orderBy('ordered_products.id', 'DESC')

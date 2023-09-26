@@ -13,6 +13,8 @@ use App\Setting;
 use App\User;
 use App\ProductVariants;
 use App\CustomerWallet;
+use App\OrderedProduct;
+use App\ReturnItem;
 use App\UserDevice;
 use App\RewardPoint;
 
@@ -38,16 +40,25 @@ class OrderReturnController extends Controller
 
 	public function index()
 	{
-		$store_ids = getVendorStore();
-		$return_orders = OrderItems::select('vendors.name as owner_name','vendor_stores.name as store_name','order_items.id','users.first_name','orders.order_no') 
-								->join('orders','orders.id','=','order_items.order_id')					
-								->join('vendors','vendors.id','=','orders.vendor_id')
-								->join('vendor_stores','vendor_stores.id','=','orders.store_id')
-								->join('users','users.id','=','order_items.customer_id')
-								->where('order_items.status','return')
-								->whereIn('orders.store_id', $store_ids)
-								// ->orWhere('order_items.status','return_request')
-								->get();
+		// $store_ids = getVendorStore();
+		// $return_orders = OrderItems::select('vendors.name as owner_name','vendor_stores.name as store_name','order_items.id','users.first_name','orders.order_no')
+		// 						->join('orders','orders.id','=','order_items.order_id')
+		// 						->join('vendors','vendors.id','=','orders.vendor_id')
+		// 						->join('vendor_stores','vendor_stores.id','=','orders.store_id')
+		// 						->join('users','users.id','=','order_items.customer_id')
+		// 						->where('order_items.status','return')
+		// 						->whereIn('orders.store_id', $store_ids)
+		// 						// ->orWhere('order_items.status','return_request')
+		// 						->get();
+        $return_orders = OrderedProduct::select('vendors.name as owner_name','ordered_products.sku as product_sku','users.first_name','w2b_orders.order_id as order_no')
+        ->join('w2b_orders','w2b_orders.order_id','=','ordered_products.order_id')
+        ->join('vendors','vendors.id','=','ordered_products.vendor_id')
+        ->join('users','users.id','=','w2b_orders.user_id')
+        ->where('ordered_products.status','returned')
+        ->where('ordered_products.vendor_id', Auth::user()->id)
+        // ->orWhere('order_items.status','return_request')
+        ->get();
+        // dd($return_orders);
 		// print_r($return_orders->toArray());die();
 		return view('vendor/orders_returns/index',compact('return_orders'));
 	}
@@ -121,9 +132,21 @@ class OrderReturnController extends Controller
 		$coin_setting = Setting::where('key','reward_coins_exchagne_rate')->first();*/
 		$gem_setting = RewardPoint::select('reward_point_exchange_rate as value')->where('reward_type','invite')->first();
 		$coin_setting = RewardPoint::select('reward_point_exchange_rate as value')->where('reward_type','transaction')->first();
-					
+
 		return view('vendor/orders_returns/show',compact('order_items','gem_setting','coin_setting'));
 	}
+    public function showReturn($orderId, $sku)
+    {
+        $return_item =  ReturnItem::join('products','products.sku','=','return_items.product_sku')
+        ->join('users','users.id','=','return_items.user_id')
+        ->where('return_items.product_sku' , $sku)
+        ->where('return_items.order_id' , $orderId)
+        ->select('products.*', 'users.first_name', 'users.last_name','users.mobile','users.email','return_items.order_id as order_no',
+        'return_items.reason as reason','return_items.comment as comment')
+        ->first();
+        // dd($return_item);
+        return view('vendor/orders_returns/show',compact('return_item'));
+    }
 
 	/**
 	* Show the form for editing the specified resource.
@@ -168,7 +191,7 @@ class OrderReturnController extends Controller
 		$user->wallet_amount = $user->wallet_amount+$order->total_price;
 		$user->save();
 
-	
+
 		//customer notification
 			$id = $id;
 			$type = 'return_order';
@@ -184,7 +207,7 @@ class OrderReturnController extends Controller
 		    $message = 'order has been returned';
 		    $devices = UserDevice::where('user_id',$order->vendor_id)->where('user_type','vendor')->get();
 		    $this->sendVendorNotification($title, $message, $devices, $type, $id);
-			
+
 		//refund money
 		return redirect('/vendor/orders/return/request')->with('success',"Order has been returned.");
 	}
@@ -210,14 +233,14 @@ class OrderReturnController extends Controller
 		$order_return->created_by = Auth::user()->id;
 		$order_return->save();
 		OrderItems::where('id',$id)->delete();
-		return redirect('/vendor/orders')->with('success', 'Order return');	
+		return redirect('/vendor/orders')->with('success', 'Order return');
 	}
 
 	public function orderReturnRequest()
 	{
 		$store_ids = getVendorStore();
-		$return_orders = OrderItems::select('vendors.name as owner_name','vendor_stores.name as store_name','order_items.id','users.first_name','orders.order_no') 
-								->join('orders','orders.id','=','order_items.order_id')					
+		$return_orders = OrderItems::select('vendors.name as owner_name','vendor_stores.name as store_name','order_items.id','users.first_name','orders.order_no')
+								->join('orders','orders.id','=','order_items.order_id')
 								->join('vendors','vendors.id','=','orders.vendor_id')
 								->join('vendor_stores','vendor_stores.id','=','orders.store_id')
 								->join('users','users.id','=','order_items.customer_id')
@@ -269,7 +292,7 @@ class OrderReturnController extends Controller
 
 		$gem_setting = RewardPoint::select('reward_point_exchange_rate as value')->where('reward_type','invite')->first();
 		$coin_setting = RewardPoint::select('reward_point_exchange_rate as value')->where('reward_type','transaction')->first();
-					
-		return view('vendor/orders_returns/return_request_view',compact('order_items','gem_setting','coin_setting'));	
+
+		return view('vendor/orders_returns/return_request_view',compact('order_items','gem_setting','coin_setting'));
 	}
 }

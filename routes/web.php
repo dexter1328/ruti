@@ -147,7 +147,7 @@ Route::put('/user-profile-update/{id}', 'W2bCustomerController@userProfileUpdate
 Route::get('/order-invoice/{id}', 'W2bCustomerController@orderInvoice')->name('order-invoice');
 Route::get('/gift-receipt/{id}', 'W2bCustomerController@giftReceipt')->name('gift-receipt');
 Route::post('/gift-receipt-update/{id}', 'W2bCustomerController@giftReceiptUpdate')->name('gift-receipt-update');
-Route::get('/return-item/{sku}/{orderId}/{userId}', 'W2bCustomerController@returnItem')->name('return-item');
+Route::get('/return-item/{sku}/{orderId}/{userId}/{vendorId}', 'W2bCustomerController@returnItem')->name('return-item');
 Route::post('/return-item-submit', 'W2bCustomerController@returnItemSubmit')->name('return-item-submit');
 Route::post('/add-to-wallet', 'W2bCustomerController@addToWallet')->name('add-to-wallet');
 Route::get('/user-products/{id}', 'W2bCustomerController@userProduct')->name('user-product-page');
@@ -190,6 +190,14 @@ Route::get('/thank-you', 'CommonController@thankYou');
 Route::post('/stripe', 'StripeController@index');
 
 Route::get('session-check', 'CommonController@ajaxCheck')->name('session-check');
+
+
+
+
+
+
+// *******  Admin Routes Start  **********
+
 Route::group(['middleware' => 'sessionExpired'], function () {
   Route::group(['prefix' => 'admin'], function () {
     Route::get('/login', 'AdminAuth\LoginController@showLoginForm')->name('admin.login');
@@ -423,10 +431,16 @@ Route::group(['middleware' => 'sessionExpired'], function () {
     Route::resource('suggested-place', 'Admin\SuggestedPlaceController');
     Route::post('/suggested-place/send/{id}', 'Admin\SuggestedPlaceController@send')->name('admin.suggested-place.send');
     Route::resource('order_reason', 'Admin\OrderReasonController');
+    Route::resource('email_template', 'Admin\EmailTemplateController', ['as' => 'admin', 'only' => array('index', 'edit', 'update')]);
 
-        Route::resource('email_template', 'Admin\EmailTemplateController', ['as' => 'admin', 'only' => array('index', 'edit', 'update')]);
+    Route::resource('blog', 'Admin\BlogController');
     });
 });
+
+
+// *******  Admin Routes End  **********
+
+
 
 
 
@@ -550,6 +564,7 @@ Route::group(['middleware' => array('supplierChecklist')], function () {
         Route::get('orders/view_details/{id}', 'Supplier\OrdersController@view_details')->name('supplier.orders.view_details');
         Route::get('orders/view_order/{id}', 'Supplier\OrdersController@view_order')->name('supplier.orders.view_order');
         Route::resource('order_return', 'Supplier\OrderReturnController', ['as' => 'supplier']);
+        Route::get('order_return/show_return/{orderId}/{ProductSku}', 'Supplier\OrderReturnController@showReturn')->name('supplier.orders.show-return');
         Route::get('orders/return/request', 'Supplier\OrderReturnController@orderReturnRequest')->name('supplier.orders.return.request');
         Route::get('orders/return/request/show/{id}', 'Supplier\OrderReturnController@orderReturnRequestShow')->name('supplier.orders.return.request.show');
 
@@ -732,7 +747,9 @@ Route::group(['prefix' => 'vendor'], function () {
         Route::get('orders/pickup_order', 'Vendor\OrdersController@pickup_order')->name('vendor.orders.pickup_order');
         Route::get('orders/pickup_order_view/{id}', 'Vendor\OrdersController@pickup_order_view')->name('vendor.orders.pickup_order_view');
         Route::post('orders/pickup_order/change_status/{id}', 'Vendor\OrdersController@pickupInshopChangeStatus')->name('vendor.orders.pickup_order.change_status');
-  Route::resource('order_return', 'Vendor\OrderReturnController', ['as' => 'vendor']);
+        Route::resource('order_return', 'Vendor\OrderReturnController', ['as' => 'vendor']);
+        Route::get('order_return/show_return/{orderId}/{ProductSku}', 'Vendor\OrderReturnController@showReturn')->name('vendor.orders.show-return');
+
         Route::get('orders/return/request', 'Vendor\OrderReturnController@orderReturnRequest')->name('vendor.orders.return.request');
         Route::get('orders/return/request/show/{id}', 'Vendor\OrderReturnController@orderReturnRequestShow')->name('vendor.orders.return.request.show');
 

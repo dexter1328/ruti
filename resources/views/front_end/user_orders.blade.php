@@ -26,6 +26,7 @@
                 </div>
             <h3>Orders</h3>
             <div class="table-responsive ordertab" >
+                @if (!$orders->isEmpty())
 
                 @foreach ($orders as $order)
                 <div class="col-12 order_main px-0 border gboo">
@@ -63,6 +64,13 @@
 
                 </div>
                 @endforeach
+                @else
+                <div class="text-center">
+                    <p class="font-weight-bold mt-5 mb-3" style="font-size: 24px;">No Orders Found</p>
+                    <p class="text-muted">It seems you haven't placed any orders yet. <a href="{{ url('/') }}" class="text-primary">Start shopping now</a> to see your orders here.</p>
+                </div>
+                @endif
+
             </div>
         </div>
 

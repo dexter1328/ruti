@@ -56,6 +56,7 @@ class WbProductController extends Controller
         $orders = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
         ->join('users', 'w2b_orders.user_id', 'users.id')
         ->where('ordered_products.vendor_id', 1)
+        ->where('w2b_orders.is_paid', 'yes')
         ->groupBy('ordered_products.order_id')
         ->orderBy('ordered_products.id', 'DESC')
         ->select('ordered_products.*', 'w2b_orders.is_paid as is_paid', 'users.first_name as user_name', 'users.id as user_id', DB::raw('SUM(ordered_products.total_price) as o_total_price'))

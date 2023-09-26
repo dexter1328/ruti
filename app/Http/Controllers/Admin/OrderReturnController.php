@@ -39,8 +39,8 @@ class OrderReturnController extends Controller
 
 	public function index()
 	{
-		$return_orders = OrderItems::select('vendors.name as owner_name','vendor_stores.name as store_name','order_items.id','users.first_name','orders.order_no') 
-								->join('orders','orders.id','=','order_items.order_id')					
+		$return_orders = OrderItems::select('vendors.name as owner_name','vendor_stores.name as store_name','order_items.id','users.first_name','orders.order_no')
+								->join('orders','orders.id','=','order_items.order_id')
 								->join('vendors','vendors.id','=','orders.vendor_id')
 								->join('vendor_stores','vendor_stores.id','=','orders.store_id')
 								->join('users','users.id','=','order_items.customer_id')
@@ -147,7 +147,7 @@ class OrderReturnController extends Controller
 		$order_items->save();
 
 		$quantity = $order_items->quantity;
-		
+
 		$product_variants = ProductVariants::where('id',$order_items->product_variant_id)->first();
 		ProductVariants::where('id',$order_items->product_variant_id)
 			->update(array('quantity'=>$product_variants->quantity+$order_items->quantity));
@@ -166,7 +166,7 @@ class OrderReturnController extends Controller
 		$user->wallet_amount = $user->wallet_amount+$order->total_price;
 		$user->save();
 
-	
+
 		//customer notification
 			$id = $id;
 			$type = 'return_order';
@@ -182,7 +182,7 @@ class OrderReturnController extends Controller
 		    $message = 'order has been returned';
 		    $devices = UserDevice::where('user_id',$order->vendor_id)->where('user_type','vendor')->get();
 		    $this->sendVendorNotification($title, $message, $devices, $type, $id);
-			
+
 		//refund money
 		return redirect('/admin/order/return/request')->with('success',"Order has been returned.");
 	}
@@ -195,14 +195,14 @@ class OrderReturnController extends Controller
 	*/
 	public function destroy($id)
 	{
-		
+
 
 	}
 
 	public function orderReturnRequest()
 	{
-		$return_orders = OrderItems::select('vendors.name as owner_name','vendor_stores.name as store_name','order_items.id','users.first_name','orders.order_no') 
-								->join('orders','orders.id','=','order_items.order_id')					
+		$return_orders = OrderItems::select('vendors.name as owner_name','vendor_stores.name as store_name','order_items.id','users.first_name','orders.order_no')
+								->join('orders','orders.id','=','order_items.order_id')
 								->join('vendors','vendors.id','=','orders.vendor_id')
 								->join('vendor_stores','vendor_stores.id','=','orders.store_id')
 								->join('users','users.id','=','order_items.customer_id')
@@ -248,12 +248,12 @@ class OrderReturnController extends Controller
 					->leftjoin('customer_reward_useds','customer_reward_useds.order_id','order_items.order_id')
 					->where('order_items.id',$id)
 					->first();
-		
+
 		/*$gem_setting = Setting::where('key','reward_gems_exchagne_rate')->first();
 		$coin_setting = Setting::where('key','reward_coins_exchagne_rate')->first();*/
 		$gem_setting = RewardPoint::select('reward_point_exchange_rate as value')->where('reward_type','invite')->first();
 		$coin_setting = RewardPoint::select('reward_point_exchange_rate as value')->where('reward_type','transaction')->first();
 
-		return view('admin/orders_returns/return_request_view',compact('order_items','gem_setting','coin_setting'));	
+		return view('admin/orders_returns/return_request_view',compact('order_items','gem_setting','coin_setting'));
 	}
 }
