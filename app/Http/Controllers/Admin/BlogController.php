@@ -4,9 +4,29 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Traits\Permission;
+use Illuminate\Support\Facades\Auth;
+use Stripe\Stripe;
 
 class BlogController extends Controller
 {
+    use Permission;
+
+	private $stripe_secret;
+
+	public function __construct()
+	{
+		$this->middleware('auth:admin');
+		$this->middleware(function ($request, $next) {
+			if(!$this->hasPermission(Auth::user())){
+				return redirect('admin/home');
+			}
+			return $next($request);
+		});
+
+		$this->stripe_secret = config('services.stripe.secret');
+		Stripe::setApiKey($this->stripe_secret);
+	}
     /**
      * Display a listing of the resource.
      *

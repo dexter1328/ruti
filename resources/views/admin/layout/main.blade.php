@@ -491,7 +491,6 @@
 							</li>
 
 
-
 							@endif
                             @if(has_permission(Auth::user()->role_id,'products','read'))
 							<li class="{{ (request()->is('admin/w2b_products') ) ? 'active' : '' }}">

@@ -164,26 +164,27 @@
                 <h5 class="headings"><img src="{{ asset('public/panel/images/icon8_shipping.png') }}" width="30px" height="30px" alt="Shipping" class="me-2">WHOLESALE2B</h5>
                 <ul class="no_decoration_list">
 
-                    @if(has_permission(Auth::user()->role_id,'products','read'))
+
                         <li class="mt-2 underlined {{ (request()->is('admin/w2b_products') ) ? 'active' : '' }}">
                             <a href="{{url('admin/w2b_products')}}" class="waves-effect links">
                                 Manage Products
                             </a>
                         </li>
-                    @endif
-                    @if(has_permission(Auth::user()->role_id,'products','read'))
+
+
                         <li class="mt-2 underlined {{ (request()->is('admin/w2b_products') ) ? 'active' : '' }}">
                             <a href="{{url('admin/w2b_products/orders')}}" class="waves-effect links">
                                 Manage Orders
                             </a>
                         </li>
-					@endif
+
 
                 </ul>
 
                 <h5 class="headings"><img src="{{ asset('public/panel/images/icon8_shipping.png') }}" width="30px" height="30px" alt="Shipping" class="me-2">Manage Blog</h5>
                 <ul class="no_decoration_list">
 
+                    @if(has_permission(Auth::user()->role_id,'blog','read'))
 
                         <li class="mt-2 underlined {{ (request()->is('admin/blog') ) ? 'active' : '' }}">
                             <a href="{{url('admin/blog')}}" class="waves-effect links">
@@ -197,6 +198,7 @@
                                 Add New Blog
                             </a>
                         </li>
+                        @endif
 
 
                 </ul>
