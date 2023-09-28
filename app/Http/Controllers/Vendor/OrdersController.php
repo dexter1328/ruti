@@ -21,6 +21,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Jobs\ProductReviewJob;
 use App\Mail\ProductReviewMail;
 use Illuminate\Support\Facades\Mail;
 
@@ -129,7 +130,9 @@ class OrdersController extends Controller
             ];
 
             // Send an email to the seller
-            Mail::to($order->email)->send(new ProductReviewMail($details));
+            // Mail::to($order->email)->send(new ProductReviewMail($details));
+            dispatch(new ProductReviewJob($order->email, $details));
+
 
             // You can also perform additional actions here if needed
         }

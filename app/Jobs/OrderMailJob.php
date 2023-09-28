@@ -14,17 +14,20 @@ class OrderMailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $details;
+    protected $recipient;
+    protected $data;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct($recipient, $data)
     {
         //
-        $this->details = $details;
+
+        $this->recipient = $recipient;
+        $this->data = $data;
     }
 
     /**
@@ -34,8 +37,9 @@ class OrderMailJob implements ShouldQueue
      */
     public function handle()
     {
-        //
-        // $email = new WbOrderMail($this->details);
-        // Mail::to($this->details['email'])->send($email);
+
+        $email = new WbOrderMail($this->data);
+
+        Mail::to($this->recipient)->send($email);
     }
 }

@@ -48,6 +48,7 @@ use PayPal\Api\PaymentExecution;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use App\Jobs\OrderMailToSupplierJob;
+use App\Jobs\SellerOrderJob;
 use App\Mail\SellerOrderMail;
 use App\Products;
 use App\Vendor;
@@ -704,12 +705,12 @@ class FrontEndController extends Controller
                 'total_price' => $order_detail->total_price
             ];
 
-            // dispatch(new OrderMailJob($details))->delay(now()->addSeconds(30));
-            // dispatch(new RutiMailJob($details2))->delay(now()->addSeconds(30));
-            Mail::to($user_details->email)->send(new WbOrderMail($details));
+            dispatch(new OrderMailJob($user_details->email, $details));
+            // Mail::to($user_details->email)->send(new WbOrderMail($details));
 
             $admin_email = Config::get('app.admin_email');
-            Mail::to($admin_email)->send(new WbRutiOrderMail($details2));
+            dispatch(new RutiMailJob($admin_email, $details2));
+            // Mail::to($admin_email)->send(new WbRutiOrderMail($details2));
             if ($order_detail) {
                 // Check if $order_detail is not null
 
@@ -719,18 +720,18 @@ class FrontEndController extends Controller
                     $seller_id = $product->vendor_id; // Assuming you have a relationship set up
                     $seller = Vendor::where('id', $seller_id)->first();
 
-                    $details3 = [
+                    $details = [
                         'email' => $user->email,
                         'name' => $fname.' '.$lname,
                         'order_no' => $order_detail->order_id,
                         'address' => $user->address,
                         'city' => $city,
                         'state' => $state,
-                        'zip_code' => $zip_code
+                        'zip_code' => $zip_code,
                     ];
 
                     // Send an email to the seller
-                    Mail::to($seller->email)->send(new SellerOrderMail($details3));
+                    dispatch(new SellerOrderJob($seller->email, $details));
                 }
                 } else {
                     return back();

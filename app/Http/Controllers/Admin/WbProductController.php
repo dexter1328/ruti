@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Jobs\ProductReviewJob;
 use App\Mail\ProductReviewMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -122,7 +123,9 @@ class WbProductController extends Controller
             ];
 
             // Send an email to the seller
-            Mail::to($order->email)->send(new ProductReviewMail($details));
+            // Mail::to($order->email)->send(new ProductReviewMail($details));
+            dispatch(new ProductReviewJob($order->email, $details));
+
 
             // You can also perform additional actions here if needed
         }
