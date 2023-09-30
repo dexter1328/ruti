@@ -41,6 +41,7 @@
                 <div class='width-20'>
                    Price
                 </div>
+
                 <div  class='width-20'>
                    Total Price
                 </div>
@@ -69,6 +70,7 @@
                 <div class='width-20'>
                     <span>${{number_format((float)$details['retail_price'], 2, '.', '')}}</span>
                 </div>
+
                 <div class='width-20'>
                     <span>${{number_format((float)$details['retail_price'] * $details['quantity'], 2, '.', '')}}</span>
                 </div>

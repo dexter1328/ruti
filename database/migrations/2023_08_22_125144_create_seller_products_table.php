@@ -19,9 +19,10 @@ class CreateSellerProductsTable extends Migration
             $table->bigInteger('supplier_id');
             $table->string('product_sku');
             $table->bigInteger('quantity');
-            $table->bigInteger('wholesale_price');
-            $table->bigInteger('nature_fee');
-            $table->bigInteger('retail_price');
+            $table->decimal('wholesale_price', 10, 2);
+            $table->decimal('nature_fee', 10, 2);
+            $table->decimal('retail_price', 10, 2);
+
             $table->timestamps();
         });
     }

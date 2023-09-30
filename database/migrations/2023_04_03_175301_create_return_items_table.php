@@ -17,8 +17,8 @@ class CreateReturnItemsTable extends Migration
             $table->bigIncrements('id');
             $table->string('order_id');
             $table->string('product_sku');
-            $table->integer('user_id');
-            $table->integer('vendor_id');
+            $table->bigInteger('user_id');
+            $table->bigInteger('vendor_id');
             $table->string('reason');
             $table->longText('comment');
 

@@ -27,7 +27,7 @@
                         <th class="py-2">Title</th>
                         <th class="py-2">Price</th>
                         <th class="py-2">QTY</th>
-                        <th class="py-2">Price</th>
+                        <th class="py-2">Total <small>(Shipping & Taxes)</small></th>
                         <th class="py-2">Tracking No</th>
                         <th class="py-2">Current Status</th>
                         <th class="py-2">Change Status</th>
@@ -39,9 +39,9 @@
                         <td class="py-2"><img src="{{$o->image}}" width="60px" height="50px" alt="{{ Str::limit($o->title, 35) }}"></td>
                         <td class="py-2">{{$o->sku}}</td>
                         <td class="py-2">{{$o->title}}</td>
-                        <td class="py-2">${{$o->price}}</td>
+                        <td class="py-2">${{ number_format($o->price) }}</td>
                         <td class="py-2">x{{$o->quantity}}</td>
-                        <td class="py-2">${{$o->total_price}}</td>
+                        <td class="py-2">${{ number_format($o->total_price) }}</td>
                         @if ($o->tracking_no)
                             <td class="py-2">{{$o->tracking_no}}</td>
                         @else
@@ -82,7 +82,10 @@
                     </tr>
                     @endforeach
                 </table>
+                <div>Total = ${{ number_format($grand_total) }}</div>
+                <div>What You will get = ${{ number_format($grand_total - ($grand_total * 0.30), 2) }}</div>
             </div>
+
         <div class="i_first_section">
             <div class="i_my_container mr-3 mt-3 p-3">
                 <table class="w-100">

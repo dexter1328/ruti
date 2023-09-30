@@ -70,15 +70,25 @@ class WholesaleProductController extends Controller
         return $this->sendResponse(['Get_Categories' => $categories], 'Get_All_Categories_list.');
     }
 
-    public function get_products($cat_name)
+    public function get_products($cate)
 	{
-        $get_products = DB::table('w2b_categories')
+        $p1 = DB::table('w2b_categories')
         ->join('w2b_products', 'w2b_categories.category1', '=', 'w2b_products.w2b_category_1')
         ->select('w2b_products.*')
-        ->where('w2b_products.w2b_category_1', $cat_name)
+        ->where('w2b_products.w2b_category_1', $cate)
         ->distinct()
-        ->paginate(28);
-        return $this->sendResponse(['Wholesale2b_Category_products' => $get_products], 'Wholesale2b_Category_product_list.');
+        ->get();
+
+        $p2 = DB::table('w2b_categories')
+        ->join('products', 'w2b_categories.category1', '=', 'products.w2b_category_1')
+        ->select('products.*')
+        ->where('products.w2b_category_1', $cate)
+        ->distinct()
+        ->get();
+
+        $products = $p2->merge($p1)->paginate(24);
+
+        return $this->sendResponse(['Category_products' => $products], 'Category_product_list.');
     }
     public function ProductDetail($sku)
     {

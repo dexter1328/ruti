@@ -21,19 +21,15 @@ use App\W2bOrder;
 use Carbon\Carbon;
 use Stripe\Charge;
 use Stripe\Stripe;
-use App\W2bPayment;
 use App\W2bProduct;
 use App\WbWishlist;
 use App\W2bCategory;
-use Omnipay\Omnipay;
 use PayPal\Api\Item;
 use Stripe\Customer;
 use PayPal\Api\Payer;
 use PayPal\Api\Amount;
 use App\OrderedProduct;
-use App\SuppliersOrder;
 use PayPal\Api\Payment;
-use App\Item as AppItem;
 use PayPal\Api\ItemList;
 use App\Jobs\RutiMailJob;
 use App\Mail\WbOrderMail;
@@ -47,7 +43,6 @@ use App\Mail\WbRutiOrderMail;
 use PayPal\Api\PaymentExecution;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
-use App\Jobs\OrderMailToSupplierJob;
 use App\Jobs\SellerOrderJob;
 use App\Mail\SellerOrderMail;
 use App\Products;
@@ -456,6 +451,8 @@ class FrontEndController extends Controller
 
     public function checkout()
     {
+        // $cart = session()->get('cart');
+        // dd($cart);
 
         $states = State::where('country_id',231)->get();
         return view('front_end.checkout',compact('states'));
@@ -566,13 +563,14 @@ class FrontEndController extends Controller
                             foreach($cart as $sku => $details) {
                                 $tax = ($details['sales_tax_pct'] / 100) *  $details['retail_price'];
                                 $tp = $details['retail_price'] * $details['quantity'];
+                                $total_price_items = $tax + $tp + $details['shipping_price'];
                                 OrderedProduct::create([
                                     'sku' => $sku,
                                     'price' => $details['retail_price'],
                                     'quantity' => $details['quantity'],
                                     'sales_tax' => $tax,
                                     'shipping_price' => $details['shipping_price'],
-                                    'total_price' => $tax + $tp + $details['shipping_price'],
+                                    'total_price' => $total_price_items,
                                     'title' => $details['title'],
                                     'image' => $details['original_image_url'],
                                     'order_id' => $w2border->order_id,
@@ -948,12 +946,12 @@ class FrontEndController extends Controller
                 'total_price' => $order_detail->total_price
             ];
 
-            // dispatch(new OrderMailJob($details))->delay(now()->addSeconds(30));
-            // dispatch(new RutiMailJob($details2))->delay(now()->addSeconds(30));
-            Mail::to($user_details->email)->send(new WbOrderMail($details));
+            dispatch(new OrderMailJob($user_details->email, $details));
+            // Mail::to($user_details->email)->send(new WbOrderMail($details));
 
             $admin_email = Config::get('app.admin_email');
-            Mail::to($admin_email)->send(new WbRutiOrderMail($details2));
+            dispatch(new RutiMailJob($admin_email, $details2));
+            // Mail::to($admin_email)->send(new WbRutiOrderMail($details2));
             if ($order_detail) {
                 // Check if $order_detail is not null
 
@@ -963,18 +961,18 @@ class FrontEndController extends Controller
                     $seller_id = $product->vendor_id; // Assuming you have a relationship set up
                     $seller = Vendor::where('id', $seller_id)->first();
 
-                    $details3 = [
+                    $details = [
                         'email' => $user->email,
                         'name' => $fname.' '.$lname,
                         'order_no' => $order_detail->order_id,
                         'address' => $user->address,
                         'city' => $city,
                         'state' => $state,
-                        'zip_code' => $zip_code
+                        'zip_code' => $zip_code,
                     ];
 
                     // Send an email to the seller
-                    Mail::to($seller->email)->send(new SellerOrderMail($details3));
+                    dispatch(new SellerOrderJob($seller->email, $details));
                 }
                 } else {
                     return back();

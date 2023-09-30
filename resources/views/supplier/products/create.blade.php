@@ -220,7 +220,7 @@ ul.category-tabs li.tabs {
                                                     <div class="row">
                                                         <div class="col-xs-12 col-md-6">
                                                             <label for="input-11" >Regular Price<span class="text-danger">*</span></label>
-                                                            <input type="number" name="retail_price" class="form-control" value="{{old('retail_price')}}" placeholder="Enter Price">
+                                                            <input type="number" step="0.01" name="retail_price" class="form-control" value="{{old('retail_price')}}" placeholder="Enter Price">
                                                             @if ($errors->has('retail_price'))
                                                             <span class="text-danger">{{ $errors->first('retail_price') }}</span>
                                                             @endif
@@ -228,14 +228,14 @@ ul.category-tabs li.tabs {
 
                                                         <div class="col-xs-12 col-md-6">
                                                             <label for="input-11" >Wholesale Price<span class="text-danger"></span></label>
-                                                            <input type="number" name="wholesale_price" class="form-control" value="{{old('shipping_price')}}" placeholder="Enter Shipping price">
+                                                            <input type="number" step="0.01" name="wholesale_price" class="form-control" value="{{old('shipping_price')}}" placeholder="Enter Shipping price">
                                                             @if ($errors->has('wholesale_price'))
                                                             <span class="text-danger">{{ $errors->first('wholesale_price') }}</span>
                                                             @endif
                                                         </div>
                                                         <div class="col-xs-12 col-md-6">
                                                             <label for="input-11" >Shipping Price<span class="text-danger">*</span></label>
-                                                            <input type="number" name="shipping_price" class="form-control" value="{{old('shipping_price')}}" placeholder="Enter Shipping price">
+                                                            <input type="number" step="0.01" name="shipping_price" class="form-control" value="{{old('shipping_price')}}" placeholder="Enter Shipping price">
                                                             @if ($errors->has('shipping_price'))
                                                             <span class="text-danger">{{ $errors->first('shipping_price') }}</span>
                                                             @endif

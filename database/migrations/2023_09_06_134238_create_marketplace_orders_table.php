@@ -20,12 +20,12 @@ class CreateMarketplaceOrdersTable extends Migration
             $table->bigInteger('supplier_id');
             $table->string('product_sku');
             $table->bigInteger('quantity');
-            $table->bigInteger('wholesale_price');
-            $table->bigInteger('nature_fee');
-            $table->bigInteger('retail_price');
-            $table->bigInteger('total_price');
-            $table->bigInteger('nature_total_fee');
-            $table->bigInteger('supplier_total_price');
+            $table->decimal('wholesale_price', 10, 2);
+            $table->decimal('nature_fee', 10, 2);
+            $table->decimal('retail_price', 10, 2);
+            $table->decimal('total_price', 10, 2);
+            $table->decimal('nature_total_fee', 10, 2);
+            $table->decimal('supplier_total_price', 10, 2);
             $table->timestamps();
         });
     }

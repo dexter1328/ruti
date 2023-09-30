@@ -27,7 +27,7 @@
                         <th class="py-2">Title</th>
                         <th class="py-2">Price</th>
                         <th class="py-2">QTY</th>
-                        <th class="py-2">Price</th>
+                        <th class="py-2">Total <small>(Shipping & Taxes)</small></th>
                         <th class="py-2">Tracking No</th>
                     </tr>
                     <tr class="border-bottom">

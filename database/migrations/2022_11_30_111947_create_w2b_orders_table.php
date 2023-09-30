@@ -16,8 +16,8 @@ class CreateW2bOrdersTable extends Migration
         Schema::create('w2b_orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('order_id');
-            $table->string('user_id');
-            $table->string('total_price');
+            $table->bigInteger('user_id');
+            $table->decimal('total_price', 10, 2);
             $table->string('order_notes')->nullable();
             $table->string('is_paid')->default('no');
             $table->enum('status', ['processing', 'shipped', 'delivered', 'cancelled', 'returned'])->default('processing');

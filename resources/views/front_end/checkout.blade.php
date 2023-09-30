@@ -143,18 +143,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @php $total = 0 @endphp
+                                    @php
+                                    $total = 0;
+                                    $totalShippingPrice = 0; // Initialize the total shipping price
+                                    $totalTax = 0;
+                                    @endphp
 
                                     @if(session('cart'))
                                     @foreach(session('cart') as $sku => $details)
-                                    @php $total += $details['retail_price'] * $details['quantity'] @endphp
-                                    @php $tax = ($details['sales_tax_pct'] / 100) * $total @endphp
-                                    @php $total_price = $total + $details['shipping_price'] + $tax @endphp
+                                    @php
+                                    $subtotal = $details['retail_price'] * $details['quantity'];
+                                    $total += $subtotal;
+                                    $tax = ($details['sales_tax_pct'] / 100) * $subtotal;
+                                    $totalTax += $tax; // Accumulate tax for each item
+                                    $totalShippingPrice += $details['shipping_price']; // Accumulate shipping price
+                                    $total_price = $subtotal + $details['shipping_price'] + $tax;
+                                    @endphp
                                     <input type="hidden" value="{{$details['vendor_id']}}" name="vendor_id[]">
-                                    <input type="hidden" value="{{$total_price}}" name="total_price">
                                     <tr>
                                         <td> {{ Str::limit($details['title'], 35) }} <strong> × {{$details['quantity']}}</strong></td>
-                                        <td> ${{number_format((float)$details['retail_price'] * $details['quantity'], 2, '.', '')}}</td>
+                                        <td> ${{number_format((float)$subtotal, 2, '.', '')}}</td>
                                     </tr>
                                     @endforeach
                                     @endif
@@ -166,18 +174,20 @@
                                     </tr>
                                     <tr>
                                         <th>Shipping</th>
-                                        <td><strong>${{number_format((float)$details['shipping_price'], 2, '.', '')}}</strong></td>
+                                        <td><strong>${{number_format((float)$totalShippingPrice, 2, '.', '')}}</strong></td>
                                     </tr>
                                     <tr>
                                         <th>Sales Tax</th>
-                                        <td><strong>${{number_format((float)$tax, 2, '.', '')}}</strong></td>
+                                        <td><strong>${{number_format((float)$totalTax, 2, '.', '')}}</strong></td>
                                     </tr>
                                     <tr class="order_total">
                                         <th>Order Total</th>
-                                        <td><strong>${{number_format((float)$total_price, 2, '.', '')}}</strong></td>
+                                        <td><strong>${{number_format((float)($total + $totalShippingPrice + $totalTax), 2, '.', '')}}</strong></td>
                                     </tr>
                                 </tfoot>
+                                <input type="hidden" value="{{$total + $totalShippingPrice + $totalTax}}" name="total_price">
                             </table>
+
                         </div>
                         <div class="payment_method">
 
