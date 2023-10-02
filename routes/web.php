@@ -111,6 +111,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Route::get('/debug-sentry', function () {
 //     throw new Exception('My first Sentry error!');
 // });
+Route::get('/optimize', 'FrontEndController@optimize')->name('artisan-optimize');
 Route::get('/flush-session', 'FrontEndController@sessionFlush')->name('session-flush');
 Route::get('/debug-sentry', 'FrontEndController@sentry')->name('sentry-page');
 Route::get('/home', 'FrontEndController@index')->name('home-page');

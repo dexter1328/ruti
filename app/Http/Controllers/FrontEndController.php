@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\BestProduct;
-use App\BestSeller;
 use Mail;
 use View;
 use Share;
@@ -15,14 +13,18 @@ use App\State;
 use Exception;
 use Validator;
 use App\Rating;
+use App\Vendor;
 use App\UsState;
 use App\PageMeta;
+use App\Products;
 use App\W2bOrder;
 use Carbon\Carbon;
 use Stripe\Charge;
 use Stripe\Stripe;
+use App\BestSeller;
 use App\W2bProduct;
 use App\WbWishlist;
+use App\BestProduct;
 use App\W2bCategory;
 use PayPal\Api\Item;
 use Stripe\Customer;
@@ -37,18 +39,17 @@ use App\Jobs\OrderMailJob;
 use App\Mail\CartOrderMail;
 use PayPal\Api\Transaction;
 use PayPal\Rest\ApiContext;
+use App\Jobs\SellerOrderJob;
 use Illuminate\Http\Request;
 use PayPal\Api\RedirectUrls;
+use App\Mail\SellerOrderMail;
 use App\Mail\WbRutiOrderMail;
 use PayPal\Api\PaymentExecution;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
-use App\Jobs\SellerOrderJob;
-use App\Mail\SellerOrderMail;
-use App\Products;
-use App\Vendor;
 use Illuminate\Support\Facades\Auth;
 use PayPal\Auth\OAuthTokenCredential;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Redirect;
 use Stevebauman\Location\Facades\Location;
 use PayPal\Exception\PPConnectionException;
@@ -86,6 +87,13 @@ class FrontEndController extends Controller
         $this->_api_context->setConfig($paypal_configuration['settings']);
 
 	}
+
+
+    public function optimize()
+    {
+        Artisan::call('optimize');
+        return 'Optimization completed.';
+    }
 
     public function index(Request $request)
     {
