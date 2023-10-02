@@ -92,8 +92,11 @@ class FrontEndController extends Controller
     public function optimize()
     {
         Artisan::call('optimize');
-        return 'Optimization completed.';
+        Artisan::call('cache:clear');
+
+        return 'Cache cleared and Optimization completed.';
     }
+
 
     public function index(Request $request)
     {
