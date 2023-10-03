@@ -380,8 +380,13 @@ class AuthController extends BaseController
 				User::where('email',$email)
 				->where('id',$id)
 				->update(array('password' => $password));
+                $success['user'] = array(
+                    'user_id' => $users->id,
+                    'old_password' => $request->old_pass,
+                    'new_password' => $request->new_pass
 
-			return $this->sendResponse(null,'Your password has been successfully changed.');
+                );
+			return $this->sendResponse($success,'Your password has been successfully changed.');
 		}else{
 			return $this->sendError('The current password you have entered is incorrect');
 			// return $this->sendError(null,'Old password does not match.');
