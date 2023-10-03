@@ -45,9 +45,9 @@ class WeeklySuggestedStore extends Command
 
         $suggested_stores = \DB::table('suggested_places')
                 ->select(
-                    'suggested_places.store', 
-                    'suggested_places.address', 
-                    'suggested_places.email', 
+                    'suggested_places.store',
+                    'suggested_places.address',
+                    'suggested_places.email',
                     'suggested_places.mobile_no'
                 )
                 ->whereDate('suggested_places.created_at', '>=', $from)
@@ -56,7 +56,7 @@ class WeeklySuggestedStore extends Command
 
         if($suggested_stores->isNotEmpty()) {
 
-            Mail::to('joseph@ezsiop.com')->send(new WeeklySuggestedStoreMail($suggested_stores));
+            Mail::to('info@naturecheckout.com')->send(new WeeklySuggestedStoreMail($suggested_stores));
         }
     }
 }

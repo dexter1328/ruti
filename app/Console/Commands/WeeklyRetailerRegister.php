@@ -45,10 +45,10 @@ class WeeklyRetailerRegister extends Command
 
         $users = \DB::table('vendors')
             ->select(
-                'vendors.name', 
-                'vendors.email', 
-                'vendors.mobile_number', 
-                'vendors.address', 
+                'vendors.name',
+                'vendors.email',
+                'vendors.mobile_number',
+                'vendors.address',
                 'countries.name as country',
                 'states.name as state',
                 'cities.name as city',
@@ -63,7 +63,7 @@ class WeeklyRetailerRegister extends Command
 
         if($users->isNotEmpty()) {
 
-            Mail::to('joseph@ezsiop.com')->send(new WeeklyRetailerRegisterMail($users));
+            Mail::to('info@naturecheckout.com')->send(new WeeklyRetailerRegisterMail($users));
         }
     }
 }

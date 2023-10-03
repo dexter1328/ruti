@@ -8,9 +8,9 @@
 		<!-- CSRF Token -->
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 
-		<title>{{ config('app.name', 'EZShop') }}</title>
+		<title>{{ config('app.name', 'Nature Checkout') }}</title>
 		<!--favicon-->
-		<link rel="icon" href="{{ asset('public/images/logo-icon-xx.png') }}" type="image/x-icon">
+		<link rel="icon" href="{{asset('public/wb/img/logo/logo2.png')}}" type="image/x-icon">
 		<!-- Vector CSS -->
 		<link href="{{ asset('public/plugins/vectormap/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet"/>
 		<!-- simplebar CSS-->
@@ -103,7 +103,7 @@
 
 		<script src="{{ asset('public/plugins/jquery-knob/excanvas.js') }}"></script>
 		<script src="{{ asset('public/plugins/jquery-knob/jquery.knob.js') }}"></script>
-		
+
 		<!-- Easy Pie Chart JS -->
 		<script src="{{ asset('public/plugins/jquery.easy-pie-chart/jquery.easypiechart.min.js') }}"></script>
 		<script src="{{asset('public/plugins/summernote/dist/summernote-bs4.min.js')}}"></script>
@@ -373,7 +373,7 @@
 								<a href="{{url('admin/order_return')}}" class="waves-effect">
 									<i class="fa fa-shopping-cart"></i>Manage Return Orders
 								</a>
-							</li> 
+							</li>
 							<li class="{{ (request()->is('admin/cancelled_orders') or request()->is('admin/cancelled_orders/*')) ? 'active' : '' }}">
 								<a href="{{url('admin/cancelled_orders')}}" class="waves-effect">
 									<i class="fa fa-shopping-cart"></i>Manage Cancel Orders
@@ -395,7 +395,7 @@
 								<a href="{{url('admin/notifications/create')}}" class="waves-effect">
 									<i class="fa fa-bell-o"></i>Send Notification
 								</a>
-							</li> 
+							</li>
 						</ul>
 					</li> -->
 					<li class="{{ (request()->is('admin/support_ticket') or request()->is('admin/support_ticket/*')) ? 'active' : '' }}">
@@ -454,7 +454,7 @@
 								</li>
 								<li class="dropdown-divider"></li>
 								<li class="dropdown-item">
-									<a href="{{ url('/admin/profile') }}"> 
+									<a href="{{ url('/admin/profile') }}">
 										<i class="icon-user"></i> My Profile
 									</a>
 								</li>
@@ -479,11 +479,11 @@
 			<div class="content-wrapper">
 				<div class="container-fluid">
 					@yield('content')
-				</div> 
+				</div>
 				<footer class="footer">
 					<div class="container">
 						<div class="text-center">
-							&copy; 2020 EZSiop 
+							&copy; 2023 Nature Checkout
 						</div>
 					</div>
 				</footer>

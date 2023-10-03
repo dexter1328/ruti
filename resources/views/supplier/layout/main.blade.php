@@ -7,7 +7,7 @@
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta property="og:title" content="{{ config('app.name', 'EZShop') }}" />
+        <meta property="og:title" content="{{ config('app.name', 'Nature Checkout') }}" />
         <meta property="og:description" content="We provide convenient and expeditious service to all users (merchants and consumers) in areas of consumer spending. Our service is to improve merchant - customer relations while offering positive contribution to the overall economy." />
         <meta property="og:image" content="{{ asset('public/images/logo-icon.png') }}" />
         <meta property="og:type" content="website" />

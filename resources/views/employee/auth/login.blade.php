@@ -10,10 +10,10 @@
 <div class="card-body">
     <div class="card-content p-2">
         <div class="text-center">
-            <img src="{{ asset('public/images/logo-icon-xx.png') }}" alt="logo icon">
+            <img src="{{asset('public/wb/img/logo/logo2.png')}}" alt="logo icon">
         </div>
         <div class="card-title text-uppercase text-center py-3">Employee Sign In</div>
-        
+
         <form class="form-horizontal" role="form" method="POST" action="{{ url('/employee/login') }}">
             {{ csrf_field() }}
             <div class="form-group">

@@ -820,7 +820,7 @@ if (!function_exists('customer_checklist'))
             'maintain_minimum_wallet' => 'Maintain $25 minimum in Wallet',
             'make_store_purchase' => 'Make a Store purchase (at least once a week)',
             'suggest_store' => 'Suggest a Store & Earn when Store Register  (twice a month)',
-            'social_share_ezsiop' => 'Share Nature Checkout on social media (once a week)',
+            'social_share_naturecheckout' => 'Share Nature Checkout on social media (once a week)',
             'review' => 'Review and Go'
         );
     }

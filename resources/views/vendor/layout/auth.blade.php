@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'EZShop') }}</title>
+    <title>{{ config('app.name', 'Nature Checkout') }}</title>
 
     <!--favicon-->
     <link rel="icon" href="{{asset('public/wb/img/logo/favicon.ico')}}" type="image/x-icon">

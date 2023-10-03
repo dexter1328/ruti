@@ -3,10 +3,10 @@
 <div class="card-body">
     <div class="card-content p-2">
         <div class="text-center">
-            <img src="{{ asset('public/images/logo-icon-xx.png') }}" alt="logo icon">
+            <img src="{{asset('public/wb/img/logo/logo2.png')}}" alt="logo icon">
         </div>
         <div class="card-title text-uppercase text-center py-3">Otp</div>
-        
+
         <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/submit-otp/'.$admin_otp->token) }}">
             {{ csrf_field() }}
             <div class="form-group">
@@ -28,7 +28,7 @@
                     </label>
                 </div>
             </div>
-            
+
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
             <button type="button" id="resend_otp" class="btn btn-primary btn-block">Resend Otp</button>
             <center style="margin-top: 10px;"><span style="font-weight: 500">Time Left: <span class="countdown" style="font-weight: 500"></span></span></center>
@@ -56,7 +56,7 @@
             $('.error').html('OTP has been expired.');
             $('.countdown').html('0:00');
             return false;
-        } 
+        }
         seconds = (seconds < 0) ? 59 : seconds;
         seconds = (seconds < 10) ? '0' + seconds : seconds;
         //minutes = (minutes < 10) ?  minutes : minutes;

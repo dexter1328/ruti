@@ -34,12 +34,15 @@ use App\ErrandRunner;
 use App\Mail\CustomerSignup;
 use App\Mail\CustomerSubscriptionMail;
 use App\Helpers\LogActivity as Helper;
+use App\Notifications\W2bCustomerResetPassword;
 use DB;
 use Hash;
 Use Redirect;
 use Validator;
 use Stripe;
 use Carbon\Carbon;
+use Exception;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends BaseController
 {
@@ -64,14 +67,14 @@ class AuthController extends BaseController
 
 		$validator = Validator::make($request->all(), [
 			'first_name' => 'required',
-			'last_name' => 'required', 
+			'last_name' => 'required',
 			'email' => 'required|email|unique:users',
 			'mobile'=>'required',
-			'social_id' => 'unique:users'
+			'social_id' => 'unique:users',
 		]);
 
 		if($validator->fails()){
-			return $this->sendError($validator->errors()->first());       
+			return $this->sendError($validator->errors()->first());
 		}
 
 		$user = new User;
@@ -82,6 +85,16 @@ class AuthController extends BaseController
 		$user->mobile = $request->mobile;
 		$user->status = 'active';
 
+        if ($request->hasFile('image')) { // Check if a file named 'image' is present in the request
+            $image = $request->file('image'); // Get the uploaded file from the request
+
+            if ($image->isValid()) { // Check if the file is valid
+                $imageName = time() . '.' . $image->extension(); // Generate a unique filename
+                $image->move(public_path('user_photo'), $imageName); // Move the file to the 'user_photo' directory
+                $user->image = $image;
+            }
+        }
+
 		if($request->dob){
 			$dob = str_replace('/', '-', $request->dob);
 			$user->dob = date("Y-m-d", strtotime($dob));
@@ -91,42 +104,19 @@ class AuthController extends BaseController
 			$anniversary_date = str_replace('/', '-', $request->anniversary_date);
 			$user->anniversary_date = date("Y-m-d", strtotime($anniversary_date));
 		}
-		
+
 		if($request->social_id && $request->social_type){
 			$user->social_type = $request->social_type;
 			$user->social_id = $request->social_id;
 		}
-		
+
 		$user->save();
 		//$name = $user->first_name.' '.$user->last_name;
 		$name = $user->first_name;
 		Mail::to($user->email)->send(new CustomerSignup($user->email,$name));
-		// user invite & reward point
-		if($request->invite_by)
-		{
-	        $user_invite = CustomerInvite::where('invite_by_id',$request->invite_by)
-	            ->where('customer_id',$user->id)
-	            ->first();
-	            
-	        if(empty($user_invite))
-	        {   
-	        	$customer_invite = new CustomerInvite;
-	        	$customer_invite->invite_by_id = $request->invite_by;
-	        	$customer_invite->customer_id = $user->id;
-	        	$customer_invite->save(); 
-	        }
-		}
-		// end
 
-		$user_subscription = new UserSubscription;
-        $user_subscription->user_id = $user->id;
-        $user_subscription->membership_id = 1;
-        $user_subscription->status = 'active';
-        $user_subscription->save();
 
-        $subscription = UserSubscription::with(['Membership', 'MembershipItem'])->where('user_subscriptions.user_id', $user->id)->first();
-		
-		$success['token'] =  $user->createToken('Ezshop')->accessToken;
+		$success['token'] =  $user->createToken('NatureCheckout')->accessToken;
 		$success['user'] = array(
 			'user_id' => $user->id,
 			'stripe_customer_id' => $user->stripe_customer_id,
@@ -139,25 +129,19 @@ class AuthController extends BaseController
 			'anniversary_date'=>($user->anniversary_date == '' ? null : date("d/m/Y", strtotime($user->anniversary_date))),
 			'mobile'=>$user->mobile,
 			'photo' => ($user->image == Null ? asset('public/images/User-Avatar.png') : asset('public/user_photo/'.$user->image)),
-            'about' => $user->about,
-            'wallet_terms_conditions' => (int)$user->wallet_terms_conditions,
-            'price_drop_alert' => (int)$user->price_drop_alert,
-            'is_join' => (int)$user->is_join,
-            'is_user_guide_completed' => (int)$user->is_user_guide_completed,
-			'subscription' => $subscription
+            'about' => $user->about
 		);
-		return $this->sendResponse($success, 'Your account has been created successfully.');	
-		
+		return $this->sendResponse($success, 'Your account has been created successfully.');
+
 	}
 
 	public function login(Request $request)
 	{
 		if(Auth::attempt(['email' => request('email'),'status' =>'active' ,'password' => request('password')]))
-		{ 
-			$user = Auth::user(); 
-			$subscription = UserSubscription::with(['Membership', 'MembershipItem'])->where('user_subscriptions.user_id', $user->id)->first();
+		{
+			$user = Auth::user();
 
-			$success['token'] =  $user->createToken('Ezshop')->accessToken;
+			$success['token'] =  $user->createToken('NatureCheckout')->accessToken;
 			$success['user'] = array(
 				'user_id' => $user->id,
 				'stripe_customer_id' => $user->stripe_customer_id,
@@ -171,11 +155,7 @@ class AuthController extends BaseController
 				'mobile' => $user->mobile,
 				'photo' => ($user->image == Null ? asset('public/images/User-Avatar.png') : asset('public/user_photo/'.$user->image)),
             	'about' => $user->about,
-            	'wallet_terms_conditions' => (int)$user->wallet_terms_conditions,
-            	'price_drop_alert' => (int)$user->price_drop_alert,
-            	'is_join' => (int)$user->is_join,
-            	'is_user_guide_completed' => (int)$user->is_user_guide_completed,
-            	'subscription' => $subscription
+
 			);
 			// notification
 		    /*$title = 'login';
@@ -184,9 +164,9 @@ class AuthController extends BaseController
 		    $this->sendNotification($title, $message, $devices);*/
 			//notification
 		    // Helper::addToLog('Customer Login',$user->id);
-        	
+
 			return $this->sendResponse($success, 'Login Successful');
-		} else{ 
+		} else{
 			return $this->sendError('The email address or password you entered isn\'t correct. Try entering it again');
 		}
 	}
@@ -197,7 +177,6 @@ class AuthController extends BaseController
 		$user = User::where('social_id',$request->social_id)->where('social_type',$request->social_type)->first();
         if(!empty($user)){
             Auth::loginUsingId($user->id, true);
-            $subscription = UserSubscription::with(['Membership', 'MembershipItem'])->where('user_subscriptions.user_id', $user->id)->first();
 
             $success['token'] =  $user->createToken('Hellamaid')->accessToken;
             $success['user'] = array(
@@ -213,17 +192,87 @@ class AuthController extends BaseController
 				'mobile' => $user->mobile,
 				'photo' => ($user->image == Null ? asset('public/images/User-Avatar.png') : asset('public/user_photo/'.$user->image)),
             	'about' => $user->about,
-            	'wallet_terms_conditions' => (int)$user->wallet_terms_conditions,
-            	'price_drop_alert' => (int)$user->price_drop_alert,
-            	'is_join' => (int)$user->is_join,
-            	'is_user_guide_completed' => (int)$user->is_user_guide_completed,
-            	'subscription' => $subscription
+
 			);
             return $this->sendResponse($success, 'Login Successful');
         }else{
         	return $this->sendResponse(null, "We can't find any account attached with our system from this provider");
         }
 	}
+
+    public function authFacebook()
+    {
+        // Return the Facebook login URL as a JSON response
+        $facebookRedirectUrl = Socialite::driver('facebook')->stateless()->redirect()->getTargetUrl();
+        return response()->json(['facebook_login_url' => $facebookRedirectUrl]);
+    }
+
+    public function fbCallback(Request $request)
+    {
+        try {
+            $user = Socialite::driver('facebook')->stateless()->user();
+
+            $finduser = User::where('social_id', $user->id)->first();
+
+            if ($finduser) {
+                Auth::guard('w2bcustomer')->login($finduser);
+
+                return response()->json(['message' => 'Logged in successfully']);
+            } else {
+                $newUser = User::updateOrCreate(['email' => $user->email], [
+                    'first_name' => $user->name,
+                    'social_id' => $user->id,
+                    'social_type' => 'facebook',
+                    'password' => bcrypt('123456dummy')
+                ]);
+
+                Auth::guard('w2bcustomer')->login($newUser);
+
+                return response()->json(['message' => 'Registered and logged in successfully']);
+            }
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+
+
+    public function authGoogle()
+    {
+        // Return the google login URL as a JSON response
+        $googleRedirectUrl = Socialite::driver('google')->stateless()->redirect()->getTargetUrl();
+        return response()->json(['google_login_url' => $googleRedirectUrl]);
+    }
+
+    public function googleCallback(Request $request)
+    {
+        try {
+            $user = Socialite::driver('google')->stateless()->user();
+
+            $finduser = User::where('social_id', $user->id)->first();
+
+            if ($finduser) {
+                Auth::guard('w2bcustomer')->login($finduser);
+
+                return response()->json(['message' => 'Logged in successfully']);
+            } else {
+                $newUser = User::updateOrCreate(['email' => $user->email],[
+                    'first_name' => $user->name,
+                    // 'image' => $user1['picture'],
+                    'social_id'=> $user->id,
+                    'social_type'=> 'google',
+                    'password' => encrypt('123456dummy')
+                ]);
+
+                Auth::guard('w2bcustomer')->login($newUser);
+
+                return response()->json(['message' => 'Registered and logged in successfully']);
+            }
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
 
 	public function ForgotPassword(Request $request)
 	{
@@ -244,14 +293,14 @@ class AuthController extends BaseController
 		// print_r($passwordReset);exit();
 		if ($user && $passwordReset)
 			$user->notify(
-				new PasswordResetRequest($passwordReset->token)
+				new W2bCustomerResetPassword($passwordReset->token)
 			);
 		// print_r($user->notify(
 		// 		new PasswordResetRequest($passwordReset->token)
 		// 	));die();
 		return $this->sendResponse(null,"An email has been sent to your email address, follow the direction in email to reset your password.");
 	}
-	
+
 	public function editProfile(Request $request, $id)
 	{
 		$data = array(
@@ -263,7 +312,7 @@ class AuthController extends BaseController
 
 		if($request->dob){
 			$dob = str_replace('/', '-', $request->dob);
-			$data['dob'] = date("Y-m-d", strtotime($dob)); 
+			$data['dob'] = date("Y-m-d", strtotime($dob));
 		}else{
 			$data['dob']='';
 		}
@@ -278,15 +327,15 @@ class AuthController extends BaseController
 		if ($files = $request->file('image')){
             $path = 'public/user_photo/';
             $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-            $files->move($path, $profileImage); 
-            $data['image'] = $profileImage;  
+            $files->move($path, $profileImage);
+            $data['image'] = $profileImage;
         }
 
 		User::where('id',$id)->update($data);
 		$user = User::where('id',$id)->first();
 		$subscription = UserSubscription::with(['Membership', 'MembershipItem'])->where('user_subscriptions.user_id', $user->id)->first();
 
-		$success['user'] = array( 
+		$success['user'] = array(
         	'user_id' => $user->id,
 			'stripe_customer_id' => $user->stripe_customer_id,
 			'social_id' => $user->social_id,
@@ -309,7 +358,7 @@ class AuthController extends BaseController
 	}
 
 	public function ChangePassword(Request $request, $id)
-	{	
+	{
 		$validator = Validator::make($request->all(), [
 			'email'  => 'exists:users,email',
 			'old_pass'=>'required',
@@ -317,7 +366,7 @@ class AuthController extends BaseController
 		]);
 
 		if($validator->fails()){
-			return $this->sendError($validator->errors()->first(), 'Validation Error.');       
+			return $this->sendError($validator->errors()->first(), 'Validation Error.');
 		}
 
 		$email = $request->email;
@@ -335,20 +384,26 @@ class AuthController extends BaseController
 			return $this->sendResponse(null,'Your password has been successfully changed.');
 		}else{
 			return $this->sendError('The current password you have entered is incorrect');
-			// return $this->sendError(null,'Old password does not match.');  
+			// return $this->sendError(null,'Old password does not match.');
 		}
 	}
 
-	public function resetPassword(Request $request, $token)
-	{
-		return view('auth.passwords.reset',compact('token'));
-	}
+	// public function resetPassword(Request $request, $token)
+	// {
+	// 	return view('auth.passwords.reset',compact('token'));
+	// }
+    public function showResetForm(Request $request, $token = null)
+    {
+        return view('w2b_customers.auth.passwords.reset')->with(
+            ['token' => $token, 'email' => $request->email]
+        );
+    }
 
 	public function reset(Request $request)
 	{
 		$errors = $request->validate([
 		   	'email'  => 'exists:password_resets,email',
-			'password' => 'required|confirmed', 
+			'password' => 'required|confirmed',
 			'password_confirmation' => 'required'
 		]);
 
@@ -358,13 +413,13 @@ class AuthController extends BaseController
 				->first();
 
 		if(!empty($users)){
-			
+
 			User::where('email',$request->email)
 				->update(array('password'=>bcrypt($request->password)));
 
 			PasswordReset::where('email',$request->email)
 				->where('token',$request->token)->delete();
-				
+
 			return view('auth.passwords.thankyou');
 		}else{
 			return Redirect::back()->withErrors(['token does not match', 'token does not match']);
@@ -395,7 +450,7 @@ class AuthController extends BaseController
             }else{
                 $user_device->user_id = NULL;
             }
-          
+
             $user_device->save();
             return $this->sendResponse($user_device, 'Device token has been saved.');
         }
@@ -414,13 +469,13 @@ class AuthController extends BaseController
         }else{
         	$user_device->device_token = $request->token;
         }
-            
+
         if($request->user_id){
             $user_device->user_id = $request->user_id;
         }else{
             $user_device->user_id = null;
         }
-          
+
         $user_device->save();
         return $this->sendResponse($user_device, 'Device token has been saved.');*/
 	}
@@ -442,7 +497,7 @@ class AuthController extends BaseController
 				'about' => $user->about,
 			);
 			return $this->sendResponse($success, 'Login Successful');
-		}else{ 
+		}else{
 			return $this->sendError('The email address you entered isn\'t correct. Try to enter valid email address');
 		}
 	}
@@ -489,7 +544,7 @@ class AuthController extends BaseController
 
                 $data = array(
                     'id' => $card->id,
-                    'object' => $card->object, 
+                    'object' => $card->object,
                     'brand' => $card->brand,
                     'country' => $card->country,
                     'exp_month' => $card->exp_month,
@@ -497,7 +552,7 @@ class AuthController extends BaseController
                     'funding' => $card->funding,
                     'last4' => $card->last4
                 );
-               
+
                 $success['card'] = $data;
                 return $this->sendResponse($success, 'Your card has beed saved.');
             } catch(\Stripe\Exception\CardException $e) {
@@ -533,7 +588,7 @@ class AuthController extends BaseController
 	                foreach ($stripe_cards as $key => $value) {
 	                    $cards[] = array(
 	                        'id' => $value->id,
-	                        'object' => $value->object, 
+	                        'object' => $value->object,
 	                        'brand' => $value->brand,
 	                        'country' => $value->country,
 	                        'exp_month' => $value->exp_month,
@@ -711,7 +766,7 @@ class AuthController extends BaseController
 					$status = true;
 					//$completed_checklist++;
 				}
-			}else if($key == 'social_share_ezsiop'){
+			}else if($key == 'social_share_naturecheckout'){
 
 			}else if($key == 'review'){
 
@@ -736,12 +791,12 @@ class AuthController extends BaseController
 	}
 
 	public function membershipList()
-	{	
+	{
 		$features = customer_membership_features();
 		$memberships = Membership::with('MembershipItems')->where('type', 'customer')->get();
 		$coupons = [];
 		// $coupons = MembershipCoupon::all();
-		return $this->sendResponse(['features' => $features, 'memberships' => $memberships, 'coupons' => $coupons], 'Membership list.');	
+		return $this->sendResponse(['features' => $features, 'memberships' => $memberships, 'coupons' => $coupons], 'Membership list.');
 	}
 
 	public function membershipIncentives()
@@ -797,8 +852,8 @@ class AuthController extends BaseController
 	}
 
 	private function cal_days_in_year($year){
-		$days=0; 
-		for($month=1;$month<=12;$month++){ 
+		$days=0;
+		for($month=1;$month<=12;$month++){
 			$days = $days + cal_days_in_month(CAL_GREGORIAN,$month,$year);
 		}
 		return $days;
@@ -822,7 +877,7 @@ class AuthController extends BaseController
 		$cards = [];
 		$user = User::findOrFail($request->user_id);
 		if(empty($user->stripe_customer_id)){
-			return $this->sendError('Please add debit/credit card.');	
+			return $this->sendError('Please add debit/credit card.');
 		}else{
 
 			Stripe\Stripe::setApiKey($this->stripe_secret);
@@ -833,7 +888,7 @@ class AuthController extends BaseController
 	                foreach ($stripe_cards as $key => $value) {
 	                    $cards[] = array(
 	                        'id' => $value->id,
-	                        'object' => $value->object, 
+	                        'object' => $value->object,
 	                        'brand' => $value->brand,
 	                        'country' => $value->country,
 	                        'exp_month' => $value->exp_month,
@@ -860,9 +915,9 @@ class AuthController extends BaseController
                 return $this->sendError($e->getMessage());
             }
 		}
-		
+
 		if(empty($cards)) {
-			return $this->sendError('Please add debit/credit card.');	
+			return $this->sendError('Please add debit/credit card.');
 		}
 
 		$old_subscription = UserSubscription::with(['Membership', 'MembershipItem'])->where('user_subscriptions.user_id', $request->user_id)->first();
@@ -899,15 +954,15 @@ class AuthController extends BaseController
 			$prorated_days = round($datediff / (60 * 60 * 24));
 			$old_price = $old_subscription->membershipItem->price;
 			$price_diff = ($prorated_days * $old_price) / 31;
-			$price_diff = number_format((float)$price_diff, 2, '.', '');	
-			$price = $price - $price_diff;		
-			$price = number_format((float)$price, 2, '.', '');	
+			$price_diff = number_format((float)$price_diff, 2, '.', '');
+			$price = $price - $price_diff;
+			$price = number_format((float)$price, 2, '.', '');
 		}
-		
+
 		// echo '<pre>'; print_r($request->all()); exit();
 
 		 if($membership->membership->code != 'bougie' || ($membership->membership->code == 'bougie' && $old_subscription->is_used_bougie == 1)) {
-			
+
 			if($price > $user->wallet_amount) {
 
 				Stripe\Stripe::setApiKey($this->stripe_secret);
@@ -918,7 +973,7 @@ class AuthController extends BaseController
 		                "currency" => "usd",
 		                "customer" => $user->stripe_customer_id,
 		               	// "source" => $request->card_id,
-		                "description" => "Money added in your wallet." 
+		                "description" => "Money added in your wallet."
 	        		]);
 
 					if(empty($user->wallet_amount)){
@@ -929,7 +984,7 @@ class AuthController extends BaseController
 
 	        		$user->wallet_amount = $closing_amount;
 					$user->save();
-			
+
 					$credit_customer_wallet = new CustomerWallet;
 					$credit_customer_wallet->customer_id = $request->user_id;
 					$credit_customer_wallet->amount = $price;
@@ -1003,7 +1058,7 @@ class AuthController extends BaseController
 
 		Mail::to($user->email)->send(new CustomerSubscriptionMail($user, $old_subscription, $new_subscription));
 
-		$success['user'] = array( 
+		$success['user'] = array(
         	'user_id' => $user->id,
 			'stripe_customer_id' => $user->stripe_customer_id,
 			'social_id' => $user->social_id,
@@ -1053,7 +1108,7 @@ class AuthController extends BaseController
 		$devices = UserDevice::where('user_id',$new_subscription->user_id)->where('user_type','customer')->get();
 		$this->sendNotification($title, $message, $devices, $type, $id);
 
-		$success['user'] = array( 
+		$success['user'] = array(
         	'user_id' => $user->id,
 			'stripe_customer_id' => $user->stripe_customer_id,
 			'social_id' => $user->social_id,
@@ -1097,7 +1152,7 @@ class AuthController extends BaseController
 	public function checkPriceDropAlert($id)
 	{
 		$user = User::findOrFail($id);
-		$success['user'] = array( 
+		$success['user'] = array(
 			'price_drop_alert' => (int)$user->price_drop_alert
 		);
 		return $this->sendResponse($success,'Check your price drop alert value.');
@@ -1106,7 +1161,7 @@ class AuthController extends BaseController
 	public function checkIsJoin($id)
 	{
 		$user = User::findOrFail($id);
-		$success['user'] = array( 
+		$success['user'] = array(
 			'is_join' => (int)$user->is_join
 		);
 		return $this->sendResponse($success,'Check you paid fees for join the incentive program.');
@@ -1196,7 +1251,7 @@ class AuthController extends BaseController
 		]);
 
 		if($validator->fails()){
-			return $this->sendError($validator->errors()->first());       
+			return $this->sendError($validator->errors()->first());
 		}
 
 		$errandRunner = ErrandRunner::updateOrCreate(
@@ -1208,4 +1263,3 @@ class AuthController extends BaseController
 	}
 }
 
-		

@@ -26,7 +26,16 @@ Route::middleware('auth:api')->group( function () {
 	Route::post('login', 'API\AuthController@login')->name('customer-login');
 	Route::post('social_login', 'API\AuthController@socialLogin')->name('customer-social-login');
 	Route::post('forgot_password','API\AuthController@ForgotPassword')->name('customer-forgot-password');
+	Route::post('/password/reset/{token}','API\AuthController@showResetForm')->name('customer-rs-password');
 	Route::post('save_user_device','API\AuthController@saveUserDevice')->name('customer-save-user-device');
+
+
+    // User Social register and login
+    Route::post('/auth/fb', 'API\AuthController@authFacebook')->name('auth.facebook');
+    Route::post('/auth/google', 'API\AuthController@authGoogle')->name('auth.google');
+    Route::post('/auth/fb/callback', 'API\AuthController@fbCallback')->name('facebook.callback');
+    Route::post('/auth/google/callback', 'API\AuthController@googleCallback')->name('google.callback');
+
 
 	Route::post('category_list','API\ShopController@categoryList');
 	Route::post('dashboard','API\ShopController@dashboard');

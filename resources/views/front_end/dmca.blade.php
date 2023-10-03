@@ -54,7 +54,7 @@
                                                 <li>A statement by the Complainant that upon a good faith belief the disputed use of the material or activity is not authorized by the copyright or intellectual property owner, its agent or the law; and</li>
                                                 <li>A statement by the Complainant made under penalty of perjury, that the Complainant is the copyright or intellectual property owner or is authorized to act on behalf of the copyright or intellectual property owner and that the information provided in the notice is accurate.</li>
                                             </ul>
-                                            <p>Nature checkout's Copyright Agent for Notice for Claims of Intellectual Property Violations can be reached as follows: E-Mail: info@EzSiop.comand subject line: ABUSE</p>
+                                            <p>Nature checkout's Copyright Agent for Notice for Claims of Intellectual Property Violations can be reached as follows: E-Mail: info@naturecheckout.comand subject line: ABUSE</p>
                                             <p>Alternatively, we have a takedown API available to fast track the DMCA requests. Inquire at the email above if you're interested in using it.</p>
                                             <p>Upon Nature checkout's receipt of a Notice for Claims of Intellectual Property Violations, Nature checkout will take the following steps:</p>
                                             <ul class="bullet">

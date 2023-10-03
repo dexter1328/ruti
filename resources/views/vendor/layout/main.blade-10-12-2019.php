@@ -30,7 +30,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'EZShop') }}</title>
+    <title>{{ config('app.name', 'Nature Checkout') }}</title>
     <!-- custome_css -->
     <link href="{{ asset('public/css/custom_style.css') }}" rel="stylesheet"/>
     <!--favicon-->
@@ -102,7 +102,7 @@
             <div class="brand-logo">
                 <a href="{{url('vendor/home')}}">
                     <img src="{{ asset('public/images/logo-icon.png') }}" class="logo-icon" alt="logo icon">
-                    <!-- <h5 class="logo-text">EZShop Admin</h5> -->
+                    <!-- <h5 class="logo-text">Nature Checkout Admin</h5> -->
                 </a>
             </div>
             <ul class="sidebar-menu do-nicescrol">
@@ -461,7 +461,7 @@
                 <footer class="footer">
                     <div class="container">
                         <div class="text-center">
-                            Copyright © 2019 EZSiop
+                            Copyright © 2023 Nature Checkout
                         </div>
                     </div>
                 </footer>
