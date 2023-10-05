@@ -35,6 +35,7 @@ use App\Mail\CustomerSignup;
 use App\Mail\CustomerSubscriptionMail;
 use App\Helpers\LogActivity as Helper;
 use App\Notifications\W2bCustomerResetPassword;
+use App\WbWishlist;
 use DB;
 use Hash;
 Use Redirect;
@@ -91,7 +92,7 @@ class AuthController extends BaseController
             if ($image->isValid()) { // Check if the file is valid
                 $imageName = time() . '.' . $image->extension(); // Generate a unique filename
                 $image->move(public_path('user_photo'), $imageName); // Move the file to the 'user_photo' directory
-                $user->image = $image;
+                $user->image = $imageName;
             }
         }
 
@@ -324,16 +325,25 @@ class AuthController extends BaseController
 			$data['anniversary_date']='';
 		}
 
-		if ($files = $request->file('image')){
-            $path = 'public/user_photo/';
-            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-            $files->move($path, $profileImage);
-            $data['image'] = $profileImage;
+		// if ($files = $request->file('image')){
+        //     $path = 'public/user_photo/';
+        //     $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+        //     $files->move($path, $profileImage);
+        //     $data['image'] = $profileImage;
+        // }
+
+        if ($request->hasFile('image')) { // Check if a file named 'image' is present in the request
+            $image = $request->file('image'); // Get the uploaded file from the request
+
+            if ($image->isValid()) { // Check if the file is valid
+                $imageName = time() . '.' . $image->extension(); // Generate a unique filename
+                $image->move(public_path('user_photo'), $imageName); // Move the file to the 'user_photo' directory
+                $data['image'] = $imageName;
+            }
         }
 
 		User::where('id',$id)->update($data);
 		$user = User::where('id',$id)->first();
-		$subscription = UserSubscription::with(['Membership', 'MembershipItem'])->where('user_subscriptions.user_id', $user->id)->first();
 
 		$success['user'] = array(
         	'user_id' => $user->id,
@@ -348,11 +358,7 @@ class AuthController extends BaseController
 			'mobile' => $user->mobile,
 			'photo' => ($user->image == Null ? asset('public/images/User-Avatar.png') : asset('public/user_photo/'.$user->image)),
         	'about' => $user->about,
-        	'wallet_terms_conditions' => (int)$user->wallet_terms_conditions,
-        	'price_drop_alert' => (int)$user->price_drop_alert,
-        	'is_join' => (int)$user->is_join,
-        	'is_user_guide_completed' => (int)$user->is_user_guide_completed,
-        	'subscription' => $subscription
+
         );
 		return $this->sendResponse($success,'Your profile details have been updated successfully');
 	}
@@ -1266,5 +1272,73 @@ class AuthController extends BaseController
 
 		return $this->sendResponse(null,'You have been saved errand runner.');
 	}
+
+
+
+
+    public function addToWishlist(Request $request)
+    {
+        // Validate the request data (you can add more validation rules as needed)
+        $request->validate([
+            'product_sku' => 'required',
+            'user_id' => 'required',
+        ]);
+
+        $sku = $request->input('product_sku');
+        $user_id = $request->input('user_id');
+
+        // Create a new wishlist item
+        WbWishlist::create([
+            'user_id' => $user_id,
+            'product_id' => $sku,
+        ]);
+
+        $wishlist = array(
+        	"sku" => $sku,
+			"user_id" => $user_id
+    	);
+
+        // Return a JSON response
+        return $this->sendResponse($wishlist,'Wishlist details');
+    }
+
+    public function getWishlist($user_id)
+    {
+
+
+        $wishlist_products1 =  WbWishlist::join('w2b_products', 'wb_wishlists.product_id', '=', 'w2b_products.sku')
+            ->where('user_id', $user_id)
+            ->select('w2b_products.*')
+            ->get();
+        $wishlist_products2 =  WbWishlist::join('products', 'wb_wishlists.product_id', '=', 'products.sku')
+        ->where('user_id', $user_id)
+        ->select('products.*')
+        ->get();
+
+        $wishlist_products = $wishlist_products2->merge($wishlist_products1)->paginate(24);
+
+        // Return wishlist items and products as JSON response
+        return $this->sendResponse(['Wishlist_Produts' => $wishlist_products], 'User Wishlist Products');
+    }
+
+
+
+    public function removeWishlist(Request $request, $product_sku , $user_id)
+    {
+        // Find the wishlist item to delete
+        $wl = WbWishlist::where('product_id', $product_sku)
+        ->where('user_id', $user_id)->first();
+
+        if (!$wl) {
+            return response()->json(['error' => 'Product not found in wishlist'], 404);
+        }
+
+        // Delete the wishlist item
+        $wl->delete();
+
+        // Return a JSON response with the updated wishlist products
+        return $this->sendResponse(['Wishlist_Product_removed' => $wl], 'Product removed from wishlist successfully');
+    }
+
 }
 

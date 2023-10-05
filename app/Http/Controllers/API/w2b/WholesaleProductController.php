@@ -18,6 +18,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Products;
+use App\Rating;
 use App\W2bProduct;
 use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 use Illuminate\Support\Facades\Mail;
@@ -427,5 +428,126 @@ class WholesaleProductController extends Controller
         return $this->sendResponse(['best_seller' => $b_seller], 'best_seller.');
 
     }
+
+    public function rating(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'user_name' => 'required',
+            'user_email' => 'required|email',
+            'product_id' => 'required',
+            'star' => 'required|integer|between:1,5', // Assuming 'star' is an integer between 1 and 5.
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+
+        // Create a new rating record
+        $rating_data =  Rating::create([
+            'user_name' => $request->input('user_name'),
+            'user_email' => $request->input('user_email'),
+            'product_id' => $request->input('product_id'),
+            'star' => $request->input('star'),
+            'comment' => $request->input('comment')
+        ]);
+
+        $rating = array(
+        	'user_name' => $rating_data->user_name,
+            'user_email' => $rating_data->user_email,
+            'product_id' => $rating_data->product_id,
+            'star' => $rating_data->star,
+            'comment' => $rating_data->comment
+    	);
+
+
+        return $this->sendResponse(['Product_Rating' => $rating], 'Rating added successfully.');
+    }
+
+
+
+    public function voteBestSeller(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'vendor_id' => 'required',
+            'user_id' => 'nullable|integer', // Validate user_id if present
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+
+        $best_seller = BestSeller::create([
+            'vendor_id' => $request->input('vendor_id'),
+            'user_id' => $request->input('user_id') ?? null, // Use user_id from the request or set it to null
+        ]);
+
+        $best_sellers = array(
+        	'vendor_id' => $best_seller->vendor_id,
+            'user_id' => $best_seller->user_id
+    	);
+
+        return $this->sendResponse(['best_product' => $best_sellers], 'Best seller added successfully.');
+    }
+    public function voteBestProduct(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'product_sku' => 'required',
+            'user_id' => 'nullable|integer', // Validate user_id if present
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+
+        $best_product = BestProduct::create([
+            'product_sku' => $request->input('product_sku'),
+            'user_id' => $request->input('user_id') ?? null, // Use user_id from the request or set it to null
+        ]);
+
+        $best_products = array(
+        	'product_sku' => $best_product->product_sku,
+            'user_id' => $best_product->user_id
+    	);
+
+        return $this->sendResponse(['best_product' => $best_products], 'Best product added successfully.');
+    }
+
+
+    public function trendingProducts()
+    {
+        $p1 = DB::table('w2b_products')->inRandomOrder()->limit(5000)->get();
+        $p2 = DB::table('products')->where('status', 'enable')->inRandomOrder()->limit(5000)->get();
+        $trending_products = $p2->merge($p1)->paginate(24);
+
+        // You can customize the response structure as needed
+        return $this->sendResponse(['Trending_products' => $trending_products], 'Trending Products fetched successfully.');
+    }
+
+
+    public function specialProducts(Request $request)
+    {
+        $p1 = DB::table('w2b_products')->inRandomOrder()->limit(8000)->get();
+        $p2 = DB::table('products')->where('status', 'enable')->inRandomOrder()->limit(8000)->get();
+        $special_products = $p2->merge($p1)->paginate(24);
+
+        // You can customize the response structure as needed
+        return $this->sendResponse(['special_products' => $special_products], 'Special Products fetched successfully.');
+
+    }
+
+    public function SellerProduct($vendor_id)
+    {
+        // Check if there are products in the w2b_products table for the given vendor_id
+        $w2b_products = DB::table('w2b_products')->where('vendor_id', $vendor_id)->get();
+
+        // Use a ternary operator to determine which products to retrieve
+        $seller_products = $w2b_products->isEmpty()
+            ? DB::table('products')->where('vendor_id', $vendor_id)->paginate(24)
+            : $w2b_products->paginate(24);
+
+        return $this->sendResponse(['seller_products' => $seller_products], 'Seller Products fetched successfully.');
+    }
+
+
 
 }

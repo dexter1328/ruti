@@ -152,6 +152,7 @@ class FrontEndController extends Controller
     public function shop()
     {
 
+
         $categories1 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23,29,69])
         ->get();
 
@@ -364,39 +365,49 @@ class FrontEndController extends Controller
     }
     public function addToCart($sku)
     {
+        try {
+            $p1 = DB::table('w2b_products')
+                ->where('sku', $sku)
+                ->first();
 
-        $p1 = DB::table('w2b_products')
-        ->where('sku', $sku)
-        ->first();
-        if ($p1 ==  Null) {
-            $product = DB::table('products')
-            ->where('sku', $sku)
-            ->first();
-        }
-        else {
-            $product = DB::table('w2b_products')
-            ->where('sku', $sku)
-            ->first();
-        }
-        $cart = session()->get('cart', []);
+            if ($p1 ==  Null) {
+                $product = DB::table('products')
+                    ->where('sku', $sku)
+                    ->first();
+            } else {
+                $product = DB::table('w2b_products')
+                    ->where('sku', $sku)
+                    ->first();
+            }
 
-        if(isset($cart[$sku])) {
-            $cart[$sku]['quantity']++;
-        } else {
-            $cart[$sku] = [
-                "title" => $product->title,
-                "quantity" => 1,
-                "retail_price" => $product->retail_price,
-                "original_image_url" => $product->original_image_url,
-                "shipping_price" => $product->shipping_price,
-                "sales_tax_pct" => $product->sales_tax_pct,
-                "vendor_id" => $product->vendor_id,
-                "seller_type" => $product->seller_type
-            ];
-        }
+            if (!$product) {
+                // Product not found, you can handle this situation as needed
+                return redirect()->back()->with('error', 'Product not found.');
+            }
 
-        session()->put('cart', $cart);
-        return redirect()->back()->with('success', 'Product added to cart successfully!');
+            $cart = session()->get('cart', []);
+
+            if (isset($cart[$sku])) {
+                $cart[$sku]['quantity']++;
+            } else {
+                $cart[$sku] = [
+                    "title" => $product->title,
+                    "quantity" => 1,
+                    "retail_price" => $product->retail_price,
+                    "original_image_url" => $product->original_image_url,
+                    "shipping_price" => $product->shipping_price,
+                    "sales_tax_pct" => $product->sales_tax_pct,
+                    "vendor_id" => $product->vendor_id,
+                    "seller_type" => $product->seller_type
+                ];
+            }
+
+            session()->put('cart', $cart);
+            return redirect()->back()->with('success', 'Product added to cart successfully!');
+        } catch (\Exception $e) {
+            // Handle the exception here
+            return redirect()->back()->with('error', $e.' An error occurred while adding the product to the cart.');
+        }
     }
 
     public function addToCart1($sku)

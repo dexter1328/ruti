@@ -155,6 +155,14 @@ Route::group(['middleware' => 'auth:api'], function(){
 
 	Route::get('get-errand-runner/{cid}', 'API\AuthController@getErrandRunner');
 	Route::post('save-errand-runner/{cid}', 'API\AuthController@saveErrandRunner');
+
+
+
+    // New Api's
+    Route::post('add_wishlist', 'API\AuthController@addToWishlist');
+    Route::get('user_wishlist/{user_id}', 'API\AuthController@getWishlist');
+    Route::delete('user_wishlist/delete/{product_sku}/{user_id}', 'API\AuthController@removeWishlist');
+
 });
 
 /*Route::group(['middleware' => 'auth:vendor-api'], function(){
@@ -211,6 +219,7 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor-api'], function
 
 // Wholesale 2b Products Api
     Route::get('all_products','API\w2b\WholesaleProductController@index');
+    Route::get('seller_products/{vendor_id}','API\w2b\WholesaleProductController@SellerProduct');
     Route::get('all_categories','API\w2b\WholesaleProductController@categories');
     Route::get('get_products/{cat_name}','API\w2b\WholesaleProductController@get_products');
     Route::get('product-detail/{sku}','API\w2b\WholesaleProductController@ProductDetail');
@@ -225,6 +234,13 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor-api'], function
     Route::get('best_products/{productSku}','API\w2b\WholesaleProductController@bestProductId');
     Route::get('best_sellers','API\w2b\WholesaleProductController@bestSeller');
     Route::get('best_sellers/{vendorId}','API\w2b\WholesaleProductController@bestSellerId');
+    Route::post('/user-rating', 'API\w2b\WholesaleProductController@rating');
+    //add show ratings also
+    Route::post('/vote-best-seller', 'API\w2b\WholesaleProductController@voteBestSeller');
+    Route::post('/vote-best-product', 'API\w2b\WholesaleProductController@voteBestProduct');
+    Route::get('/trending-products', 'API\w2b\WholesaleProductController@trendingProducts');
+    Route::get('/special-products', 'API\w2b\WholesaleProductController@specialProducts');
+
 
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {

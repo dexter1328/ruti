@@ -5,6 +5,11 @@
   {{ session('success') }}
 </div>
 @endif
+@if(session('error'))
+<div class="alert alert-danger">
+  {{ session('error') }}
+</div>
+@endif
 
 
 <!--product details start-->
@@ -422,6 +427,7 @@
     $("document").ready(function(){
         setTimeout(function() {
         $('.alert-success').fadeOut('fast');
+        $('.alert-danger').fadeOut('fast');
         }, 3000);
 
     });
