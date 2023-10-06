@@ -7,6 +7,9 @@ use Validator;
 use App\W2bOrder;
 use App\BestSeller;
 use App\BestProduct;
+use App\City;
+use Config;
+use App\Country;
 use App\W2bCategory;
 use App\OrderedProduct;
 use App\Jobs\RutiMailJob;
@@ -17,11 +20,18 @@ use App\Mail\WbRutiOrderMail;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Jobs\SellerOrderJob;
 use App\Products;
 use App\Rating;
+use App\State;
+use App\Vendor;
 use App\W2bProduct;
 use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\Rule;
+use Stripe\Charge;
+use Stripe\Customer;
+use Stripe\Stripe;
 
 class WholesaleProductController extends Controller
 {
@@ -109,71 +119,7 @@ class WholesaleProductController extends Controller
         return $this->sendResponse(['Product_Details' => $product], 'single product details');
     }
 
-    public function postCheckout(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-			'total_price' => 'required',
-			'user_id' => 'required',
-			'order_notes' => 'required',
-			'price'=>'required',
-			'title'=>'required',
-			'quantity'=>'required',
-			'image'=>'required',
-			'sku'=>'required',
-		]);
-        $user = User::where('id', $request->user_id)->first();
-        $fname = ucfirst($user->first_name);
-        $lname = ucfirst($user->last_name);
-        // $user = User::where('id',$userId)->first();
-        $w2border = W2bOrder::create([
 
-            'total_price' => $request->total_price,
-            'user_id' => $request->user_id,
-
-            'order_notes' => $request->order_notes,
-            'order_id' => strtoupper(substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 9))
-
-        ]);
-        $ordered_products = [];
-
-         $input = $request->except(['total_price','user_id','order_notes','order_id']);
-            //  dd($input);
-        foreach($input as $sku => $details) {
-
-            $ordered_products[] = OrderedProduct::create([
-                'sku' => $sku,
-                'price' => $details['price'],
-                'quantity' => $details['quantity'],
-                'title' => $details['title'],
-                'image' => $details['image'],
-                'order_id' => $w2border->order_id
-
-            ]);
-
-        }
-        $success = [];
-        $success[] = array(
-                    'w2border' => $w2border,
-                    'ordered_products' => $ordered_products
-
-                );
-        $details = [
-            'title' => 'Nature Checkout Order #'.$w2border->order_id,
-            'body' => 'Dear '.$fname.' '.$lname,
-            'email' => $user->email
-        ];
-        $details2 = [
-            'title' => 'New Order Received #'.$w2border->order_id,
-            'body' => 'A new Customer named '.$fname.' '.$lname.' has created an order',
-            'email' => 'sales@naturecheckout.com'
-        ];
-        // dispatch(new OrderMailJob($details));
-        // dispatch(new RutiMailJob($details2));
-        Mail::to($user->email)->send(new WbOrderMail($details));
-        Mail::to('sales@naturecheckout.com')->send(new WbRutiOrderMail($details2));
-
-            return $this->sendResponse($success,'Your Order has been created successfully.');
-    }
     public function postCheckout2(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -463,6 +409,34 @@ class WholesaleProductController extends Controller
         return $this->sendResponse(['Product_Rating' => $rating], 'Rating added successfully.');
     }
 
+    public function ShowRating($product_sku)
+    {
+        $ratings = Rating::where('product_id', $product_sku)->get();
+
+        return $this->sendResponse(['Product_Ratings' => $ratings], 'Product ratings or reviews fetched successfully.');
+
+    }
+
+    public function shopSearch(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'query' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+
+        $query = $request->input('query');
+        $p1 = DB::table('w2b_products')->where('title', 'like', "%$query%")->get();
+        $p2 = DB::table('products')->where('title', 'like', "%$query%")->get();
+        $products = $p2->merge($p1)->paginate(24);
+
+
+        return $this->sendResponse(['Search_products' => $products], 'Searched Products fetched successfully.');
+
+    }
+
 
 
     public function voteBestSeller(Request $request)
@@ -547,6 +521,251 @@ class WholesaleProductController extends Controller
 
         return $this->sendResponse(['seller_products' => $seller_products], 'Seller Products fetched successfully.');
     }
+
+    public function Country()
+    {
+        $countries =  Country::all();
+
+        return $this->sendResponse(['countries' => $countries], 'Countries fetched successfully.');
+
+    }
+
+    public function State($country_id)
+    {
+        $states =  State::where('country_id' , $country_id)->get();
+
+        return $this->sendResponse(['states' => $states], 'states fetched successfully.');
+
+    }
+
+    public function City($state_id)
+    {
+        $cities =  City::where('state_id' , $state_id)->get();
+
+        return $this->sendResponse(['cities' => $cities], 'cities fetched successfully.');
+
+    }
+
+    public function postCheckout(Request $request)
+    {
+        // dd($request->all());
+        $user = $request->user_id;
+
+        if (!$user) {
+            // Validation rules for guest users
+            $request->validate([
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'email' => [
+                    'required',
+                    'email',
+                    Rule::unique('users')->where(function ($query) use ($request) {
+                        return $query->where('email', $request->input('email'));
+                    }),
+                ],
+                'zip_code' => 'required',
+                'mobile' => 'required',
+                'state' => 'required',
+                'city' => 'required',
+                'address' => 'required',
+                'password' => 'required',
+            ], [
+                'email.unique' => 'The email address is already registered. Please log in first to complete order.',
+            ]);
+
+            $user = new User;
+            $user->first_name = $request->first_name;
+            $user->last_name = $request->last_name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->mobile = $request->mobile;
+            $user->state = $request->state;
+            $user->city = $request->city;
+            $user->zip_code = $request->zip_code;
+            $user->address = $request->address;
+            $user->address2 = $request->address2;
+            $user->save();
+        } else {
+            // Validation rules for authenticated users
+            $request->validate([
+                'zip_code' => 'required',
+                'state' => 'required',
+                'city' => 'required',
+                'address' => 'required',
+            ]);
+
+            $user->update([
+                'state' => $request->state,
+                'city' => $request->city,
+                'address' => $request->address,
+                'address2' => $request->address2,
+                'zip_code' => $request->zip_code
+            ]);
+        }
+
+        $w2border = W2bOrder::create([
+            'total_price' => number_format((float)$request->total_price, 2, '.', ''),
+            'user_id' => $user->id,
+            'order_notes' => $request->order_notes,
+            'order_id' => strtoupper(substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 9)),
+        ]);
+
+        $ordered_products = [];
+        $input = $request->all();
+        // Assuming $input contains the expected structure
+        foreach ($input['cart'] as $sku => $details) {
+            $tax = ($details['sales_tax_pct'] / 100) * $details['retail_price'];
+            $tp = $details['retail_price'] * $details['quantity'];
+            $total_price_items = $tax + $tp + $details['shipping_price'];
+
+            $orderedProduct = OrderedProduct::create([
+                'sku' => $sku,
+                'price' => $details['retail_price'],
+                'quantity' => $details['quantity'],
+                'sales_tax' => $tax,
+                'shipping_price' => $details['shipping_price'],
+                'total_price' => $total_price_items,
+                'title' => $details['title'],
+                'image' => $details['original_image_url'],
+                'order_id' => $w2border->order_id,
+                'vendor_id' => $details['vendor_id'],
+                'seller_type' => $details['seller_type'],
+                // Add other fields as needed
+            ]);
+
+            // Add the created ordered product to the array
+            $ordered_products[] = $orderedProduct;
+        }
+
+
+
+        // You may want to return a JSON response instead of a redirect
+        return response()->json([
+            'message' => 'Order placed successfully',
+            'order' => $w2border,
+            'user_details' => $user,
+            'products_details' => $ordered_products,
+        ]);
+    }
+
+    public function processPayment(Request $request)
+    {
+        try {
+            // Validate the incoming request data
+            $request->validate([
+                'user_id' => 'required|exists:users,id', // Ensure user_id exists in the users table
+                'stripeToken' => 'required|string', // Stripe token from the frontend
+                'order_id' => 'required|string', // Add validation for order_id if needed
+                // Add any other validation rules you need
+            ]);
+
+            // Retrieve user details from the request (you can use authentication if needed)
+            $userId = $request->input('user_id');
+            $orderId = $request->input('order_id'); // Assuming order_id is provided
+            $user = User::findOrFail($userId);
+
+            // Process the payment with Stripe
+            Stripe::setApiKey($this->stripe_secret);
+            $customer = Customer::create([
+                "email" => $user->email,
+                "name" => $user->first_name,
+                "source" => $request->stripeToken,
+            ]);
+
+            $totalPrice = number_format((float)$request->input('total_price'), 2, '.', '');
+            $charge = Charge::create([
+                "amount" => round($totalPrice * 100),
+                "currency" => "usd",
+                "customer" => $customer->id,
+                "description" => "Payment from Nature Checkout",
+                // Add shipping information if needed
+            ]);
+
+            if ($charge) {
+                // Payment successful
+                // Update the order and send emails to the user and sellers
+                // ...
+
+                // Update the user's stripe_customer_id and order's is_paid status
+                $user->update(['stripe_customer_id' => $customer->id]);
+                $userOrder = W2bOrder::where('order_id', $orderId)->firstOrFail();
+                $userOrder->update(['is_paid' => 'yes']);
+
+                // Prepare email details
+                $fname = ucfirst($user->first_name);
+                $lname = ucfirst($user->last_name);
+                $stateName = DB::table('states')->where('id', $user->state)->first();
+                $state = $stateName ? $stateName->name : null;
+                $cityName = DB::table('cities')->where('id', $user->city)->first();
+                $city = $cityName ? $cityName->name : null;
+                $zipCode = $user->zip_code ?? null;
+
+                $details = [
+                    'email' => $user->email,
+                    'name' => $fname . ' ' . $lname,
+                    'order_no' => $userOrder->order_id,
+                    'address' => $user->address,
+                    'city' => $city,
+                    'state' => $state,
+                    'zip_code' => $zipCode,
+                    'total_price' => $userOrder->total_price,
+                ];
+
+                // Send emails
+                dispatch(new OrderMailJob($user->email, $details));
+                // Mail::to($user_details->email)->send(new WbOrderMail($details));
+
+                $adminEmail = config('app.admin_email');
+                $details2 = [
+                    'name' => $fname . ' ' . $lname,
+                    'order_no' => $userOrder->order_id,
+                    'total_price' => $userOrder->total_price,
+                ];
+
+                dispatch(new RutiMailJob($adminEmail, $details2));
+                // Mail::to($adminEmail)->send(new WbRutiOrderMail($details2));
+
+                if ($userOrder) {
+                    // Check if $userOrder is not null
+
+                    $orderedProducts = OrderedProduct::where('order_id', $userOrder->order_id)->get();
+
+                    foreach ($orderedProducts as $product) {
+                        $sellerId = $product->vendor_id; // Assuming you have a relationship set up
+                        $seller = Vendor::where('id', $sellerId)->first();
+
+                        $details = [
+                            'email' => $user->email,
+                            'name' => $fname . ' ' . $lname,
+                            'order_no' => $userOrder->order_id,
+                            'address' => $user->address,
+                            'city' => $city,
+                            'state' => $state,
+                            'zip_code' => $zipCode,
+                        ];
+
+                        // Send an email to the seller
+                        dispatch(new SellerOrderJob($seller->email, $details));
+                    }
+                } else {
+                    return response()->json(['message' => 'Order not found'], 404);
+                }
+
+                return response()->json([
+                    'message' => 'Payment successful',
+                    'order_details' => $userOrder, // Include the order details if needed
+                ], 200);
+            } else {
+                // Payment failed
+                return response()->json(['message' => 'Payment failed'], 400);
+            }
+        } catch (\Exception $e) {
+            // Handle exceptions here, log errors, and return an appropriate response
+            return response()->json(['message' => 'Payment error: ' . $e->getMessage()], 500);
+        }
+    }
+
+
 
 
 

@@ -225,6 +225,7 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor-api'], function
     Route::get('product-detail/{sku}','API\w2b\WholesaleProductController@ProductDetail');
     Route::post('post-checkout','API\w2b\WholesaleProductController@postCheckout');
     Route::post('post-checkout2','API\w2b\WholesaleProductController@postCheckout2');
+    Route::post('order-payment', 'API\w2b\WholesaleProductController@processPayment');
     Route::get('user_orders/{userId}','API\w2b\WholesaleProductController@userOrder');
     Route::get('ordered_products/{orderId}','API\w2b\WholesaleProductController@orderedProduct');
     Route::get('single_order/{orderId}','API\w2b\WholesaleProductController@singleOrder');
@@ -235,11 +236,17 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor-api'], function
     Route::get('best_sellers','API\w2b\WholesaleProductController@bestSeller');
     Route::get('best_sellers/{vendorId}','API\w2b\WholesaleProductController@bestSellerId');
     Route::post('/user-rating', 'API\w2b\WholesaleProductController@rating');
+    Route::get('/show-product-rating/{product_sku}', 'API\w2b\WholesaleProductController@ShowRating');
+    Route::post('shop/search', 'API\w2b\WholesaleProductController@shopSearch');
+
     //add show ratings also
     Route::post('/vote-best-seller', 'API\w2b\WholesaleProductController@voteBestSeller');
     Route::post('/vote-best-product', 'API\w2b\WholesaleProductController@voteBestProduct');
     Route::get('/trending-products', 'API\w2b\WholesaleProductController@trendingProducts');
     Route::get('/special-products', 'API\w2b\WholesaleProductController@specialProducts');
+    Route::get('/countries', 'API\w2b\WholesaleProductController@Country');
+    Route::get('/states/{country_id}', 'API\w2b\WholesaleProductController@State');
+    Route::get('/cities/{state_id}', 'API\w2b\WholesaleProductController@City');
 
 
 

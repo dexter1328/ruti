@@ -687,6 +687,9 @@ class FrontEndController extends Controller
         ]);
         if ($charge) {
             $order->update([
+                'stripe_customer_id' => $customer->id,
+            ]);
+            $order->update([
                 'is_paid' => 'yes',
             ]);
             $fname = ucfirst($user->first_name);
@@ -763,6 +766,100 @@ class FrontEndController extends Controller
         return redirect('/thank-you-page');
         return ;
     }
+
+    public function userWalletPayment(Request $request, $amount)
+    {
+        $w2border = session()->get('w2border');
+        $user_details = session()->get('user_details');
+        $order = W2bOrder::where('id', $w2border->id)->first();
+        $order_detail = W2bOrder::where('order_id', $w2border->order_id)->first();
+        $uid = Auth::guard('w2bcustomer')->user()->id;
+        $user = User::where('id', $uid)->first();
+        if ($user->wallet_amount < $amount) {
+            return redirect()->back()->with('error', 'Your balance is not enough');
+        }
+        else {
+            $debit = $user->wallet_amount - $amount;
+            $user->update([
+                'wallet_amount' => $debit,
+            ]);
+            $order->update([
+                'is_paid' => 'yes',
+            ]);
+            $fname = ucfirst($user->first_name);
+            $lname = ucfirst($user->last_name);
+            $state_name = DB::table('states')->where('id',$user->state)->first();
+			if(empty($state_name)){
+				$state = NULL;
+			}else{
+				$state = $state_name->name;
+			}
+			$city_name = DB::table('cities')->where('id',$user->city)->first();
+			if(empty($city_name)){
+				$city = NULL;
+			}else{
+				$city = $city_name->name;
+			}
+            if(empty($user->zip_code)){
+				$zip_code = NULL;
+			}else{
+				$zip_code = $user->zip_code;
+			}
+            $details = [
+                'email' => $user->email,
+                'name' => $fname.' '.$lname,
+                'order_no' => $order_detail->order_id,
+                'address' => $user->address,
+                'city' => $city,
+                'state' => $state,
+                'zip_code' => $zip_code,
+                'total_price' => $order_detail->total_price
+            ];
+            $details2 = [
+                'name' => $fname.' '.$lname,
+                'order_no' => $order_detail->order_id,
+                'total_price' => $order_detail->total_price
+            ];
+
+            dispatch(new OrderMailJob($user_details->email, $details));
+            // Mail::to($user_details->email)->send(new WbOrderMail($details));
+
+            $admin_email = Config::get('app.admin_email');
+            dispatch(new RutiMailJob($admin_email, $details2));
+            // Mail::to($admin_email)->send(new WbRutiOrderMail($details2));
+            if ($order_detail) {
+                // Check if $order_detail is not null
+
+                $orderedProducts = OrderedProduct::where('order_id', $order_detail->order_id)->get();
+
+                foreach ($orderedProducts as $product) {
+                    $seller_id = $product->vendor_id; // Assuming you have a relationship set up
+                    $seller = Vendor::where('id', $seller_id)->first();
+
+                    $details = [
+                        'email' => $user->email,
+                        'name' => $fname.' '.$lname,
+                        'order_no' => $order_detail->order_id,
+                        'address' => $user->address,
+                        'city' => $city,
+                        'state' => $state,
+                        'zip_code' => $zip_code,
+                    ];
+
+                    // Send an email to the seller
+                    dispatch(new SellerOrderJob($seller->email, $details));
+                }
+                } else {
+                    return back();
+                }
+
+            session()->forget('cart');
+            session()->forget('w2border');
+            session()->forget('user_details');
+        }
+        return redirect('/thank-you-page');
+    }
+
 
     public function thankYou()
     {
@@ -914,98 +1011,7 @@ class FrontEndController extends Controller
         dd('error');
     }
 
-    public function userWalletPayment(Request $request, $amount)
-    {
-        $w2border = session()->get('w2border');
-        $user_details = session()->get('user_details');
-        $order = W2bOrder::where('id', $w2border->id)->first();
-        $order_detail = W2bOrder::where('order_id', $w2border->order_id)->first();
-        $uid = Auth::guard('w2bcustomer')->user()->id;
-        $user = User::where('id', $uid)->first();
-        if ($user->wallet_amount < $amount) {
-            return redirect()->back()->with('error', 'Your balance is not enough');
-        }
-        else {
-            $debit = $user->wallet_amount - $amount;
-            $user->update([
-                'wallet_amount' => $debit,
-            ]);
-            $order->update([
-                'is_paid' => 'yes',
-            ]);
-            $fname = ucfirst($user->first_name);
-            $lname = ucfirst($user->last_name);
-            $state_name = DB::table('states')->where('id',$user->state)->first();
-			if(empty($state_name)){
-				$state = NULL;
-			}else{
-				$state = $state_name->name;
-			}
-			$city_name = DB::table('cities')->where('id',$user->city)->first();
-			if(empty($city_name)){
-				$city = NULL;
-			}else{
-				$city = $city_name->name;
-			}
-            if(empty($user->zip_code)){
-				$zip_code = NULL;
-			}else{
-				$zip_code = $user->zip_code;
-			}
-            $details = [
-                'email' => $user->email,
-                'name' => $fname.' '.$lname,
-                'order_no' => $order_detail->order_id,
-                'address' => $user->address,
-                'city' => $city,
-                'state' => $state,
-                'zip_code' => $zip_code,
-                'total_price' => $order_detail->total_price
-            ];
-            $details2 = [
-                'name' => $fname.' '.$lname,
-                'order_no' => $order_detail->order_id,
-                'total_price' => $order_detail->total_price
-            ];
 
-            dispatch(new OrderMailJob($user_details->email, $details));
-            // Mail::to($user_details->email)->send(new WbOrderMail($details));
-
-            $admin_email = Config::get('app.admin_email');
-            dispatch(new RutiMailJob($admin_email, $details2));
-            // Mail::to($admin_email)->send(new WbRutiOrderMail($details2));
-            if ($order_detail) {
-                // Check if $order_detail is not null
-
-                $orderedProducts = OrderedProduct::where('order_id', $order_detail->order_id)->get();
-
-                foreach ($orderedProducts as $product) {
-                    $seller_id = $product->vendor_id; // Assuming you have a relationship set up
-                    $seller = Vendor::where('id', $seller_id)->first();
-
-                    $details = [
-                        'email' => $user->email,
-                        'name' => $fname.' '.$lname,
-                        'order_no' => $order_detail->order_id,
-                        'address' => $user->address,
-                        'city' => $city,
-                        'state' => $state,
-                        'zip_code' => $zip_code,
-                    ];
-
-                    // Send an email to the seller
-                    dispatch(new SellerOrderJob($seller->email, $details));
-                }
-                } else {
-                    return back();
-                }
-
-            session()->forget('cart');
-            session()->forget('w2border');
-            session()->forget('user_details');
-        }
-        return redirect('/thank-you-page');
-    }
 
     public function sentry()
     {
