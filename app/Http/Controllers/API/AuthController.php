@@ -1340,5 +1340,51 @@ class AuthController extends BaseController
         return $this->sendResponse(['Wishlist_Product_removed' => $wl], 'Product removed from wishlist successfully');
     }
 
+    public function UserOrder(Request $request)
+    {
+        $userId = auth()->user()->id;
+        // dd($userId);
+
+        $user_orders = DB::table('w2b_orders')
+            ->where('w2b_orders.user_id', $userId)
+            ->where('w2b_orders.is_paid','yes')
+            ->get();
+
+            return $this->sendResponse(['user_orders' => $user_orders], 'User Orders fetched successfully');
+    }
+
+    public function userOrderedProduct($order_id)
+    {
+        $user = Auth::user();
+        // dd($user->id);
+
+        if (!$user) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        $ordered_product1 = DB::table('w2b_orders')
+            ->join('ordered_products', 'ordered_products.order_id', '=', 'w2b_orders.order_id')
+            ->join('w2b_products', 'w2b_products.sku', '=', 'ordered_products.sku')
+            ->where('w2b_orders.user_id', $user->id)
+            ->where('w2b_orders.is_paid', 'yes')
+            ->where('w2b_orders.order_id', $order_id)
+            ->select('ordered_products.*', 'w2b_products.slug as slug', 'w2b_orders.order_id as p_order_id', 'w2b_orders.total_price as p_total_price',
+                'w2b_orders.created_at as p_created_at', 'w2b_orders.user_id as p_user_id');
+
+        $ordered_product2 = DB::table('w2b_orders')
+            ->join('ordered_products', 'ordered_products.order_id', '=', 'w2b_orders.order_id')
+            ->join('products', 'products.sku', '=', 'ordered_products.sku')
+            ->where('w2b_orders.user_id', $user->id)
+            ->where('w2b_orders.is_paid', 'yes')
+            ->where('w2b_orders.order_id', $order_id)
+            ->select('ordered_products.*', 'products.slug as slug', 'w2b_orders.order_id as p_order_id', 'w2b_orders.total_price as p_total_price',
+                'w2b_orders.created_at as p_created_at', 'w2b_orders.user_id as p_user_id');
+
+        $ordered_products = $ordered_product2->union($ordered_product1)->get();
+
+        return $this->sendResponse(['User_Ordered_Products' => $ordered_products], 'User Products of an order fetched successfully');
+
+    }
+
 }
 

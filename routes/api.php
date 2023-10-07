@@ -162,6 +162,10 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('add_wishlist', 'API\AuthController@addToWishlist');
     Route::get('user_wishlist/{user_id}', 'API\AuthController@getWishlist');
     Route::delete('user_wishlist/delete/{product_sku}/{user_id}', 'API\AuthController@removeWishlist');
+    Route::get('/user-orders', 'API\AuthController@UserOrder');
+    Route::get('/user-ordered-products/{order_id}', 'API\AuthController@userOrderedProduct');
+
+
 
 });
 
