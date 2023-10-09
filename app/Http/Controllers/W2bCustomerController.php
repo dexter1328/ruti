@@ -184,7 +184,7 @@ class W2bCustomerController extends Controller
         ->where('w2b_orders.order_id', $id)
         ->select('ordered_products.*','products.slug as slug', 'w2b_orders.order_id as p_order_id', 'w2b_orders.total_price as p_total_price',
          'w2b_orders.created_at as p_created_at', 'w2b_orders.user_id as p_user_id');
-        //  dd($ordered_products);
+
         $ordered_products = $ordered_product2->union($ordered_product1)->get();
 
 
@@ -193,6 +193,7 @@ class W2bCustomerController extends Controller
 
     public function orderInvoice($id)
     {
+        // dd($id);
 
         $order = DB::table('w2b_orders')
         ->join('users', 'users.id', '=', 'w2b_orders.user_id')
@@ -202,7 +203,6 @@ class W2bCustomerController extends Controller
         ->select('w2b_orders.*', 'users.first_name as fname','users.last_name as lname','users.email as email',
         'users.address as address','users.zip_code as zip_code','users.mobile as mobile','states.name as state_name','cities.name as city_name')
         ->first();
-        // dd($order);
 
         $ordered_products = DB::table('w2b_orders')
         ->join('ordered_products', 'ordered_products.order_id', '=', 'w2b_orders.order_id')
@@ -212,7 +212,7 @@ class W2bCustomerController extends Controller
         ->select('ordered_products.*', 'w2b_orders.order_id as p_order_id', 'w2b_orders.total_price as p_total_price',
          'w2b_orders.created_at as p_created_at', 'w2b_orders.status as p_status')
         ->get();
-        //   dd($ordered_products);
+           dd($ordered_products);
 
 
         return view('front_end.order_invoice',compact('order', 'ordered_products'));

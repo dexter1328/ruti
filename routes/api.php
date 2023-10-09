@@ -164,6 +164,11 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::delete('user_wishlist/delete/{product_sku}/{user_id}', 'API\AuthController@removeWishlist');
     Route::get('/user-orders', 'API\AuthController@UserOrder');
     Route::get('/user-ordered-products/{order_id}', 'API\AuthController@userOrderedProduct');
+    Route::get('/user-order-invoice/{order_id}', 'API\AuthController@userOrderInvoice');
+    Route::post('gift-receipt/create/{order_id}', 'API\AuthController@giftReceipt');
+    Route::post('/return-item', 'API\AuthController@returnItem');
+
+
 
 
 

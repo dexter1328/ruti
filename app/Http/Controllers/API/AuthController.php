@@ -31,10 +31,13 @@ use App\MembershipCoupon;
 use App\UserSubscription;
 use App\SubscriptionHistory;
 use App\ErrandRunner;
+use App\GiftReceipt;
 use App\Mail\CustomerSignup;
 use App\Mail\CustomerSubscriptionMail;
 use App\Helpers\LogActivity as Helper;
 use App\Notifications\W2bCustomerResetPassword;
+use App\OrderedProduct;
+use App\ReturnItem;
 use App\WbWishlist;
 use DB;
 use Hash;
@@ -1356,7 +1359,7 @@ class AuthController extends BaseController
     public function userOrderedProduct($order_id)
     {
         $user = Auth::user();
-        // dd($user->id);
+        //  dd($user->id);
 
         if (!$user) {
             return response()->json(['message' => 'Unauthorized'], 401);
@@ -1379,10 +1382,94 @@ class AuthController extends BaseController
             ->where('w2b_orders.order_id', $order_id)
             ->select('ordered_products.*', 'products.slug as slug', 'w2b_orders.order_id as p_order_id', 'w2b_orders.total_price as p_total_price',
                 'w2b_orders.created_at as p_created_at', 'w2b_orders.user_id as p_user_id');
-
         $ordered_products = $ordered_product2->union($ordered_product1)->get();
 
         return $this->sendResponse(['User_Ordered_Products' => $ordered_products], 'User Products of an order fetched successfully');
+
+    }
+
+    public function userOrderInvoice($order_id)
+    {
+        $user = Auth::user();
+        //  dd($user->id);
+
+        if (!$user) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        $order = DB::table('w2b_orders')
+            ->join('users', 'users.id', '=', 'w2b_orders.user_id')
+            ->join('states', 'states.id', '=', 'users.state')
+            ->join('cities', 'cities.id', '=', 'users.city')
+            ->where('w2b_orders.order_id', $order_id)
+            ->select('w2b_orders.*', 'users.first_name as fname','users.last_name as lname','users.email as email',
+                'users.address as address','users.zip_code as zip_code','users.mobile as mobile','states.name as state_name','cities.name as city_name')
+            ->first();
+
+        $ordered_products = DB::table('w2b_orders')
+            ->join('ordered_products', 'ordered_products.order_id', '=', 'w2b_orders.order_id')
+            ->where('w2b_orders.user_id', $user->id)
+            ->where('w2b_orders.is_paid', 'yes')
+            ->where('w2b_orders.order_id', $order_id)
+            ->select('ordered_products.*', 'w2b_orders.order_id as p_order_id', 'w2b_orders.total_price as p_total_price',
+                'w2b_orders.created_at as p_created_at', 'w2b_orders.status as p_status')
+            ->get();
+
+        return response()->json(['order' => $order, 'ordered_products' => $ordered_products]);
+    }
+
+    public function giftReceipt(Request $request, $orderId)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'message' => 'required|string',
+        ]);
+
+        // Create a new GiftReceipt instance using the validated data
+        GiftReceipt::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'message' => $validatedData['message'],
+            'order_id' => $orderId,
+        ]);
+
+        return response()->json(['message' => 'Gift receipt created successfully'], 201);
+
+
+    }
+
+    public function returnItem(Request $request)
+    {
+        // Validate the incoming JSON request data
+        $validatedData = $request->validate([
+            'order_id' => 'required',
+            'product_sku' => 'required|string',
+            'user_id' => 'required|integer',
+            'vendor_id' => 'required|integer',
+            'reason' => 'required|string',
+            'comment' => 'nullable|string',
+        ]);
+
+        // Create a new ReturnItem instance using the validated data
+        $return_item = ReturnItem::create($validatedData);
+
+        // Update the OrderedProduct status to 'returned'
+        OrderedProduct::where('sku', $validatedData['product_sku'])
+            ->where('order_id', $validatedData['order_id'])
+            ->update(['status' => 'returned']);
+
+            $return_items = array(
+                "order_id" => $return_item->order_id,
+                "product_sku" => $return_item->product_sku,
+                "user_id" => $return_item->user_id,
+                "vendor_id" => $return_item->vendor_id,
+                "reason" => $return_item->reason,
+                "comment" => $return_item->comment,
+            );
+
+            // Return a JSON response
+            return $this->sendResponse($return_items,'Return request submitted successfully');
 
     }
 
