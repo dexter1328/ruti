@@ -38,30 +38,27 @@ var tabledata = [
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th style="width: 15%">Order No</th>
-                                <th style="width: 25%">Customer Name</th>
-                                <th>Total Price</th>
-                                <th>Is Paid</th>
+                                <th style="width: 15%">Title</th>
+                                <th style="width: 25%">Created At</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($blogs as $blog)
                             <tr>
-                                <th>#</th>
-                                <th style="width: 15%">Order No</th>
-                                <th style="width: 25%">Customer Name</th>
-                                <th>Total Price</th>
-                                <th>Is Paid</th>
+                                <th>{{ $loop->iteration }}</th>
+                                <th style="width: 30%">{{ $blog->title }}</th>
+                                <th style="width: 25%">{{ $blog->created_at }}</th>
                                 <th>Actions</th>
                             </tr>
+                            @endforeach
+
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th>#</th>
-                                <th style="width: 15%">Order No</th>
-                                <th style="width: 25%">Customer Name</th>
-                                <th>Total Price</th>
-                                <th>Is Paid</th>
+                                <th style="width: 15%">Title</th>
+                                <th style="width: 25%">Created At</th>
                                 <th>Actions</th>
                             </tr>
                         </tfoot>

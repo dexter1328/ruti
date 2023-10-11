@@ -9,18 +9,19 @@
                 <div class="main_section p-4 mb-4">
                     <h5 class="i_text_color my-3">Add New Blog:</h5>
                     <div>
-                        <form action="" method="post">
+                        <form  method="post" action="{{route('blog.store')}}" enctype="multipart/form-data">
+                            @csrf
                             <div class="col-lg-12 mb-3">
                                 <label>Title<span class="text-danger">*</span></label>
-                                <input class='form-control' type='text' placeholder='Enter Account Title'>
+                                <input class='form-control' name="title" type='text' placeholder='Enter Account Title'>
                             </div>
                             <div class="col-lg-12 mb-3">
                                 <label>Blog Content<span class="text-danger">*</span></label>
-                                <textarea class='form-control' type='text' placeholder='Enter blog content here'></textarea>
+                                <textarea class="summernote7" name="content" required></textarea>
                             </div>
                             <div class="col-lg-12 mb-3">
                                 <label>Image<span class="text-danger">*</span></label>
-                                <input class='form-control' type='file' placeholder='Enter Account Title'>
+                                <input class='form-control' type='file' name="image" placeholder='Enter Account Title'>
                             </div>
                             <div class="form-group row">
                                 <div class="col-12 i_buttons">
@@ -35,4 +36,16 @@
         </div>
     </div>
     </div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+          $('.summernote7').summernote({
+          height: 200, // set editor height
+          minHeight: null, // set minimum height of editor
+          maxHeight: null, // set maximum height of editor
+          focus: true // set focus to editable area after initializing summernote
+       });
+        });
+    </script>
 @endsection

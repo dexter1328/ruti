@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Blog;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\Permission;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Stripe\Stripe;
 
 class BlogController extends Controller
@@ -35,7 +37,8 @@ class BlogController extends Controller
     public function index()
     {
         //
-        return view('admin.blog.index');
+        $blogs = Blog::all();
+        return view('admin.blog.index' , compact('blogs'));
     }
 
     /**
@@ -56,7 +59,31 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
+			'title'  => 'required',
+			'content'=>'required',
+			'image' => 'required|mimes:jpeg,png,jpg|max:2048',
+		]);
+
+        $data = array(
+            'title'=>$request->input('title'),
+            'content' => $request->input('content')
+        );
+
+
+        if ($files = $request->file('image')){
+
+            $path = 'public/images/blog';
+            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $files->move($path, $profileImage);
+            $data['image'] = $profileImage;
+        }
+        $blog = Blog::create($data);
+
+        return redirect()->route('blog.index');
+
+
     }
 
     /**

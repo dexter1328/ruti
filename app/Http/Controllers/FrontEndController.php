@@ -25,6 +25,7 @@ use App\BestSeller;
 use App\W2bProduct;
 use App\WbWishlist;
 use App\BestProduct;
+use App\Blog;
 use App\W2bCategory;
 use PayPal\Api\Item;
 use Stripe\Customer;
@@ -144,8 +145,10 @@ class FrontEndController extends Controller
 
     public function blog()
     {
+        $latest_blogs = Blog::latest()->take(6)->get();
+        $blogs = Blog::all();
 
-        return view('front_end.blog.blog');
+        return view('front_end.blog.blog', compact('blogs','latest_blogs'));
     }
 
 
