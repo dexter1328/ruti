@@ -203,6 +203,7 @@ class CommonController extends Controller
 
 	public function vendorSignup(Request $request)
 	{
+        // dd($request->all());
 		if(empty($request->all())){
                 $wb_wishlist = null;
 

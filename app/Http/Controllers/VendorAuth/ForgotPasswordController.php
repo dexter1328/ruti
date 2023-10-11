@@ -70,9 +70,14 @@ class ForgotPasswordController extends Controller
             DB::table('vendor_password_resets')->where('email', $vendor->email)
             ->update(['token' => Str::random(60), 'created_at' => date('Y-m-d H:i:s')]);
         }else{
-            DB::table('vendor_password_resets')->insert([
-                ['email' => $vendor->email, 'token' => Str::random(60), 'created_at' => date('Y-m-d H:i:s')],
-            ]);
+            $passwordReset = VendorPasswordReset::updateOrCreate(
+                ['email' => $vendor->email],
+                [
+                    'email' => $vendor->email,
+                    'token' => Str::random(60),
+                    'id' => null, // Explicitly set id to null to allow it to be auto-generated
+                ]
+            );
         }
 
         $passwordReset = DB::table('vendor_password_resets')->where('email', $vendor->email)->first();

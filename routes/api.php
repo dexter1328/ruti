@@ -65,9 +65,9 @@ Route::middleware('auth:api')->group( function () {
 	Route::get('customer-incentives', 'API\AuthController@customerIncentives');
 
 	// vendor
-	Route::post('/vendor/login', 'API\Vendor\AuthController@login');
-	Route::post('/vendor/forgot_password','API\Vendor\AuthController@ForgotPassword');
-	Route::post('/vendor/save_vendor_device','API\Vendor\AuthController@saveVendorDevice');
+	// Route::post('/vendor/login', 'API\Vendor\AuthController@login');
+	// Route::post('/vendor/forgot_password','API\Vendor\AuthController@ForgotPassword');
+	// Route::post('/vendor/save_vendor_device','API\Vendor\AuthController@saveVendorDevice');
 //});
 
 Route::group(['middleware' => 'auth:api'], function(){
@@ -169,9 +169,6 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('/return-item', 'API\AuthController@returnItem');
 
 
-
-
-
 });
 
 /*Route::group(['middleware' => 'auth:vendor-api'], function(){
@@ -179,11 +176,23 @@ Route::group(['middleware' => 'auth:api'], function(){
 	Route::post('edit_profile/{id}','API\VendorAuthController@editProfile');
 });*/
 
+    Route::post('vendor/register', 'API\VendorApi\AuthController@register');
+	Route::post('vendor/login', 'API\VendorApi\AuthController@login');
+	Route::post('vendor/forgot_password','API\VendorApi\AuthController@ForgotPassword');
+	Route::post('vendor/password/reset/{token}','API\VendorApi\AuthController@showResetForm');
+	Route::post('vendor/save_user_device','API\VendorApi\AuthController@saveUserDevice');
+
 Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor-api'], function() {
 
+    //Nabeel api's
+    Route::post('change_password/{id}','API\VendorApi\AuthController@changePassword');
+
+
+
+
+    // Route::post('change_password/{id}','API\Vendor\AuthController@changePassword');
 	Route::post('signup/{id}','API\Vendor\AuthController@signup');
    	Route::post('edit_profile/{id}','API\Vendor\AuthController@editProfile');
-   	Route::post('change_password/{id}','API\Vendor\AuthController@changePassword');
    	Route::get('get-store/{id}','API\Vendor\ShopController@getStore');
    	Route::post('dashboard/{id}','API\Vendor\ShopController@dashboard');
    	Route::post('take-away-list/{id}','API\Vendor\ShopController@takeAwayList');
