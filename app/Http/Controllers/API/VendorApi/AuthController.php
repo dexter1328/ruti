@@ -13,6 +13,7 @@ use App\Vendor;
 use App\VendorPasswordReset;
 use Config;
 use App\VendorRoles;
+use App\W2bCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -162,8 +163,8 @@ class AuthController extends BaseController
             'password' => 'required',
         ]);
 
-        if (Auth::guard('vendor')->attempt(['email' => $request->email, 'password' => $request->password])) {
-            $vendor = Auth::guard('vendor')->user();
+        if (Auth::guard('vendor-api')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            $vendor = Auth::guard('vendor-api')->user();
 
             $success['token'] = $vendor->createToken('VendorNatureCheckout')->accessToken;
             $success['vendor'] = [
@@ -282,6 +283,95 @@ class AuthController extends BaseController
 			// return $this->sendError(null,'Old password does not match.');
 		}
 	}
+
+    public function editProfile(Request $request, $id)
+	{
+		$data = array(
+			'name' => $request->input('name'),
+			'email' => $request->input('email'),
+			'address' => $request->input('address'),
+            'country' => $request->input('country'),
+            'state' => $request->input('state'),
+            'city' => $request->input('city'),
+            'pincode' => $request->input('pincode'),
+            'phone_number'=> $request->input('office_number'),
+            'mobile_number' => $request->input('mobile_number'),
+            'password' => bcrypt($request->input('password')),
+            'website_link'=> $request->input('website_link'),
+            'business_name' => $request->input('business_name'),
+            'tax_id' => $request->input('tax_id'),
+            'bank_name' => $request->input('bank_name'),
+            'bank_routing_number' => $request->input('bank_routing_number'),
+            'bank_account_number' => $request->input('bank_account_number')
+		);
+
+
+        if ($request->hasFile('image')) { // Check if a file named 'image' is present in the request
+            $image = $request->file('image'); // Get the uploaded file from the request
+
+            if ($image->isValid()) { // Check if the file is valid
+                $imageName = time() . '.' . $image->extension(); // Generate a unique filename
+                $image->move(public_path('images/vendors'), $imageName); // Move the file to the 'user_photo' directory
+                $data['image'] = $imageName;
+            }
+        }
+
+		Vendor::where('id',$id)->update($data);
+		$vendor = Vendor::where('id',$id)->first();
+
+		$success['vendor'] = array(
+            'vendor_id' => $vendor->id,
+            'name' => $vendor->name,
+            'email' => $vendor->email,
+            'office_number' => $vendor->phone_number,
+            'mobile_number' => $vendor->mobile_number,
+            'address'=>$vendor->address,
+            'country' =>  $vendor->country,
+            'state'=>$vendor->state,
+            'city'=> $vendor->city,
+            'pincode'=> $vendor->pincode,
+            'status'=>$vendor->status,
+            'tax_id'=>$vendor->tax_id,
+            'image' => ($vendor->image == Null ? asset('public/images/User-Avatar.png') : asset('public/images/vendors/'.$vendor->image)),
+            'business_name' => $vendor->business_name,
+            'bank_name' => $vendor->bank_name,
+            'bank_routing_number' => $vendor->bank_routing_number,
+            'bank_account_number' => $vendor->bank_account_number
+        );
+		return $this->sendResponse($success,'Your profile details have been updated successfully');
+	}
+
+    public function getUserByEmail(Request $request){
+
+		$email = $request->email;
+		$vendor = Vendor::where('email', $email)->first();
+		if(!empty($vendor)){
+			$success['vendor'] = array(
+			'vendor_id' => $vendor->id,
+            'name' => $vendor->name,
+            'email' => $vendor->email,
+            'office_number' => $vendor->phone_number,
+            'mobile_number' => $vendor->mobile_number,
+            'address'=>$vendor->address,
+            'country' =>  $vendor->country,
+            'state'=>$vendor->state,
+            'city'=> $vendor->city,
+            'pincode'=> $vendor->pincode,
+            'status'=>$vendor->status,
+            'tax_id'=>$vendor->tax_id,
+            'image' => ($vendor->image == Null ? asset('public/images/User-Avatar.png') : asset('public/images/vendors/'.$vendor->image)),
+            'business_name' => $vendor->business_name,
+            'bank_name' => $vendor->bank_name,
+            'bank_routing_number' => $vendor->bank_routing_number,
+            'bank_account_number' => $vendor->bank_account_number
+			);
+			return $this->sendResponse($success, 'Login Successful');
+		}else{
+			return $this->sendError('The email address you entered isn\'t correct. Try to enter valid email address');
+		}
+	}
+
+
 
 
 

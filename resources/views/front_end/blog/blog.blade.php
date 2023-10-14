@@ -14,10 +14,12 @@
                 @foreach ($blogs as $blog)
 
                 <div class="card col-lg-5 px-0 mt-3" style="width: 18rem;">
+                    <a class="primary_img" href="{{ route('nature-blog-detail',$blog->id) }}">
                     <img class="card-img-top" src="{{ asset('public/images/blog/' . $blog->image) }}" alt="Card image cap">
+                    </a>
                     <div class="card-body">
                         <a href=""><h3>{{ $blog->title }}</h3></a>
-                        <p class="card-text">Click to read the blog</p>
+                        <p class="card-text"><a href="{{ route('nature-blog-detail',$blog->id) }}"> Click to read the blog</a></p>
                     </div>
                 </div>
 

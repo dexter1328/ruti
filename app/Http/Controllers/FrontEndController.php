@@ -151,6 +151,13 @@ class FrontEndController extends Controller
         return view('front_end.blog.blog', compact('blogs','latest_blogs'));
     }
 
+    public function blogDetail($id)
+    {
+        $blog = Blog::where('id', $id)->first();
+
+        return view('front_end.blog.blog_detail', compact('blog'));
+    }
+
 
     public function shop()
     {

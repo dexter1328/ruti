@@ -157,6 +157,7 @@ Route::get('/terms-condition', 'FrontEndController@termsCondition');
 Route::get('/privacy-policy', 'FrontEndController@privacyPolicy');
 Route::get('/read-first', 'FrontEndController@readFirst');
 Route::get('/blog', 'FrontEndController@blog')->name('nature-blog');
+Route::get('/blog-detail/{id}', 'FrontEndController@blogDetail')->name('nature-blog-detail');
 Route::get('/supplier/read-first', 'FrontEndController@readFirstSupplier');
 Route::get('/trending-products', 'FrontEndController@trendingProducts')->name('trending-products');
 Route::get('/special-offers', 'FrontEndController@specialOffers')->name('special-offers');

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class W2bOrder extends Model
 {
     protected $guarded = [];
+    protected $hidden = ['status'];
 
     public function products(): HasMany
     {
