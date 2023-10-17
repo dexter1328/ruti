@@ -131,14 +131,6 @@ class FrontEndController extends Controller
 
     public function readFirst()
     {
-        $details = [
-            'title' => 'Nature Checkout Order #AZ123',
-            'body' => 'Dear User'
-        ];
-
-        // dispatch(new OrderMailJob($details))->delay(now()->addSeconds(30));
-        // dispatch(new RutiMailJob($details2))->delay(now()->addSeconds(30));
-        Mail::to('muhammadaatir.30@gmail.com')->send(new WbRutiOrderMail($details));
 
         return view('front_end.read-first');
     }

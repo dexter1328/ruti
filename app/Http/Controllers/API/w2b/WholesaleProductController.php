@@ -7,6 +7,7 @@ use Validator;
 use App\W2bOrder;
 use App\BestSeller;
 use App\BestProduct;
+use App\Blog;
 use App\City;
 use Config;
 use App\Country;
@@ -763,6 +764,26 @@ class WholesaleProductController extends Controller
             // Handle exceptions here, log errors, and return an appropriate response
             return response()->json(['message' => 'Payment error: ' . $e->getMessage()], 500);
         }
+    }
+
+
+    public function blogList()
+    {
+        $latest_blogs = Blog::latest()->take(6)->get();
+        $blogs = Blog::all();
+
+        return response()->json(['latest_blogs' => $latest_blogs, 'blogs' => $blogs]);
+    }
+
+    public function showBlog($id)
+    {
+        $blog = Blog::find($id);
+
+        if (!$blog) {
+            return response()->json(['message' => 'Blog not found'], 404);
+        }
+
+        return response()->json(['blog' => $blog]);
     }
 
 

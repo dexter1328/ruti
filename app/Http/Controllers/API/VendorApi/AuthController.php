@@ -163,8 +163,9 @@ class AuthController extends BaseController
             'password' => 'required',
         ]);
 
-        if (Auth::guard('vendor-api')->attempt(['email' => $request->email, 'password' => $request->password])) {
-            $vendor = Auth::guard('vendor-api')->user();
+        // Use the custom guard to attempt authentication
+        if (Auth::guard('vendor')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            $vendor = Auth::guard('vendor')->user();
 
             $success['token'] = $vendor->createToken('VendorNatureCheckout')->accessToken;
             $success['vendor'] = [
@@ -186,7 +187,6 @@ class AuthController extends BaseController
             return $this->sendError('The email address or password you entered isn\'t correct. Try entering it again');
         }
     }
-
 
     public function ForgotPassword(Request $request)
 	{

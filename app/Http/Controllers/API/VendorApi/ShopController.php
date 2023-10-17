@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\VendorApi;
 
 use App\Brand;
+use App\CustomerWallet;
 use Exception;
 use App\Products;
 use App\W2bCategory;
@@ -15,9 +16,33 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\API\BaseController;
 use App\Jobs\ProductReviewJob;
+use App\Mail\AdminWithdrawMail;
+use App\Mail\WithdrawMail;
+use App\UserDevice;
+use App\Vendor;
+use App\WithdrawRequest;
+use Illuminate\Support\Facades\Mail;
+use Stripe\Charge;
+use Stripe\Customer;
+use Stripe\Exception\ApiConnectionException;
+use Stripe\Exception\ApiErrorException;
+use Stripe\Exception\AuthenticationException;
+use Stripe\Exception\CardException;
+use Stripe\Exception\InvalidRequestException;
+use Stripe\Exception\RateLimitException;
+use Stripe\Stripe;
 
 class ShopController extends BaseController
 {
+
+    private $stripe_secret;
+
+	public function __construct()
+	{
+		$this->stripe_secret = config('services.stripe.secret');
+	}
+
+
     public function createProduct(Request $request)
     {
 
@@ -54,7 +79,7 @@ class ShopController extends BaseController
             $category = W2bCategory::where('category1', $request->category_name)->first();
 
             $product = new Products();
-            $product->vendor_id = Auth::guard('vendor-api')->user()->id;
+            $product->vendor_id = Auth::guard('vendor')->user()->id;
             $product->seller_type = 'vendor';
             $product->w2b_category_1 = $category->category1 ?? null;
             $product->title = $request->input('title');
@@ -122,7 +147,7 @@ class ShopController extends BaseController
 
     public function getProducts()
     {
-        $products = Products::where('vendor_id' , Auth::guard('vendor-api')->user()->id)->where('seller_type', 'vendor')->get();
+        $products = Products::where('vendor_id' , Auth::guard('vendor')->user()->id)->where('seller_type', 'vendor')->get();
         return $this->sendResponse($products, 'All products of authenticated vendor Fetched Successfully');
 
     }
@@ -237,7 +262,7 @@ class ShopController extends BaseController
     public function getBrands()
     {
         $brands = Brand::select('name','image','description')
-        ->where('vendor_id', Auth::guard('vendor-api')->user()->id)->get();
+        ->where('vendor_id', Auth::guard('vendor')->user()->id)->get();
 
         return $this->sendResponse($brands, 'Brands of auth vendor Fetched Successfully');
 
@@ -259,8 +284,8 @@ class ShopController extends BaseController
         $data = array(
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'vendor_id' => Auth::guard('vendor-api')->user()->id,
-            'created_by' => Auth::guard('vendor-api')->user()->id,
+            'vendor_id' => Auth::guard('vendor')->user()->id,
+            'created_by' => Auth::guard('vendor')->user()->id,
         );
         if ($files = $request->file('image')){
 
@@ -317,7 +342,7 @@ class ShopController extends BaseController
     {
         $op = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
         ->join('users', 'w2b_orders.user_id', 'users.id')
-        ->where('ordered_products.vendor_id', Auth::guard('vendor-api')->user()->id)
+        ->where('ordered_products.vendor_id', Auth::guard('vendor')->user()->id)
         ->where('w2b_orders.is_paid', 'yes')
         ->where('ordered_products.seller_type', 'vendor')
         ->groupBy('ordered_products.order_id')
@@ -332,20 +357,20 @@ class ShopController extends BaseController
     {
         $od = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
         ->join('users', 'w2b_orders.user_id', 'users.id')
-        ->where('ordered_products.vendor_id', Auth::guard('vendor-api')->user()->id)
+        ->where('ordered_products.vendor_id', Auth::guard('vendor')->user()->id)
         ->where('w2b_orders.order_id', $orderId)
         ->select('ordered_products.*')
         ->get();
 
         $grandTotal = OrderedProduct::where('order_id', $orderId)
-            ->where('vendor_id', Auth::guard('vendor-api')->user()->id)
+            ->where('vendor_id', Auth::guard('vendor')->user()->id)
             ->sum('total_price');
 
         $order1 = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
             ->join('users', 'w2b_orders.user_id', 'users.id')
             ->join('states', 'states.id', 'users.state')
             ->join('cities', 'cities.id', 'users.city')
-            ->where('ordered_products.vendor_id', Auth::guard('vendor-api')->user()->id)
+            ->where('ordered_products.vendor_id', Auth::guard('vendor')->user()->id)
             ->where('w2b_orders.order_id', $orderId)
             ->select('ordered_products.order_id','ordered_products.vendor_id',
                 'users.first_name as user_fname', 'users.last_name as user_lname',
@@ -428,6 +453,199 @@ class ShopController extends BaseController
 
         return response()->json(['message' => 'Tracking information updated successfully'], 200);
     }
+
+    public function shippedOrders($orderId)
+    {
+        $orders = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
+        ->join('users', 'w2b_orders.user_id', 'users.id')
+        ->where('ordered_products.order_id', $orderId)
+        ->where('ordered_products.status', 'shipped')
+        ->select('ordered_products.*','users.email', 'users.first_name', 'users.last_name',)
+        ->get();
+
+        return response()->json(['shipped_orders' => $orders], 200);
+    }
+
+    public function deliveredOrders($orderId)
+    {
+        $orders = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
+        ->join('users', 'w2b_orders.user_id', 'users.id')
+        ->where('ordered_products.order_id', $orderId)
+        ->where('ordered_products.status', 'delivered')
+        ->select('ordered_products.*','users.email', 'users.first_name', 'users.last_name',)
+        ->get();
+
+        return response()->json(['shipped_orders' => $orders], 200);
+    }
+
+
+    public function cancelledOrders($orderId)
+    {
+        $orders = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
+        ->join('users', 'w2b_orders.user_id', 'users.id')
+        ->where('ordered_products.order_id', $orderId)
+        ->where('ordered_products.status', 'cancelled')
+        ->select('ordered_products.*','users.email', 'users.first_name', 'users.last_name',)
+        ->get();
+
+        return response()->json(['shipped_orders' => $orders], 200);
+    }
+
+    public function returnedOrders($orderId)
+    {
+        $orders = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
+        ->join('users', 'w2b_orders.user_id', 'users.id')
+        ->where('ordered_products.order_id', $orderId)
+        ->where('ordered_products.status', 'returned')
+        ->select('ordered_products.*','users.email', 'users.first_name', 'users.last_name',)
+        ->get();
+
+        return response()->json(['shipped_orders' => $orders], 200);
+    }
+
+
+    public function addToWallet(Request $request)
+    {
+        // Get the authenticated vendor's ID
+        $uid = Auth::user()->id;
+        $wallet = Vendor::find($uid);
+
+        Stripe::setApiKey($this->stripe_secret);
+
+        try {
+            if ($wallet->stripe_customer_id) {
+                $customer = $wallet->stripe_customer_id;
+            } else {
+                $customer = Customer::create([
+                    "email" => $wallet->email,
+                    "name" => $wallet->first_name,
+                    "source" => $request->stripeToken,
+                ]);
+                $wallet->update(['stripe_customer_id' => $customer->id]);
+            }
+
+            Charge::create([
+                "amount" => $request->amount * 100,
+                "currency" => "usd",
+                "customer" => $wallet->stripe_customer_id,
+                "description" => "Money added in your wallet.",
+            ]);
+
+            $closing_amount = $wallet->wallet_amount + $request->amount;
+
+            $customer_wallet = new CustomerWallet;
+            $customer_wallet->customer_id = $uid;
+            $customer_wallet->amount = $request->amount;
+            $customer_wallet->closing_amount = $closing_amount;
+            $customer_wallet->type = 'credit';
+            $customer_wallet->save();
+
+            if (empty($wallet->wallet_amount)) {
+                Vendor::where('id', $uid)->update(['wallet_amount' => $request->amount]);
+            } else {
+                $amount = $wallet->wallet_amount + $request->amount;
+                Vendor::where('id', $uid)->update(['wallet_amount' => $amount]);
+            }
+
+            // notification
+            $id = $customer_wallet->id;
+            $type = 'wallet_transaction';
+            $title = 'Wallet';
+            $message = 'Money has been added to your wallet';
+            $devices = UserDevice::where('user_id', $wallet->id)->where('user_type', 'vendor')->get();
+
+            // Return a JSON response for success
+            return response()->json(['success' => 'Money added to wallet']);
+
+        } catch (CardException $e) {
+            $errors = $e->getMessage();
+        } catch (RateLimitException $e) {
+            $errors = $e->getMessage();
+        } catch (InvalidRequestException $e) {
+            $errors = $e->getMessage();
+        } catch (AuthenticationException $e) {
+            $errors = $e->getMessage();
+        } catch (ApiConnectionException $e) {
+            $errors = $e->getMessage();
+        } catch (ApiErrorException $e) {
+            $errors = $e->getMessage();
+        } catch (Exception $e) {
+            $errors = $e->getMessage();
+        }
+
+        // Return a JSON response for errors
+        return response()->json(['error' => $errors], 500);
+    }
+
+
+    public function withdrawToBank(Request $request)
+    {
+        // Define validation rules
+        $rules = [
+            'bank_name' => 'required|string',
+            'routing_number' => 'required|string',
+            'account_title' => 'required|string',
+            'account_no' => 'required|string',
+            'amount' => 'required|numeric|min:0.01', // Adjust the minimum amount as needed
+        ];
+
+        // Validate the request data
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            // Validation failed, return error response with validation errors
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        $uid = auth()->user()->id;
+        $vendor = Vendor::find($uid);
+
+        if ($vendor->wallet_amount < $request->amount) {
+            // Return an error response if the wallet balance is not enough
+            return response()->json(['error' => 'Your balance is not enough'], 400);
+        } else {
+            $debit = $vendor->wallet_amount - $request->amount;
+            $vendor->update(['wallet_amount' => $debit]);
+        }
+
+        WithdrawRequest::create([
+            'user_id' => $uid,
+            'bank_name' => $request->bank_name,
+            'routing_number' => $request->routing_number,
+            'account_title' => $request->account_title,
+            'account_no' => $request->account_no,
+            'amount' => $request->amount,
+        ]);
+
+        $contact_data = [
+            'name' => $vendor->name,
+            'email' => $vendor->email,
+            'account_title' => $request->account_title,
+            'account_no' => $request->account_no,
+            'bank_name' => $request->bank_name,
+            'routing_number' => $request->routing_number,
+            'amount' => $request->amount,
+        ];
+
+        // Send withdrawal confirmation emails
+        Mail::to($vendor->email)->send(new WithdrawMail($contact_data));
+        $admin_email = config('app.admin_email');
+        Mail::to($admin_email)->send(new AdminWithdrawMail($contact_data));
+
+        // Return a success response
+        return response()->json(['message' => 'Withdrawal successful'], 200);
+    }
+
+    public function walletAmount()
+    {
+        $user_id = Auth::user()->id;
+        $vendor = Vendor::where('id', $user_id)
+        ->select('id','name','email','wallet_amount')->first();
+
+        return $this->sendResponse($vendor,'Vendor Wallet amount');
+
+    }
+
 
 
 }

@@ -167,6 +167,8 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('/user-order-invoice/{order_id}', 'API\AuthController@userOrderInvoice');
     Route::post('gift-receipt/create/{order_id}', 'API\AuthController@giftReceipt');
     Route::post('/return-item', 'API\AuthController@returnItem');
+    Route::post('/add-funds-wallet', 'API\AuthController@addToWallet');
+    Route::get('/user-wallet-amount', 'API\AuthController@walletAmount');
 
 
 });
@@ -207,6 +209,17 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor-api'], function
 	Route::get('order_details/{orderId}', 'API\VendorApi\ShopController@orderDetail');
 	Route::put('update_ordered_product_status/{orderId}', 'API\VendorApi\ShopController@updateOrderStatus');
 	Route::put('order_shipping_details/{orderId?}/{productSku?}', 'API\VendorApi\ShopController@postShippingDetails');
+
+    Route::get('shipped_products/{orderId}', 'API\VendorApi\ShopController@shippedOrders');
+	Route::get('delivered_products/{orderId}', 'API\VendorApi\ShopController@deliveredOrders');
+	Route::get('cancelled_products/{orderId}', 'API\VendorApi\ShopController@cancelledOrders');
+	Route::get('returned_products/{orderId}', 'API\VendorApi\ShopController@returnedOrders');
+
+
+    Route::post('withdraw-to-vendor-bank', 'API\VendorApi\ShopController@withdrawToBank');
+    Route::post('add-to-vendor-wallet', 'API\VendorApi\ShopController@addToWallet');
+    Route::get('/vendor-wallet-amount', 'API\VendorApi\ShopController@walletAmount');
+
 
 
 
@@ -289,6 +302,10 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor-api'], function
     Route::get('/countries', 'API\w2b\WholesaleProductController@Country');
     Route::get('/states/{country_id}', 'API\w2b\WholesaleProductController@State');
     Route::get('/cities/{state_id}', 'API\w2b\WholesaleProductController@City');
+
+
+    Route::get('blog_list', 'API\w2b\WholesaleProductController@blogList');
+    Route::get('show_blog/{id}', 'API\w2b\WholesaleProductController@showBlog');
 
 
 
