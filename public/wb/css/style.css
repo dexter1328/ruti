@@ -12751,7 +12751,75 @@ transition: none !important;
     display: flex;
     gap: 1rem;
   }
+
+  .find-store-popup{
+    position: absolute;
+    top: 2rem;
+    display: none;
+    color: #010103;
+    z-index: 100;
+    gap: 2rem;
+    flex-direction: column;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    transition: 0.2s all;
+  }
+
+  .topbar-find_store{
+    cursor: pointer;
+    margin-left: 0.5rem;
+  }
+  .topbar-find_store:hover ~ .find-store-popup{
+    display: flex;
+  }
   
+  .find-store-popup:hover{
+    display: flex;
+
+  }
+  
+  .find-store_store{
+    display: flex;
+    gap: 4rem;
+  }
+
+  .store-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .store-info-logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .store-info-logo img{
+    width: 115px;
+  }
+
+  .store-info .button{
+    align-self: center;
+  }
+
+  .store-details{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+  }
+  .store-timings-day{
+    margin: 0;
+  }
+  .store-timings-time{
+    color: var(--primary-color);
+    font-size: 1rem;
+  }
+
   .topbar-social-icons{
     display: flex;
     gap: 0.5rem;

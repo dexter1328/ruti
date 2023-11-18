@@ -351,6 +351,65 @@
 </div>
 
 <div class="topbar-right">
+  <div class="topbar-find_store">
+  <i class="fa fa-solid fa-map-marker"></i>
+    Find a store
+  </div>
+
+  <!-- Find a Store Popup -->
+  <div class="find-store-popup">
+    <div class="find-store_store">
+      <div class="store-info">
+        <div class="store-info-logo">
+          <img src="public/wb/img/new_homepage/logo/logo.png" alt="">
+        </div>
+        <p>
+          Rose Yost 9943 Tanya Apt 27
+        </p>
+        <button class="button">Store Details</button>
+      </div>
+      <div class="store-details">
+        <div class="store-timings">
+          <p class="store-timings-day">Mon-Sun:</p>
+          <p class="store-timings-time">9:00am to 9:00pm</p>
+        </div>
+        <div class="store-contact">
+          <div>
+          <i class="fa fa-solid fa-phone"></i> (926) 9898 98989
+          </div>
+          <div>
+          <i class="fa fa-solid fa-map-marker"></i> 2,874 mi
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="find-store_store">
+      <div class="store-info">
+        <div class="store-info-logo">
+          <img src="public/wb/img/new_homepage/logo/logo.png" alt="">
+        </div>
+        <p>
+          Rose Yost 9943 Tanya Apt 27
+        </p>
+        <button class="button">Store Details</button>
+      </div>
+      <div class="store-details">
+        <div class="store-timings">
+          <p class="store-timings-day">Mon-Sun:</p>
+          <p class="store-timings-time">9:00am to 9:00pm</p>
+        </div>
+        <div class="store-contact">
+          <div>
+          <i class="fa fa-solid fa-phone"></i> (926) 9898 98989
+          </div>
+          <div>
+          <i class="fa fa-solid fa-map-marker"></i> 2,874 mi
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="topbar-social_icons">
     <a href="#" class="btn btn-link text-white topbar-social-icon">
       <i class="fab fa-facebook-f"></i>
