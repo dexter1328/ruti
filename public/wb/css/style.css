@@ -12752,6 +12752,60 @@ transition: none !important;
     gap: 1rem;
   }
 
+  .accounts-popup{
+    position: absolute;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    transition: 0.2s all;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    z-index: 100; 
+    display: none;
+  }
+
+  .accounts-popup-top{
+    display: flex;
+    color: #010103;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .accounts-popup-top .button{
+    align-self: center;
+  }
+
+  .accounts-popup-top span a{
+    color: var(--primary-color);
+  }
+
+  .accounts-popup-bottom{
+    display: flex;
+    gap: 4rem;
+  }
+
+  .accounts-popup-lists, .accounts-popup-account{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .accounts-popup-bottom a{
+    font-size: 0.9rem;
+  }
+
+  .topbar-accounts:hover .accounts-popup{
+    display: flex;
+  }
+  
+  .accounts-popup:hover{
+    display: flex;
+  }
+
+
   .find-store-popup{
     position: absolute;
     top: 2rem;
@@ -12767,7 +12821,7 @@ transition: none !important;
     transition: 0.2s all;
   }
 
-  .topbar-find_store{
+  .topbar-find_store, .topbar-accounts{
     cursor: pointer;
     margin-left: 0.5rem;
   }
@@ -13964,9 +14018,10 @@ transition: none !important;
   .blogs, .products {
     width: 100%;
   }
-
+  
   #main > div {
     padding: 0 1rem;
+    width: 100%;
   }
 
   .banner-cards{
@@ -13980,6 +14035,10 @@ transition: none !important;
     justify-content: center!important;
   }
 
+  .header-icons{
+    height: 20px;
+    width: 20px;
+  }
   .topbar-right{
     display: none;
   }

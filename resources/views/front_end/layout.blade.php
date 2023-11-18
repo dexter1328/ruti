@@ -350,6 +350,41 @@
 
 </div>
 
+<div class="topbar-accounts">
+  Accounts & Lists
+<i class="fa fa-solid fa-caret-down"></i>
+<div class="accounts-popup">
+  <div class="accounts-popup-top">
+    <button class="button">Sign in</button>
+    <div>
+      New customer? 
+      <span>
+        <a href="">
+          Start here.
+        </a>
+      </span>
+    </div>
+  </div>
+  <div class="accounts-popup-bottom">
+    <div class="accounts-popup-lists">
+      <h4>Your Lists</h4>
+      <a href="">Create a List</a>
+      <a href="">Find a List or Registry</a>
+    </div>
+    <div class="accounts-popup-account">
+      <h4>Your Account</h4>
+      <a href="">Account</a>
+      <a href="">Orders</a>
+      <a href="">Recommendations</a>
+      <a href="">Browsing History</a>
+      <a href="">Watchlist</a>
+      <a href="">Video Purchases & Rentals</a>
+    </div>
+  </div>
+</div>
+</div>
+
+
 <div class="topbar-right">
   <div class="topbar-find_store">
   <i class="fa fa-solid fa-map-marker"></i>
