@@ -471,7 +471,7 @@
   <div class="landing-main">
     <nav class="landing-menu-nav">
         <div class="landing-menu-item">
-          <i class="fa fa-solid fa-bars"></i>
+          <i class="fa landing-menu-icon fa-solid fa-couch"></i>
           Furniture
           <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
 
@@ -530,78 +530,71 @@
         </div>
       <a href="">
         <div class="landing-menu-item">
-          <i class="fa fa-solid fa-bars"></i>
+          <i class="fa landing-menu-icon fa-solid fa-utensils"></i>
           Cooking
           <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
         </div>
       </a>
       <a href="">
         <div class="landing-menu-item">
-          <i class="fa fa-solid fa-bars"></i>
+          <i class="fa landing-menu-icon fa-solid fa-glasses"></i>
           Accessories
           <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
         </div>
       </a>
       <a href="">
         <div class="landing-menu-item">
-          <i class="fa fa-solid fa-bars"></i>
+          <i class="fa landing-menu-icon fa-solid fa-vest"></i>
           Fashion
           <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
         </div>
       </a>
       <a href="">
         <div class="landing-menu-item">
-          <i class="fa fa-solid fa-bars"></i>
+          <i class="fa landing-menu-icon fa-solid fa-clock"></i>
           Clocks
           <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
         </div>
       </a>
       <a href="">
         <div class="landing-menu-item">
-          <i class="fa fa-solid fa-bars"></i>
+          <i class="fa landing-menu-icon fa-solid fa-lightbulb"></i>
           Lighting
           <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
         </div>
       </a>
       <a href="">
         <div class="landing-menu-item">
-          <i class="fa fa-solid fa-bars"></i>
+          <i class="fa landing-menu-icon fa-solid fa-dice"></i>
           Toys
           <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
         </div>
       </a>
       <a href="">
         <div class="landing-menu-item">
-          <i class="fa fa-solid fa-bars"></i>
+          <i class="fa landing-menu-icon fa-solid fa-paper-plane"></i>
           Hand Made
           <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
         </div>
       </a>
       <a href="">
         <div class="landing-menu-item">
-          <i class="fa fa-solid fa-bars"></i>
+          <i class="fa landing-menu-icon fa-solid fa-wine-glass"></i>
           Minimalism
           <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
         </div>
       </a>
       <a href="">
         <div class="landing-menu-item">
-          <i class="fa fa-solid fa-bars"></i>
+          <i class="fa landing-menu-icon fa-solid fa-plug"></i>
           Electronics
           <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
         </div>
       </a>
       <a href="">
         <div class="landing-menu-item">
-          <i class="fa fa-solid fa-bars"></i>
+          <i class="fa landing-menu-icon fa-solid fa-car"></i>
           Cars
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa fa-solid fa-bars"></i>
-          Toys
           <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
         </div>
       </a>
@@ -1149,8 +1142,8 @@
         <div class="product">
           <div class="product-image">
             <div class="hot-deals-product_menu">
-              <a href=""><img class="header-icons" src="public/wb/img/new_homepage/icons/heart.png" alt=""></a>
-              <a href=""> <img class="header-icons" src="public/wb/img/new_homepage/icons/cart.png" alt="">
+              <a href=""><img class="product_menu-icons" src="public/wb/img/new_homepage/icons/heart.png" alt=""></a>
+              <a href=""> <img class="product_menu-icons" src="public/wb/img/new_homepage/icons/cart.png" alt="">
               </a>
             </div> <img src="public/wb/img/new_homepage/products/iphone-red-1.jpg" alt="product-img"
               class="product-img product-img-1">
@@ -1180,8 +1173,8 @@
         <div class="product">
           <div class="product-image">
             <div class="hot-deals-product_menu">
-              <a href=""><img class="header-icons" src="public/wb/img/new_homepage/icons/heart.png" alt=""></a>
-              <a href=""> <img class="header-icons" src="public/wb/img/new_homepage/icons/cart.png" alt="">
+              <a href=""><img class="product_menu-icons" src="public/wb/img/new_homepage/icons/heart.png" alt=""></a>
+              <a href=""> <img class="product_menu-icons" src="public/wb/img/new_homepage/icons/cart.png" alt="">
               </a>
             </div>
             <img src="public/wb/img/new_homepage/products/xbox-one-1.jpg" alt="product-img" class="product-img product-img-1">
@@ -1210,8 +1203,8 @@
         <div class="product">
           <div class="product-image">
             <div class="hot-deals-product_menu">
-              <a href=""><img class="header-icons" src="public/wb/img/new_homepage/icons/heart.png" alt=""></a>
-              <a href=""> <img class="header-icons" src="public/wb/img/new_homepage/icons/cart.png" alt="">
+              <a href=""><img class="product_menu-icons" src="public/wb/img/new_homepage/icons/heart.png" alt=""></a>
+              <a href=""> <img class="product_menu-icons" src="public/wb/img/new_homepage/icons/cart.png" alt="">
               </a>
             </div>
             <img src="public/wb/img/new_homepage/products/google-pixel-1.jpg" alt="product-img"

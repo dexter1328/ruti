@@ -12935,6 +12935,11 @@ transition: none !important;
     justify-content: space-between;
     border-bottom: 1px solid var(--gray-100);
   }
+
+  .landing-menu-icon{
+    font-size: 1.1rem;
+    opacity: 0.6;
+  } 
   
   .landing-menu-more_icon{
     color: rgba(0,0,0,0.3);
@@ -12944,7 +12949,6 @@ transition: none !important;
 
   .landing-menu-nav{
     background-color: white;
-    position: absolute;
   }
 
 
@@ -13423,6 +13427,11 @@ transition: none !important;
     top: 10px;
     right: -60px;
     transition: 0.3s right;
+  }
+
+  .product_menu-icons{
+    height: 20px;
+    width: 20px;
   }
   
   .hot-deals-heading{
