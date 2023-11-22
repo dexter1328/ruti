@@ -319,14 +319,14 @@
 
 
     <div class="off_canvars_overlay"></div>
-    
-    <div id="main"> 
-  <!-- Topbar Start --> 
-  <div class="topbar-container"> 
+
+    <div id="main">
+  <!-- Topbar Start -->
+  <div class="topbar-container">
     <div class="topbar text-white d-flex
     justify-content-between align-items-center text-sm">
 
-    <div class="topbar-left"> 
+    <div class="topbar-left">
           <div class="dropdown">
             <a class="btn btn-link dropdown-toggle text-white" href="#" role="button" id="languageDropdown"
               data-bs-toggle="dropdown" aria-expanded="false">
@@ -357,7 +357,7 @@
   <div class="accounts-popup-top">
     <button class="button">Sign in</button>
     <div>
-      New customer? 
+      New customer?
       <span>
         <a href="">
           Start here.
@@ -468,10 +468,10 @@
      <a href="">NEWSLETTER</a>
     </div>
     <div class="d-flex align-items-center ps-2">
-    <a href="">CONTACT US</a>  
+    <a href="">CONTACT US</a>
     </div>
     <div class="d-flex align-items-center ps-2">
-     <a href="">FAQS</a> 
+     <a href="">FAQS</a>
     </div>
   </div>
 </div>
@@ -528,9 +528,169 @@
   </div>
 </div>
 <!-- Header End  -->
+<div class="landing">
+<div class="landing-top">
+    <div class="landing-top-left">
+      <div class="landing-top-browse">
+        <div>
+          <i class="fa fa-solid fa-bars"></i>
+          Browse Categories
+        </div>
+        <i class="fa fa-solid fa-angle-down"></i>
+      </div>
+      <nav>
+        <a href="" class="nav-item">HOME</a>
+        <a href="" class="nav-item">SHOP</a>
+        <a href="" class="nav-item">BLOG</a>
+        <a href="" class="nav-item">PAGES</a>
+        <a href="" class="nav-item">ELEMENTS</a>
+        <a href="" class="nav-item">BUY</a>
+      </nav>
+    </div>
 
-  
+    <div class="landing-top-right">
+      <a href="" class="special-offer-link">
+        SPECIAL OFFER
+      </a>
+      <a href="">
+        PURCHASE THEME
+      </a>
+    </div>
+  </div>
 
+  <div class="landing-main">
+    <nav class="landing-menu-nav">
+        <div class="landing-menu-item">
+          <i class="fa landing-menu-icon fa-solid fa-couch"></i>
+          Furniture
+          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
+
+          <!-- <div class="hover-menu">
+            <div class="category-menus">
+              <div class="category-menu">
+                <h4>MAN</h4>
+                <a href="">
+                  Outerwear
+                </a>
+                <a href="">
+                  Jackets
+                </a>
+                <a href="">
+                  Jumpsuits
+                </a>
+              </div>
+              <div class="category-menu">
+                <h4>MAN</h4>
+                <a href="">
+                  Outerwear
+                </a>
+                <a href="">
+                  Jackets
+                </a>
+                <a href="">
+                  Jumpsuits
+                </a>
+              </div>
+              <div class="category-menu">
+                <h4>MAN</h4>
+                <a href="">
+                  Outerwear
+                </a>
+                <a href="">
+                  Jackets
+                </a>
+                <a href="">
+                  Jumpsuits
+                </a>
+              </div>
+              <div class="category-menu">
+                <h4>MAN</h4>
+                <a href="">
+                  Outerwear
+                </a>
+                <a href="">
+                  Jackets
+                </a>
+                <a href="">
+                  Jumpsuits
+                </a>
+              </div>
+            </div>
+        </div> -->
+        </div>
+      <a href="">
+        <div class="landing-menu-item">
+          <i class="fa landing-menu-icon fa-solid fa-utensils"></i>
+          Cooking
+          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
+        </div>
+      </a>
+      <a href="">
+        <div class="landing-menu-item">
+          <i class="fa landing-menu-icon fa-solid fa-glasses"></i>
+          Accessories
+          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
+        </div>
+      </a>
+      <a href="">
+        <div class="landing-menu-item">
+          <i class="fa landing-menu-icon fa-solid fa-vest"></i>
+          Fashion
+          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
+        </div>
+      </a>
+      <a href="">
+        <div class="landing-menu-item">
+          <i class="fa landing-menu-icon fa-solid fa-clock"></i>
+          Clocks
+          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
+        </div>
+      </a>
+      <a href="">
+        <div class="landing-menu-item">
+          <i class="fa landing-menu-icon fa-solid fa-lightbulb"></i>
+          Lighting
+          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
+        </div>
+      </a>
+      <a href="">
+        <div class="landing-menu-item">
+          <i class="fa landing-menu-icon fa-solid fa-dice"></i>
+          Toys
+          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
+        </div>
+      </a>
+      <a href="">
+        <div class="landing-menu-item">
+          <i class="fa landing-menu-icon fa-solid fa-paper-plane"></i>
+          Hand Made
+          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
+        </div>
+      </a>
+      <a href="">
+        <div class="landing-menu-item">
+          <i class="fa landing-menu-icon fa-solid fa-wine-glass"></i>
+          Minimalism
+          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
+        </div>
+      </a>
+      <a href="">
+        <div class="landing-menu-item">
+          <i class="fa landing-menu-icon fa-solid fa-plug"></i>
+          Electronics
+          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
+        </div>
+      </a>
+      <a href="">
+        <div class="landing-menu-item">
+          <i class="fa landing-menu-icon fa-solid fa-car"></i>
+          Cars
+          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
+        </div>
+      </a>
+    </nav>
+
+  {{-- </div> --}}
 
         <!-- header area start-->
         <button class="chat_btn">
@@ -538,11 +698,11 @@
         </button>
         <button onclick="topFunction()" id="myTopBtn" title="Go to top"><i class="fa fa-chevron-up"></i></button>
         <div class="clearfix"></div>
-    
-            @yield('content')
-         
 
-  
+            @yield('content')
+
+
+
      <!-- Footer Start  -->
  <div class="footer-wrapper">
    <div class="footer">
@@ -651,7 +811,7 @@
  </div>
  <!-- Footer End -->
 
-    </div> 
+    </div>
 <!-- Main end -->
 
     <script>

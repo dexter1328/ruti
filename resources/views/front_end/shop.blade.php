@@ -5,170 +5,7 @@
 {{-- @include('front_end.banner')
 @include('front_end.features') --}}
 
-<!-- Landing Start  -->
-<div class="landing">
-
-  <div class="landing-top">
-    <div class="landing-top-left">
-      <div class="landing-top-browse">
-        <div>
-          <i class="fa fa-solid fa-bars"></i>
-          Browse Categories
-        </div>
-        <i class="fa fa-solid fa-angle-down"></i>
-      </div>
-      <nav>
-        <a href="" class="nav-item">HOME</a>
-        <a href="" class="nav-item">SHOP</a>
-        <a href="" class="nav-item">BLOG</a>
-        <a href="" class="nav-item">PAGES</a>
-        <a href="" class="nav-item">ELEMENTS</a>
-        <a href="" class="nav-item">BUY</a>
-      </nav>
-    </div>
-
-    <div class="landing-top-right">
-      <a href="" class="special-offer-link">
-        SPECIAL OFFER
-      </a>
-      <a href="">
-        PURCHASE THEME
-      </a>
-    </div>
-  </div>
-
-  <div class="landing-main">
-    <nav class="landing-menu-nav">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-couch"></i>
-          Furniture
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-
-          <!-- <div class="hover-menu">
-            <div class="category-menus">
-              <div class="category-menu">
-                <h4>MAN</h4>
-                <a href="">
-                  Outerwear
-                </a>
-                <a href="">
-                  Jackets
-                </a>
-                <a href="">
-                  Jumpsuits
-                </a>
-              </div>
-              <div class="category-menu">
-                <h4>MAN</h4>
-                <a href="">
-                  Outerwear
-                </a>
-                <a href="">
-                  Jackets
-                </a>
-                <a href="">
-                  Jumpsuits
-                </a>
-              </div>
-              <div class="category-menu">
-                <h4>MAN</h4>
-                <a href="">
-                  Outerwear
-                </a>
-                <a href="">
-                  Jackets
-                </a>
-                <a href="">
-                  Jumpsuits
-                </a>
-              </div>
-              <div class="category-menu">
-                <h4>MAN</h4>
-                <a href="">
-                  Outerwear
-                </a>
-                <a href="">
-                  Jackets
-                </a>
-                <a href="">
-                  Jumpsuits
-                </a>
-              </div>
-            </div>
-        </div> -->
-        </div>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-utensils"></i>
-          Cooking
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-glasses"></i>
-          Accessories
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-vest"></i>
-          Fashion
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-clock"></i>
-          Clocks
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-lightbulb"></i>
-          Lighting
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-dice"></i>
-          Toys
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-paper-plane"></i>
-          Hand Made
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-wine-glass"></i>
-          Minimalism
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-plug"></i>
-          Electronics
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-car"></i>
-          Cars
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-    </nav>
-
+<!-- banner Start  -->
     <div class="landing-slider">
 
       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -350,7 +187,7 @@
           35% Off for Orders Over $200
         </div>
         <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>. 
+          Expires in <strong>116 days</strong>.
           <div>
             Enter code at checkout
 
@@ -810,7 +647,7 @@
 <!-- Timer -->
 <script src="public/shop/js/countdown.js"></script>
 <script>
-  // TODO timer of the hot offers can be set from here 
+  // TODO timer of the hot offers can be set from here
   $('.countdown').countdown({
     year: 2023,
     month: 11,
@@ -934,7 +771,7 @@
           35% Off for Orders Over $200
         </div>
         <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>. 
+          Expires in <strong>116 days</strong>.
           <div>
             Enter code at checkout
 
@@ -974,7 +811,7 @@
           35% Off for Orders Over $200
         </div>
         <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>. 
+          Expires in <strong>116 days</strong>.
           <div>
             Enter code at checkout
 
@@ -1014,7 +851,7 @@
           35% Off for Orders Over $200
         </div>
         <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>. 
+          Expires in <strong>116 days</strong>.
           <div>
             Enter code at checkout
 
@@ -1054,7 +891,7 @@
           35% Off for Orders Over $200
         </div>
         <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>. 
+          Expires in <strong>116 days</strong>.
           <div>
             Enter code at checkout
 
@@ -1094,7 +931,7 @@
           35% Off for Orders Over $200
         </div>
         <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>. 
+          Expires in <strong>116 days</strong>.
           <div>
             Enter code at checkout
 
@@ -1134,7 +971,7 @@
           35% Off for Orders Over $200
         </div>
         <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>. 
+          Expires in <strong>116 days</strong>.
           <div>
             Enter code at checkout
 
@@ -1207,7 +1044,7 @@
             <div class="blog-author">
             <span>
             Posted by
-            </span> 
+            </span>
               <div  class="blog-info-author-img">
                 <img src="public/wb/img/new_homepage/blog-author.jpg" alt="">
               </div>
@@ -1247,7 +1084,7 @@
             <div class="blog-author">
             <span>
             Posted by
-            </span> 
+            </span>
               <div  class="blog-info-author-img">
                 <img src="public/wb/img/new_homepage/blog-author.jpg" alt="">
               </div>
@@ -1287,7 +1124,7 @@
             <div class="blog-author">
             <span>
             Posted by
-            </span> 
+            </span>
               <div  class="blog-info-author-img">
                 <img src="public/wb/img/new_homepage/blog-author.jpg" alt="">
               </div>
