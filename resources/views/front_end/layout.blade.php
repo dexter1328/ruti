@@ -367,9 +367,9 @@
   </div>
   <div class="accounts-popup-bottom">
     <div class="accounts-popup-lists">
-      <h4>Your Lists</h4>
-      <a href="">Create a List</a>
-      <a href="">Find a List or Registry</a>
+      <h4>Create Account</h4>
+      <a href="">As a supplier</a>
+      <a href="">As a seller</a>
     </div>
     <div class="accounts-popup-account">
       <h4>Your Account</h4>
