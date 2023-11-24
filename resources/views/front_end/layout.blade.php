@@ -320,7 +320,7 @@
 
     <div class="off_canvars_overlay"></div>
 
-    <div id="main">
+<div id="main">
   <!-- Topbar Start -->
   <div class="topbar-container">
     <div class="topbar text-white d-flex
@@ -446,29 +446,32 @@
     </div>
   </div>
   <div class="topbar-social_icons">
-    <a href="#" class="btn btn-link text-white topbar-social-icon">
+    <a target="_blank" href="https://www.facebook.com/Naturecheckout" class="btn btn-link text-white topbar-social-icon">
       <i class="fab fa-facebook-f"></i>
     </a>
-    <a href="#" class="btn btn-link text-white topbar-social-icon">
+    <a target="_blank" href="https://twitter.com/naturecheckout" class="btn btn-link text-white topbar-social-icon">
       <i class="fab fa-twitter"></i>
     </a>
-    <a href="#" class="btn btn-link text-white topbar-social-icon">
+    <a target="_blank" href="https://www.pinterest.com/Naturecheckout" class="btn btn-link text-white topbar-social-icon">
       <i class="fab fa-pinterest"></i>
     </a>
-    <a href="#" class="btn btn-link text-white topbar-social-icon">
+    <a target="_blank" href="https://tiktok.com/naturecheckout" class="btn btn-link text-white topbar-social-icon">
+        <i class="fab fa-tiktok"></i>
+      </a>
+    <a target="_blank" href="https://www.linkedin.com/company/93313174/" class="btn btn-link text-white topbar-social-icon">
       <i class="fab fa-linkedin"></i>
     </a>
-    <a href="#" class="btn btn-link text-white topbar-social-icon">
-      <i class="fab fa-telegram"></i>
+    <a target="_blank" href="https://www.instagram.com/naturecheckout" class="btn btn-link text-white topbar-social-icon">
+      <i class="fab fa-instagram"></i>
     </a>
   </div>
   <div class="topbar-left-links">
     <div class="d-flex align-items-center justify-content-center gap-1 ps-2">
       <i class="fas fa-envelope text-white newsletter-icon"></i>
-     <a href="">NEWSLETTER</a>
+     <a  href="">NEWSLETTER</a>
     </div>
     <div class="d-flex align-items-center ps-2">
-    <a href="">CONTACT US</a>
+    <a target="_blank" href="https://helpdesk.naturecheckout.com">Support</a>
     </div>
     <div class="d-flex align-items-center ps-2">
      <a href="">FAQS</a>
@@ -488,7 +491,26 @@
   <div class="header-logo">
     <img class="logo" src="public/wb/img/new_homepage/logo/logo.png" alt="">
   </div>
-  <div class="searchbar">
+    <form action="{{route('shop-search')}}" method="get">
+        <div class="searchbar">
+            <input class="searchbar-input typeahead" placeholder="Search for products" type="text" name="query" id="query" value="{{request()->input('query')}}">
+            {{-- <div class="searchbar-category">
+                <select class="" name="search-category">
+                <option>Select Category</option>
+                <option>Category 1</option>
+                <option>Category 2</option>
+                <option>Category 3</option>
+                <option>Category 4</option>
+                </select>
+            </div> --}}
+            <button type="submit">
+                <span class="searchbar-icon">
+                    <i class="fa fa-search search-icon"></i>
+                </span>
+            </button>
+        </div>
+    </form>
+  {{-- <div class="searchbar">
     <input type="text" class="searchbar-input" placeholder="Search for products">
     <div class="searchbar-category">
         <select class="" name="search-category">
@@ -504,21 +526,42 @@
         <i class="fa fa-search search-icon"></i>
       </span>
     </a>
-  </div>
+  </div> --}}
   <div class="header-options">
-    <div class="register-option">
-      <a href="">LOGIN</a>/
-      <a href="">REGISTER</a>
-    </div>
-    <a href="">
-     <img class="header-icons" src="public/wb/img/new_homepage/icons/heart.png" alt="">
+    @if (!Auth::guard('w2bcustomer')->user())
+        <div class="register-option">
+        <a href="{{url('/w2bcustomer/login')}}">LOGIN</a>/
+        <a href="{{url('/w2bcustomer/register')}}">REGISTER</a>
+        </div>
+    @else
+        <div class="register-option">
+            <b >{{ Auth::guard('w2bcustomer')->user()->fullName() }}</b>/
+            <b><a  href="" onclick="event.preventDefault(); document.getElementById('logout-form5').submit();">Logout</a></b>
+            <form id="logout-form5" action="{{ route('w2bcustomer.logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
+        </div>
+    @endif
+    @if (Auth::guard('w2bcustomer')->user())
+    <a href="{{route('wb-wishlist-page')}}">
+     <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
     </a>
-    <a href="">
-      <img class="header-icons" src="public/wb/img/new_homepage/icons/cart.png" alt="">
+    @else
+    <a href="#" type="button" data-toggle="modal" data-target="#exampleModal28">
+        <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
     </a>
+    @endif
+    <a href="{{ route('product-cart') }}">
+      <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/cart.png')}}" alt="">
+    </a>
+
+    @php $total = 0 @endphp
+    @foreach((array) session('cart') as $sku => $details)
+        @php $total += $details['retail_price'] * $details['quantity'] @endphp
+    @endforeach
     <div class="header-price">
       <a href="">
-      $98.00
+        ${{number_format((float)$total, 2, '.', '')}}
       </a>
     </div>
   </div>
@@ -529,168 +572,51 @@
 </div>
 <!-- Header End  -->
 <div class="landing">
-<div class="landing-top">
-    <div class="landing-top-left">
-      <div class="landing-top-browse">
-        <div>
-          <i class="fa fa-solid fa-bars"></i>
-          Browse Categories
-        </div>
-        <i class="fa fa-solid fa-angle-down"></i>
-      </div>
-      <nav>
-        <a href="" class="nav-item">HOME</a>
-        <a href="" class="nav-item">SHOP</a>
-        <a href="" class="nav-item">BLOG</a>
-        <a href="" class="nav-item">PAGES</a>
-        <a href="" class="nav-item">ELEMENTS</a>
-        <a href="" class="nav-item">BUY</a>
-      </nav>
-    </div>
-
-    <div class="landing-top-right">
-      <a href="" class="special-offer-link">
-        SPECIAL OFFER
-      </a>
-      <a href="">
-        PURCHASE THEME
-      </a>
-    </div>
-  </div>
-
-  <div class="landing-main">
-    <nav class="landing-menu-nav">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-couch"></i>
-          Furniture
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-
-          <!-- <div class="hover-menu">
-            <div class="category-menus">
-              <div class="category-menu">
-                <h4>MAN</h4>
-                <a href="">
-                  Outerwear
-                </a>
-                <a href="">
-                  Jackets
-                </a>
-                <a href="">
-                  Jumpsuits
-                </a>
-              </div>
-              <div class="category-menu">
-                <h4>MAN</h4>
-                <a href="">
-                  Outerwear
-                </a>
-                <a href="">
-                  Jackets
-                </a>
-                <a href="">
-                  Jumpsuits
-                </a>
-              </div>
-              <div class="category-menu">
-                <h4>MAN</h4>
-                <a href="">
-                  Outerwear
-                </a>
-                <a href="">
-                  Jackets
-                </a>
-                <a href="">
-                  Jumpsuits
-                </a>
-              </div>
-              <div class="category-menu">
-                <h4>MAN</h4>
-                <a href="">
-                  Outerwear
-                </a>
-                <a href="">
-                  Jackets
-                </a>
-                <a href="">
-                  Jumpsuits
-                </a>
-              </div>
+        <div class="landing-top">
+            <div class="landing-top-left">
+            <div class="landing-top-browse">
+                <div>
+                <i class="fa fa-solid fa-bars"></i>
+                Browse Categories
+                </div>
+                <i class="fa fa-solid fa-angle-down"></i>
             </div>
-        </div> -->
-        </div>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-utensils"></i>
-          Cooking
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-glasses"></i>
-          Accessories
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-vest"></i>
-          Fashion
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-clock"></i>
-          Clocks
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-lightbulb"></i>
-          Lighting
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-dice"></i>
-          Toys
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-paper-plane"></i>
-          Hand Made
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-wine-glass"></i>
-          Minimalism
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-plug"></i>
-          Electronics
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-      <a href="">
-        <div class="landing-menu-item">
-          <i class="fa landing-menu-icon fa-solid fa-car"></i>
-          Cars
-          <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-        </div>
-      </a>
-    </nav>
+                <nav>
+                    <a href="{{url('/')}}" class="nav-item">HOME</a>
+                    <a href="{{url('/trending-products')}}" class="nav-item">Trending Products</a>
+                    <a href="{{url('/special-offers')}}" class="nav-item">Special Products</a>
+                </nav>
+            </div>
 
-  {{-- </div> --}}
+            {{-- <div class="landing-top-right">
+                <a href="" class="special-offer-link">
+                    SPECIAL OFFER
+                </a>
+                <a href="">
+                    PURCHASE THEME
+                </a>
+            </div> --}}
+        </div>
+
+        <div class="landing-main">
+            <nav class="landing-menu-nav">
+                @foreach ($categories_new as $category)
+                <a href="{{route('cat-products', $category->category1)}}">
+                    <div class="landing-menu-item">
+
+                        <i class="fa landing-menu-icon fa-solid fa-couch"></i>
+                        {{ $category->category1 }}
+                        <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
+                    </div>
+                </a>
+                @endforeach
+
+            </nav>
+
+            @include('front_end.slider')
+
+        </div>
+</div>
 
         <!-- header area start-->
         <button class="chat_btn">
@@ -700,118 +626,13 @@
         <div class="clearfix"></div>
 
             @yield('content')
-
+            @include('front_end.footer1')
 
 
      <!-- Footer Start  -->
- <div class="footer-wrapper">
-   <div class="footer">
-    <div class="footer-info">
-      <img class="footer-logo" src="public/wb/img/new_homepage/logo/logo.png" alt="">
-      <div class="footer-desc">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores optio id a quibusdam quo blanditiis.
-      </div>
-      <div class="footer-contact">
-        <a href="#">
-          <i class="fa fa-solid fa-map-marker"></i>
-          451 Wall Street, UK, London
-        </a>
-        <a href="#">
-          <i class="fa fa-solid fa-phone"></i>
-          Phone: (064) 332-1233
-        </a>
-        <a href="#">
-          <i class="fa fa-solid fa-fax"></i>
-          Fax: (099) 453-1357
-        </a>
-      </div>
-    </div>
 
-    <div class="footer-posts-section">
-      <h2 class="footer-heading">Recent Posts</h2>
-      <div class="footer-posts">
 
-        <div class="footer-post">
-          <div class="footer-post-img">
-            <img src="public/wb/img/new_homepage/blogs/blog-3.jpg" alt="aa">
-          </div>
-          <div class="footer-post-info">
-            <h4 class="footer-post-heading">A companion for extra sleeping</h4>
-            <div class="footer-post-time">
-              <span class="date">
-                July 23, 2023
-              </span>
-              <span class="comment">
-                1 Comment
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="footer-post">
-          <div class="footer-post-img">
-            <img src="public/wb/img/new_homepage/blogs/blog-2.jpg" alt="aa">
-          </div>
-          <div class="footer-post-info">
-            <h4 class="footer-post-heading">Outdoor seating collection inspiration</h4>
-            <div class="footer-post-time">
-              <span class="date">
-                July 23, 2023
-              </span>
-              <span class="comment">
-                1 Comment
-              </span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <div class="footer-menus">
-      <div class="footer-menu">
-      <h2 class="footer-heading">Our Stories</h2>
-      <nav>
-        <ul>
-          <li><a href="">New York</a></li>
-          <li><a href="">London</a></li>
-          <li><a href="">Edinburgh</a></li>
-          <li><a href="">Los Angeles</a></li>
-          <li><a href="">Chicago</a></li>
-          <li><a href="">Las Vegas</a></li>
-        </ul>
-      </nav>
-      </div>
-      <div class="footer-menu">
-      <h2 class="footer-heading">Useful Links</h2>
-      <nav>
-        <ul>
-          <li><a href="">Privacy Policy</a></li>
-          <li><a href="">Returns</a></li>
-          <li><a href="">Terms & Conditions</a></li>
-          <li><a href="">Contact Us</a></li>
-          <li><a href="">Latest News</a></li>
-          <li><a href="">Our Sitemap</a></li>
-        </ul>
-      </nav>
-      </div>
-      <div class="footer-menu">
-      <h2 class="footer-heading">Footer Menu</h2>
-      <nav>
-        <ul>
-          <li><a href="">Instagram Profile</a></li>
-          <li><a href="">New Collection</a></li>
-          <li><a href="">Woman Dress</a></li>
-          <li><a href="">Contact Us</a></li>
-          <li><a href="">Latest News</a></li>
-          <li><a href="">Blogs</a></li>
-        </ul>
-      </nav>
-      </div>
-    </div>
-   </div>
- </div>
- <!-- Footer End -->
-
-    </div>
+</div>
 <!-- Main end -->
 
     <script>

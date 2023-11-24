@@ -1,141 +1,125 @@
-<!-- footer-area -->
-<footer>
-    <div class="footer-area">
-        <div class="footer-top">
-            <div class="container-fluid">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-4 left-footer-section">
-                        <div class="footer-widget mb-30">
-                            {{-- <div class="footer-contact">
-                                <span>CALL US FREE</span>
-                                <a href="tel:+0 (000) 000-0000" class="contact">+0 (000) 000-0000</a>
-                            </div> --}}
-                            {{-- <div class="f-logo mb-25">
-                                <a href="index.html"><img src="assets/img/logo/footer-logo.png" alt="logo"></a>
-                            </div> --}}
-                            <div class="footer-content">
-                                <p>We provide convenient and
-                                expeditious service to all users
-                                (merchants and consumers) in
-                                areas of consumer spending. Our
-                                service is to improve merchant -
-                                customer relations while
-                                offering positive contribution to
-                                the overall economy.</p>
-                            </div>
-                            <div class="footer-address rs-footer footer-main-home">
-                                <ul class="address-widget">
-                                    <li>
-                                        <i class="lnr lnr-map"></i>
-                                        <div class="contact">
-                                            829 W Palmdale Blvd, Suite
-                                            133 Palmdale, California 93551
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-7 col-xl-8 p-5">
-                        <div class="row justify-content-center justify-content-lg-start justify-content-md-start justify-content-sm-start">
-                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12  ">
-                                <div class="footer-widget mb-md-3 mb-xl-5">
-                                <div class="fw-title">
-                                    <h2 class="title">CONNECT</h2>
-                                </div>
-                                <div class="fw-link">
-                                    <ul>
-                                        {{-- <li><a href="{{url('/home')}}">Home</a></li> --}}
-                                        <li><a href="{{url('/')}}">Home</a></li>
-                                        <li><a href="{{url('/trending-products')}}">Trending Products</a></li>
-                                        <li><a href="{{url('/special-offers')}}">Special Offers</a></li>
-                                        <li><a href="https://naturemenu.net" target="_blank">Restaurants</a></li>
-                                        <li><a href="{{url('/blog')}}" >Blog</a></li>
-                                        {{-- <li><a href="contact.html">Privacy Policy</a></li>
-                                        <li><a href="contact.html">Term and Conditions</a></li> --}}
-                                    </ul>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-5 col-md-6 col-sm-6 col-12">
-                                <div class="footer-widget mb-md-3 mb-xl-5">
-                                <div class="fw-title">
-                                    <h2 class="title">TOP CATEGORIES</h2>
-                                </div>
-                                <div class="fw-link">
-                                    @foreach ($categories2 as $cat)
-                                    <ul>
-                                        <li><a href="{{route('cat-products', $cat->category1)}}">{{$cat->category1}}</a></li>
+<div class="footer-wrapper">
+    <div class="footer">
+     <div class="footer-info">
+       <img class="footer-logo" src="public/wb/img/new_homepage/logo/logo.png" alt="">
+       <div class="footer-desc">
+         We provide convenient and
+         expeditious service to all users
+         (merchants and consumers) in
+         areas of consumer spending. Our
+         service is to improve merchant -
+         customer relations while
+         offering positive contribution to
+         the overall economy.
+       </div>
+       <div class="footer-contact">
+         <a href="#">
+           <i class="fa fa-solid fa-map-marker"></i>
+             829 W Palmdale Blvd, Suite
+             133 Palmdale, California 93551
+         </a>
+         {{-- <a href="#">
+           <i class="fa fa-solid fa-phone"></i>
+           Phone: +0 (000) 000-0000
+         </a>
+         <a href="#">
+           <i class="fa fa-solid fa-fax"></i>
+           Fax: +0 (000) 000-0000
+         </a> --}}
+       </div>
+     </div>
 
-                                    </ul>
-                                    @endforeach
-                                </div>
-                            </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-5 col-md-6 col-sm-6 col-12">
-                                <div class="footer-widget mb-md-3 mb-xl-5">
-                                    <div class="fw-title">
-                                        <h2 class="title">SERVICE</h2>
-                                    </div>
-                                    <div class="fw-link">
-                                        <ul>
-                                            @if (Auth::guard('w2bcustomer')->user())
-                                            <li><a href="{{route('user-account-page')}}">My Account</a></li>
-                                            <li><a href="{{route('user-account-page')}}">My Orders</a></li>
-                                            <li><a href="{{route('user-account-page')}}">Track Your Order</a></li>
-                                            <li><a href="{{route('wb-wishlist-page')}}">Wishlist</a></li>
-                                            <li><a href="https://helpdesk.naturecheckout.com" target="_blank">Support</a></li>
-                                            @else
-                                            <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal25">My Account</a></li>
-                                            <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal26">My Orders</a></li>
-                                            <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal27">Track Your Order</a></li>
-                                            <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal28">Wishlist</a></li>
-                                            @endif
-                                            {{-- <li><a href="contact.html">Support</a></li>
-                                            <li><a href="contact.html">Compare</a></li> --}}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center justify-content-lg-start justify-content-md-start justify-content-sm-start">
-                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-6 col-12 align-self-center mb-4">
-                                <div class="footer-widget">
-                                    <p class="web-address mb-0">@naturecheckout.com/</p>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-5 col-md-6 col-sm-6 col-12 align-self-center mb-md-3 mb-xl-4">
-                                <div class="privacy-terms">
-                                    <ul class="d-flex">
-                                        <li><a href="{{url('privacy-policy')}}"> Privacy</a></li>
-                                        <li><a href="{{url('terms-condition')}}">Terms</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-xl-12 col-12 align-self-center mb-md-0 mb-xl-4">
-                                <div class="">
-                                    <div class="footer-social">
-                                        <ul>
-                                            <li><a  target="_blank" href="https://www.facebook.com/Naturecheckout"><i class="fa fa-facebook-f"></i></a></li>
-                                            <li><a  target="_blank" href="https://www.instagram.com/naturecheckout"><i class="fa fa-instagram"></i></a></li>
-                                            <li><a  target="_blank" href="https://twitter.com/naturecheckout"><i class="fa fa-twitter"></i></a></li>
-                                            <li><a  target="_blank" href="https://tiktok.com/naturecheckout"><i class="fa fa-tiktok"></i></a></li>
-                                            <li><a  target="_blank" href="https://www.pinterest.com/Naturecheckout"><i class="fa fa-pinterest"></i></a></li>
-                                            <li><a  target="_blank" href="https://www.linkedin.com/company/93313174/"><i class="fa fa-linkedin"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+     <div class="footer-posts-section">
+       <h2 class="footer-heading">Recent Posts</h2>
+       <div class="footer-posts">
 
+         <div class="footer-post">
+           <div class="footer-post-img">
+             <img src="public/wb/img/new_homepage/blogs/blog-3.jpg" alt="aa">
+           </div>
+           <div class="footer-post-info">
+             <h4 class="footer-post-heading">A companion for extra sleeping</h4>
+             <div class="footer-post-time">
+               <span class="date">
+                 July 23, 2023
+               </span>
+               <span class="comment">
+                 1 Comment
+               </span>
+             </div>
+           </div>
+         </div>
+         <div class="footer-post">
+           <div class="footer-post-img">
+             <img src="public/wb/img/new_homepage/blogs/blog-2.jpg" alt="aa">
+           </div>
+           <div class="footer-post-info">
+             <h4 class="footer-post-heading">Outdoor seating collection inspiration</h4>
+             <div class="footer-post-time">
+               <span class="date">
+                 July 23, 2023
+               </span>
+               <span class="comment">
+                 1 Comment
+               </span>
+             </div>
+           </div>
+         </div>
 
-                </div>
-            </div>
-        </div>
+       </div>
+     </div>
+     <div class="footer-menus">
+       <div class="footer-menu">
+       <h2 class="footer-heading">CONNECT</h2>
+       <nav>
+         <ul>
+             <li><a href="{{url('/home')}}">Home</a></li>
+             <li><a href="{{url('/trending-products')}}">Trending Products</a></li>
+             <li><a href="{{url('/special-offers')}}">Special Offers</a></li>
+             <li><a href="https://naturemenu.net" target="_blank">Nature Menu</a></li>
+             <li><a href="{{url('/blog')}}">Blog</a></li>
+             <li><a href="{{url('privacy-policy')}}"> Privacy</a></li>
+             <li><a href="{{url('terms-condition')}}">Terms</a></li>
+         </ul>
+       </nav>
+       </div>
+       <div class="footer-menu">
+       <h2 class="footer-heading">TOP CATEGORIES</h2>
+       <nav>
+         @foreach ($categories2 as $cat)
+         <ul>
+             <li>
+                 <a href="{{route('cat-products', $cat->category1)}}">{{$cat->category1}}</a>
+             </li>
+         </ul>
+         @endforeach
+       </nav>
+       </div>
+       <div class="footer-menu">
+       <h2 class="footer-heading">SERVICES</h2>
+       <nav>
+         <ul>
+             @if (Auth::guard('w2bcustomer')->user())
+             <li><a href="{{route('user-account-page')}}">My Account</a></li>
+             <li><a href="{{route('user-account-page')}}">My Orders</a></li>
+             <li><a href="{{route('user-account-page')}}">Track Your Order</a></li>
+             <li><a href="{{route('wb-wishlist-page')}}">Wishlist</a></li>
+             <li><a href="https://helpdesk.naturecheckout.com" target="_blank">Support</a></li>
+             @else
+             <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal25">My Account</a></li>
+             <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal26">My Orders</a></li>
+             <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal27">Track Your Order</a></li>
+             <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal28">Wishlist</a></li>
+             @endif
+             {{-- <li><a href="contact.html">Support</a></li>
+             <li><a href="contact.html">Compare</a></li> --}}
+         </ul>
+       </nav>
+       </div>
+     </div>
     </div>
-</footer>
-<!-- footer-area-end -->
+  </div>
+  <!-- Footer End -->
 
 
 

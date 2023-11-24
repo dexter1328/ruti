@@ -5,97 +5,7 @@
 {{-- @include('front_end.banner')
 @include('front_end.features') --}}
 
-<!-- banner Start  -->
-    <div class="landing-slider">
 
-      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="carousel-slide carousel-slide-1">
-              <div class="slide-info">
-                <h2 class="slide-top_heading">
-                  Top Smartwatches
-                </h2>
-                <h1 class="slide-main_heading">
-                  Wonderful Performance
-                </h1>
-                <p class="slide-description">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Autem corporis distinctio recusandae enim qui
-                </p>
-                <button class="button button_buy-now">
-                  <span class="button-price">799$</span>
-                  <span class="button-text">BUY NOW</span>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="carousel-slide ">
-              <div class="carousel-slide-filter"></div>
-              <div class="carousel-slide carousel-slide-2">
-                <div class="slide-info">
-                  <h2 class="slide-top_heading">
-                    Top Smartwatches
-                  </h2>
-                  <h1 class="slide-main_heading">
-                    Wonderful Performance
-                  </h1>
-                  <p class="slide-description">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Autem corporis distinctio recusandae enim qui
-                  </p>
-                  <button class="button button-buy_now">
-                    <span class="button-price">799$</span>
-                    <span class="button-text">BUY NOW</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="carousel-slide ">
-            <div class="carousel-slide-filter"></div>
-              <div class="carousel-slide carousel-slide-3">
-                <div class="slide-info">
-                  <h2 class="slide-top_heading">
-                    Top Smartwatches
-                  </h2>
-                  <h1 class="slide-main_heading">
-                    Wonderful Performance
-                  </h1>
-                  <p class="slide-description">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Autem corporis distinctio recusandae enim qui
-                  </p>
-                  <button class="button button_buy-now">
-                    <span class="button-price">799$</span>
-                    <span class="button-text">BUY NOW</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
-    </div>
-
-  </div>
-</div>
-<!-- Landing End  -->
 
 
 <!-- Offer Cards Start -->
@@ -103,16 +13,16 @@
   <div class="offer-card offer-card-1">
     <div class="offer-card-info">
       <h2 class="offer-card-top_heading">
-        Top Smartwatches
+        Top Cameras
       </h2>
       <h1 class="offer-card-main_heading">
         WEBCAMS 2023
       </h1>
       <p class="offer-card-description">
-        Lorem ipsum dolor sit amet consectetur, adipisicing
+        Get cameras at discounted rated
       </p>
-      <button class="button button-shop_more">
-        SHOP MORE
+      <button class="button button-shop_more" onclick="window.location='{{ route('product-detail',['slug' => $product31->slug, 'sku' => $product31->sku]) }}'">
+        SHOP Now
       </button>
     </div>
     <div class="offer-card-image">
@@ -129,10 +39,10 @@
         Leather Cases
       </h1>
       <p class="offer-card-description">
-        Lorem ipsum dolor sit amet consectetur, adipisicing
+        Get most beautiful laptop accessories
       </p>
-      <button class="button button-light button-shop_more">
-        SHOP MORE
+      <button class="button button-light button-shop_more" onclick="window.location='{{ route('product-detail',['slug' => $product32->slug, 'sku' => $product32->sku]) }}'">
+        SHOP Now
       </button>
     </div>
     <div class="offer-card-image">
@@ -147,7 +57,7 @@
 <div class="products-section">
 
   <div class="products-section-header">
-    <h2 class="products-section-heading section-heading">Electronics</h2>
+    <h2 class="products-section-heading section-heading">Products</h2>
     <div class="products-section-links">
       <nav>
         <a href="" class="products-section-link active">NEW</a>
@@ -158,308 +68,44 @@
   </div>
 
   <div class="products">
+    @foreach ($products33 as $p)
+
     <div class="product">
-      <img src="public/wb/img/new_homepage/products/iphone-red-1.jpg" alt="product-img" class="product-img product-img-1">
-      <img src="public/wb/img/new_homepage/products/iphone-red-2.jpg" alt="product-img" class="product-img product-img-2">
+        <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+            <img src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" class="product-img product-img-1">
+        </a>
+        <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+            <img src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" class="product-img product-img-2">
+        </a>
       <div class="product-info">
         <h3 class="product-name">
-          iPhone Red 128GB
+            {{ Str::limit($p->title, 40) }}
         </h3>
         <h4 class="product-category">
-          Electronics
+            {{$p->w2b_category_1}}
         </h4>
         <p class="product-price">
-          $159.00
+            ${{number_format((float)$p->retail_price, 2, '.', '')}}
         </p>
       </div>
        <div class="product-actions">
-        <i class="fa fa-solid fa-heart"></i>
-        <button class="button product-button">ADD TO CART</button>
-        <i class="fa fa-solid fa-search"></i>
+        @if(Auth::guard('w2bcustomer')->user())
+        <a href="{{route('wb-wishlist', $p->sku)}}" title="Add to Wishlist">
+            <i class="fa fa-solid fa-heart"></i>
+        </a>
+        @endif
+        <a class="button product-button" href="{{ route('add.to.cart1', $p->sku) }}">ADD TO CART</a>
       </div>
 
       <!-- triggers on hover -->
-      <div class="product-popup">
-        <div class="brand-name">
-          Wantdo Outdoor
-        </div>
-        <div class="product-popup-heading">
-          35% Off for Orders Over $200
-        </div>
-        <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>.
-          <div>
-            Enter code at checkout
 
-          </div>
-        </div>
-        <div class="product-popup-code">
-          <input type="text">
-          <button class="button">Shop</button>
-        </div>
-      </div>
 
     </div>
-    <div class="product">
-      <img src="public/wb/img/new_homepage/products/xbox-one-1.jpg" alt="product-img" class="product-img product-img-1">
-      <img src="public/wb/img/new_homepage/products/xbox-one-2.jpg" alt="product-img" class="product-img product-img-2">
-      <div class="product-info">
-        <h3 class="product-name">
-          Microsoft Xbox One S
-        </h3>
-        <h4 class="product-category">
-          Electronics
-        </h4>
-        <p class="product-price">
-          $159.00
-        </p>
-      </div>
-       <div class="product-actions">
-        <i class="fa fa-solid fa-heart"></i>
-        <button class="button product-button">ADD TO CART</button>
-        <i class="fa fa-solid fa-search"></i>
-      </div>
+    @endforeach
 
-      <!-- triggers on hover -->
-      <div class="product-popup">
-        <div class="brand-name">
-          Wantdo Outdoor
-        </div>
-        <div class="product-popup-heading">
-          35% Off for Orders Over $200
-        </div>
-        <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>. Enter code at checkout
-        </div>
-        <div class="product-popup-code">
-          <input type="text">
-          <button class="button">Shop</button>
-        </div>
-      </div>
-    </div>
-    <div class="product">
-      <img src="public/wb/img/new_homepage/products/google-pixel-1.jpg" alt="product-img" class="product-img product-img-1">
-      <img src="public/wb/img/new_homepage/products/google-pixel-2.jpg" alt="product-img" class="product-img product-img-2">
-      <div class="product-info">
-        <h3 class="product-name">
-          Google Pixel Blue
-        </h3>
-        <h4 class="product-category">
-          Electronics
-        </h4>
-        <p class="product-price">
-          $159.00
-        </p>
-      </div>
-       <div class="product-actions">
-        <i class="fa fa-solid fa-heart"></i>
-        <button class="button product-button">ADD TO CART</button>
-        <i class="fa fa-solid fa-search"></i>
-      </div>
 
-      <!-- triggers on hover -->
-      <div class="product-popup">
-        <div class="brand-name">
-          Wantdo Outdoor
-        </div>
-        <div class="product-popup-heading">
-          35% Off for Orders Over $200
-        </div>
-        <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>. Enter code at checkout
-        </div>
-        <div class="product-popup-code">
-          <input type="text">
-          <button class="button">Shop</button>
-        </div>
-      </div>
-    </div>
-    <div class="product">
-      <img src="public/wb/img/new_homepage/products/samsung-s8-1.jpg" alt="product-img" class="product-img product-img-1">
-      <img src="public/wb/img/new_homepage/products/samsung-s8-2.jpg" alt="product-img" class="product-img product-img-2">
-      <div class="product-info">
-        <h3 class="product-name">
-          Samsung Galaxy S8
-        </h3>
-        <h4 class="product-category">
-          Electronics
-        </h4>
-        <p class="product-price">
-          $159.00
-        </p>
-      </div>
-       <div class="product-actions">
-        <i class="fa fa-solid fa-heart"></i>
-        <button class="button product-button">ADD TO CART</button>
-        <i class="fa fa-solid fa-search"></i>
-      </div>
-
-      <!-- triggers on hover -->
-      <div class="product-popup">
-        <div class="brand-name">
-          Wantdo Outdoor
-        </div>
-        <div class="product-popup-heading">
-          35% Off for Orders Over $200
-        </div>
-        <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>. Enter code at checkout
-        </div>
-        <div class="product-popup-code">
-          <input type="text">
-          <button class="button">Shop</button>
-        </div>
-      </div>
-    </div>
-    <div class="product">
-      <img src="public/wb/img/new_homepage/products/google-pixel-1.jpg" alt="product-img" class="product-img product-img-1">
-      <img src="public/wb/img/new_homepage/products/google-pixel-2.jpg" alt="product-img" class="product-img product-img-2">
-      <div class="product-info">
-        <h3 class="product-name">
-          Google Pixel Blue
-        </h3>
-        <h4 class="product-category">
-          Electronics
-        </h4>
-        <p class="product-price">
-          $159.00
-        </p>
-      </div>
-       <div class="product-actions">
-        <i class="fa fa-solid fa-heart"></i>
-        <button class="button product-button">ADD TO CART</button>
-        <i class="fa fa-solid fa-search"></i>
-      </div>
-
-      <!-- triggers on hover -->
-      <div class="product-popup">
-        <div class="brand-name">
-          Wantdo Outdoor
-        </div>
-        <div class="product-popup-heading">
-          35% Off for Orders Over $200
-        </div>
-        <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>. Enter code at checkout
-        </div>
-        <div class="product-popup-code">
-          <input type="text">
-          <button class="button">Shop</button>
-        </div>
-      </div>
-    </div>
-    <div class="product">
-      <img src="public/wb/img/new_homepage/products/google-pixel-1.jpg" alt="product-img" class="product-img product-img-1">
-      <img src="public/wb/img/new_homepage/products/google-pixel-2.jpg" alt="product-img" class="product-img product-img-2">
-      <div class="product-info">
-        <h3 class="product-name">
-          Google Pixel Blue
-        </h3>
-        <h4 class="product-category">
-          Electronics
-        </h4>
-        <p class="product-price">
-          $159.00
-        </p>
-      </div>
-       <div class="product-actions">
-        <i class="fa fa-solid fa-heart"></i>
-        <button class="button product-button">ADD TO CART</button>
-        <i class="fa fa-solid fa-search"></i>
-      </div>
-
-      <!-- triggers on hover -->
-      <div class="product-popup">
-        <div class="brand-name">
-          Wantdo Outdoor
-        </div>
-        <div class="product-popup-heading">
-          35% Off for Orders Over $200
-        </div>
-        <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>. Enter code at checkout
-        </div>
-        <div class="product-popup-code">
-          <input type="text">
-          <button class="button">Shop</button>
-        </div>
-      </div>
-    </div>
-    <div class="product">
-      <img src="public/wb/img/new_homepage/products/google-pixel-1.jpg" alt="product-img" class="product-img product-img-1">
-      <img src="public/wb/img/new_homepage/products/google-pixel-2.jpg" alt="product-img" class="product-img product-img-2">
-      <div class="product-info">
-        <h3 class="product-name">
-          Google Pixel Blue
-        </h3>
-        <h4 class="product-category">
-          Electronics
-        </h4>
-        <p class="product-price">
-          $159.00
-        </p>
-      </div>
-       <div class="product-actions">
-        <i class="fa fa-solid fa-heart"></i>
-        <button class="button product-button">ADD TO CART</button>
-        <i class="fa fa-solid fa-search"></i>
-      </div>
-
-      <!-- triggers on hover -->
-      <div class="product-popup">
-        <div class="brand-name">
-          Wantdo Outdoor
-        </div>
-        <div class="product-popup-heading">
-          35% Off for Orders Over $200
-        </div>
-        <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>. Enter code at checkout
-        </div>
-        <div class="product-popup-code">
-          <input type="text">
-          <button class="button">Shop</button>
-        </div>
-      </div>
-    </div>
-    <div class="product">
-      <img src="public/wb/img/new_homepage/products/google-pixel-1.jpg" alt="product-img" class="product-img product-img-1">
-      <img src="public/wb/img/new_homepage/products/google-pixel-2.jpg" alt="product-img" class="product-img product-img-2">
-      <div class="product-info">
-        <h3 class="product-name">
-          Google Pixel Blue
-        </h3>
-        <h4 class="product-category">
-          Electronics
-        </h4>
-        <p class="product-price">
-          $159.00
-        </p>
-      </div>
-       <div class="product-actions">
-        <i class="fa fa-solid fa-heart"></i>
-        <button class="button product-button">ADD TO CART</button>
-        <i class="fa fa-solid fa-search"></i>
-      </div>
-
-      <!-- triggers on hover -->
-      <div class="product-popup">
-        <div class="brand-name">
-          Wantdo Outdoor
-        </div>
-        <div class="product-popup-heading">
-          35% Off for Orders Over $200
-        </div>
-        <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>. Enter code at checkout
-        </div>
-        <div class="product-popup-code">
-          <input type="text">
-          <button class="button">Shop</button>
-        </div>
-      </div>
-    </div>
   </div>
+  {{ $products33->links() }}
 
 </div>
 
@@ -543,30 +189,36 @@
       Today Hot Deals
     </h2>
     <div class="hot-deals-products">
+        @foreach ($products34 as $p)
 
       <div class="hot-deals-product">
         <div class="product">
           <div class="product-image">
             <div class="hot-deals-product_menu">
-              <a href=""><img class="product_menu-icons" src="public/wb/img/new_homepage/icons/heart.png" alt=""></a>
-              <a href=""> <img class="product_menu-icons" src="public/wb/img/new_homepage/icons/cart.png" alt="">
-              </a>
-            </div> <img src="public/wb/img/new_homepage/products/iphone-red-1.jpg" alt="product-img"
+                @if(Auth::guard('w2bcustomer')->user())
+                    <a href="{{route('wb-wishlist', $p->sku)}}"><img class="product_menu-icons" src="public/wb/img/new_homepage/icons/heart.png" alt=""></a>
+                @endif
+              <a href="{{ route('add.to.cart1', $p->sku) }}"> <img class="product_menu-icons" src="public/wb/img/new_homepage/icons/cart.png" alt=""></a>
+            </div> <img src="{{$p->original_image_url}}" alt="product-img"
               class="product-img product-img-1">
-            <img src="public/wb/img/new_homepage/products/iphone-red-2.jpg" alt="product-img" class="product-img product-img-2">
+            <img src="{{$p->original_image_url}}" alt="product-img" class="product-img product-img-2">
             <div class="hot-deals-add_to_cart">
-              Add To Cart
+                <a href="{{ route('add.to.cart1', $p->sku) }}">
+                    Add To Cart
+                </a>
             </div>
           </div>
           <div class="product-info">
             <h3 class="product-name">
-              iPhone Red 128GB
+                <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                {{ Str::limit($p->title, 40) }}
+                </a>
             </h3>
             <h4 class="product-category">
-              Electronics
+                {{$p->w2b_category_1}}
             </h4>
             <p class="product-price">
-              $159.00
+                ${{number_format((float)$p->retail_price, 2, '.', '')}}
             </p>
           </div>
         </div>
@@ -574,69 +226,9 @@
           <div class="countdown" class="row h-100 justify-content-center align-items-center"></div>
         </div>
       </div>
+      @endforeach
 
-      <div class="hot-deals-product">
-        <div class="product">
-          <div class="product-image">
-            <div class="hot-deals-product_menu">
-              <a href=""><img class="product_menu-icons" src="public/wb/img/new_homepage/icons/heart.png" alt=""></a>
-              <a href=""> <img class="product_menu-icons" src="public/wb/img/new_homepage/icons/cart.png" alt="">
-              </a>
-            </div>
-            <img src="public/wb/img/new_homepage/products/xbox-one-1.jpg" alt="product-img" class="product-img product-img-1">
-            <img src="public/wb/img/new_homepage/products/xbox-one-2.jpg" alt="product-img" class="product-img product-img-2">
-            <div class="hot-deals-add_to_cart">
-              Add To Cart
-            </div>
-          </div>
-          <div class="product-info">
-            <h3 class="product-name">
-              Microsoft Xbox One S
-            </h3>
-            <h4 class="product-category">
-              Electronics
-            </h4>
-            <p class="product-price">
-              $159.00
-            </p>
-          </div>
-        </div>
-        <div class="hot-deals-timer">
-          <div class="countdown" class="row h-100 justify-content-center align-items-center"></div>
-        </div>
-      </div>
-      <div class="hot-deals-product">
-        <div class="product">
-          <div class="product-image">
-            <div class="hot-deals-product_menu">
-              <a href=""><img class="product_menu-icons" src="public/wb/img/new_homepage/icons/heart.png" alt=""></a>
-              <a href=""> <img class="product_menu-icons" src="public/wb/img/new_homepage/icons/cart.png" alt="">
-              </a>
-            </div>
-            <img src="public/wb/img/new_homepage/products/google-pixel-1.jpg" alt="product-img"
-              class="product-img product-img-1">
-            <img src="public/wb/img/new_homepage/products/google-pixel-2.jpg" alt="product-img"
-              class="product-img product-img-2">
-            <div class="hot-deals-add_to_cart">
-              Add To Cart
-            </div>
-          </div>
-          <div class="product-info">
-            <h3 class="product-name">
-              Google Pixel Blue
-            </h3>
-            <h4 class="product-category">
-              Electronics
-            </h4>
-            <p class="product-price">
-              $159.00
-            </p>
-          </div>
-        </div>
-        <div class="hot-deals-timer">
-          <div class="countdown" class="row h-100 justify-content-center align-items-center"></div>
-        </div>
-      </div>
+
     </div>
     <button class="button button-hot_offers">
       View All Deals
@@ -683,56 +275,27 @@
         Featured Products
       </div>
       <div class="featured-products">
+        @foreach ($products35 as $p)
         <div class="featured-product">
-          <img class="featured-product-image" src="public/wb/img/new_homepage/products/nikon-camera-1.jpg" alt="">
-          <div class="featured-product-info">
-            <a href="">
-              <h3 class="featured-product-title">Nikon Camera</h3>
-            </a>
-            <div class="featured-product-price">
-              $159.00
+            <img class="featured-product-image" src="{{$p->original_image_url}}" alt="">
+            <div class="featured-product-info">
+              <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                <h3 class="featured-product-title">{{ Str::limit($p->title, 10) }}</h3>
+              </a>
+              <div class="featured-product-price">
+                ${{number_format((float)$p->retail_price, 2, '.', '')}}
+              </div>
             </div>
           </div>
-        </div>
-        <div class="featured-product">
-          <img class="featured-product-image" src="public/wb/img/new_homepage/products/nikon-camera-1.jpg" alt="">
-          <div class="featured-product-info">
-            <a href="">
-              <h3 class="featured-product-title">Nikon Camera</h3>
-            </a>
-            <div class="featured-product-price">
-              $159.00
-            </div>
-          </div>
-        </div>
-        <div class="featured-product">
-          <img class="featured-product-image" src="public/wb/img/new_homepage/products/nikon-camera-1.jpg" alt="">
-          <div class="featured-product-info">
-            <a href="">
-              <h3 class="featured-product-title">Nikon Camera</h3>
-            </a>
-            <div class="featured-product-price">
-              $159.00
-            </div>
-          </div>
-        </div>
-        <div class="featured-product">
-          <img class="featured-product-image" src="public/wb/img/new_homepage/products/nikon-camera-1.jpg" alt="">
-          <div class="featured-product-info">
-            <a href="">
-              <h3 class="featured-product-title">Nikon Camera</h3>
-            </a>
-            <div class="featured-product-price">
-              $159.00
-            </div>
-          </div>
-        </div>
+        @endforeach
+
+
       </div>
     </div>
   </div>
   <div>
     <div class="products-section-header">
-      <h2 class="products-section-heading section-heading">Electronics</h2>
+      <h2 class="products-section-heading section-heading">Top Products</h2>
       <div class="products-section-links">
         <nav>
           <a href="" class="products-section-link active">NEW</a>
@@ -743,246 +306,39 @@
     </div>
 
     <div class="products products-2">
-      <div class="product">
-        <img src="public/wb/img/new_homepage/products/iphone-red-1.jpg" alt="product-img" class="product-img product-img-1">
-        <img src="public/wb/img/new_homepage/products/iphone-red-2.jpg" alt="product-img" class="product-img product-img-2">
-        <div class="product-info">
-          <h3 class="product-name">
-            iPhone Red 128GB
-          </h3>
-          <h4 class="product-category">
-            Electronics
-          </h4>
-          <p class="product-price">
-            $159.00
-          </p>
-        </div>
-        <div class="product-actions">
-          <i class="fa fa-solid fa-heart"></i>
-          <button class="button product-button">ADD TO CART</button>
-          <i class="fa fa-solid fa-search"></i>
-</div>
-<!-- triggers on hover -->
-      <div class="product-popup">
-        <div class="brand-name">
-          Wantdo Outdoor
-        </div>
-        <div class="product-popup-heading">
-          35% Off for Orders Over $200
-        </div>
-        <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>.
-          <div>
-            Enter code at checkout
-
+        @foreach ($products36 as $p)
+        <div class="product">
+            <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                <img src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" class="product-img product-img-1">
+            </a>
+            <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                <img src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" class="product-img product-img-2">
+            </a>
+          <div class="product-info">
+            <h3 class="product-name">
+                {{ Str::limit($p->title, 40) }}
+            </h3>
+            <h4 class="product-category">
+                {{$p->w2b_category_1}}
+            </h4>
+            <p class="product-price">
+                ${{number_format((float)$p->retail_price, 2, '.', '')}}
+            </p>
           </div>
-        </div>
-        <div class="product-popup-code">
-          <input type="text">
-          <button class="button">Shop</button>
-        </div>
-      </div>
-      </div>
-      <div class="product">
-        <img src="public/wb/img/new_homepage/products/xbox-one-1.jpg" alt="product-img" class="product-img product-img-1">
-        <img src="public/wb/img/new_homepage/products/xbox-one-2.jpg" alt="product-img" class="product-img product-img-2">
-        <div class="product-info">
-          <h3 class="product-name">
-            Microsoft Xbox One S
-          </h3>
-          <h4 class="product-category">
-            Electronics
-          </h4>
-          <p class="product-price">
-            $159.00
-          </p>
-        </div>
-        <div class="product-actions">
-          <i class="fa fa-solid fa-heart"></i>
-          <button class="button product-button">ADD TO CART</button>
-          <i class="fa fa-solid fa-search"></i>
-</div>
-<!-- triggers on hover -->
-      <div class="product-popup">
-        <div class="brand-name">
-          Wantdo Outdoor
-        </div>
-        <div class="product-popup-heading">
-          35% Off for Orders Over $200
-        </div>
-        <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>.
-          <div>
-            Enter code at checkout
-
+           <div class="product-actions">
+            @if(Auth::guard('w2bcustomer')->user())
+            <a href="{{route('wb-wishlist', $p->sku)}}" title="Add to Wishlist">
+                <i class="fa fa-solid fa-heart"></i>
+            </a>
+            @endif
+            <a class="button product-button" href="{{ route('add.to.cart1', $p->sku) }}">ADD TO CART</a>
           </div>
-        </div>
-        <div class="product-popup-code">
-          <input type="text">
-          <button class="button">Shop</button>
-        </div>
-      </div>
-      </div>
-      <div class="product">
-        <img src="public/wb/img/new_homepage/products/google-pixel-1.jpg" alt="product-img" class="product-img product-img-1">
-        <img src="public/wb/img/new_homepage/products/google-pixel-2.jpg" alt="product-img" class="product-img product-img-2">
-        <div class="product-info">
-          <h3 class="product-name">
-            Google Pixel Blue
-          </h3>
-          <h4 class="product-category">
-            Electronics
-          </h4>
-          <p class="product-price">
-            $159.00
-          </p>
-        </div>
-        <div class="product-actions">
-          <i class="fa fa-solid fa-heart"></i>
-          <button class="button product-button">ADD TO CART</button>
-          <i class="fa fa-solid fa-search"></i>
-</div>
-<!-- triggers on hover -->
-      <div class="product-popup">
-        <div class="brand-name">
-          Wantdo Outdoor
-        </div>
-        <div class="product-popup-heading">
-          35% Off for Orders Over $200
-        </div>
-        <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>.
-          <div>
-            Enter code at checkout
 
-          </div>
-        </div>
-        <div class="product-popup-code">
-          <input type="text">
-          <button class="button">Shop</button>
-        </div>
-      </div>
-      </div>
-      <div class="product">
-        <img src="public/wb/img/new_homepage/products/samsung-s8-1.jpg" alt="product-img" class="product-img product-img-1">
-        <img src="public/wb/img/new_homepage/products/samsung-s8-2.jpg" alt="product-img" class="product-img product-img-2">
-        <div class="product-info">
-          <h3 class="product-name">
-            Samsung Galaxy S8
-          </h3>
-          <h4 class="product-category">
-            Electronics
-          </h4>
-          <p class="product-price">
-            $159.00
-          </p>
-        </div>
-        <div class="product-actions">
-          <i class="fa fa-solid fa-heart"></i>
-          <button class="button product-button">ADD TO CART</button>
-          <i class="fa fa-solid fa-search"></i>
-</div>
-<!-- triggers on hover -->
-      <div class="product-popup">
-        <div class="brand-name">
-          Wantdo Outdoor
-        </div>
-        <div class="product-popup-heading">
-          35% Off for Orders Over $200
-        </div>
-        <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>.
-          <div>
-            Enter code at checkout
+          <!-- triggers on hover -->
 
-          </div>
-        </div>
-        <div class="product-popup-code">
-          <input type="text">
-          <button class="button">Shop</button>
-        </div>
-      </div>
-      </div>
-      <div class="product">
-        <img src="public/wb/img/new_homepage/products/google-pixel-1.jpg" alt="product-img" class="product-img product-img-1">
-        <img src="public/wb/img/new_homepage/products/google-pixel-2.jpg" alt="product-img" class="product-img product-img-2">
-        <div class="product-info">
-          <h3 class="product-name">
-            Google Pixel Blue
-          </h3>
-          <h4 class="product-category">
-            Electronics
-          </h4>
-          <p class="product-price">
-            $159.00
-          </p>
-        </div>
-        <div class="product-actions">
-          <i class="fa fa-solid fa-heart"></i>
-          <button class="button product-button">ADD TO CART</button>
-          <i class="fa fa-solid fa-search"></i>
-</div>
-<!-- triggers on hover -->
-      <div class="product-popup">
-        <div class="brand-name">
-          Wantdo Outdoor
-        </div>
-        <div class="product-popup-heading">
-          35% Off for Orders Over $200
-        </div>
-        <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>.
-          <div>
-            Enter code at checkout
 
-          </div>
         </div>
-        <div class="product-popup-code">
-          <input type="text">
-          <button class="button">Shop</button>
-        </div>
-      </div>
-      </div>
-      <div class="product">
-        <img src="public/wb/img/new_homepage/products/google-pixel-1.jpg" alt="product-img" class="product-img product-img-1">
-        <img src="public/wb/img/new_homepage/products/google-pixel-2.jpg" alt="product-img" class="product-img product-img-2">
-        <div class="product-info">
-          <h3 class="product-name">
-            Google Pixel Blue
-          </h3>
-          <h4 class="product-category">
-            Electronics
-          </h4>
-          <p class="product-price">
-            $159.00
-          </p>
-        </div>
-        <div class="product-actions">
-          <i class="fa fa-solid fa-heart"></i>
-          <button class="button product-button">ADD TO CART</button>
-          <i class="fa fa-solid fa-search"></i>
-</div>
-<!-- triggers on hover -->
-      <div class="product-popup">
-        <div class="brand-name">
-          Wantdo Outdoor
-        </div>
-        <div class="product-popup-heading">
-          35% Off for Orders Over $200
-        </div>
-        <div class="product-popup-desc">
-          Expires in <strong>116 days</strong>.
-          <div>
-            Enter code at checkout
-
-          </div>
-        </div>
-        <div class="product-popup-code">
-          <input type="text">
-          <button class="button">Shop</button>
-        </div>
-      </div>
-      </div>
+        @endforeach
     </div>
   </div>
 </div>
