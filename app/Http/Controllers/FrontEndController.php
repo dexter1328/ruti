@@ -74,9 +74,9 @@ class FrontEndController extends Controller
         $categories_new = W2bCategory::where('parent_id', 0)->take(12)->get();
         View::share('categories_new', $categories_new);
 
-        $product20 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->where('sku', 'G818-TW4B01900')->first();
-        $product21 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->where('sku', 'C122-1288570')->first();
-        $product22 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->where('sku', 'H899-2275472')->first();
+        $product20 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(60)->first();
+        $product21 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(3)->first();
+        $product22 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(150)->first();
         View::share('product20', $product20);
         View::share('product21', $product21);
         View::share('product22', $product22);
@@ -173,8 +173,8 @@ class FrontEndController extends Controller
         $sold = rand(20, 50);
         $available = rand(60, 99);
 
-        $product31 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->where('sku', 'C316-Camstick1080p')->first();
-        $product32 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->where('sku', 'Q119-CJJSPBPB00422')->first();
+        $product31 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(3)->first();
+        $product32 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(10)->first();
         $products33 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250','original_image_url')->inRandomOrder()->limit(2000)->paginate(12);
         $products34 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250','original_image_url')->inRandomOrder()->limit(3)->get();
         $products35 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250','original_image_url')->inRandomOrder()->limit(4)->get();
