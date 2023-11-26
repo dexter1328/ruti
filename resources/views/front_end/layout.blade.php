@@ -551,9 +551,15 @@
         <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
     </a>
     @endif
-    <a href="{{ route('product-cart') }}">
-      <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/cart.png')}}" alt="">
-    </a>
+    <!-- <a 
+    href="{{ route('product-cart') }}"
+    > -->
+      <img 
+      class="header-icons cart-open-btn" 
+      src="{{asset('public/wb/img/new_homepage/icons/cart.png')}}" 
+      alt=""
+      >
+    <!-- </a> -->
 
     @php $total = 0 @endphp
     @foreach((array) session('cart') as $sku => $details)
@@ -570,7 +576,44 @@
   <img class="header-icons" src="public/wb/img/new_homepage/icons/cart.png" alt="">
   </div>
 </div>
+
+<!-- Cart  -->
+<div class="side-cart-wrapper"></div>
+<div class="side-cart">
+  <div class="cart-header">
+    <h4>Cart</h4>
+    <i class="cart-close-btn fa fa-solid fa-close"></i>
+  </div>
+  <div class="cart-info">
+    <h5>Sub Total</h5>
+    <h5>$0.00</h5>
+  </div>
+  <div class="cart-buttons">
+    <button class="button">
+    <i class="fa fa-solid fa-shopping-cart"></i>
+      View Cart
+    </button>
+    <button class="button">
+    <i class="fa fa-solid fa-share"></i>
+      Checkout
+    </button>
+  </div>
+</div>
+
+<script>
+  $('.cart-close-btn').click(()=>{
+    $('.side-cart-wrapper').css("display", "none");
+    $('.side-cart').css("right", "-400px");
+  })
+
+  $('.cart-open-btn').click(()=>{
+    $('.side-cart-wrapper').css("display", "flex");
+    $('.side-cart').css("right", "0");
+  })
+</script>
 <!-- Header End  -->
+
+
 <div class="landing">
         <div class="landing-top">
             <div class="landing-top-left">
