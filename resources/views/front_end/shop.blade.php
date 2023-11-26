@@ -9,6 +9,9 @@
 
 
 <!-- Offer Cards Start -->
+<div id="main">
+
+
 <div class="offer-cards">
   <div class="offer-card offer-card-1">
     <div class="offer-card-info">
@@ -199,9 +202,13 @@
                     <a href="{{route('wb-wishlist', $p->sku)}}"><img class="product_menu-icons" src="public/wb/img/new_homepage/icons/heart.png" alt=""></a>
                 @endif
               <a href="{{ route('add.to.cart1', $p->sku) }}"> <img class="product_menu-icons" src="public/wb/img/new_homepage/icons/cart.png" alt=""></a>
-            </div> <img src="{{$p->original_image_url}}" alt="product-img"
-              class="product-img product-img-1">
-            <img src="{{$p->original_image_url}}" alt="product-img" class="product-img product-img-2">
+            </div> 
+            <div class="hot-deals-product-img">
+              <img src="{{$p->original_image_url}}" alt="product-img"
+                class="product-img product-img-1">
+              <img src="{{$p->original_image_url}}" alt="product-img" class="product-img product-img-2">
+            </div>
+
             <div class="hot-deals-add_to_cart">
                 <a href="{{ route('add.to.cart1', $p->sku) }}">
                     Add To Cart
@@ -236,6 +243,8 @@
   </div>
 </div>
 
+</div>
+
 <!-- Timer -->
 <script src="public/shop/js/countdown.js"></script>
 <script>
@@ -253,6 +262,7 @@
 
 <!-- Hot Deals End -->
 
+<div id="main">
   <!-- Products section - 2 start -->
 <div class="products-section products-section-2">
   <div class="products-2-side-banners">
@@ -505,6 +515,8 @@
 
     </div>
   </div>
+
+</div>
  <!-- Blogs End -->
 
 @endsection

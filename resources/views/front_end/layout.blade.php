@@ -642,16 +642,99 @@
         </div>
 
         <div class="landing-main">
-            <nav class="landing-menu-nav">
+            <nav class="landing-menu-nav  .opacity-0">
                 @foreach ($categories_new as $category)
-                <a href="{{route('cat-products', $category->category1)}}">
+    
                     <div class="landing-menu-item">
-
                         <i class="fa landing-menu-icon fa-solid fa-couch"></i>
-                        {{ $category->category1 }}
+                        <a href="{{route('cat-products', $category->category1)}}">{{ $category->category1 }}</a>
                         <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-                    </div>
+                        
+<div class="subcategories-menu">
+            <div class="category-menus">
+              <div class="category-menu">
+                <h4>MAN</h4>
+                <a href="">
+                  Outerwear
                 </a>
+                <a href="">
+                  Uppers
+                </a>
+                <a href="">
+                  Jackets
+                </a>
+                <a href="">
+                  Jumpsuits
+                </a>
+              </div>
+              <div class="category-menu">
+                <h4>WOMAN</h4>
+                <a href="">
+                  Outerwear
+                </a>
+                <a href="">
+                  Jackets
+                </a>
+                <a href="">
+                  Jumpsuits
+                </a>
+              </div>
+              <div class="category-menu">
+                <h4>KIDS</h4>
+                <a href="">
+                  Outerwear
+                </a>
+                <a href="">
+                  Jackets
+                </a>
+                <a href="">
+                  Jumpsuits
+                </a>
+              </div>
+              <div class="category-menu">
+                <h4>SHOES</h4>
+                <a href="">
+                  Outerwear
+                </a>
+                <a href="">
+                  Jackets
+                </a>
+                <a href="">
+                  Jumpsuits
+                </a>
+              </div>
+              <div class="category-menu">
+                <h4>BAGS</h4>
+                <a href="">
+                  Outerwear
+                </a>
+                <a href="">
+                  Jackets
+                </a>
+                <a href="">
+                  Jumpsuits
+                </a>
+              </div>
+              <div class="category-menu">
+                <h4>ACCESSORIES</h4>
+                <a href="">
+                  Outerwear
+                </a>
+                <a href="">
+                  Jackets
+                </a>
+                <a href="">
+                  Jumpsuits
+                </a>
+              </div>
+            </div>
+            <!-- <div class="subcategory-pic">
+              <img src="public/wb/img/new_homepage/products/iphone-red-1.jpg" alt="product-img" class="product-img product-img-1">
+            </div> -->
+        </div>
+
+                    </div>
+                
                 @endforeach
 
             </nav>
@@ -677,6 +760,13 @@
 
 </div>
 <!-- Main end -->
+
+
+<script>
+  $('.landing-top-browse').click(()=>{
+    $('.landing-menu-nav').toggleClass('opacity-0');
+  })
+</script>
 
     <script>
         let mybutton = document.getElementById("myTopBtn");
