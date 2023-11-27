@@ -584,9 +584,34 @@
     <h4>Cart</h4>
     <i class="cart-close-btn fa fa-solid fa-close"></i>
   </div>
+
+  <div class="cart-products">
+
+    <div class="cart-product">
+      <div class="cart-product-image">
+        <img src="public/wb/img/new_homepage/logitech-cam-offer.png" alt="webcam">
+      </div>
+      <div class="cart-product-info">
+        <h4 class="cart-product-title">Google Pixel Blue</h4>
+        <h4 class="cart-product-price">$159.00</h4>
+      </div>
+    </div>
+
+    <div class="cart-product">
+      <div class="cart-product-image">
+        <img src="public/wb/img/new_homepage/logitech-cam-offer.png" alt="webcam">
+      </div>
+      <div class="cart-product-info">
+        <h4 class="cart-product-title">Google Pixel Blue Lorem Ipsum  Lorem Ipsum  Lorem Ipsum</h4>
+        <h4 class="cart-product-price">$159.00</h4>
+      </div>
+    </div>
+
+  </div>
+
   <div class="cart-info">
     <h5>Sub Total</h5>
-    <h5>$0.00</h5>
+    <h5 class="cart-info-price">$0.00</h5>
   </div>
   <div class="cart-buttons">
     <button class="button">
@@ -604,11 +629,18 @@
   $('.cart-close-btn').click(()=>{
     $('.side-cart-wrapper').css("display", "none");
     $('.side-cart').css("right", "-400px");
+    $('.side-cart-wrapper').css("display", "none");
+    $('.side-cart').css("right", "-400px");
   })
 
   $('.cart-open-btn').click(()=>{
     $('.side-cart-wrapper').css("display", "flex");
     $('.side-cart').css("right", "0");
+  })
+
+  $('.side-cart-wrapper').click(()=>{
+    $('.side-cart-wrapper').css("display", "none");
+    $('.side-cart').css("right", "-400px");
   })
 </script>
 <!-- Header End  -->
@@ -618,7 +650,7 @@
         <div class="landing-top">
             <div class="landing-top-left">
             <div class="landing-top-browse">
-                <div>
+                <div class="categories-menu-title">
                 <i class="fa fa-solid fa-bars"></i>
                 Browse Categories
                 </div>
@@ -642,7 +674,7 @@
         </div>
 
         <div class="landing-main">
-            <nav class="landing-menu-nav  .opacity-0">
+            <nav class="landing-menu-nav opacity-0">
                 @foreach ($categories_new as $category)
     
                     <div class="landing-menu-item">
@@ -739,11 +771,13 @@
 
             </nav>
 
-            @include('front_end.slider')
+            <!-- @include('front_end.slider') -->
 
-        </div>
-</div>
 
+
+            @yield('content')
+
+            
         <!-- header area start-->
         <button class="chat_btn">
             <a href="https://helpdesk.naturecheckout.com" target="_blank"><i class="fa fa-comments-o"></i></a>
@@ -751,7 +785,6 @@
         <button onclick="topFunction()" id="myTopBtn" title="Go to top"><i class="fa fa-chevron-up"></i></button>
         <div class="clearfix"></div>
 
-            @yield('content')
             @include('front_end.footer1')
 
 
