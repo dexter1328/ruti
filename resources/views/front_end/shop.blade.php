@@ -91,11 +91,6 @@
     </div>
   </div>
 
-</div>
-</div>
-</div>
-
-
 <!-- Offer Cards Start -->
 <div id="main">
 

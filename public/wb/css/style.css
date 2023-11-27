@@ -13094,6 +13094,8 @@ transition: none !important;
   .landing-menu-nav{
     border: 1px solid var(--gray-100);
     transition: all 0.2s;
+    position: absolute;
+    z-index: 1000;
   }
 
   .opacity-0{
@@ -13136,9 +13138,10 @@ transition: none !important;
   }
   
   .carousel, .carousel-inner, .carousel-item{
-    height: 100%;
+    min-height: 460px!important;
   }
   .carousel-slide{
+    min-height: 460px!important;
     height: 100%;
     width: 100%;
     display: flex;
