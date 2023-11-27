@@ -71,8 +71,8 @@ class FrontEndController extends Controller
         $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])->get();
         View::share('categories2', $categories2);
 
-        $categories_new = W2bCategory::where('parent_id', 0)->take(12)->get();
-        View::share('categories_new', $categories_new);
+        // $categories = W2bCategory::where('parent_id', 0)->take(12)->get();
+        // View::share('categories', $categories);
 
         $product20 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(60)->first();
         $product21 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(3)->first();

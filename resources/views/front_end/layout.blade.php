@@ -355,11 +355,11 @@
 <i class="fa fa-solid fa-caret-down"></i>
 <div class="accounts-popup">
   <div class="accounts-popup-top">
-    <button class="button">Sign in</button>
+    <button class="button" onclick="window.location='{{ url("w2bcustomer/login") }}'">Sign in</button>
     <div>
       New customer?
       <span>
-        <a href="">
+        <a href="{{url('/w2bcustomer/register')}}">
           Start here.
         </a>
       </span>
@@ -368,17 +368,23 @@
   <div class="accounts-popup-bottom">
     <div class="accounts-popup-lists">
       <h4>Create Account</h4>
-      <a href="">As a supplier</a>
-      <a href="">As a seller</a>
+      <a href="{{ url("/supplier/signup") }}">As a supplier</a>
+      <a href="{{ url("/vendor-signup") }}">As a seller</a>
     </div>
     <div class="accounts-popup-account">
       <h4>Your Account</h4>
-      <a href="">Account</a>
-      <a href="">Orders</a>
-      <a href="">Recommendations</a>
-      <a href="">Browsing History</a>
-      <a href="">Watchlist</a>
-      <a href="">Video Purchases & Rentals</a>
+      @if (Auth::guard('w2bcustomer')->user())
+        <a href="{{route('user-account-page')}}">My Account</a>
+        <a href="{{route('user-account-page')}}">My Orders</a>
+        <a href="{{route('user-account-page')}}">Track Your Order</a>
+        <a href="{{route('wb-wishlist-page')}}">Wishlist</a>
+        <a href="https://helpdesk.naturecheckout.com" target="_blank">Support</a>
+      @else
+            <a href="#" type="button" data-toggle="modal" data-target="#exampleModal25">My Account</a>
+             <a href="#" type="button" data-toggle="modal" data-target="#exampleModal26">My Orders</a>
+             <a href="#" type="button" data-toggle="modal" data-target="#exampleModal27">Track Your Order</a>
+             <a href="#" type="button" data-toggle="modal" data-target="#exampleModal28">Wishlist</a>
+        @endif
     </div>
   </div>
 </div>
@@ -399,7 +405,7 @@
           <img src="public/wb/img/new_homepage/logo/logo.png" alt="">
         </div>
         <p>
-          Rose Yost 9943 Tanya Apt 27
+          Ahmed Nabeel
         </p>
         <button class="button">Store Details</button>
       </div>
@@ -413,7 +419,7 @@
           <i class="fa fa-solid fa-phone"></i> (926) 9898 98989
           </div>
           <div>
-          <i class="fa fa-solid fa-map-marker"></i> 2,874 mi
+          <i class="fa fa-solid fa-map-marker"></i> 215.35 mi
           </div>
         </div>
       </div>
@@ -425,7 +431,7 @@
           <img src="public/wb/img/new_homepage/logo/logo.png" alt="">
         </div>
         <p>
-          Rose Yost 9943 Tanya Apt 27
+          Ahmed Nabeel
         </p>
         <button class="button">Store Details</button>
       </div>
@@ -439,7 +445,7 @@
           <i class="fa fa-solid fa-phone"></i> (926) 9898 98989
           </div>
           <div>
-          <i class="fa fa-solid fa-map-marker"></i> 2,874 mi
+          <i class="fa fa-solid fa-map-marker"></i> 212.20 mi
           </div>
         </div>
       </div>
@@ -496,15 +502,7 @@
       <form action="{{route('shop-search')}}" method="get">
           <div class="searchbar">
               <input class="searchbar-input typeahead" placeholder="Search for products" type="text" name="query" id="query" value="{{request()->input('query')}}">
-              {{-- <div class="searchbar-category">
-                  <select class="" name="search-category">
-                  <option>Select Category</option>
-                  <option>Category 1</option>
-                  <option>Category 2</option>
-                  <option>Category 3</option>
-                  <option>Category 4</option>
-                  </select>
-              </div> --}}
+
               <button type="submit">
                   <span class="searchbar-icon">
                       <i class="fa fa-search search-icon"></i>
@@ -513,7 +511,7 @@
           </div>
       </form>
 
-      <div class="searched-products">
+      {{-- <div class="searched-products">
         <div class="searched-product">
           <a href="">
             <div class="cart-product">
@@ -522,7 +520,7 @@
               </div>
             <div class="cart-product-info">
               <h4 class="cart-product-title">
-                Google 
+                Google
                 <span class="matched-keyword">Pixel Blue</span>
               </h4>
               <h4 class="cart-product-price">$159.00</h4>
@@ -537,15 +535,15 @@
             </div>
           <div class="cart-product-info">
             <h4 class="cart-product-title">
-              Google 
-              <span class="matched-keyword">Pixel Blue</span>  
+              Google
+              <span class="matched-keyword">Pixel Blue</span>
               Google Pixel Blue Google Pixel Blue</h4>
             <h4 class="cart-product-price">
               $159.00</h4>
           </div>
         </div>
       </div>
-      </div>
+      </div> --}}
     </div>
 
   {{-- <div class="searchbar">
@@ -590,12 +588,12 @@
         <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
     </a>
     @endif
-    <!-- <a 
+    <!-- <a
     href="{{ route('product-cart') }}"
     > -->
-      <img 
-      class="header-icons cart-open-btn" 
-      src="{{asset('public/wb/img/new_homepage/icons/cart.png')}}" 
+      <img
+      class="header-icons cart-open-btn"
+      src="{{asset('public/wb/img/new_homepage/icons/cart.png')}}"
       alt=""
       >
     <!-- </a> -->
@@ -625,18 +623,26 @@
   </div>
 
   <div class="cart-products">
+    @php $total = 0 @endphp
+    @foreach((array) session('cart') as $sku => $details)
+        @php $total += $details['retail_price'] * $details['quantity'] @endphp
+    @endforeach
 
+    @if(session('cart'))
+    @foreach(session('cart') as $sku => $details)
     <div class="cart-product">
       <div class="cart-product-image">
-        <img src="public/wb/img/new_homepage/logitech-cam-offer.png" alt="webcam">
+        <img src="{{ $details['original_image_url'] }}" alt="{{ Str::limit($details['title'], 35) }}">
       </div>
       <div class="cart-product-info">
-        <h4 class="cart-product-title">Google Pixel Blue</h4>
-        <h4 class="cart-product-price">$159.00</h4>
+        <h4 class="cart-product-title">{{ Str::limit($details['title'], 40) }} X {{ $details['quantity'] }}</h4>
+        <h4 class="cart-product-price">${{number_format((float)$details['retail_price'], 2, '.', '')}}</h4>
       </div>
     </div>
+    @endforeach
+    @endif
 
-    <div class="cart-product">
+    {{-- <div class="cart-product">
       <div class="cart-product-image">
         <img src="public/wb/img/new_homepage/logitech-cam-offer.png" alt="webcam">
       </div>
@@ -644,23 +650,23 @@
         <h4 class="cart-product-title">Google Pixel Blue Lorem Ipsum  Lorem Ipsum  Lorem Ipsum</h4>
         <h4 class="cart-product-price">$159.00</h4>
       </div>
-    </div>
+    </div> --}}
 
   </div>
 
   <div class="cart-info">
     <h5>Sub Total</h5>
-    <h5 class="cart-info-price">$0.00</h5>
+    <h5 class="cart-info-price">${{number_format((float)$total, 2, '.', '')}}</h5>
   </div>
   <div class="cart-buttons">
-    <button class="button">
+    <a class="button" href="{{ route('product-cart') }}">
     <i class="fa fa-solid fa-shopping-cart"></i>
       View Cart
-    </button>
-    <button class="button">
+    </a>
+    <a class="button" href="{{ route('product-checkout') }}">
     <i class="fa fa-solid fa-share"></i>
       Checkout
-    </button>
+    </a>
   </div>
 </div>
 
@@ -714,110 +720,40 @@
 
         <div class="landing-main">
             <nav class="landing-menu-nav opacity-0">
-                @foreach ($categories_new as $category)
-    
+                @foreach ($categories as $category)
+                @if ($category->parent_id == 0 && !($category->childrens)->isEmpty())
                     <div class="landing-menu-item">
                         <i class="fa landing-menu-icon fa-solid fa-couch"></i>
-                        <a href="{{route('cat-products', $category->category1)}}">{{ $category->category1 }}</a>
+                        <a href="{{ route('cat-products', $category->category1) }}">{{ $category->category1 }}</a>
                         <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
-                        
-        <div class="subcategories-menu">
-                    <div class="category-menus">
-                      <div class="category-menu">
-                        <h4>MAN</h4>
-                        <a href="">
-                          Outerwear
-                        </a>
-                        <a href="">
-                          Uppers
-                        </a>
-                        <a href="">
-                          Jackets
-                        </a>
-                        <a href="">
-                          Jumpsuits
-                        </a>
-                      </div>
-                      <div class="category-menu">
-                        <h4>WOMAN</h4>
-                        <a href="">
-                          Outerwear
-                        </a>
-                        <a href="">
-                          Jackets
-                        </a>
-                        <a href="">
-                          Jumpsuits
-                        </a>
-                      </div>
-                      <div class="category-menu">
-                        <h4>KIDS</h4>
-                        <a href="">
-                          Outerwear
-                        </a>
-                        <a href="">
-                          Jackets
-                        </a>
-                        <a href="">
-                          Jumpsuits
-                        </a>
-                      </div>
-                      <div class="category-menu">
-                        <h4>SHOES</h4>
-                        <a href="">
-                          Outerwear
-                        </a>
-                        <a href="">
-                          Jackets
-                        </a>
-                        <a href="">
-                          Jumpsuits
-                        </a>
-                      </div>
-                      <div class="category-menu">
-                        <h4>BAGS</h4>
-                        <a href="">
-                          Outerwear
-                        </a>
-                        <a href="">
-                          Jackets
-                        </a>
-                        <a href="">
-                          Jumpsuits
-                        </a>
-                      </div>
-                      <div class="category-menu">
-                        <h4>ACCESSORIES</h4>
-                        <a href="">
-                          Outerwear
-                        </a>
-                        <a href="">
-                          Jackets
-                        </a>
-                        <a href="">
-                          Jumpsuits
-                        </a>
-                      </div>
+
+                        <div class="subcategories-menu">
+                            <div class="category-menus">
+                                @if($category->childrens->count() > 0)
+                                    @foreach($category->childrens as $subcategory)
+                                        <div class="category-menu">
+                                            <a href="{{ route('cat-products', $subcategory->category1) }}">
+                                            <h4>{{ $subcategory->category1 }}</h4>
+                                            </a>
+                                            <!-- Display subcategory links here -->
+                                            @foreach($subcategory->childrens as $subsubcategory)
+                                                <a href="{{ route('cat-products', $subsubcategory->category1) }}">{{ $subsubcategory->category1 }}</a>
+                                            @endforeach
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
                     </div>
-                    <!-- <div class="subcategory-pic">
-                      <img src="public/wb/img/new_homepage/products/iphone-red-1.jpg" alt="product-img" class="product-img product-img-1">
-                    </div> -->
-                </div>
-
-      </div>
-                
+                    @endif
                 @endforeach
-
             </nav>
-
-            <!-- @include('front_end.slider') -->
-
-            </div>
+        </div>
             </div>
 
             @yield('content')
 
-            
+
         <!-- header area start-->
         <button class="chat_btn">
             <a href="https://helpdesk.naturecheckout.com" target="_blank"><i class="fa fa-comments-o"></i></a>

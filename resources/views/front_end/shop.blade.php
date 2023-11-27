@@ -209,9 +209,9 @@
       Monster Beats Headphones
     </h1>
 
-    <button class="button button-light button-banner">
+    {{-- <button class="button button-light button-banner">
       READ MORE
-    </button>
+    </button> --}}
   </div>
 
   <div class="banner-cards-group">
@@ -257,9 +257,9 @@
       </div>
     </h1>
 
-    <button class="button button-light button-banner">
+    {{-- <button class="button button-light button-banner">
       WATCH DEMO
-    </button>
+    </button> --}}
   </div>
 </div>
 
@@ -285,7 +285,7 @@
                     <a href="{{route('wb-wishlist', $p->sku)}}"><img class="product_menu-icons" src="public/wb/img/new_homepage/icons/heart.png" alt=""></a>
                 @endif
               <a href="{{ route('add.to.cart1', $p->sku) }}"> <img class="product_menu-icons" src="public/wb/img/new_homepage/icons/cart.png" alt=""></a>
-            </div> 
+            </div>
             <div class="hot-deals-product-img">
               <img src="{{$p->original_image_url}}" alt="product-img"
                 class="product-img product-img-1">
@@ -320,9 +320,9 @@
 
 
     </div>
-    <button class="button button-hot_offers">
+    {{-- <button class="button button-hot_offers">
       View All Deals
-    </button>
+    </button> --}}
   </div>
 </div>
 
@@ -342,7 +342,7 @@
       second: 0,
       timezone: +5,
     });
-    
+
   }, 1000);
 </script>
 
@@ -362,9 +362,9 @@
         Google Smart Home 2022
       </h1>
 
-      <button class="button button-light button-banner">
+      {{-- <button class="button button-light button-banner">
         READ MORE
-      </button>
+      </button> --}}
     </div>
     <div class="side-banner-2 featured-products-section">
       <div class="featured-products-heading">
