@@ -190,6 +190,7 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor-api'], function
     Route::post('change_password/{id}','API\VendorApi\AuthController@changePassword');
 	Route::post('edit_profile/{id}','API\VendorApi\AuthController@editProfile');
 	Route::post('get_vendor', 'API\VendorApi\AuthController@getUserByEmail');
+	Route::get('get_auth_vendor', 'API\VendorApi\AuthController@getAuthVendor');
 
 
     //Product Routes
@@ -197,6 +198,7 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor-api'], function
 	Route::put('update_product/{sku}', 'API\VendorApi\ShopController@updateProduct');
 	Route::delete('delete_product/{sku}', 'API\VendorApi\ShopController@deleteProduct');
 	Route::get('get_all_products', 'API\VendorApi\ShopController@getProducts');
+	Route::get('get_product/{sku}', 'API\VendorApi\ShopController@getProductBySku');
 	Route::get('all_categories', 'API\VendorApi\ShopController@allCategories');
 	Route::get('category_by_name/{category_name}', 'API\VendorApi\ShopController@singleCategory');
 	Route::get('all_brands', 'API\VendorApi\ShopController@getBrands');

@@ -372,6 +372,38 @@ class AuthController extends BaseController
 	}
 
 
+    public function getAuthVendor(){
+
+
+		$vendor = Vendor::where('id', auth()->user()->id)->first();
+		if(!empty($vendor)){
+			$success['vendor'] = array(
+			'vendor_id' => $vendor->id,
+            'name' => $vendor->name,
+            'email' => $vendor->email,
+            'office_number' => $vendor->phone_number,
+            'mobile_number' => $vendor->mobile_number,
+            'address'=>$vendor->address,
+            'country' =>  $vendor->country,
+            'state'=>$vendor->state,
+            'city'=> $vendor->city,
+            'pincode'=> $vendor->pincode,
+            'status'=>$vendor->status,
+            'tax_id'=>$vendor->tax_id,
+            'image' => ($vendor->image == Null ? asset('public/images/User-Avatar.png') : asset('public/images/vendors/'.$vendor->image)),
+            'business_name' => $vendor->business_name,
+            'bank_name' => $vendor->bank_name,
+            'bank_routing_number' => $vendor->bank_routing_number,
+            'bank_account_number' => $vendor->bank_account_number
+			);
+			return $this->sendResponse($success, 'Login Successful');
+		}else{
+			return $this->sendError('The id of vendor you entered isn\'t correct. Try to enter valid id');
+		}
+	}
+
+
+
 
 
 

@@ -152,6 +152,22 @@ class ShopController extends BaseController
 
     }
 
+    public function getProductBySku($sku)
+    {
+        {
+            $product = Products::where('vendor_id' , auth()->user()->id)->where('sku', $sku)->first();
+            if($product)
+            {
+                return $this->sendResponse($product, 'get specific product by sku of authenticated vendor Fetched Successfully');
+
+            }
+            else
+            {
+                return $this->sendResponse('error', 'No Product found');
+            }
+        }
+    }
+
 
     public function allCategories()
     {
