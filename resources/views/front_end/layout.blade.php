@@ -491,25 +491,63 @@
   <div class="header-logo">
     <img class="logo" src="public/wb/img/new_homepage/logo/logo.png" alt="">
   </div>
-    <form action="{{route('shop-search')}}" method="get">
-        <div class="searchbar">
-            <input class="searchbar-input typeahead" placeholder="Search for products" type="text" name="query" id="query" value="{{request()->input('query')}}">
-            {{-- <div class="searchbar-category">
-                <select class="" name="search-category">
-                <option>Select Category</option>
-                <option>Category 1</option>
-                <option>Category 2</option>
-                <option>Category 3</option>
-                <option>Category 4</option>
-                </select>
-            </div> --}}
-            <button type="submit">
-                <span class="searchbar-icon">
-                    <i class="fa fa-search search-icon"></i>
-                </span>
-            </button>
+
+    <div class="search-container">
+      <form action="{{route('shop-search')}}" method="get">
+          <div class="searchbar">
+              <input class="searchbar-input typeahead" placeholder="Search for products" type="text" name="query" id="query" value="{{request()->input('query')}}">
+              {{-- <div class="searchbar-category">
+                  <select class="" name="search-category">
+                  <option>Select Category</option>
+                  <option>Category 1</option>
+                  <option>Category 2</option>
+                  <option>Category 3</option>
+                  <option>Category 4</option>
+                  </select>
+              </div> --}}
+              <button type="submit">
+                  <span class="searchbar-icon">
+                      <i class="fa fa-search search-icon"></i>
+                  </span>
+              </button>
+          </div>
+      </form>
+
+      <div class="searched-products">
+        <div class="searched-product">
+          <a href="">
+            <div class="cart-product">
+              <div class="cart-product-image">
+                <img src="public/wb/img/new_homepage/logitech-cam-offer.png" alt="webcam">
+              </div>
+            <div class="cart-product-info">
+              <h4 class="cart-product-title">
+                Google 
+                <span class="matched-keyword">Pixel Blue</span>
+              </h4>
+              <h4 class="cart-product-price">$159.00</h4>
+            </div>
+          </div>
+          </a>
+      </div>
+        <div class="searched-product">
+          <div class="cart-product">
+            <div class="cart-product-image">
+              <img src="public/wb/img/new_homepage/logitech-cam-offer.png" alt="webcam">
+            </div>
+          <div class="cart-product-info">
+            <h4 class="cart-product-title">
+              Google 
+              <span class="matched-keyword">Pixel Blue</span>  
+              Google Pixel Blue Google Pixel Blue</h4>
+            <h4 class="cart-product-price">
+              $159.00</h4>
+          </div>
         </div>
-    </form>
+      </div>
+      </div>
+    </div>
+
   {{-- <div class="searchbar">
     <input type="text" class="searchbar-input" placeholder="Search for products">
     <div class="searchbar-category">
@@ -527,6 +565,7 @@
       </span>
     </a>
   </div> --}}
+
   <div class="header-options">
     @if (!Auth::guard('w2bcustomer')->user())
         <div class="register-option">
@@ -878,6 +917,7 @@
     <script src="{{asset('public/wb/js/printThis.js')}}"></script>
     <script src="{{asset('public/wb/js/plugins.js')}}"></script>
     <script src="{{asset('public/wb/js/main.js')}}"></script>
+    <script src="{{asset('public/wb/js/timer.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
 </body>

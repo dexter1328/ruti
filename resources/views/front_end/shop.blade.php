@@ -337,15 +337,18 @@
 <script src="public/shop/js/countdown.js"></script>
 <script>
   // TODO timer of the hot offers can be set from here
-  $('.countdown').countdown({
-    year: 2023,
-    month: 11,
-    day: 2,
-    hour: 0,
-    minute: 0,
-    second: 0,
-    timezone: +5,
-  });
+  setTimeout(() => {
+    $('.countdown').countdown({
+      year: 2023,
+      month: 12,
+      day: 22,
+      hour: 0,
+      minute: 0,
+      second: 0,
+      timezone: +5,
+    });
+    
+  }, 1000);
 </script>
 
 <!-- Hot Deals End -->

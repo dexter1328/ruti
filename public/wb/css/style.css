@@ -12929,11 +12929,46 @@ transition: none !important;
     width: 180px;
   }
   
+  .search-container, .search-container form{
+    width: 100%;
+    position: relative;
+  }
+
+  .searched-products{
+    position: absolute;
+    background-color: white;
+    width: 60%;
+    top: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    border: 1px solid var(--gray-200);
+    z-index: 1000;
+  }
+
+  .searched-product{
+    padding: 0.2rem;
+  }
+
+  .searched-product .cart-product-info{
+    width: 375px;
+  }
+
+  .searched-product .cart-product{
+    border-bottom: 0;
+  }
+
+  .matched-keyword{
+    font-weight: 500;
+    text-decoration: underline;
+  }
+
   .searchbar{
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
+    bottom: 0;
   }
   
   .searchbar > *{
