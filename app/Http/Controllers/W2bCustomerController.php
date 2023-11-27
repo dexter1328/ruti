@@ -46,6 +46,17 @@ class W2bCustomerController extends Controller
         View::share('categories', $categories);
         $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])->get();
         View::share('categories2', $categories2);
+
+        $categories_new = W2bCategory::where('parent_id', 0)->take(12)->get();
+        View::share('categories_new', $categories_new);
+
+        $product20 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(60)->first();
+        $product21 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(3)->first();
+        $product22 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(150)->first();
+        View::share('product20', $product20);
+        View::share('product21', $product21);
+        View::share('product22', $product22);
+
         $wb_wishlist = null;
 
         if (Auth::guard('w2bcustomer')->user()) {

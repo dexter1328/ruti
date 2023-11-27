@@ -5,6 +5,7 @@ namespace App\Http\Controllers\W2bCustomerAuth;
 use App\User;
 use Exception;
 use Validator;
+use App\W2bProduct;
 use App\W2bCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -138,7 +139,14 @@ class RegisterController extends Controller
         $categories = W2bCategory::with('childrens')->get();
         $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])
         ->get();
-        return view('w2b_customers.auth.register',compact('wb_wishlist','categories','categories2'));
+        $categories_new = W2bCategory::where('parent_id', 0)->take(12)->get();
+
+        $product20 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(60)->first();
+        $product21 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(3)->first();
+        $product22 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(150)->first();
+
+
+        return view('w2b_customers.auth.register',compact('wb_wishlist','categories','categories2','categories_new','product20','product21','product22'));
     }
 
     /**
