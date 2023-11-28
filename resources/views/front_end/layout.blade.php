@@ -351,7 +351,7 @@
     </div>
 
 <div class="topbar-accounts">
-  Accounts & Lists
+  ACCOUNTS & LISTS
 <i class="fa fa-solid fa-caret-down"></i>
 <div class="accounts-popup">
   <div class="accounts-popup-top">
@@ -394,7 +394,7 @@
 <div class="topbar-right">
   <div class="topbar-find_store">
   <i class="fa fa-solid fa-map-marker"></i>
-    Find a store
+    FIND A STORE
   </div>
 
   <!-- Find a Store Popup -->
@@ -476,9 +476,9 @@
       <i class="fas fa-envelope text-white newsletter-icon"></i>
      <a  href="">NEWSLETTER</a>
     </div>
-    <div class="d-flex align-items-center ps-2">
+    {{-- <div class="d-flex align-items-center ps-2">
     <a target="_blank" href="https://helpdesk.naturecheckout.com">Support</a>
-    </div>
+    </div> --}}
     <div class="d-flex align-items-center ps-2">
      <a href="">FAQS</a>
     </div>
@@ -583,11 +583,11 @@
     <a href="{{route('wb-wishlist-page')}}">
      <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
     </a>
-    @else
+    @endif
     <a href="#" type="button" data-toggle="modal" data-target="#exampleModal28">
         <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
     </a>
-    @endif
+    {{-- @endif --}}
     <!-- <a
     href="{{ route('product-cart') }}"
     > -->
@@ -697,14 +697,14 @@
             <div class="landing-top-browse">
                 <div class="categories-menu-title">
                 <i class="fa fa-solid fa-bars"></i>
-                Browse Categories
+                BROWSE CATEGORIES
                 </div>
                 <i class="fa fa-solid fa-angle-down"></i>
             </div>
                 <nav>
                     <a href="{{url('/')}}" class="nav-item">HOME</a>
-                    <a href="{{url('/trending-products')}}" class="nav-item">Trending Products</a>
-                    <a href="{{url('/special-offers')}}" class="nav-item">Special Products</a>
+                    <a href="{{url('/trending-products')}}" class="nav-item">TRENDING PRODUCTS</a>
+                    <a href="{{url('/special-offers')}}" class="nav-item">SPECIAL PRODUCTS</a>
                 </nav>
             </div>
 

@@ -540,12 +540,12 @@ class FrontEndController extends Controller
                 $request->validate([
                     'zip_code' => 'required',
                     'state' => 'required',
-                    'city' => 'required',
+                    // 'city' => 'required',
                     'address' => 'required'
                 ]);
                 $user->update([
                     'state' => $request->state,
-                    'city' => $request->city,
+                    // 'city' => $request->city,
                     'address' => $request->address,
                     'address2' => $request->address2,
                     'zip_code' => $request->zip_code
@@ -564,7 +564,7 @@ class FrontEndController extends Controller
                         'zip_code' => 'required',
                         'mobile' => 'required',
                         'state' => 'required',
-                        'city' => 'required',
+                        // 'city' => 'required',
                         'address' => 'required',
                         'password' => 'required'
                         ],
@@ -578,7 +578,7 @@ class FrontEndController extends Controller
                         $user->password = bcrypt($request->password);
                         $user->mobile = $request->mobile;
                         $user->state = $request->state;
-                        $user->city = $request->city;
+                        // $user->city = $request->city;
                         $user->zip_code = $request->zip_code;
                         $user->address = $request->address;
                         $user->address2 = $request->address2;
@@ -593,7 +593,7 @@ class FrontEndController extends Controller
                             'zip_code' => 'required',
                             'mobile' => 'required',
                             'state' => 'required',
-                            'city' => 'required',
+                            // 'city' => 'required',
                             'address' => 'required'
                             ],
                             [
@@ -606,7 +606,7 @@ class FrontEndController extends Controller
                             $user->email = $request->email;
                             $user->mobile = $request->mobile;
                             $user->state = $request->state;
-                            $user->city = $request->city;
+                            // $user->city = $request->city;
                             $user->zip_code = $request->zip_code;
                             $user->address = $request->address;
                             $user->address2 = $request->address2;
