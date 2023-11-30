@@ -20,18 +20,18 @@
           <div class="carousel-slide carousel-slide-1">
             <div class="slide-info">
               <h2 class="slide-top_heading">
-                Top Smartwatches
+                <!-- Top Smartwatches -->
               </h2>
               <h1 class="slide-main_heading">
-                Wonderful Performance
+                <!-- Wonderful Performance -->
               </h1>
               <p class="slide-description">
-                  {{ Str::limit($product20->title, 100) }}
+                  <!-- {{ Str::limit($product20->title, 100) }} -->
               </p>
-              <button class="button button_buy-now" onclick="window.location='{{ route('product-detail',['slug' => $product20->slug, 'sku' => $product20->sku]) }}'" >
+              <!-- <button class="button button_buy-now" onclick="window.location='{{ route('product-detail',['slug' => $product20->slug, 'sku' => $product20->sku]) }}'" >
                 <span class="button-price">{{number_format((float)$product20->retail_price, 2, '.', '')}}$</span>
                 <span class="button-text">BUY NOW</span>
-              </button>
+              </button> -->
             </div>
           </div>
         </div>
