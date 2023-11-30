@@ -150,6 +150,14 @@
         <a href="" class="products-section-link">FEATURED</a>
         <a href="" class="products-section-link">TOP SELLERS</a>
       </nav>
+      <select class="" name="search-category">
+        <option selected>Default Sorting</option>
+        <option>Sort by popularity</option>
+        <option>Sort by average rating</option>
+        <option>Sort by latest</option>
+        <option>Sort by price: Low to High</option>
+        <option>Sort by price: High to Low</option>
+      </select>
     </div>
   </div>
 
@@ -264,7 +272,6 @@
 </div>
 
 <!-- Banner Cards End -->
-
 
 
 <!-- Hot Deals Start -->

@@ -327,25 +327,32 @@
     justify-content-between align-items-center text-sm">
 
     <div class="topbar-left">
-          <div class="dropdown">
+          <div class="topbar-language">
             <a class="btn btn-link dropdown-toggle text-white" href="#" role="button" id="languageDropdown"
               data-bs-toggle="dropdown" aria-expanded="false">
               ENGLISH
             </a>
-            <ul class="dropdown-menu" aria-labelledby="languageDropdown">
-              <li><a class="dropdown-item" href="#">English</a></li>
-              <!-- Add more language options here -->
-            </ul>
+            <div class="language-popup">
+              <ul>
+                <li><a href="">English</a></li>
+                <li><a href="">Spanish</a></li>
+                <li><a href="">French</a></li>
+                <li><a href="">Dutch</a></li>
+              </ul>
+            </div>
           </div>
-      <div class="dropdown">
+      <div class="topbar-country">
         <a class="btn btn-link dropdown-toggle text-white" href="#" role="button" id="countryDropdown"
           data-bs-toggle="dropdown" aria-expanded="false">
           COUNTRY
         </a>
-        <ul class="dropdown-menu" aria-labelledby="countryDropdown">
-          <li><a class="dropdown-item" href="#">Country 1</a></li>
-          <!-- Add more country options here -->
-        </ul>
+        <div class="country-popup">
+          <ul>
+            <li><a href="">US</a></li>
+            <li><a href="">Canada</a></li>
+            <li><a href="">Europe</a></li>
+          </ul>
+        </div>
       </div>
 
     </div>
@@ -502,7 +509,15 @@
       <form action="{{route('shop-search')}}" method="get">
           <div class="searchbar">
               <input class="searchbar-input typeahead" placeholder="Search for products" type="text" name="query" id="query" value="{{request()->input('query')}}">
-
+              <div class="searchbar-category">
+                  <select class="" name="search-category">
+                    <option>Select Category</option>
+                    <option>Category 1</option>
+                    <option>Category 2</option>
+                    <option>Category 3</option>
+                    <option>Category 4</option>
+                  </select>
+              </div>
               <button type="submit">
                   <span class="searchbar-icon">
                       <i class="fa fa-search search-icon"></i>
@@ -548,15 +563,7 @@
 
   {{-- <div class="searchbar">
     <input type="text" class="searchbar-input" placeholder="Search for products">
-    <div class="searchbar-category">
-        <select class="" name="search-category">
-          <option>Select Category</option>
-          <option>Category 1</option>
-          <option>Category 2</option>
-          <option>Category 3</option>
-          <option>Category 4</option>
-        </select>
-    </div>
+
     <a href="">
       <span class="searchbar-icon">
         <i class="fa fa-search search-icon"></i>
@@ -703,7 +710,7 @@
             </div>
                 <nav>
                     <a href="{{url('/')}}" class="nav-item">HOME</a>
-                    <a href="{{url('/trending-products')}}" class="nav-item">TRENDING PRODUCTS</a>
+                    <!-- <a href="{{url('/trending-products')}}" class="nav-item">TRENDING PRODUCTS</a> -->
                     <a href="{{url('/special-offers')}}" class="nav-item">SPECIAL PRODUCTS</a>
                 </nav>
             </div>
@@ -751,6 +758,31 @@
         </div>
             </div>
 
+
+        <!-- Newsletter Popup start -->
+          <div class="newsletter-popup">
+            <div class="newsletter">
+              <h2>Subscribe to our newsletter</h2>
+              <p>Get exciting deals and Be the 
+                first to learn about our latest trends and get exclusive offers
+              </p>
+              <i class="fa fa-solid fa-close newsletter-close-icon"></i>
+              <form action="" class="newsletter-form">
+                <input type="text" name="name" placeholder="Name">
+                <input type="email" name="email" placeholder="Email">
+                <button class="button">Subscribe</button>
+              </form>
+            </div>
+          </div>
+
+          <script>
+            $(".newsletter-close-icon").click(()=>{
+              $(".newsletter-popup").css("display", "none")
+            })
+            
+          </script>
+        <!-- Newsletter Popup end -->
+
             @yield('content')
 
 
@@ -764,7 +796,7 @@
             @include('front_end.footer1')
 
 
-     <!-- Footer Start  -->
+     
 
 
 </div>
