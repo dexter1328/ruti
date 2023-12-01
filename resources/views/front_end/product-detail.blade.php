@@ -62,7 +62,7 @@
             <div class="col-lg-7 col-md-7 mt-4 mt-lg-0">
                 <div class="product_d_right">
                         <span class="shop-details-content"><i class="lnr lnr-checkmark-circle"></i>In Stock</span>
-                        <h1><a href="#">{{$product->title}}</a></h1>
+                        <h1 ><a href="#" style="font-size: 2rem">{{$product->title}}</a></h1>
                         <div class=" product_ratting">
 
                         </div>

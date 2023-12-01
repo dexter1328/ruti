@@ -335,9 +335,9 @@
             <div class="language-popup">
               <ul>
                 <li><a href="">English</a></li>
-                <li><a href="">Spanish</a></li>
+                {{-- <li><a href="">Spanish</a></li>
                 <li><a href="">French</a></li>
-                <li><a href="">Dutch</a></li>
+                <li><a href="">Dutch</a></li> --}}
               </ul>
             </div>
           </div>
@@ -409,7 +409,7 @@
     <div class="find-store_store">
       <div class="store-info">
         <div class="store-info-logo">
-          <img src="public/wb/img/new_homepage/logo/logo.png" alt="">
+          <img src="{{ asset('public/wb/img/new_homepage/logo/logo.png') }}" alt="">
         </div>
         <p>
           Ahmed Nabeel
@@ -763,14 +763,14 @@
           <div class="newsletter-popup">
             <div class="newsletter">
               <h2>Subscribe to our newsletter</h2>
-              <p>Get exciting deals and Be the 
-                first to learn about our latest trends and get exclusive offers
+              <p>Be the first one to know about our Special offers and get 10% <br> Discount Coupon instantly!
               </p>
               <i class="fa fa-solid fa-close newsletter-close-icon"></i>
               <form action="" class="newsletter-form">
                 <input type="text" name="name" placeholder="Name">
                 <input type="email" name="email" placeholder="Email">
                 <button class="button">Subscribe</button>
+                Discount coupon will be emailed to your address.
               </form>
             </div>
           </div>
@@ -779,7 +779,7 @@
             $(".newsletter-close-icon").click(()=>{
               $(".newsletter-popup").css("display", "none")
             })
-            
+
           </script>
         <!-- Newsletter Popup end -->
 
@@ -796,7 +796,7 @@
             @include('front_end.footer1')
 
 
-     
+
 
 
 </div>

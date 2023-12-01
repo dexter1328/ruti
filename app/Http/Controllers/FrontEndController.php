@@ -729,7 +729,7 @@ class FrontEndController extends Controller
 
         ]);
         if ($charge) {
-            $order->update([
+            $user->update([
                 'stripe_customer_id' => $customer->id,
             ]);
             $order->update([
