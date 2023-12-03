@@ -14085,6 +14085,10 @@ transition: none !important;
   align-items: center;
 }
 
+a.footer-address {
+  font-size: 0.8rem;
+}
+
 
 /* Footer Posts Section */
 .footer-posts-section{
@@ -14335,8 +14339,28 @@ transition: none !important;
 
 
 
+/* FAQs */
 
 
+.faq-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.faq-section h2{
+  font-size: 2rem;
+}
+
+.faq-item h2{
+  font-size: 1.4rem;
+  color: var(--primary-color);
+}
+
+.faq-item p{
+  font-size: 1rem;
+}
 
 
 

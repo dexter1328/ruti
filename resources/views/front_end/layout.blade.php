@@ -712,6 +712,7 @@
                     <a href="{{url('/')}}" class="nav-item">HOME</a>
                     <!-- <a href="{{url('/trending-products')}}" class="nav-item">TRENDING PRODUCTS</a> -->
                     <a href="{{url('/special-offers')}}" class="nav-item">SPECIAL PRODUCTS</a>
+                    <a href="{{url('/trending-products')}}" class="nav-item">PRODUCTS</a>
                 </nav>
             </div>
 
@@ -730,7 +731,6 @@
                 @foreach ($categories as $category)
                 @if ($category->parent_id == 0 && !($category->childrens)->isEmpty())
                     <div class="landing-menu-item">
-                        <i class="fa landing-menu-icon fa-solid fa-couch"></i>
                         <a href="{{ route('cat-products', $category->category1) }}">{{ $category->category1 }}</a>
                         <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
 
