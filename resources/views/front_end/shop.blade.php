@@ -479,24 +479,25 @@
     <!-- Blogs Start -->
   <div class="blogs-section">
         <h2 class="hot-deals-heading section-heading">
-      Innovative Gadgets
+      Featured Blogs
     </h2>
 
     <div class="blogs">
+        @foreach ($latest_blogs as $blog)
 
       <div class="blog blog-1">
         <div class="blog-head">
-          <img class="blog-img" src="public/wb/img/new_homepage/blogs/blog-2.jpg" alt="">
+          <img class="blog-img" src="{{ asset('public/images/blog/' . $blog->image) }}" alt="">
           <div class="blog-tag">
             <span>
-              DESIGN TRENDS, INSPIRATION
+              Admin - Nature Checkout
             </span>
           </div>
         </div>
         <div class="blog-data">
           <a href="">
           <div class="blog-title">
-              Collar brings back coffee brewing ritual
+            {{ Str::limit($blog->title, 40) }}
             </div>
           </a>
           <div class="blog-info">
@@ -508,25 +509,27 @@
                 <img src="public/wb/img/new_homepage/blog-author.jpg" alt="">
               </div>
             </div>
-            <a href="">
-              S. Rogers
+            <a href="#">
+              Joseph Larnyoh
             </a>
-           <a href="">
+           {{-- <a href="">
              <i class="fa fa-solid fa-comment"></i>
            </a>
            <a href="">
              <i class="fa fa-solid fa-share"></i>
-           </a>
+           </a> --}}
           </div>
           <div class="blog-desc">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores sequi quam distinctio velit quam distinctio velit quaerat ratione...
+            {{ Str::limit($blog->description, 130) }}
           </div>
-          <a href="" class="blog-link">CONTINUE READING</a>
+          <a href="{{ route('nature-blog-detail', ['id' => $blog->id]) }}" class="blog-link">CONTINUE READING</a>
         </div>
       </div>
-      <div class="blog blog-1">
+      @endforeach
+
+      {{-- <div class="blog blog-1">
         <div class="blog-head">
-          <img class="blog-img" src="public/wb/img/new_homepage/blogs/blog-3.jpg" alt="">
+            <img class="blog-img" src="{{ asset('public/images/blog/' . $blog->image) }}" alt="">
           <div class="blog-tag">
             <span>
               DESIGN TRENDS, INSPIRATION
@@ -603,7 +606,7 @@
           </div>
           <a href="" class="blog-link">CONTINUE READING</a>
         </div>
-      </div>
+      </div> --}}
 
 
     </div>
@@ -614,7 +617,7 @@
 
 
  <!-- THIS SECTION WILL BE MOVED TO A NEW PAGE /FAQs -->
- <div class="faq-section">
+ <div class="faq-section" id="faq-section">
   <h2>Frequently Asked Questions</h2>
             <div class="faq-item">
                 <h2>How do I place an order?</h2>

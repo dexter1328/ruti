@@ -205,6 +205,29 @@
                 </ul>
 
 
+                <h5 class="headings"><img src="{{ asset('public/panel/images/icon8_shipping.png') }}" width="30px" height="30px" alt="Shipping" class="me-2">Manage Blog</h5>
+                <ul class="no_decoration_list">
+
+                    {{-- @if(has_permission(Auth::user()->role_id,'blog','read')) --}}
+
+                        <li class="mt-2 underlined {{ (request()->is('admin/admin_coupon') ) ? 'active' : '' }}">
+                            <a href="{{url('admin/admin_coupon')}}" class="waves-effect links">
+                                View Coupons
+                            </a>
+                        </li>
+
+
+                        <li class="mt-2 underlined {{ (request()->is('admin/blog/admin_coupon/create') ) ? 'active' : '' }}">
+                            <a href="{{url('admin/admin_coupon/create')}}" class="waves-effect links">
+                                Add Coupon
+                            </a>
+                        </li>
+                        {{-- @endif --}}
+
+
+                </ul>
+
+
                 {{-- <h5 class="headings"><img src="{{ asset('public/panel/images/best_seller.png') }}" width="30px" height="30px" alt="Best seller" class="me-2">Seller</h5>
                 <ul class="no_decoration_list">
                     @if(has_permission(Auth::user()->role_id,'vendor','read') || has_permission(Auth::user()->role_id,'vendor_store','read') || has_permission(Auth::user()->role_id,'vendor_configuration','read') || has_permission(Auth::user()->role_id,'vendor_coupons','read') || has_permission(Auth::user()->role_id,'vendor_coupons_used','read') )

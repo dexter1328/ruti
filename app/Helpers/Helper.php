@@ -69,7 +69,8 @@ if (!function_exists('admin_modules'))
             'supplier_coupons'=>'Supplier Coupons',
             'supplier_coupons_used'=>'Supplier Used Coupons',
             'email_template' => 'Email Template',
-            'blog' => 'Blog'
+            'blog' => 'Blog',
+            'admin_coupon' => 'admin_coupon'
         );
     }
 }

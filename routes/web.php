@@ -436,6 +436,9 @@ Route::group(['middleware' => 'sessionExpired'], function () {
     Route::resource('email_template', 'Admin\EmailTemplateController', ['as' => 'admin', 'only' => array('index', 'edit', 'update')]);
 
     Route::resource('blog', 'Admin\BlogController');
+    Route::resource('admin_coupon', 'Admin\AdminCouponController');
+    Route::get('generate-coupon-code', 'Admin\AdminCouponController@generate_coupon_code')->name('generate-coupon-code');
+
     });
 });
 

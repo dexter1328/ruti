@@ -166,7 +166,7 @@ class FrontEndController extends Controller
     public function shop()
     {
 
-
+        $latest_blogs = Blog::latest()->take(3)->get();
         $categories1 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23,29,69])
         ->get();
 
@@ -219,7 +219,7 @@ class FrontEndController extends Controller
 
         $products = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250','original_image_url')->inRandomOrder()->limit(3000)->paginate(6);
         return view('front_end.shop',compact('products',
-        'categories1','sold','available','product31','product32','products33','products34','products35','products36'));
+        'categories1','sold','available','product31','product32','products33','products34','products35','products36','latest_blogs'));
     }
     public function catName($cate)
     {

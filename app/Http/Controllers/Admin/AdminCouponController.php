@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Blog;
+use Stripe\Stripe;
+use App\Traits\Permission;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Traits\Permission;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use Stripe\Stripe;
 
-class BlogController extends Controller
+class AdminCouponController extends Controller
 {
+
     use Permission;
 
 	private $stripe_secret;
@@ -37,8 +37,6 @@ class BlogController extends Controller
     public function index()
     {
         //
-        $blogs = Blog::all();
-        return view('admin.blog.index' , compact('blogs'));
     }
 
     /**
@@ -48,7 +46,11 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('admin.blog.create');
+        return view('admin.coupon.create');
+    }
+
+    public function generate_coupon_code() {
+        return response()->json(Str::random(10)) ;
     }
 
     /**
@@ -59,33 +61,7 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        $validator = Validator::make($request->all(), [
-			'title'  => 'required',
-			'description'=>'required',
-			'content'=>'required',
-			'image' => 'required|mimes:jpeg,png,jpg|max:2048',
-		]);
-
-        $data = array(
-            'title'=>$request->input('title'),
-            'description' => $request->input('description'),
-            'content' => $request->input('content')
-        );
-
-
-        if ($files = $request->file('image')){
-
-            $path = 'public/images/blog';
-            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-            $files->move($path, $profileImage);
-            $data['image'] = $profileImage;
-        }
-        $blog = Blog::create($data);
-
-        return redirect()->route('blog.index');
-
-
+        //
     }
 
     /**
@@ -96,7 +72,7 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        return view('admin.blog.show');
+        //
     }
 
     /**

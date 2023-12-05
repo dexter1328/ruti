@@ -487,7 +487,7 @@
     <a target="_blank" href="https://helpdesk.naturecheckout.com">Support</a>
     </div> --}}
     <div class="d-flex align-items-center ps-2">
-     <a href="">FAQS</a>
+        <a href="#faq-section">FAQS</a>
     </div>
   </div>
 </div>
@@ -807,6 +807,18 @@
   $('.landing-top-browse').click(()=>{
     $('.landing-menu-nav').toggleClass('opacity-0');
   })
+</script>
+<script>
+    document.querySelector('a[href="#faq-section"]').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const targetElement = document.getElementById('faq-section');
+
+        window.scrollTo({
+            top: targetElement.offsetTop,
+            behavior: 'smooth'
+        });
+    });
 </script>
 
     <script>
