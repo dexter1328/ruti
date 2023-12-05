@@ -327,31 +327,38 @@
     justify-content-between align-items-center text-sm">
 
     <div class="topbar-left">
-          <div class="dropdown">
+          <div class="topbar-language">
             <a class="btn btn-link dropdown-toggle text-white" href="#" role="button" id="languageDropdown"
               data-bs-toggle="dropdown" aria-expanded="false">
               ENGLISH
             </a>
-            <ul class="dropdown-menu" aria-labelledby="languageDropdown">
-              <li><a class="dropdown-item" href="#">English</a></li>
-              <!-- Add more language options here -->
-            </ul>
+            <div class="language-popup">
+              <ul>
+                <li><a href="">English</a></li>
+                {{-- <li><a href="">Spanish</a></li>
+                <li><a href="">French</a></li>
+                <li><a href="">Dutch</a></li> --}}
+              </ul>
+            </div>
           </div>
-      <div class="dropdown">
+      <div class="topbar-country">
         <a class="btn btn-link dropdown-toggle text-white" href="#" role="button" id="countryDropdown"
           data-bs-toggle="dropdown" aria-expanded="false">
           COUNTRY
         </a>
-        <ul class="dropdown-menu" aria-labelledby="countryDropdown">
-          <li><a class="dropdown-item" href="#">Country 1</a></li>
-          <!-- Add more country options here -->
-        </ul>
+        <div class="country-popup">
+          <ul>
+            <li><a href="">US</a></li>
+            <li><a href="">Canada</a></li>
+            <li><a href="">Europe</a></li>
+          </ul>
+        </div>
       </div>
 
     </div>
 
 <div class="topbar-accounts">
-  Accounts & Lists
+  ACCOUNTS & LISTS
 <i class="fa fa-solid fa-caret-down"></i>
 <div class="accounts-popup">
   <div class="accounts-popup-top">
@@ -394,7 +401,7 @@
 <div class="topbar-right">
   <div class="topbar-find_store">
   <i class="fa fa-solid fa-map-marker"></i>
-    Find a store
+    FIND A STORE
   </div>
 
   <!-- Find a Store Popup -->
@@ -402,7 +409,7 @@
     <div class="find-store_store">
       <div class="store-info">
         <div class="store-info-logo">
-          <img src="public/wb/img/new_homepage/logo/logo.png" alt="">
+          <img src="{{ asset('public/wb/img/new_homepage/logo/logo.png') }}" alt="">
         </div>
         <p>
           Ahmed Nabeel
@@ -476,9 +483,9 @@
       <i class="fas fa-envelope text-white newsletter-icon"></i>
      <a  href="">NEWSLETTER</a>
     </div>
-    <div class="d-flex align-items-center ps-2">
+    {{-- <div class="d-flex align-items-center ps-2">
     <a target="_blank" href="https://helpdesk.naturecheckout.com">Support</a>
-    </div>
+    </div> --}}
     <div class="d-flex align-items-center ps-2">
      <a href="">FAQS</a>
     </div>
@@ -502,7 +509,15 @@
       <form action="{{route('shop-search')}}" method="get">
           <div class="searchbar">
               <input class="searchbar-input typeahead" placeholder="Search for products" type="text" name="query" id="query" value="{{request()->input('query')}}">
-
+              <div class="searchbar-category">
+                  <select class="" name="search-category">
+                    <option>Select Category</option>
+                    <option>Category 1</option>
+                    <option>Category 2</option>
+                    <option>Category 3</option>
+                    <option>Category 4</option>
+                  </select>
+              </div>
               <button type="submit">
                   <span class="searchbar-icon">
                       <i class="fa fa-search search-icon"></i>
@@ -548,15 +563,7 @@
 
   {{-- <div class="searchbar">
     <input type="text" class="searchbar-input" placeholder="Search for products">
-    <div class="searchbar-category">
-        <select class="" name="search-category">
-          <option>Select Category</option>
-          <option>Category 1</option>
-          <option>Category 2</option>
-          <option>Category 3</option>
-          <option>Category 4</option>
-        </select>
-    </div>
+
     <a href="">
       <span class="searchbar-icon">
         <i class="fa fa-search search-icon"></i>
@@ -583,11 +590,11 @@
     <a href="{{route('wb-wishlist-page')}}">
      <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
     </a>
-    @else
+    @endif
     <a href="#" type="button" data-toggle="modal" data-target="#exampleModal28">
         <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
     </a>
-    @endif
+    {{-- @endif --}}
     <!-- <a
     href="{{ route('product-cart') }}"
     > -->
@@ -697,14 +704,15 @@
             <div class="landing-top-browse">
                 <div class="categories-menu-title">
                 <i class="fa fa-solid fa-bars"></i>
-                Browse Categories
+                BROWSE CATEGORIES
                 </div>
                 <i class="fa fa-solid fa-angle-down"></i>
             </div>
                 <nav>
                     <a href="{{url('/')}}" class="nav-item">HOME</a>
-                    <a href="{{url('/trending-products')}}" class="nav-item">Trending Products</a>
-                    <a href="{{url('/special-offers')}}" class="nav-item">Special Products</a>
+                    <!-- <a href="{{url('/trending-products')}}" class="nav-item">TRENDING PRODUCTS</a> -->
+                    <a href="{{url('/special-offers')}}" class="nav-item">SPECIAL PRODUCTS</a>
+                    <a href="{{url('/trending-products')}}" class="nav-item">PRODUCTS</a>
                 </nav>
             </div>
 
@@ -723,7 +731,6 @@
                 @foreach ($categories as $category)
                 @if ($category->parent_id == 0 && !($category->childrens)->isEmpty())
                     <div class="landing-menu-item">
-                        <i class="fa landing-menu-icon fa-solid fa-couch"></i>
                         <a href="{{ route('cat-products', $category->category1) }}">{{ $category->category1 }}</a>
                         <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
 
@@ -751,6 +758,31 @@
         </div>
             </div>
 
+
+        <!-- Newsletter Popup start -->
+          <div class="newsletter-popup">
+            <div class="newsletter">
+              <h2>Subscribe to our newsletter</h2>
+              <p>Be the first one to know about our Special offers and get 10% <br> Discount Coupon instantly!
+              </p>
+              <i class="fa fa-solid fa-close newsletter-close-icon"></i>
+              <form action="" class="newsletter-form">
+                <input type="text" name="name" placeholder="Name">
+                <input type="email" name="email" placeholder="Email">
+                <button class="button">Subscribe</button>
+                Discount coupon will be emailed to your address.
+              </form>
+            </div>
+          </div>
+
+          <script>
+            $(".newsletter-close-icon").click(()=>{
+              $(".newsletter-popup").css("display", "none")
+            })
+
+          </script>
+        <!-- Newsletter Popup end -->
+
             @yield('content')
 
 
@@ -764,7 +796,7 @@
             @include('front_end.footer1')
 
 
-     <!-- Footer Start  -->
+
 
 
 </div>

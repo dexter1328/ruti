@@ -19,6 +19,7 @@ use App\Supplier;
 use App\Attribute;
 use App\Subscribe;
 use App\Membership;
+use App\W2bProduct;
 use App\WbWishlist;
 use App\VendorRoles;
 use App\VendorStore;
@@ -26,8 +27,8 @@ use App\W2bCategory;
 use App\SupplierRole;
 use App\EmailTemplate;
 use App\StoreSubscription;
-use App\Mail\VendorSuccess;
 
+use App\Mail\VendorSuccess;
 use Illuminate\Http\Request;
 use App\Mail\SupplierSuccess;
 use App\Mail\VendorSignupMail;
@@ -54,6 +55,17 @@ class CommonController extends Controller
         $categories = W2bCategory::with('childrens')->get();
         View::share('categories', $categories);
         View::share('categories2', $categories2);
+
+        $categories_new = W2bCategory::where('parent_id', 0)->take(12)->get();
+        View::share('categories_new', $categories_new);
+
+        $product20 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(60)->first();
+        $product21 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(3)->first();
+        $product22 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(150)->first();
+        View::share('product20', $product20);
+        View::share('product21', $product21);
+        View::share('product22', $product22);
+
 
 	}
 

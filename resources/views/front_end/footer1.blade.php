@@ -13,10 +13,10 @@
          the overall economy.
        </div>
        <div class="footer-contact">
-         <a href="#">
+         <a class="footer-address" href="#">
            <i class="fa fa-solid fa-map-marker"></i>
-             829 W Palmdale Blvd, Suite
-             133 Palmdale, California 93551
+             829 W Palmdale Blvd, Suite 133
+              Palmdale, California 93551
          </a>
          {{-- <a href="#">
            <i class="fa fa-solid fa-phone"></i>
