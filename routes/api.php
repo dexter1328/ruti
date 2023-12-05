@@ -158,7 +158,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
 
 
-    // New Api's
+    // NBE USER New Api's
     Route::post('add_wishlist', 'API\AuthController@addToWishlist');
     Route::get('user_wishlist/{user_id}', 'API\AuthController@getWishlist');
     Route::delete('user_wishlist/delete/{product_sku}/{user_id}', 'API\AuthController@removeWishlist');
@@ -167,6 +167,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('/user-order-invoice/{order_id}', 'API\AuthController@userOrderInvoice');
     Route::post('gift-receipt/create/{order_id}', 'API\AuthController@giftReceipt');
     Route::post('/return-item', 'API\AuthController@returnItem');
+    Route::put('/cancel-item/{order_id}/{sku}', 'API\AuthController@cancelItem');
     Route::post('/add-funds-wallet', 'API\AuthController@addToWallet');
     Route::get('/user-wallet-amount', 'API\AuthController@walletAmount');
 
