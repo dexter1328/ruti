@@ -763,7 +763,9 @@
           <div class="newsletter-popup">
             <div class="newsletter">
               <div class="newsletter-inner"></div>
-              <h2>Subscribe to our newsletter</h2>
+              <h4>HEY YOU, SIGN UP & </h4>
+              <h2>CONNECT TO NATURE CHECKOUT!
+</h2>
               <p>Be the first one to know about our Special offers and get 10% <br> Discount Coupon instantly!
               </p>
               <i class="fa fa-solid fa-close newsletter-close-icon"></i>
