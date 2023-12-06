@@ -14297,18 +14297,35 @@ a.footer-address {
 }
 
 .newsletter{
-  padding: 2rem;
-  background-color: rgba(255, 255, 255, 0.9);
+  padding: 2.2rem;
+  background: url('../img/new_homepage/newsletter-bg.jpg');
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 1rem;
   position: relative;
+  border: 1px solid white;
+  color: white;
+  text-align: center;
+}
+
+.newsletter-inner{
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .newsletter h2{
-  color: var(--primary-color);
+  color: #0193e9;
+}
+
+.newsletter h2, .newsletter p, .newsletter i, .newsletter form{
+  z-index: 1000;
 }
 
 .newsletter-form{
@@ -14331,8 +14348,8 @@ a.footer-address {
 
 .newsletter-close-icon{
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  right: 12px;
+  top: 12px;
   font-size: 1.2rem;
   cursor: pointer;
 }

@@ -762,6 +762,7 @@
         <!-- Newsletter Popup start -->
           <div class="newsletter-popup">
             <div class="newsletter">
+              <div class="newsletter-inner"></div>
               <h2>Subscribe to our newsletter</h2>
               <p>Be the first one to know about our Special offers and get 10% <br> Discount Coupon instantly!
               </p>
@@ -770,7 +771,9 @@
                 <input type="text" name="name" placeholder="Name">
                 <input type="email" name="email" placeholder="Email">
                 <button class="button">Subscribe</button>
-                Discount coupon will be emailed to your address.
+                <i>
+                  Discount coupon will be emailed to your address.
+                </i>
               </form>
             </div>
           </div>
