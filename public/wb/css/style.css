@@ -14328,7 +14328,7 @@ a.footer-address {
   color: #0193e9;
 }
 
-.newsletter h2, .newsletter p, .newsletter i, .newsletter form{
+.newsletter h2, .newsletter p, .newsletter a, .newsletter i, .newsletter form{
   z-index: 1000;
 }
 
@@ -14356,6 +14356,17 @@ a.footer-address {
   top: 12px;
   font-size: 1.2rem;
   cursor: pointer;
+}
+
+.newsletter a{
+  color: #007bc4;
+}
+
+.newsletter-footer{
+  display: flex;
+  flex-direction:column;
+  margin-top: 0.5rem;
+  gap: 0.2rem;
 }
 
 

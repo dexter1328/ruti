@@ -773,9 +773,14 @@
                 <input type="text" name="name" placeholder="Name">
                 <input type="email" name="email" placeholder="Email">
                 <button class="button">Subscribe</button>
-                <i>
-                  Discount coupon will be emailed to your address.
-                </i>
+                <div class="newsletter-footer">
+                  <i>
+                    By signing up, you agree to our <a href="/ruti/privacy-policy">Privacy Policy</a>
+                  </i>
+                  <i>
+                    Discount coupon will be emailed to your address.
+                  </i>
+                </div>
               </form>
             </div>
           </div>
