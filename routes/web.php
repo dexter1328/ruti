@@ -135,6 +135,7 @@ Route::delete('remove-from-cart', 'FrontEndController@removeCart')->name('remove
 Route::get('/remove-everything', 'FrontEndController@removeEverything')->name('remove-everything');
 Route::get('/checkout', 'FrontEndController@checkout')->name('product-checkout');
 Route::get('/state_cities/{state_id}', 'FrontEndController@state')->name('state-cities');
+Route::post('/user-apply-coupon', 'FrontEndController@applyCoupon')->name('user-apply-coupon');
 Route::post('/post-checkout', 'FrontEndController@postCheckout')->name('post-checkout');
 Route::get('/payment-page', 'FrontEndController@paymentPage')->name('payment-page');
 Route::post('/order-payment', 'FrontEndController@orderPayment')->name('order-payment');
@@ -437,6 +438,7 @@ Route::group(['middleware' => 'sessionExpired'], function () {
 
     Route::resource('blog', 'Admin\BlogController');
     Route::resource('admin_coupon', 'Admin\AdminCouponController');
+    Route::put('admin_coupon/change_status/{id}', 'Admin\AdminCouponController@updateStatus')->name('admin_coupon.update-status');
     Route::get('generate-coupon-code', 'Admin\AdminCouponController@generate_coupon_code')->name('generate-coupon-code');
 
     });

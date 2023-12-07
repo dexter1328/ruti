@@ -33,7 +33,7 @@
                                             <div class="form-group">
                                                 <div class="d-flex justify-content-between">
                                                     <label class="input-label">Coupon_Code</label>
-                                                    <a href="javascript:void(0)" class="float-right c1 fz-12" onclick="generateCode()">generate_code</a>
+                                                    {{-- <a href="javascript:void(0)" class="float-right c1 fz-12" onclick="generateCode()">generate_code</a> --}}
                                                 </div>
                                                 <input type="text" name="code" id="coupon-code" class="form-control" maxlength="15"
                                                     placeholder="{{\Illuminate\Support\Str::random(8)}}" required>
@@ -76,13 +76,13 @@
                                         <div class="col-md-4 col-sm-6">
                                             <div class="form-group">
                                                 <label class="input-label">start date</label>
-                                                <input type="text" name="start_date" class="js-flatpickr form-control flatpickr-custom" placeholder="yyyy-mm-dd" data-hs-flatpickr-options='{ "dateFormat": "Y/m/d", "minDate": "today" }'>
+                                                <input type="date" name="start_date" class="js-flatpickr form-control flatpickr-custom" placeholder="yyyy-mm-dd" data-hs-flatpickr-options='{ "dateFormat": "Y/m/d", "minDate": "today" }'>
                                             </div>
                                         </div>
                                         <div class="col-md-4 col-sm-6">
                                             <div class="form-group">
                                                 <label class="input-label">expire date</label>
-                                                <input type="text" name="expire_date" class="js-flatpickr form-control flatpickr-custom" placeholder="yyyy-mm-dd" data-hs-flatpickr-options='{ "dateFormat": "Y/m/d", "minDate": "today" }'>
+                                                <input type="date" name="expire_date" class="js-flatpickr form-control flatpickr-custom" placeholder="yyyy-mm-dd" data-hs-flatpickr-options='{ "dateFormat": "Y/m/d", "minDate": "today" }'>
                                             </div>
                                         </div>
                                     </div>

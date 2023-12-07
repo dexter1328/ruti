@@ -312,8 +312,13 @@
                                         <td><strong>${{number_format((float)$totalTax, 2, '.', '')}}</strong></td>
                                     </tr>
                                     <tr class="order_total">
-                                        <th>Order Total</th>
-                                        <td><strong>${{number_format((float)($total + $totalShippingPrice + $totalTax), 2, '.', '')}}</strong></td>
+                                        <th>Order Total after discount</th>
+                                        @php
+                                            $totalPrice = session('w2border.total_price', 0);
+                                        @endphp
+
+                                         {{-- Display the total_price in your view --}}
+                                        <td><strong>${{ number_format((float)$totalPrice, 2, '.', '') }}</strong></td>
                                     </tr>
                                 </tfoot>
                             </table>

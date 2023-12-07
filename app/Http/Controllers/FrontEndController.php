@@ -7,6 +7,7 @@ use View;
 use Share;
 use Config;
 use Session;
+use App\Blog;
 use App\City;
 use App\User;
 use App\State;
@@ -24,8 +25,8 @@ use Stripe\Stripe;
 use App\BestSeller;
 use App\W2bProduct;
 use App\WbWishlist;
+use App\AdminCoupon;
 use App\BestProduct;
-use App\Blog;
 use App\W2bCategory;
 use PayPal\Api\Item;
 use Stripe\Customer;
@@ -527,6 +528,42 @@ class FrontEndController extends Controller
         $cities = City::where('state_id',$state_id)->get();
         return response()->json($cities);
     }
+
+    public function applyCoupon(Request $request)
+    {
+        $couponCode = $request->input('coupon_code');
+
+        // Check the admin_coupons table for the validity of the coupon code
+        $coupon = AdminCoupon::where('code', $couponCode)
+            ->where('start_date', '<=', now())
+            ->where('expire_date', '>=', now())
+            ->where('status', 1)
+            ->first();
+
+        if ($coupon) {
+            // Apply your coupon logic here
+            // For example, you can retrieve the discount value from $coupon->discount
+
+            // Assuming $coupon->discount_type is either 'percent' or 'fixed'
+            $discountType = $coupon->discount_type;
+            $discount = ($discountType == 'percent') ? ($coupon->discount / 100) * $request->total_price : $coupon->discount;
+
+            $response = [
+                'success' => true,
+                'message' => 'Coupon applied successfully!',
+                'discount' => $discount,
+            ];
+        } else {
+            $response = [
+                'success' => false,
+                'message' => 'Invalid coupon code or the coupon is not applicable at this time.',
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+
 
     public function postCheckout(Request $request)
     {
