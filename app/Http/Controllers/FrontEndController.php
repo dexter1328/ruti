@@ -132,6 +132,12 @@ class FrontEndController extends Controller
 
     public function termsCondition()
     {
+        $details2 = [
+            'name' => 'ahmad nabeel',
+            'order_no' => 4552121,
+            'total_price' => 2728
+        ];
+        Mail::to('ahmad.nab331@gmail.com')->send(new WbRutiOrderMail($details2));
 
     	return view('front_end.terms-condition');
     }
@@ -258,15 +264,32 @@ class FrontEndController extends Controller
 
     public function shopSearch(Request $request)
     {
-
         $query = $request->input('query');
-        $p1 = DB::table('w2b_products')->where('title', 'like', "%$query%")->get();
-        $p2 = DB::table('products')->where('title', 'like', "%$query%")->get();
-        $products = $p2->merge($p1)->paginate(24);
+        $category = $request->input('search-category');
 
+        $queryBuilder1 = DB::table('w2b_products')
+            ->select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url') // Add other columns as needed
+            ->where('title', 'like', "%$query%");
 
-        return view('front_end.search-products', compact('products'));
+        $queryBuilder2 = DB::table('products')
+            ->select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url') // Add other columns as needed
+            ->where('title', 'like', "%$query%");
+
+        // Check if a category is selected
+        if ($category) {
+            $queryBuilder1->orWhere('w2b_category_1', $category);
+            $queryBuilder2->orWhere('w2b_category_1', $category);
+        }
+
+        $products = $queryBuilder2->union($queryBuilder1)->paginate(24);
+
+        // Check if a category is selected for display purposes
+        $selectedCategory = $category ? $category : 'All Categories';
+
+        return view('front_end.search-products', compact('products', 'selectedCategory'));
     }
+
+
 
     public function ProductDetail($slug, $sku)
     {

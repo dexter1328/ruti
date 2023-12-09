@@ -506,25 +506,25 @@
   </div>
 
     <div class="search-container">
-      <form action="{{route('shop-search')}}" method="get">
-          <div class="searchbar">
-              <input class="searchbar-input typeahead" placeholder="Search for products" type="text" name="query" id="query" value="{{request()->input('query')}}">
-              <div class="searchbar-category">
-                  <select class="" name="search-category">
-                    <option>Select Category</option>
-                    <option>Category 1</option>
-                    <option>Category 2</option>
-                    <option>Category 3</option>
-                    <option>Category 4</option>
-                  </select>
-              </div>
-              <button type="submit">
-                  <span class="searchbar-icon">
-                      <i class="fa fa-search search-icon"></i>
-                  </span>
-              </button>
-          </div>
-      </form>
+        <form action="{{ route('shop-search') }}" method="get">
+            <div class="searchbar">
+                <input class="searchbar-input typeahead" placeholder="Search for products" type="text" name="query" id="query" value="{{ request()->input('query') }}">
+                <div class="searchbar-category">
+                    <select name="search-category">
+                        <option value="">Select Category</option>
+                        @foreach ($categories2 as $c)
+                            <option value="{{ $c->category1 }}">{{ $c->category1 }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <button type="submit">
+                    <span class="searchbar-icon">
+                        <i class="fa fa-search search-icon"></i>
+                    </span>
+                </button>
+            </div>
+        </form>
+
 
       {{-- <div class="searched-products">
         <div class="searched-product">
@@ -590,10 +590,12 @@
     <a href="{{route('wb-wishlist-page')}}">
      <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
     </a>
-    @endif
+    @else
     <a href="#" type="button" data-toggle="modal" data-target="#exampleModal28">
         <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
     </a>
+    @endif
+
     {{-- @endif --}}
     <!-- <a
     href="{{ route('product-cart') }}"
