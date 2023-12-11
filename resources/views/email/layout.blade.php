@@ -11,7 +11,7 @@
 	<table width="70%" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr>
 			<td style="text-align: center; background-color: #003366; padding: 1.5em;">
-				<img src="{{ asset('public/images/logo-icon.png') }}" alt="logo icon" height="70" width="150">
+				<img src="{{ asset('public/wb/img/new_homepage/logo/logo.png') }}" alt="logo icon" height="70" width="150">
 			</td>
 		</tr>
 		<tr>

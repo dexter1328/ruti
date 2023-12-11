@@ -9,7 +9,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta property="og:title" content="{{ config('app.name', 'Nature Checkout') }}" />
         <meta property="og:description" content="We provide convenient and expeditious service to all users (merchants and consumers) in areas of consumer spending. Our service is to improve merchant - customer relations while offering positive contribution to the overall economy." />
-        <meta property="og:image" content="{{ asset('public/images/logo-icon.png') }}" />
+        <meta property="og:image" content="{{ asset('public/wb/img/new_homepage/logo/logo.png') }}" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="http://rutiselfcheckout.com/" />
         <meta property="fb:app_id" content="482623692719207" />
@@ -200,7 +200,7 @@
         <div id="sidebar-wrapper" class="bg-theme bg-theme2" data-simplebar="" data-simplebar-auto-hide="true">
             <div class="brand-logo">
 				<a href="{{url('supplier/home')}}">
-					<img src="{{ asset('public/images/logo-icon.png') }}" class="logo-icon" alt="logo icon">
+					<img src="{{ asset('public/wb/img/new_homepage/logo/logo.png') }}" class="logo-icon" alt="logo icon">
 					<span class="logo-mini"><img src="{{ asset('public/images/ez-icon-white.png') }}" class="logo-icon" alt="logo icon"></span>
 				</a>
 			</div>

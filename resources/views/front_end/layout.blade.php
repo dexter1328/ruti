@@ -412,7 +412,7 @@
           <img src="{{ asset('public/wb/img/new_homepage/logo/logo.png') }}" alt="">
         </div>
         <p>
-          Ahmed Nabeel
+          New Vendor
         </p>
         <button class="button">Store Details</button>
       </div>
@@ -426,7 +426,7 @@
           <i class="fa fa-solid fa-phone"></i> (926) 9898 98989
           </div>
           <div>
-          <i class="fa fa-solid fa-map-marker"></i> 215.35 mi
+          <i class="fa fa-solid fa-map-marker"></i> 1.35 mi
           </div>
         </div>
       </div>
@@ -438,7 +438,7 @@
           <img src="public/wb/img/new_homepage/logo/logo.png" alt="">
         </div>
         <p>
-          Ahmed Nabeel
+          Joseph
         </p>
         <button class="button">Store Details</button>
       </div>
@@ -452,7 +452,7 @@
           <i class="fa fa-solid fa-phone"></i> (926) 9898 98989
           </div>
           <div>
-          <i class="fa fa-solid fa-map-marker"></i> 212.20 mi
+          <i class="fa fa-solid fa-map-marker"></i> 3.62 mi
           </div>
         </div>
       </div>
@@ -761,39 +761,6 @@
             </div>
 
 
-        <!-- Newsletter Popup start -->
-          <div class="newsletter-popup">
-            <div class="newsletter">
-              <div class="newsletter-inner"></div>
-              <h4>HEY YOU, SIGN UP & </h4>
-              <h2>CONNECT TO NATURE CHECKOUT!
-</h2>
-              <p>Be the first one to know about our Special offers and get 10% <br> Discount Coupon instantly!
-              </p>
-              <i class="fa fa-solid fa-close newsletter-close-icon"></i>
-              <form action="" class="newsletter-form">
-                <input type="text" name="name" placeholder="Name">
-                <input type="email" name="email" placeholder="Email">
-                <button class="button">Subscribe</button>
-                <div class="newsletter-footer">
-                  <i>
-                    By signing up, you agree to our <a href="/ruti/privacy-policy">Privacy Policy</a>
-                  </i>
-                  <i>
-                    Discount coupon will be emailed to your address.
-                  </i>
-                </div>
-              </form>
-            </div>
-          </div>
-
-          <script>
-            $(".newsletter-close-icon").click(()=>{
-              $(".newsletter-popup").css("display", "none")
-            })
-
-          </script>
-        <!-- Newsletter Popup end -->
 
             @yield('content')
 

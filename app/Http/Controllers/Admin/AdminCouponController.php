@@ -93,7 +93,7 @@ class AdminCouponController extends Controller
 
         DB::table('admin_coupons')->insert([
             'title' => $request->title,
-            'code' => $request->code,
+            'code' => strtoupper($request->code),
             'limit' => $request->limit,
             'coupon_type' => $request->coupon_type,
             'start_date' => $request->start_date,

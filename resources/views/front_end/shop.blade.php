@@ -709,6 +709,44 @@
         <!-- FAQS END -->
 
 
+
+
+
+
+<!-- Newsletter Popup start -->
+<div class="newsletter-popup">
+    <div class="newsletter">
+        <div class="newsletter-inner"></div>
+        <h4>HEY YOU, SIGN UP & </h4>
+        <h2>CONNECT TO NATURE CHECKOUT!
+        </h2>
+        <p>Be the first one to know about our Special offers and get 10% <br> Discount Coupon instantly!
+        </p>
+        <i class="fa fa-solid fa-close newsletter-close-icon"></i>
+        <form action="{{ route('sub-newsletter') }}" method="POST" class="newsletter-form">
+        @csrf
+        <input type="text" name="name" placeholder="Name">
+        <input type="email" name="email" placeholder="Email">
+        <button class="button" type="submit">Subscribe</button>
+        <div class="newsletter-footer">
+            <i>
+            By signing up, you agree to our <a href="{{ url('/privacy-policy') }}">Privacy Policy</a>
+            </i>
+            <i>
+            Discount coupon will be emailed to your address.
+            </i>
+        </div>
+        </form>
+    </div>
+    </div>
+
+    <script>
+    $(".newsletter-close-icon").click(()=>{
+        $(".newsletter-popup").css("display", "none")
+    })
+
+    </script>
+<!-- Newsletter Popup end -->
 @endsection
 
 @section('title', 'One-Stop E-commerce hub for online selling, in-store buying and self-checkout.')

@@ -46,6 +46,7 @@ use Illuminate\Http\Request;
 use PayPal\Api\RedirectUrls;
 use App\Mail\SellerOrderMail;
 use App\Mail\WbRutiOrderMail;
+use App\Mail\WelcomeCoupon;
 use PayPal\Api\PaymentExecution;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
@@ -90,6 +91,8 @@ class FrontEndController extends Controller
             ->get();
         }
         View::share('wb_wishlist', $wb_wishlist);
+
+        // $find_store =
 
 
         $this->stripe_secret = config('services.stripe.secret');
@@ -137,7 +140,7 @@ class FrontEndController extends Controller
             'order_no' => 4552121,
             'total_price' => 2728
         ];
-        Mail::to('ahmad.nab331@gmail.com')->send(new WbRutiOrderMail($details2));
+        Mail::to('nabeel.office20@gmail.com')->send(new WbRutiOrderMail($details2));
 
     	return view('front_end.terms-condition');
     }
@@ -1123,5 +1126,19 @@ class FrontEndController extends Controller
     public function sessionFlush()
     {
         session()->flush();
+    }
+
+    public function subNewsletter(Request $request)
+    {
+        $wel_coupon = AdminCoupon::where('code', '10NATURE10')->first();
+        // $request->all();
+        $details = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'coupon' => $wel_coupon->code
+        ];
+        Mail::to($request->email)->send(new WelcomeCoupon($details));
+
+        return redirect()->back();
     }
 }

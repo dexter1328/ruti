@@ -163,6 +163,7 @@ Route::get('/supplier/read-first', 'FrontEndController@readFirstSupplier');
 Route::get('/trending-products', 'FrontEndController@trendingProducts')->name('trending-products');
 Route::get('/special-offers', 'FrontEndController@specialOffers')->name('special-offers');
 Route::get('/test-cart-mail', 'FrontEndController@notPaidMail')->name('test.cart.mail');
+Route::post('/sub-newsletter', 'FrontEndController@subNewsletter')->name('sub-newsletter');
 
 
 

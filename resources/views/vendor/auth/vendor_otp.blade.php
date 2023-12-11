@@ -1,5 +1,12 @@
 <center>
-	<img src="{{asset('public/wb/img/logo/logo2.png')}}" style="width:250px; height: auto;border: none; display: block; -ms-interpolation-mode: bicubic;">
+	 <img
+                width="50%"
+                height="250px"
+                style="margin-left: 5%"
+                {{-- src="{{ asset('public/wb/img/new_homepage/logo/logo.png') }}" --}}
+                src="https://naturecheckout.com/public/wb/img/new_homepage/logo/logo.png"
+                alt="Nature Checkout"
+              />
 </center>
 
 <h1>Verify your login</h1>

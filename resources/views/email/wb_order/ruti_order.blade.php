@@ -21,9 +21,10 @@
           <td style="text-align: center;">
             <img
               width="50%"
-              height="60px"
+              height="250px"
               style="margin-left: 5%"
-              src="{{ asset('public/images/logo-icon.png') }}"
+              {{-- src="{{ asset('public/wb/img/new_homepage/logo/logo.png') }}" --}}
+              src="https://naturecheckout.com/public/wb/img/new_homepage/logo/logo.png"
               alt="Nature Checkout"
             />
           </td>
@@ -85,7 +86,7 @@
     >
       <table style="width: 90%; margin: auto; border-collapse: collapse">
         <thead>
-          <tr style="border-bottom:2px solid #007bff; width: 100%;"> 
+          <tr style="border-bottom:2px solid #007bff; width: 100%;">
             <td>
               <img
                 width=""
@@ -108,7 +109,7 @@
           </tr>
           <tr>
             <td colspan="2" style="padding: 10px;">
-                We hope you enjoyed your recent purchase. Your feedback helps us improve. 
+                We hope you enjoyed your recent purchase. Your feedback helps us improve.
                 We value your opinion. Please take a moment to share your feedback in a review. Your insights matter to us!.
             </td>
           </tr>

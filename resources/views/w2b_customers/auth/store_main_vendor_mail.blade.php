@@ -1,5 +1,5 @@
 <center>
-	<img src="{{ asset('public/images/logo-icon.png') }}" alt="One Letter" width="193" height="43" border="0" style="border: none; display: block; -ms-interpolation-mode: bicubic;">
+	<img src="{{ asset('public/wb/img/new_homepage/logo/logo.png') }}" alt="One Letter" width="193" height="43" border="0" style="border: none; display: block; -ms-interpolation-mode: bicubic;">
 </center>
 
 <p>Hi,</p>

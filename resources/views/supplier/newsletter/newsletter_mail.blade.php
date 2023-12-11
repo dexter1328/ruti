@@ -390,7 +390,7 @@ table{
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
                             <tr>
                                 <td width="40%" class="logo" style="text-align: center;">
-                                    <h1><a href="#"> <img src="{{ asset('public/images/logo-icon.png') }}" alt="logo icon" height="70" width="150"></a></h1>
+                                    <h1><a href="#"> <img src="{{ asset('public/wb/img/new_homepage/logo/logo.png') }}" alt="logo icon" height="70" width="150"></a></h1>
                                 </td>
                             </tr>
                         </table>
