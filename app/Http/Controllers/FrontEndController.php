@@ -1130,7 +1130,7 @@ class FrontEndController extends Controller
 
     public function subNewsletter(Request $request)
     {
-        $wel_coupon = AdminCoupon::where('code', '10NATURE10')->first();
+        $wel_coupon = AdminCoupon::where('code', 'WELCOMETOFAMILY')->first();
         // $request->all();
         $details = [
             'name' => $request->name,
