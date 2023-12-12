@@ -7,6 +7,7 @@ use View;
 use Share;
 use Config;
 use Session;
+use App\Blog;
 use App\City;
 use App\User;
 use App\State;
@@ -24,8 +25,8 @@ use Stripe\Stripe;
 use App\BestSeller;
 use App\W2bProduct;
 use App\WbWishlist;
+use App\AdminCoupon;
 use App\BestProduct;
-use App\Blog;
 use App\W2bCategory;
 use PayPal\Api\Item;
 use Stripe\Customer;
@@ -45,6 +46,7 @@ use Illuminate\Http\Request;
 use PayPal\Api\RedirectUrls;
 use App\Mail\SellerOrderMail;
 use App\Mail\WbRutiOrderMail;
+use App\Mail\WelcomeCoupon;
 use PayPal\Api\PaymentExecution;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
@@ -70,6 +72,18 @@ class FrontEndController extends Controller
         View::share('categories', $categories);
         $categories2 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23])->get();
         View::share('categories2', $categories2);
+
+        // $categories = W2bCategory::where('parent_id', 0)->take(12)->get();
+        // View::share('categories', $categories);
+
+        $product20 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(60)->first();
+        $product21 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(3)->first();
+        $product22 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(150)->first();
+        View::share('product20', $product20);
+        View::share('product21', $product21);
+        View::share('product22', $product22);
+
+
         $wb_wishlist = null;
 
         if (Auth::guard('w2bcustomer')->user()) {
@@ -77,6 +91,8 @@ class FrontEndController extends Controller
             ->get();
         }
         View::share('wb_wishlist', $wb_wishlist);
+
+        // $find_store =
 
 
         $this->stripe_secret = config('services.stripe.secret');
@@ -119,6 +135,12 @@ class FrontEndController extends Controller
 
     public function termsCondition()
     {
+        $details2 = [
+            'name' => 'ahmad nabeel',
+            'order_no' => 4552121,
+            'total_price' => 2728
+        ];
+        Mail::to('nabeel.office20@gmail.com')->send(new WbRutiOrderMail($details2));
 
     	return view('front_end.terms-condition');
     }
@@ -154,31 +176,60 @@ class FrontEndController extends Controller
     public function shop()
     {
 
-
+        $latest_blogs = Blog::latest()->take(3)->get();
         $categories1 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23,29,69])
         ->get();
 
         $sold = rand(20, 50);
         $available = rand(60, 99);
 
-        $product1 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(4)->first();
-        //  dd($product1);
-        $product2 =  W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(3)->first();
-        $product3 =  W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(50)->first();
-        $product4 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(80)->first();
-        $product5 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(10)->first();
-        $product6 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(120)->first();
-        $product7 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(14)->first();
-        $product8 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(131)->first();
-        $product9 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(20)->first();
-        $product10 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(132)->first();
+        $product31 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(3)->first();
+        $product32 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(10)->first();
+        $products33 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250','original_image_url')->inRandomOrder()->limit(2000)->paginate(12);
+        $products34 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250','original_image_url')->inRandomOrder()->limit(3)->get();
+        $products35 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250','original_image_url')->inRandomOrder()->limit(4)->get();
+        $products36 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250','original_image_url')->inRandomOrder()->limit(6)->get();
+
+
+        // $randomIds = W2bProduct::inRandomOrder()->limit(2000)->pluck('sku')->toArray();
+
+        // $products33 = W2bProduct::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'large_image_url_250x250', 'original_image_url')
+        //     ->whereIn('sku', $randomIds)
+        //     ->paginate(12);
+
+        // $randomIdsFor334 = W2bProduct::inRandomOrder()->limit(3)->pluck('sku')->toArray();
+        // $products34 = W2bProduct::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'large_image_url_250x250', 'original_image_url')
+        //     ->whereIn('sku', $randomIdsFor334)
+        //     ->get();
+
+        // $randomIdsFor35 = W2bProduct::inRandomOrder()->limit(4)->pluck('sku')->toArray();
+        // $products35 = W2bProduct::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'large_image_url_250x250', 'original_image_url')
+        //     ->whereIn('sku', $randomIdsFor35)
+        //     ->get();
+
+        // $randomIdsFor36 = W2bProduct::inRandomOrder()->limit(6)->pluck('sku')->toArray();
+        // $products36 = W2bProduct::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'large_image_url_250x250', 'original_image_url')
+        //     ->whereIn('sku', $randomIdsFor36)
+        //     ->get();
+
+
+        // $product1 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(4)->first();
+        // //  dd($product1);
+        // $product2 =  W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(3)->first();
+        // $product3 =  W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(50)->first();
+        // $product4 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(80)->first();
+        // $product5 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(10)->first();
+        // $product6 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(120)->first();
+        // $product7 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(14)->first();
+        // $product8 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(131)->first();
+        // $product9 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(20)->first();
+        // $product10 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','original_image_url')->orderBy('sku','DESC')->skip(132)->first();
 
 
 
         $products = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250','original_image_url')->inRandomOrder()->limit(3000)->paginate(6);
         return view('front_end.shop',compact('products',
-        'categories1','sold','available','product1','product2','product3','product4','product5',
-        'product6','product7','product8','product9','product10'));
+        'categories1','sold','available','product31','product32','products33','products34','products35','products36','latest_blogs'));
     }
     public function catName($cate)
     {
@@ -216,15 +267,32 @@ class FrontEndController extends Controller
 
     public function shopSearch(Request $request)
     {
-
         $query = $request->input('query');
-        $p1 = DB::table('w2b_products')->where('title', 'like', "%$query%")->get();
-        $p2 = DB::table('products')->where('title', 'like', "%$query%")->get();
-        $products = $p2->merge($p1)->paginate(24);
+        $category = $request->input('search-category');
 
+        $queryBuilder1 = DB::table('w2b_products')
+            ->select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url') // Add other columns as needed
+            ->where('title', 'like', "%$query%");
 
-        return view('front_end.search-products', compact('products'));
+        $queryBuilder2 = DB::table('products')
+            ->select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url') // Add other columns as needed
+            ->where('title', 'like', "%$query%");
+
+        // Check if a category is selected
+        if ($category) {
+            $queryBuilder1->orWhere('w2b_category_1', $category);
+            $queryBuilder2->orWhere('w2b_category_1', $category);
+        }
+
+        $products = $queryBuilder2->union($queryBuilder1)->paginate(24);
+
+        // Check if a category is selected for display purposes
+        $selectedCategory = $category ? $category : 'All Categories';
+
+        return view('front_end.search-products', compact('products', 'selectedCategory'));
     }
+
+
 
     public function ProductDetail($slug, $sku)
     {
@@ -487,6 +555,42 @@ class FrontEndController extends Controller
         return response()->json($cities);
     }
 
+    public function applyCoupon(Request $request)
+    {
+        $couponCode = $request->input('coupon_code');
+
+        // Check the admin_coupons table for the validity of the coupon code
+        $coupon = AdminCoupon::where('code', $couponCode)
+            ->where('start_date', '<=', now())
+            ->where('expire_date', '>=', now())
+            ->where('status', 1)
+            ->first();
+
+        if ($coupon) {
+            // Apply your coupon logic here
+            // For example, you can retrieve the discount value from $coupon->discount
+
+            // Assuming $coupon->discount_type is either 'percent' or 'fixed'
+            $discountType = $coupon->discount_type;
+            $discount = ($discountType == 'percent') ? ($coupon->discount / 100) * $request->total_price : $coupon->discount;
+
+            $response = [
+                'success' => true,
+                'message' => 'Coupon applied successfully!',
+                'discount' => $discount,
+            ];
+        } else {
+            $response = [
+                'success' => false,
+                'message' => 'Invalid coupon code or the coupon is not applicable at this time.',
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+
+
     public function postCheckout(Request $request)
     {
 
@@ -499,12 +603,12 @@ class FrontEndController extends Controller
                 $request->validate([
                     'zip_code' => 'required',
                     'state' => 'required',
-                    'city' => 'required',
+                    // 'city' => 'required',
                     'address' => 'required'
                 ]);
                 $user->update([
                     'state' => $request->state,
-                    'city' => $request->city,
+                    // 'city' => $request->city,
                     'address' => $request->address,
                     'address2' => $request->address2,
                     'zip_code' => $request->zip_code
@@ -523,7 +627,7 @@ class FrontEndController extends Controller
                         'zip_code' => 'required',
                         'mobile' => 'required',
                         'state' => 'required',
-                        'city' => 'required',
+                        // 'city' => 'required',
                         'address' => 'required',
                         'password' => 'required'
                         ],
@@ -537,7 +641,7 @@ class FrontEndController extends Controller
                         $user->password = bcrypt($request->password);
                         $user->mobile = $request->mobile;
                         $user->state = $request->state;
-                        $user->city = $request->city;
+                        // $user->city = $request->city;
                         $user->zip_code = $request->zip_code;
                         $user->address = $request->address;
                         $user->address2 = $request->address2;
@@ -552,7 +656,7 @@ class FrontEndController extends Controller
                             'zip_code' => 'required',
                             'mobile' => 'required',
                             'state' => 'required',
-                            'city' => 'required',
+                            // 'city' => 'required',
                             'address' => 'required'
                             ],
                             [
@@ -565,7 +669,7 @@ class FrontEndController extends Controller
                             $user->email = $request->email;
                             $user->mobile = $request->mobile;
                             $user->state = $request->state;
-                            $user->city = $request->city;
+                            // $user->city = $request->city;
                             $user->zip_code = $request->zip_code;
                             $user->address = $request->address;
                             $user->address2 = $request->address2;
@@ -688,7 +792,7 @@ class FrontEndController extends Controller
 
         ]);
         if ($charge) {
-            $order->update([
+            $user->update([
                 'stripe_customer_id' => $customer->id,
             ]);
             $order->update([
@@ -1022,5 +1126,19 @@ class FrontEndController extends Controller
     public function sessionFlush()
     {
         session()->flush();
+    }
+
+    public function subNewsletter(Request $request)
+    {
+        $wel_coupon = AdminCoupon::where('code', '10NATURE10')->first();
+        // $request->all();
+        $details = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'coupon' => $wel_coupon->code
+        ];
+        Mail::to($request->email)->send(new WelcomeCoupon($details));
+
+        return redirect()->back();
     }
 }

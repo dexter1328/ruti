@@ -239,6 +239,15 @@
     <script id="hs-script-loader" async defer src="//js.hs-scripts.com/22066612.js"></script>
     <!-- End of HubSpot Embed Code -->
 
+    <!-- Fontawesome icons -->
+    <script src="https://kit.fontawesome.com/2df627c809.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
     <script>
         function geoFindMe() {
 
@@ -310,290 +319,487 @@
 
 
     <div class="off_canvars_overlay"></div>
-    <div class="home_three_container">
-        <!--header area start-->
-<header>
-            <div class="main_header header_three color_three">
-                <div class="header_middle">
-                    <div class="container-fluid px-5">
-                        <div class="row align-items-end">
-                            <div class="col-lg-2 col-md-3 col-sm-3 col-12">
-                                <div class="logo logo-new">
-                                    <a href="{{url('/')}}"><img src="{{asset('public/wb/img/logo/logo.png')}}" alt="Nature Checkout"></a>
-                                </div>
-                            </div>
-                            <div class="col-lg-10 col-md-9 col-sm-9 col-12">
-                                <div class="header_right_info">
-                                    <div class="search_container">
-                                       <form action="{{route('shop-search')}}" method="get">
-                                            <div class="search_box">
-                                                <input class="typeahead" placeholder="Search product..." type="text" name="query" id="query" value="{{request()->input('query')}}">
-                                                 <button type="submit"><span class="lnr lnr-magnifier"></span></button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="header_account_area">
-                                        <div class="header-action">
-                                    <ul>
-                                        @if (!Auth::guard('w2bcustomer')->user())
-                                        <li class="header-sine-in dropdown">
-                                            <a href="" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="lnr lnr-user fa-3x d-flex"></i>
-                                                <p class="sign-in-text">Sign in<span>Account</span></p>
-                                            </a>
-                                            <div class="dropdown-menu login-dropdown p-3" aria-labelledby="dropdownMenuLink">
-                                                <div class="dropdown-box">
-                                                    <p>Sign in or Register</p>
-                                                    <div class="sign_in_links d-flex align-items-center">
-                                                        <a href="{{url('/w2bcustomer/login')}}" class="p-2 btn_height w-50 text-center">Sign in</a>
-                                                        <a href="{{url('/w2bcustomer/register')}}" class="p-2 btn_height w-50 ml-2 text-center"> Sign up</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        @else
-                                        <li class="header-sine-in dropdown">
-                                            <a href="" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                @if (Auth::guard('w2bcustomer')->user()->image)
-                                                <img class="rounded-circle" src="{{asset('public/user_photo/'.Auth::guard('w2bcustomer')->user()->image)}}" style="max-width: 45px; margin-right: 8px;" alt="{{Auth::guard('w2bcustomer')->user()->fullName()}}">
-                                                @else
-                                                <i class="lnr lnr-user fa-3x d-flex"></i>
-                                                @endif
-                                                <p class="sign-in-text">{{Auth::guard('w2bcustomer')->user()->fullName()}} </p>
-                                            </a>
-                                            <div class="dropdown-menu login-dropdown" aria-labelledby="dropdownMenuLink">
 
+<div id="main">
+  <!-- Topbar Start -->
+  <div class="topbar-container">
+    <div class="topbar text-white d-flex
+    justify-content-between align-items-center text-sm">
 
-                                                <a class="dropdown-item text-dark" href="{{route('user-account-page')}}" >My Account</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item text-dark" href="" onclick="event.preventDefault(); document.getElementById('logout-form5').submit();">Logout</a>
-                                                <form id="logout-form5" action="{{ route('w2bcustomer.logout') }}" method="POST" style="display: none;">
-                                                    {{ csrf_field() }}
-                                                </form>
-                                            </div>
-                                        </li>
-                                        @endif
-                                        <li class="header-shop header_wishlist">
-                                            @if (Auth::guard('w2bcustomer')->user())
-                                            <a href="{{route('wb-wishlist-page')}}">
-                                            @else
-                                            <a href="#" type="button" data-toggle="modal" data-target="#exampleModal28">
-                                            @endif
-
-                                                <i class="lnr lnr-heart fa-3x"></i>
-                                                <!--Wishlist-->
-                                                <span class="cart-count">{{ $wb_wishlist ? $wb_wishlist->count() : 0 }}</span>
-                                            </a>
-                                        </li>
-                                        <li class="header-shop mini_cart_wrapper">
-                                            <a href="#">
-                                                <i class="lnr lnr-cart fa-3x"></i>
-                                                <!--Cart-->
-                                                <span class="cart-count">{{ count((array) session('cart')) }}</span>
-                                            </a>
-                                             <!--mini cart-->
-                                            <div class="mini_cart">
-                                                <div class="cart_gallery">
-                                                    <div class="cart_close">
-														<div class="cart_text">
-															<h3>cart</h3>
-														</div>
-														<div class="mini_cart_close">
-															<a href="javascript:void(0)"><i class="icon-x" style="color: black"></i></a>
-														</div>
-													</div>
-
-
-                                                    @php $total = 0 @endphp
-                                                    @foreach((array) session('cart') as $sku => $details)
-                                                        @php $total += $details['retail_price'] * $details['quantity'] @endphp
-                                                    @endforeach
-
-                                                    @if(session('cart'))
-                                                    @foreach(session('cart') as $sku => $details)
-                                                    <div class="cart_item" style="padding: 5px 0px;">
-                                                        <div class="cart_img">
-                                                            <a href="#"><img style="max-width: 50%" src="{{ $details['original_image_url'] }}" alt="{{ Str::limit($details['title'], 35) }}"></a>
-                                                        </div>
-                                                        <div class="cart_info">
-                                                            <h4>{{ Str::limit($details['title'], 40) }}</h4>
-                                                            <p style="font-size: 15px">{{ $details['quantity'] }} x <span> ${{number_format((float)$details['retail_price'], 2, '.', '')}} </span></p>
-                                                        </div>
-                                                        <div class="cart_remove">
-                                                            <a href="#"><i class="icon-x"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    @endforeach
-                                                    @endif
-
-                                                </div>
-                                                <div class="mini_cart_table">
-                                                    <div class="cart_table_border">
-                                                        <div class="cart_total">
-                                                            <span><strong> Sub Total:</strong></span>
-                                                            <span class="price">${{number_format((float)$total, 2, '.', '')}}</span>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                                <div class="mini_cart_footer">
-                                                   <div class="mb-3">
-                                                        <a href="{{ route('product-cart') }}" class=" btn btn-primary-blue"><i class="fa fa-shopping-cart"></i> View cart</a>
-                                                    </div>
-                                                    <div class="">
-                                                        <a href="{{ route('product-checkout') }}" class=" btn btn-secondary-orange"><i class="fa fa-sign-in"></i> Checkout</a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <!--mini cart end-->
-                                        </li>
-                                        <li class="header-sine-in p-0">
-                                            <a href="contact.html">
-                                                <p class="text-center">Total<span>${{number_format((float)$total, 2, '.', '')}}</span></p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="header_bottom">
-                    <div class="container-fluid px-5">
-                        <div class="row align-items-center justify-content-between">
-                            <div class="col-md-6 col-lg-4 col-xl-3 col-10">
-                                <div class="categories_menu categories_three">
-                                    <div class="categories_title">
-                                            <i class="lnr lnr-menu fa-lg"></i>
-                                            <h2 class="categori_toggle">Browse Categories</h2>
-                                            <i class="lnr lnr-chevron-down ms-auto"></i>
-                                    </div>
-                                    <div class="categories_menu_toggle">
-                                        <ul>
-                                            @if ($categories)
-                                                @foreach ($categories as $category)
-
-                                                @if ($category->parent_id == 0 && !($category->childrens)->isEmpty())
-                                                <li class="menu_item_children"><a href="{{route('cat-products', $category->category1)}}"><i class='lnr lnr-list pr-2'></i>{{ $category->category1 }}<i class="fa fa-angle-right"></i></a>
-                                                    <ul class="categories_mega_menu first_submenu new_sub_menu<?php echo $category->id ?>" style="display:list-item;">
-                                                    <div class='list_nav_menu'>
-                                                        @foreach ($category->childrens as $subcategory)
-                                                            @if ($subcategory->parent_id > 0 && !($subcategory->childrens)->isEmpty())
-                                                        <li class="menu_item_children"><a href="{{route('cat-products', $subcategory->category1)}}">{{ $subcategory->category1 }}</a>
-                                                        <ul class="categorie_sub_menu ">
-                                                                @foreach ($subcategory->childrens as $subsubcategory)
-                                                                        <li><a href="{{route('cat-products', $subsubcategory->category1)}}">{{ $subsubcategory->category1 }}</a></li>
-                                                                @endforeach
-                                                            </ul>
-                                                        </li>
-                                                                    @elseif ($subcategory->parent_id > 0 && ($subcategory->childrens)->isEmpty())
-                                                                            <li><a href="{{route('cat-products', $subcategory->category1)}}">{{ $subcategory->category1 }}</a> </li>
-                                                                        @endif
-                                                                    @endforeach
-                                                    </div>
-                                                                    <div class="nav_menu_image d-flex align-items-center justify-content-end pr-4">
-                                                                        <img class='nav_img' src="{{asset('public/wb/img/categories/'.$category->image)}}" alt="{{ Str::limit($category->category1, 35) }}">
-                                                                    </div>
-                                                                </ul>
-                                                            </li>
-                                                            @elseif ($category->parent_id == 0 && ($category->childrens)->isEmpty())
-                                                                <li><a href="{{route('cat-products', $category->category1)}}"> {{ $category->category1 }}</a></li>
-                                                            @endif
-
-                                                        @endforeach
-                                                @endif
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-8 col-xl-9 col-2">
-                                <!--offcanvas menu area start-->
-                                <div class="offcanvas_menu offcanvas_three">
-                                    <div class="container">
-                                        <div class="row justify-content-end">
-                                            <div class="">
-                                                <div class="canvas_open">
-                                                    <a href="javascript:void(0)"><i class="icon-menu"></i></a>
-                                                </div>
-                                                <div class="offcanvas_menu_wrapper">
-                                                    <div class="canvas_close">
-                                                        <a href="javascript:void(0)"><i class="icon-x"></i></a>
-                                                    </div>
-                                                    <div class="search_container">
-                                                       <form action="#">
-                                                            <div class="search_box">
-                                                                <input placeholder="Search product..." type="text">
-                                                                 <button type="submit"><span class="lnr lnr-magnifier"></span></button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <div id="menu" class="text-left ">
-                                                        <ul class="offcanvas_main_menu">
-
-                                                            <li class="menu-item-has-children">
-                                                                <a href="{{url('/')}}">Home</a>
-                                                            </li>
-                                                            <li class="menu-item-has-children">
-                                                                <a href="{{url('/trending-products')}}">Trending Products</a>
-                                                            </li>
-
-                                                            <li class="menu-item-has-children">
-                                                                <a href="{{url('/special-offers')}}">Special Offers</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="offcanvas_footer">
-                                                        <span><a href="#"><i class="fa fa-envelope-o"></i> info@yourdomain.com</a></span>
-                                                        <div class="header_social text-right">
-                                                        <ul>
-                                                            <li><a href="#"><i class="ion-social-twitter"></i></a></li>
-                                                            <li><a href="#"><i class="ion-social-googleplus-outline"></i></a></li>
-                                                            <li><a href="#"><i class="ion-social-youtube-outline"></i></a></li>
-                                                            <li><a href="#"><i class="ion-social-facebook"></i></a></li>
-                                                            <li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--offcanvas menu area end-->
-                                <!--main menu start-->
-                                <div class="main_menu menu_position">
-                                    <nav>
-                                        <ul class="justify-content-end">
-                                            {{-- <li><a class="{{ Route::is('home-page') ? 'active' : '' }}"  href="{{url('/')}}">Home</a></li> --}}
-                                            <li><a class="{{ Route::is('product-shop') ? 'active' : '' }}"  href="{{url('/')}}">Home</a></li>
-                                            <li><a class=""  href="{{url('/trending-products')}}">Trending Products</a></li>
-                                            <li><a class=""  href="{{url('/special-offers')}}">Special Offers</a></li>
-                                            <li><a class=""  href="https://naturemenu.net" target="_blank">Restaurants</a></li>
-                                            {{-- <li><a class=""  href="{{url('/blog')}}" >Blog</a></li> --}}
-                                            {{-- <li><a class=""  href="#">Support</a></li> --}}
-                                        </ul>
-                                    </nav>
-                                </div>
-                                <!--main menu end-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="topbar-left">
+          <div class="topbar-language">
+            <a class="btn btn-link dropdown-toggle text-white" href="#" role="button" id="languageDropdown"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              ENGLISH
+            </a>
+            <div class="language-popup">
+              <ul>
+                <li><a href="">English</a></li>
+                {{-- <li><a href="">Spanish</a></li>
+                <li><a href="">French</a></li>
+                <li><a href="">Dutch</a></li> --}}
+              </ul>
             </div>
-        </header>
-        <!--header area end-->
+          </div>
+      <div class="topbar-country">
+        <a class="btn btn-link dropdown-toggle text-white" href="#" role="button" id="countryDropdown"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          COUNTRY
+        </a>
+        <div class="country-popup">
+          <ul>
+            <li><a href="">US</a></li>
+            <li><a href="">Canada</a></li>
+            <li><a href="">Europe</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+<div class="topbar-accounts">
+  ACCOUNTS & LISTS
+<i class="fa fa-solid fa-caret-down"></i>
+<div class="accounts-popup">
+  <div class="accounts-popup-top">
+    <button class="button" onclick="window.location='{{ url("w2bcustomer/login") }}'">Sign in</button>
+    <div>
+      New customer?
+      <span>
+        <a href="{{url('/w2bcustomer/register')}}">
+          Start here.
+        </a>
+      </span>
+    </div>
+  </div>
+  <div class="accounts-popup-bottom">
+    <div class="accounts-popup-lists">
+      <h4>Create Account</h4>
+      <a href="{{ url("/supplier/signup") }}">As a supplier</a>
+      <a href="{{ url("/vendor-signup") }}">As a seller</a>
+    </div>
+    <div class="accounts-popup-account">
+      <h4>Your Account</h4>
+      @if (Auth::guard('w2bcustomer')->user())
+        <a href="{{route('user-account-page')}}">My Account</a>
+        <a href="{{route('user-account-page')}}">My Orders</a>
+        <a href="{{route('user-account-page')}}">Track Your Order</a>
+        <a href="{{route('wb-wishlist-page')}}">Wishlist</a>
+        <a href="https://helpdesk.naturecheckout.com" target="_blank">Support</a>
+      @else
+            <a href="#" type="button" data-toggle="modal" data-target="#exampleModal25">My Account</a>
+             <a href="#" type="button" data-toggle="modal" data-target="#exampleModal26">My Orders</a>
+             <a href="#" type="button" data-toggle="modal" data-target="#exampleModal27">Track Your Order</a>
+             <a href="#" type="button" data-toggle="modal" data-target="#exampleModal28">Wishlist</a>
+        @endif
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div class="topbar-right">
+  <div class="topbar-find_store">
+  <i class="fa fa-solid fa-map-marker"></i>
+    FIND A STORE
+  </div>
+
+  <!-- Find a Store Popup -->
+  <div class="find-store-popup">
+    <div class="find-store_store">
+      <div class="store-info">
+        <div class="store-info-logo">
+          <img src="{{ asset('public/wb/img/new_homepage/logo/logo.png') }}" alt="">
+        </div>
+        <p>
+          New Vendor
+        </p>
+        <button class="button">Store Details</button>
+      </div>
+      <div class="store-details">
+        <div class="store-timings">
+          <p class="store-timings-day">Mon-Sun:</p>
+          <p class="store-timings-time">9:00am to 9:00pm</p>
+        </div>
+        <div class="store-contact">
+          <div>
+          <i class="fa fa-solid fa-phone"></i> (926) 9898 98989
+          </div>
+          <div>
+          <i class="fa fa-solid fa-map-marker"></i> 1.35 mi
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="find-store_store">
+      <div class="store-info">
+        <div class="store-info-logo">
+          <img src="public/wb/img/new_homepage/logo/logo.png" alt="">
+        </div>
+        <p>
+          Joseph
+        </p>
+        <button class="button">Store Details</button>
+      </div>
+      <div class="store-details">
+        <div class="store-timings">
+          <p class="store-timings-day">Mon-Sun:</p>
+          <p class="store-timings-time">9:00am to 9:00pm</p>
+        </div>
+        <div class="store-contact">
+          <div>
+          <i class="fa fa-solid fa-phone"></i> (926) 9898 98989
+          </div>
+          <div>
+          <i class="fa fa-solid fa-map-marker"></i> 3.62 mi
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="topbar-social_icons">
+    <a target="_blank" href="https://www.facebook.com/Naturecheckout" class="btn btn-link text-white topbar-social-icon">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a target="_blank" href="https://twitter.com/naturecheckout" class="btn btn-link text-white topbar-social-icon">
+      <i class="fab fa-twitter"></i>
+    </a>
+    <a target="_blank" href="https://www.pinterest.com/Naturecheckout" class="btn btn-link text-white topbar-social-icon">
+      <i class="fab fa-pinterest"></i>
+    </a>
+    <a target="_blank" href="https://tiktok.com/naturecheckout" class="btn btn-link text-white topbar-social-icon">
+        <i class="fab fa-tiktok"></i>
+      </a>
+    <a target="_blank" href="https://www.linkedin.com/company/93313174/" class="btn btn-link text-white topbar-social-icon">
+      <i class="fab fa-linkedin"></i>
+    </a>
+    <a target="_blank" href="https://www.instagram.com/naturecheckout" class="btn btn-link text-white topbar-social-icon">
+      <i class="fab fa-instagram"></i>
+    </a>
+  </div>
+  <div class="topbar-left-links">
+    <div class="d-flex align-items-center justify-content-center gap-1 ps-2">
+      <i class="fas fa-envelope text-white newsletter-icon"></i>
+     <a  href="">NEWSLETTER</a>
+    </div>
+    {{-- <div class="d-flex align-items-center ps-2">
+    <a target="_blank" href="https://helpdesk.naturecheckout.com">Support</a>
+    </div> --}}
+    <div class="d-flex align-items-center ps-2">
+        <a href="#faq-section">FAQS</a>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+<!-- Topbar End  -->
+
+<!-- Header Start  -->
+<div class="header">
+  <div class="mobile-menu-logo">
+    <i class="fa fa-solid fa-bars"></i>
+  </div>
+  <div class="header-logo">
+    <img class="logo" src="public/wb/img/new_homepage/logo/logo.png" alt="">
+  </div>
+
+    <div class="search-container">
+        <form action="{{ route('shop-search') }}" method="get">
+            <div class="searchbar">
+                <input class="searchbar-input typeahead" placeholder="Search for products" type="text" name="query" id="query" value="{{ request()->input('query') }}">
+                <div class="searchbar-category">
+                    <select name="search-category">
+                        <option value="">Select Category</option>
+                        @foreach ($categories2 as $c)
+                            <option value="{{ $c->category1 }}">{{ $c->category1 }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <button type="submit">
+                    <span class="searchbar-icon">
+                        <i class="fa fa-search search-icon"></i>
+                    </span>
+                </button>
+            </div>
+        </form>
+
+
+      {{-- <div class="searched-products">
+        <div class="searched-product">
+          <a href="">
+            <div class="cart-product">
+              <div class="cart-product-image">
+                <img src="public/wb/img/new_homepage/logitech-cam-offer.png" alt="webcam">
+              </div>
+            <div class="cart-product-info">
+              <h4 class="cart-product-title">
+                Google
+                <span class="matched-keyword">Pixel Blue</span>
+              </h4>
+              <h4 class="cart-product-price">$159.00</h4>
+            </div>
+          </div>
+          </a>
+      </div>
+        <div class="searched-product">
+          <div class="cart-product">
+            <div class="cart-product-image">
+              <img src="public/wb/img/new_homepage/logitech-cam-offer.png" alt="webcam">
+            </div>
+          <div class="cart-product-info">
+            <h4 class="cart-product-title">
+              Google
+              <span class="matched-keyword">Pixel Blue</span>
+              Google Pixel Blue Google Pixel Blue</h4>
+            <h4 class="cart-product-price">
+              $159.00</h4>
+          </div>
+        </div>
+      </div>
+      </div> --}}
+    </div>
+
+  {{-- <div class="searchbar">
+    <input type="text" class="searchbar-input" placeholder="Search for products">
+
+    <a href="">
+      <span class="searchbar-icon">
+        <i class="fa fa-search search-icon"></i>
+      </span>
+    </a>
+  </div> --}}
+
+  <div class="header-options">
+    @if (!Auth::guard('w2bcustomer')->user())
+        <div class="register-option">
+        <a href="{{url('/w2bcustomer/login')}}">LOGIN</a>/
+        <a href="{{url('/w2bcustomer/register')}}">REGISTER</a>
+        </div>
+    @else
+        <div class="register-option">
+            <b >{{ Auth::guard('w2bcustomer')->user()->fullName() }}</b>/
+            <b><a  href="" onclick="event.preventDefault(); document.getElementById('logout-form5').submit();">Logout</a></b>
+            <form id="logout-form5" action="{{ route('w2bcustomer.logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
+        </div>
+    @endif
+    @if (Auth::guard('w2bcustomer')->user())
+    <a href="{{route('wb-wishlist-page')}}">
+     <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
+    </a>
+    @else
+    <a href="#" type="button" data-toggle="modal" data-target="#exampleModal28">
+        <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
+    </a>
+    @endif
+
+    {{-- @endif --}}
+    <!-- <a
+    href="{{ route('product-cart') }}"
+    > -->
+      <img
+      class="header-icons cart-open-btn"
+      src="{{asset('public/wb/img/new_homepage/icons/cart.png')}}"
+      alt=""
+      >
+    <!-- </a> -->
+
+    @php $total = 0 @endphp
+    @foreach((array) session('cart') as $sku => $details)
+        @php $total += $details['retail_price'] * $details['quantity'] @endphp
+    @endforeach
+    <div class="header-price">
+      <a href="">
+        ${{number_format((float)$total, 2, '.', '')}}
+      </a>
+    </div>
+  </div>
+
+  <div class="mobile-header-cart-icon">
+  <img class="header-icons" src="public/wb/img/new_homepage/icons/cart.png" alt="">
+  </div>
+</div>
+
+<!-- Cart  -->
+<div class="side-cart-wrapper"></div>
+<div class="side-cart">
+  <div class="cart-header">
+    <h4>Cart</h4>
+    <i class="cart-close-btn fa fa-solid fa-close"></i>
+  </div>
+
+  <div class="cart-products">
+    @php $total = 0 @endphp
+    @foreach((array) session('cart') as $sku => $details)
+        @php $total += $details['retail_price'] * $details['quantity'] @endphp
+    @endforeach
+
+    @if(session('cart'))
+    @foreach(session('cart') as $sku => $details)
+    <div class="cart-product">
+      <div class="cart-product-image">
+        <img src="{{ $details['original_image_url'] }}" alt="{{ Str::limit($details['title'], 35) }}">
+      </div>
+      <div class="cart-product-info">
+        <h4 class="cart-product-title">{{ Str::limit($details['title'], 40) }} X {{ $details['quantity'] }}</h4>
+        <h4 class="cart-product-price">${{number_format((float)$details['retail_price'], 2, '.', '')}}</h4>
+      </div>
+    </div>
+    @endforeach
+    @endif
+
+    {{-- <div class="cart-product">
+      <div class="cart-product-image">
+        <img src="public/wb/img/new_homepage/logitech-cam-offer.png" alt="webcam">
+      </div>
+      <div class="cart-product-info">
+        <h4 class="cart-product-title">Google Pixel Blue Lorem Ipsum  Lorem Ipsum  Lorem Ipsum</h4>
+        <h4 class="cart-product-price">$159.00</h4>
+      </div>
+    </div> --}}
+
+  </div>
+
+  <div class="cart-info">
+    <h5>Sub Total</h5>
+    <h5 class="cart-info-price">${{number_format((float)$total, 2, '.', '')}}</h5>
+  </div>
+  <div class="cart-buttons">
+    <a class="button" href="{{ route('product-cart') }}">
+    <i class="fa fa-solid fa-shopping-cart"></i>
+      View Cart
+    </a>
+    <a class="button" href="{{ route('product-checkout') }}">
+    <i class="fa fa-solid fa-share"></i>
+      Checkout
+    </a>
+  </div>
+</div>
+
+<script>
+  $('.cart-close-btn').click(()=>{
+    $('.side-cart-wrapper').css("display", "none");
+    $('.side-cart').css("right", "-400px");
+    $('.side-cart-wrapper').css("display", "none");
+    $('.side-cart').css("right", "-400px");
+  })
+
+  $('.cart-open-btn').click(()=>{
+    $('.side-cart-wrapper').css("display", "flex");
+    $('.side-cart').css("right", "0");
+  })
+
+  $('.side-cart-wrapper').click(()=>{
+    $('.side-cart-wrapper').css("display", "none");
+    $('.side-cart').css("right", "-400px");
+  })
+</script>
+<!-- Header End  -->
+
+
+<div class="landing">
+        <div class="landing-top">
+            <div class="landing-top-left">
+            <div class="landing-top-browse">
+                <div class="categories-menu-title">
+                <i class="fa fa-solid fa-bars"></i>
+                BROWSE CATEGORIES
+                </div>
+                <i class="fa fa-solid fa-angle-down"></i>
+            </div>
+                <nav>
+                    <a href="{{url('/')}}" class="nav-item">HOME</a>
+                    <!-- <a href="{{url('/trending-products')}}" class="nav-item">TRENDING PRODUCTS</a> -->
+                    <a href="{{url('/special-offers')}}" class="nav-item">SPECIAL PRODUCTS</a>
+                    <a href="{{url('/trending-products')}}" class="nav-item">PRODUCTS</a>
+                </nav>
+            </div>
+
+            {{-- <div class="landing-top-right">
+                <a href="" class="special-offer-link">
+                    SPECIAL OFFER
+                </a>
+                <a href="">
+                    PURCHASE THEME
+                </a>
+            </div> --}}
+        </div>
+
+        <div class="landing-main">
+            <nav class="landing-menu-nav opacity-0">
+                @foreach ($categories as $category)
+                @if ($category->parent_id == 0 && !($category->childrens)->isEmpty())
+                    <div class="landing-menu-item">
+                        <a href="{{ route('cat-products', $category->category1) }}">{{ $category->category1 }}</a>
+                        <i class="fa fa-solid fa-angle-right landing-menu-more_icon"></i>
+
+                        <div class="subcategories-menu">
+                            <div class="category-menus">
+                                @if($category->childrens->count() > 0)
+                                    @foreach($category->childrens as $subcategory)
+                                        <div class="category-menu">
+                                            <a href="{{ route('cat-products', $subcategory->category1) }}">
+                                            <h4>{{ $subcategory->category1 }}</h4>
+                                            </a>
+                                            <!-- Display subcategory links here -->
+                                            @foreach($subcategory->childrens as $subsubcategory)
+                                                <a href="{{ route('cat-products', $subsubcategory->category1) }}">{{ $subsubcategory->category1 }}</a>
+                                            @endforeach
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                @endforeach
+            </nav>
+        </div>
+            </div>
+
+
+
+            @yield('content')
+
+
+        <!-- header area start-->
         <button class="chat_btn">
             <a href="https://helpdesk.naturecheckout.com" target="_blank"><i class="fa fa-comments-o"></i></a>
         </button>
         <button onclick="topFunction()" id="myTopBtn" title="Go to top"><i class="fa fa-chevron-up"></i></button>
-<div class="clearfix"></div>
-	<div class="content-wrapper">
-		@yield('content')
-	</div>
-    @include('front_end.footer1')
+        <div class="clearfix"></div>
+
+            @include('front_end.footer1')
+
+
+
+
+
+</div>
+<!-- Main end -->
+
+
+<script>
+  $('.landing-top-browse').click(()=>{
+    $('.landing-menu-nav').toggleClass('opacity-0');
+  })
+</script>
+<script>
+    document.querySelector('a[href="#faq-section"]').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const targetElement = document.getElementById('faq-section');
+
+        window.scrollTo({
+            top: targetElement.offsetTop,
+            behavior: 'smooth'
+        });
+    });
+</script>
+
     <script>
         let mybutton = document.getElementById("myTopBtn");
         window.onscroll = function() {scrollFunction()};
@@ -671,6 +877,7 @@
     <script src="{{asset('public/wb/js/printThis.js')}}"></script>
     <script src="{{asset('public/wb/js/plugins.js')}}"></script>
     <script src="{{asset('public/wb/js/main.js')}}"></script>
+    <script src="{{asset('public/wb/js/timer.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
 </body>

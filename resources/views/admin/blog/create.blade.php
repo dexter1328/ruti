@@ -13,7 +13,11 @@
                             @csrf
                             <div class="col-lg-12 mb-3">
                                 <label>Title<span class="text-danger">*</span></label>
-                                <input class='form-control' name="title" type='text' placeholder='Enter Account Title'>
+                                <input class='form-control' name="title" type='text' placeholder='Enter Title' required>
+                            </div>
+                            <div class="col-lg-12 mb-3">
+                                <label>Description<span class="text-danger">*</span></label>
+                                <textarea class='form-control' name="description" placeholder='Enter Description' required></textarea>
                             </div>
                             <div class="col-lg-12 mb-3">
                                 <label>Blog Content<span class="text-danger">*</span></label>
@@ -21,7 +25,7 @@
                             </div>
                             <div class="col-lg-12 mb-3">
                                 <label>Image<span class="text-danger">*</span></label>
-                                <input class='form-control' type='file' name="image" placeholder='Enter Account Title'>
+                                <input class='form-control' type='file' name="image" required>
                             </div>
                             <div class="form-group row">
                                 <div class="col-12 i_buttons">

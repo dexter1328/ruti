@@ -21,11 +21,12 @@
         <thead>
           <tr style="border-bottom:2px solid #007bff; width: 100%;">
             <td>
-              <img
-                width=""
-                height="100px"
-                style="margin: auto;"
-                src="https://naturecheckout.com/public/wb/img/logo/logo.png"
+                <img
+                width="50%"
+                height="250px"
+                style="margin-left: 5%"
+                {{-- src="{{ asset('public/wb/img/new_homepage/logo/logo.png') }}" --}}
+                src="https://naturecheckout.com/public/wb/img/new_homepage/logo/logo.png"
                 alt="Nature Checkout"
               />
             </td>

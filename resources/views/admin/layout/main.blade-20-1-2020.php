@@ -162,7 +162,7 @@
 			<div id="sidebar-wrapper" class="bg-theme bg-theme2" data-simplebar="" data-simplebar-auto-hide="true">
 				<div class="brand-logo">
 					<a href="{{url('admin/home')}}">
-						<img src="{{ asset('public/images/logo-icon.png') }}" class="logo-icon" alt="logo icon">
+						<img src="{{ asset('public/wb/img/new_homepage/logo/logo.png') }}" class="logo-icon" alt="logo icon">
 						<span class="logo-mini"><img src="{{ asset('public/images/ez-icon-white.png') }}" class="logo-icon" alt="logo icon"></span>
 					</a>
 				</div>

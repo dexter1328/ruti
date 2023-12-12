@@ -62,12 +62,14 @@ class BlogController extends Controller
         // dd($request->all());
         $validator = Validator::make($request->all(), [
 			'title'  => 'required',
+			'description'=>'required',
 			'content'=>'required',
 			'image' => 'required|mimes:jpeg,png,jpg|max:2048',
 		]);
 
         $data = array(
             'title'=>$request->input('title'),
+            'description' => $request->input('description'),
             'content' => $request->input('content')
         );
 

@@ -185,7 +185,7 @@
                 <h5 class="headings"><img src="{{ asset('public/panel/images/icon8_shipping.png') }}" width="30px" height="30px" alt="Shipping" class="me-2">Manage Blog</h5>
                 <ul class="no_decoration_list">
 
-                    @if(has_permission(Auth::user()->role_id,'blog','read'))
+                    {{-- @if(has_permission(Auth::user()->role_id,'blog','read')) --}}
 
                         <li class="mt-2 underlined {{ (request()->is('admin/blog') ) ? 'active' : '' }}">
                             <a href="{{url('admin/blog')}}" class="waves-effect links">
@@ -199,7 +199,30 @@
                                 Add New Blog
                             </a>
                         </li>
-                        @endif
+                        {{-- @endif --}}
+
+
+                </ul>
+
+
+                <h5 class="headings"><img src="{{ asset('public/panel/images/icon8_shipping.png') }}" width="30px" height="30px" alt="Shipping" class="me-2">Manage Blog</h5>
+                <ul class="no_decoration_list">
+
+                    {{-- @if(has_permission(Auth::user()->role_id,'blog','read')) --}}
+
+                        <li class="mt-2 underlined {{ (request()->is('admin/admin_coupon') ) ? 'active' : '' }}">
+                            <a href="{{url('admin/admin_coupon')}}" class="waves-effect links">
+                                View Coupons
+                            </a>
+                        </li>
+
+
+                        <li class="mt-2 underlined {{ (request()->is('admin/blog/admin_coupon/create') ) ? 'active' : '' }}">
+                            <a href="{{url('admin/admin_coupon/create')}}" class="waves-effect links">
+                                Add Coupon
+                            </a>
+                        </li>
+                        {{-- @endif --}}
 
 
                 </ul>

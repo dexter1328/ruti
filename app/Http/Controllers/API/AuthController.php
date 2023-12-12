@@ -1481,6 +1481,40 @@ class AuthController extends BaseController
 
     }
 
+
+    public function cancelItem(Request $request, $order_id, $sku)
+    {
+        // Validate the incoming JSON request data if needed
+
+        // Find the ordered product by SKU and order ID
+        $orderedProduct = OrderedProduct::where('sku', $sku)
+            ->where('order_id', $order_id)
+            ->first();
+
+        // Check if the ordered product exists
+        if (!$orderedProduct) {
+            return $this->sendError('Ordered product not found', 404);
+        }
+
+        // Check if the order cancellation is within the allowed timeframe (e.g., 2 hours)
+        $orderCreatedAt = new Carbon($orderedProduct->order->created_at);
+        $currentDateTime = now();
+
+        $timeDifferenceInHours = $orderCreatedAt->diffInHours($currentDateTime);
+
+        if ($timeDifferenceInHours > 2) {
+            // Return a response indicating that the status should not be changed
+            return $this->sendError('Order cancellation not allowed after 2 hours', 400);
+        }
+
+        // Update the OrderedProduct status to 'cancelled'
+        $orderedProduct->update(['status' => 'cancelled']);
+
+        // Return a JSON response
+        return $this->sendResponse('message', 'Ordered Product status changed to cancelled');
+    }
+
+
     public function addToWallet(Request $request)
     {
         # code...

@@ -39,6 +39,7 @@ var tabledata = [
                             <tr>
                                 <th>#</th>
                                 <th style="width: 15%">Title</th>
+                                <th style="width: 25%">Description</th>
                                 <th style="width: 25%">Created At</th>
                                 <th>Actions</th>
                             </tr>
@@ -48,6 +49,7 @@ var tabledata = [
                             <tr>
                                 <th>{{ $loop->iteration }}</th>
                                 <th style="width: 30%">{{ $blog->title }}</th>
+                                <th style="width: 30%">{{ $blog->description }}</th>
                                 <th style="width: 25%">{{ $blog->created_at }}</th>
                                 <th>Actions</th>
                             </tr>
@@ -58,6 +60,7 @@ var tabledata = [
                             <tr>
                                 <th>#</th>
                                 <th style="width: 15%">Title</th>
+                                <th style="width: 25%">Description</th>
                                 <th style="width: 25%">Created At</th>
                                 <th>Actions</th>
                             </tr>

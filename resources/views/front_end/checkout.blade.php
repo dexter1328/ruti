@@ -41,6 +41,7 @@
 
                         <h3 class='sections_coupons_header w-100'>Billing and Shipping Details</h3>
                         <div class="row p-3">
+
                             @if (!Auth::guard('w2bcustomer')->user())
                             <div class="col-lg-6 mb-20">
                                 <label>First Name <span>*</span></label>
@@ -114,24 +115,17 @@
                     </form>
                 </div>
                 <div class="col-lg-6 col-md-6 mt-4">
-                    <!-- <div class='mb-4 border main_parent_div'>
-                       <h3 class='sections_coupons_header'>PROMOTION CODE</h3>
-                       <div class='p-3'>
-                           <div class='h6'>Only one code can be applied per order</div>
-                           <div>
-                               <input type="text" class='w-75' placeholder=''>
-                               <button class='ml-0 apply_button'>APPLY</button>
-                            </div>
+                    <div class='mb-4 border main_parent_div'>
+                        <h3 class='sections_coupons_header'>COUPON CODE</h3>
+                        <div class='p-3'>
+                            <div class='h6'>Only one code can be applied per order</div>
                             <div>
-                                <select name="" id="available_offers" class='mt-4'>
-                                    <option value="">Show available offers</option>
-                                    <option value="">abc</option>
-                                    <option value="">xyz</option>
-                                </select>
+                                <input type="text" class='w-75' id="coupon_code_input" placeholder=''>
+                                <button class='ml-0 apply_button' type="button" id="apply_coupon_btn">APPLY</button>
                             </div>
+                            <div id="coupon_message"></div> <!-- Display coupon messages here -->
                         </div>
-                    </div> -->
-                    {{-- <form action="#"> --}}
+                    </div>
 
                         <div class="order_table table-responsive main_parent_div border">
                             <h3 class='sections_coupons_header'>Your order</h3>
@@ -180,26 +174,24 @@
                                         <th>Sales Tax</th>
                                         <td><strong>${{number_format((float)$totalTax, 2, '.', '')}}</strong></td>
                                     </tr>
-                                    <tr class="order_total">
+                                    <tr>
+                                        <th>Discount</th>
+                                        <td><strong id="discount_amount">$0.00</strong></td>
+                                    </tr>
+                                    <tr class="order_total" >
                                         <th>Order Total</th>
-                                        <td><strong>${{number_format((float)($total + $totalShippingPrice + $totalTax), 2, '.', '')}}</strong></td>
+                                        <td><strong id="order_total">${{number_format((float)($total + $totalShippingPrice + $totalTax), 2, '.', '')}}</strong></td>
                                     </tr>
                                 </tfoot>
-                                <input type="hidden" value="{{$total + $totalShippingPrice + $totalTax}}" name="total_price">
+                                <input type="hidden" value="{{$total + $totalShippingPrice + $totalTax}}" name="total_price" id="total_price_input">
                             </table>
 
                         </div>
                         <div class="payment_method">
-
-                            {{-- <div class="order_button d-flex">
-                                <button class='mt-2 w-50' type="submit">Payment from Digital Wallet</button>
-                                <button class='paypal_button ml-2 mt-2 w-50' type="submit"><img class='paypal_btn_image' src="public\images\paypal.png" alt="image"></button>
-                            </div> --}}
                             <div class='order_button'>
                                 <button class='mt-2 w-100' type="submit">Proceed to Payment</button>
                             </div>
                         </div>
-                    {{-- </form>          --}}
                 </div>
             </div>
         </form>
@@ -248,7 +240,7 @@
     });
     });
     </script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script>
     $(document).ready(function() {
         $(".select2").select2({
@@ -256,5 +248,43 @@
         });
     });
 </script>
+<script>
+    document.getElementById('apply_coupon_btn').addEventListener('click', function() {
+        let couponCode = document.getElementById('coupon_code_input').value;
+        let total_price = parseFloat($('input[name="total_price"]').val());
 
+        // Perform AJAX request
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("user-apply-coupon") }}',
+            data: {
+                coupon_code: couponCode,
+                total_price: total_price,
+                _token: '{{ csrf_token() }}',
+            },
+            success: function(response) {
+                if (response.success) {
+                    console.log(response);
+                    // Update the coupon message div with the response
+                    $('#coupon_message').html(response.message);
+
+                    // Update the order total based on the discount
+                    let discount = parseFloat(response.discount);
+                    let newTotal = total_price - discount;
+
+                    // Display the updated order total
+                    $('#order_total').html('$' + newTotal.toFixed(2));
+                    $('#discount_amount').html('$' + discount.toFixed(2));
+                    $('#total_price_input').val(newTotal.toFixed(2));
+                } else {
+                    // Display the error message
+                    $('#coupon_message').html('<div class="alert alert-danger">' + response.message + '</div>');
+                }
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+</script>
 @endsection
