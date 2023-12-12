@@ -230,6 +230,8 @@ Route::group(['middleware' => 'sessionExpired'], function () {
         Route::get('import_export_logs', 'Admin\AdminController@importExportLogs')->name('admins.import_export_logs');
         Route::post('/get-selling-chart', 'Admin\AdminController@getSellingChart')->name('admins.get-selling-chart');
         Route::post('/get-earning-chart', 'Admin\AdminController@getEarningChart')->name('admins.get-earning-chart');
+        Route::get('withdraw_requests', 'Admin\AdminController@withdrawRequest')->name('admin.withdraw_requests');
+        Route::put('withdraw_status/{id}', 'Admin\AdminController@updateStatus')->name('withdraw_request.update-status');
 
         Route::match(['get', 'post'], '/customer_transaction', 'Admin\TranscationController@customerTransaction')->name('customer_transaction.index');
         Route::match(['get', 'post'], '/vendor_transaction', 'Admin\TranscationController@vendorTransaction')->name('vendor_transaction.index');

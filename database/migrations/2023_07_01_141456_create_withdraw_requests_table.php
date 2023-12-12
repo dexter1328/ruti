@@ -15,12 +15,13 @@ class CreateWithdrawRequestsTable extends Migration
     {
         Schema::create('withdraw_requests', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id');
+            $table->bigInteger('vendor_id');
             $table->string('bank_name');
             $table->string('routing_number');
             $table->string('account_title');
             $table->string('account_no');
-            $table->string('amount');
+            $table->decimal('amount', 10, 2);
+            $table->enum('status', ['paid', 'unpaid'])->default('unpaid');
             $table->timestamps();
         });
     }

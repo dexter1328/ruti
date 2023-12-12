@@ -150,6 +150,19 @@
                 </ul>
 
 
+                <h5 class="headings"><img src="{{ asset('public/panel/images/best_seller.png') }}" width="30px" height="30px" alt="Best seller" class="me-2">WITHDRAW REQUESTS</h5>
+                <ul class="no_decoration_list">
+                    {{-- <li class="mt-2 underlined"><a href='#' class='links'>Inventory Management</a></li> --}}
+
+                    <li class="mt-2 underlined">
+                        <a href="{{route('admin.withdraw_requests')}}" class="waves-effect links">
+                            View Requests
+                        </a>
+                    </li>
+
+                </ul>
+
+
 
             </div>
             <div class="second_column col-xl-3 col-lg-12 col-md-12">

@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use App\Http\Controllers\Controller;
-use App\Traits\Permission;
-use App\Products;
-use App\ProductVariants;
-use App\Admin;
-use App\Vendor;
-use App\VendorStore;
-use App\Orders;
-use App\User;
-use App\ProductReview;
-use App\OrderItems;
-use App\AttributeValue;
-use App\Category;
-use Auth;
 use DB;
+use Auth;
+use App\User;
+use App\Admin;
+use App\Orders;
+use App\Vendor;
+use App\Category;
+use App\Products;
+use App\OrderItems;
+use App\VendorStore;
+use App\ProductReview;
+use App\AttributeValue;
+use App\ProductVariants;
+use App\WithdrawRequest;
+use App\Traits\Permission;
+use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
@@ -586,5 +587,23 @@ class AdminController extends Controller
 
 		return view('admin.admin.import_export_logs',compact('login_history'));
 	}
+
+    public function withdrawRequest()
+    {
+        $WithdrawRequests = WithdrawRequest::all();
+        return view('admin.withdraw_request.index', compact('WithdrawRequests'));
+
+    }
+
+    public function updateStatus($id)
+    {
+        $wr = WithdrawRequest::find($id);
+        if ($wr) {
+            $wr->status = $wr->status == 'paid' ? 'unpaid' : 'paid';
+            $wr->save();
+        }
+
+        return redirect()->back()->with('success', 'Withdraw updated successfully');
+    }
 
 }

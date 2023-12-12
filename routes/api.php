@@ -220,6 +220,7 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor-api'], function
     Route::post('withdraw-to-vendor-bank', 'API\VendorApi\ShopController@withdrawToBank');
     Route::post('add-to-vendor-wallet', 'API\VendorApi\ShopController@addToWallet');
     Route::get('/vendor-wallet-amount', 'API\VendorApi\ShopController@walletAmount');
+    Route::get('/vendor-withdraw-history', 'API\VendorApi\ShopController@withdrawHistory');
 
 
 

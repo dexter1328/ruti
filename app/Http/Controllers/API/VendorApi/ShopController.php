@@ -609,7 +609,7 @@ class ShopController extends BaseController
         }
 
         WithdrawRequest::create([
-            'user_id' => $uid,
+            'vendor_id' => $uid,
             'bank_name' => $request->bank_name,
             'routing_number' => $request->routing_number,
             'account_title' => $request->account_title,
@@ -644,6 +644,15 @@ class ShopController extends BaseController
 
         return $this->sendResponse($vendor,'Vendor Wallet amount');
 
+    }
+
+    public function withdrawHistory()
+    {
+        $uid = auth()->user()->id;
+        $vendor = Vendor::find($uid);
+
+        $withdraw_history = WithdrawRequest::where('vendor_id', $uid)->get();
+        return $this->sendResponse($withdraw_history,'Vendor Withdraw history');
     }
 
 

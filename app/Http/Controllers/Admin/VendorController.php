@@ -17,6 +17,7 @@ use App\City;
 use App\VendorRoles;
 use App\VendorPaidModule;
 use App\Sales;
+use App\WithdrawRequest;
 use Auth;
 use DB;
 use Schema;
@@ -782,4 +783,6 @@ class VendorController extends Controller
 		}
 		exit();
 	}
+
+
 }
