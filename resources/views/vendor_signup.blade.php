@@ -161,7 +161,7 @@
                             <div class="form-group row">
                                 <label for="input-12" class="col-sm-2 col-form-label">Address</label>
                                 <div class="col-sm-4">
-                                    <textarea class="form-control" id="input-8" name="address" placeholder="Enter Address">{{old('address')}}</textarea>
+                                    <input class="form-control" id="map-address-input" name="address" placeholder="Select Map Address" value="{{ old('address') }}">
                                 </div>
                                 <label for="input-13" class="col-sm-2 col-form-label">Country</label>
                                 <div class="col-sm-4">
@@ -350,4 +350,20 @@
         }
     }
     </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAa92MP_Iv7GVx4gN7iN7z42cXwAsKFzwY&libraries=places"></script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var mapAddressInput = document.getElementById('map-address-input');
+
+        var autocomplete = new google.maps.places.Autocomplete(mapAddressInput);
+
+        // Uncomment the following lines if you want to restrict suggestions to a specific country (e.g., United States)
+        // var options = {
+        //     componentRestrictions: { country: 'us' }
+        // };
+        // var autocomplete = new google.maps.places.Autocomplete(mapAddressInput, options);
+    });
+</script>
 @endsection
