@@ -38,6 +38,16 @@
           </td>
         </tr>
         <tr>
+            <td style="text-align: center;">
+              <img
+                  style="margin-left: 5%"
+                  {{-- src="{{ asset('public/wb/img/new_homepage/logo/logo.png') }}" --}}
+                  src="https://naturecheckout.com/public/images/coupon-nature.png"
+                  alt="Nature Checkout"
+                />
+            </td>
+          </tr>
+        <tr>
           <td colspan="2">
             <h3>We welcome you to our platform. Use this coupon code to get 10% discount.</h3>
           </td>
