@@ -2,37 +2,40 @@
 
 namespace App\Http\Controllers\API\w2b;
 
-use App\User;
-use Validator;
-use App\W2bOrder;
-use App\BestSeller;
-use App\BestProduct;
+use Config;
 use App\Blog;
 use App\City;
-use Config;
+use App\User;
+use App\Admin;
+use App\State;
+use Validator;
+use App\Rating;
+use App\Vendor;
 use App\Country;
+use App\Products;
+use App\W2bOrder;
+use Stripe\Charge;
+use Stripe\Stripe;
+use App\BestSeller;
+use App\W2bProduct;
+use App\AdminCoupon;
+use App\BestProduct;
 use App\W2bCategory;
+use Stripe\Customer;
 use App\OrderedProduct;
 use App\Jobs\RutiMailJob;
 use App\Mail\WbOrderMail;
 use App\Jobs\OrderMailJob;
+use App\Mail\WelcomeCoupon;
+use App\Jobs\SellerOrderJob;
 use Illuminate\Http\Request;
 use App\Mail\WbRutiOrderMail;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Jobs\SellerOrderJob;
-use App\Products;
-use App\Rating;
-use App\State;
-use App\Vendor;
-use App\W2bProduct;
-use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Validation\Rule;
-use Stripe\Charge;
-use Stripe\Customer;
-use Stripe\Stripe;
+use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 
 class WholesaleProductController extends Controller
 {
@@ -786,7 +789,36 @@ class WholesaleProductController extends Controller
         return response()->json(['blog' => $blog]);
     }
 
+    public function adminCoupon()
+    {
+        $coupons =  AdminCoupon::all();
+        return response()->json(['coupons' => $coupons]);
+    }
 
+    public function showCoupon($id)
+    {
+        $coupon = AdminCoupon::find($id);
+
+        if (!$coupon) {
+            return response()->json(['message' => 'Coupon not found'], 404);
+        }
+
+        return response()->json(['coupon' => $coupon]);
+    }
+
+    public function newsletter(Request $request)
+    {
+        $wel_coupon = AdminCoupon::where('code', 'WELCOMETOFAMILY')->first();
+        // $request->all();
+        $details = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'coupon' => $wel_coupon->code
+        ];
+        Mail::to($request->email)->send(new WelcomeCoupon($details));
+
+        return $this->sendResponse(['message' => 'Successfuly subscribed']);
+    }
 
 
 

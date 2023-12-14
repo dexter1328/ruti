@@ -40,7 +40,7 @@
         <tr>
             <td style="text-align: center;">
               <img
-                  style="margin-left: 5%"
+                  style="margin-left: 5%; width: 50%;"
                   {{-- src="{{ asset('public/wb/img/new_homepage/logo/logo.png') }}" --}}
                   src="https://naturecheckout.com/public/images/coupon-nature.png"
                   alt="Nature Checkout"

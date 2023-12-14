@@ -310,6 +310,11 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor-api'], function
     Route::get('show_blog/{id}', 'API\w2b\WholesaleProductController@showBlog');
 
 
+    Route::get('admin_coupons', 'API\w2b\WholesaleProductController@adminCoupon');
+    Route::get('admin_coupon/{id}', 'API\w2b\WholesaleProductController@showCoupon');
+    Route::post('c_newsletter', 'API\w2b\WholesaleProductController@newsletter');
+
+
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
