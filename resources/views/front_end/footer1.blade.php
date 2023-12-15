@@ -32,39 +32,23 @@
      <div class="footer-posts-section">
        <h2 class="footer-heading">Recent Posts</h2>
        <div class="footer-posts">
-
-         <div class="footer-post">
-           <div class="footer-post-img">
-             <img src="public/wb/img/new_homepage/blogs/blog-3.jpg" alt="aa">
-           </div>
-           <div class="footer-post-info">
-             <h4 class="footer-post-heading">A companion for extra sleeping</h4>
-             <div class="footer-post-time">
-               <span class="date">
-                 July 23, 2023
-               </span>
-               <span class="comment">
-                 1 Comment
-               </span>
-             </div>
-           </div>
-         </div>
-         <div class="footer-post">
-           <div class="footer-post-img">
-             <img src="public/wb/img/new_homepage/blogs/blog-2.jpg" alt="aa">
-           </div>
-           <div class="footer-post-info">
-             <h4 class="footer-post-heading">Outdoor seating collection inspiration</h4>
-             <div class="footer-post-time">
-               <span class="date">
-                 July 23, 2023
-               </span>
-               <span class="comment">
-                 1 Comment
-               </span>
-             </div>
-           </div>
-         </div>
+        @foreach ($latest_blogs2 as $blog)
+        <div class="footer-post">
+            <div class="footer-post-img">
+              <img src="{{ asset('public/images/blog/' . $blog->image) }}" alt="aa">
+            </div>
+            <div class="footer-post-info">
+                <a href="{{ route('nature-blog-detail', ['id' => $blog->id]) }}">
+              <h4 class="footer-post-heading">{{ Str::limit($blog->title, 40) }}</h4>
+            </a>
+              <div class="footer-post-time">
+                <span class="date">
+                  July 23, 2023
+                </span>
+              </div>
+            </div>
+          </div>
+        @endforeach
 
        </div>
      </div>

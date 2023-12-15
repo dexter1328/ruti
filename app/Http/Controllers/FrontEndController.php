@@ -92,6 +92,9 @@ class FrontEndController extends Controller
         }
         View::share('wb_wishlist', $wb_wishlist);
 
+        $latest_blogs2 = Blog::latest()->take(3)->get();
+        View::share('latest_blogs2', $latest_blogs2);
+
         // $find_store =
 
 
@@ -135,12 +138,12 @@ class FrontEndController extends Controller
 
     public function termsCondition()
     {
-        $details2 = [
-            'name' => 'ahmad nabeel',
-            'order_no' => 4552121,
-            'total_price' => 2728
-        ];
-        Mail::to('nabeel.office20@gmail.com')->send(new WbRutiOrderMail($details2));
+        // $details2 = [
+        //     'name' => 'ahmad nabeel',
+        //     'order_no' => 4552121,
+        //     'total_price' => 2728
+        // ];
+        // Mail::to('nabeel.office20@gmail.com')->send(new WbRutiOrderMail($details2));
 
     	return view('front_end.terms-condition');
     }
