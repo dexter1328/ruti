@@ -616,7 +616,7 @@
  <!-- Blogs End -->
 
 
- <!-- THIS SECTION WILL BE MOVED TO A NEW PAGE /FAQs -->
+ <!-- THIS SECTION WILL BE MOVED TO A NEW PAGE 
  <div class="faq-section" id="faq-section">
   <h2>Frequently Asked Questions</h2>
             <div class="faq-item">
@@ -706,7 +706,7 @@
             </div>
         </div>
 
-        <!-- FAQS END -->
+        <!-- /FAQs -->
 
 
 

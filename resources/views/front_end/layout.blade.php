@@ -344,13 +344,13 @@
       <div class="topbar-country">
         <a class="btn btn-link dropdown-toggle text-white" href="#" role="button" id="countryDropdown"
           data-bs-toggle="dropdown" aria-expanded="false">
-          COUNTRY
+          CURRENCY
         </a>
         <div class="country-popup">
           <ul>
-            <li><a href="">US</a></li>
-            <li><a href="">Canada</a></li>
-            <li><a href="">Europe</a></li>
+            <li><a href="">$USD</a></li>
+            <li><a href="">$CAD</a></li>
+            <li><a href="">€EURO</a></li>
           </ul>
         </div>
       </div>
