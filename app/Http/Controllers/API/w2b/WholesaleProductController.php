@@ -90,13 +90,13 @@ class WholesaleProductController extends Controller
         $p1 = W2bCategory::join('w2b_products', 'w2b_categories.category1', '=', 'w2b_products.w2b_category_1')
             ->select('w2b_products.*')
             ->where('w2b_products.w2b_category_1', $cate)
-            ->distinct()
+            ->groupBy('w2b_products.title')
             ->paginate(24);
 
         $p2 = W2bCategory::join('products', 'w2b_categories.category1', '=', 'products.w2b_category_1')
             ->select('products.*')
             ->where('products.w2b_category_1', $cate)
-            ->distinct()
+            ->groupBy('products.title')
             ->paginate(24);
 
         $products = $p2->union($p1);
