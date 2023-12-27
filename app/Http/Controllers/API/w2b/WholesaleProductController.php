@@ -86,26 +86,24 @@ class WholesaleProductController extends Controller
     }
 
     public function get_products($cate)
-	{
-        $p1 = DB::table('w2b_categories')
-        ->join('w2b_products', 'w2b_categories.category1', '=', 'w2b_products.w2b_category_1')
-        ->select('w2b_products.*')
-        ->where('w2b_products.w2b_category_1', $cate)
-        ->distinct()
-        ->get();
+    {
+        $p1 = W2bCategory::join('w2b_products', 'w2b_categories.category1', '=', 'w2b_products.w2b_category_1')
+            ->select('w2b_products.*')
+            ->where('w2b_products.w2b_category_1', $cate)
+            ->distinct()
+            ->paginate(24);
 
-        $p2 = DB::table('w2b_categories')
-        ->join('products', 'w2b_categories.category1', '=', 'products.w2b_category_1')
-        ->select('products.*')
-        ->where('products.w2b_category_1', $cate)
-        ->distinct()
-        ->get();
+        $p2 = W2bCategory::join('products', 'w2b_categories.category1', '=', 'products.w2b_category_1')
+            ->select('products.*')
+            ->where('products.w2b_category_1', $cate)
+            ->distinct()
+            ->paginate(24);
 
-        $products = $p2->merge($p1)->paginate(24);
-        // $dataArray = array_values($products->items());
+        $products = $p2->union($p1);
 
         return $this->sendResponse(['Category_products' => $products], 'Category_product_list.');
     }
+
     public function ProductDetail($sku)
     {
         $p1 = DB::table('w2b_products')

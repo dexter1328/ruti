@@ -1,5 +1,4 @@
 User-agent: *
 Disallow: /admin/
 Disallow: /vendor/
-
 Sitemap: https://naturecheckout.com/sitemap.xml
