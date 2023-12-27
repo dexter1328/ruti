@@ -287,31 +287,37 @@ class AuthController extends BaseController
 
 
 	public function ForgotPassword(Request $request)
-	{
-		$request->validate([
-			'email' => 'required|string|email',
-		]);
-		$user = User::where('email', $request->email)->first();
-		// print_r($user->toArray());exit();
-		if (!$user){
-			return $this->sendError("We can't find any account registered with the email address you have entered.");
-		}
-		$passwordReset = PasswordReset::updateOrCreate(
-			['email' => $user->email],
-			['email' => $user->email,
-			'token' => Str::random(60)
-			]
-		);
-		// print_r($passwordReset);exit();
-		if ($user && $passwordReset)
-			$user->notify(
-				new W2bCustomerResetPassword($passwordReset->token)
-			);
-		// print_r($user->notify(
-		// 		new PasswordResetRequest($passwordReset->token)
-		// 	));die();
-		return $this->sendResponse(null,"An email has been sent to your email address, follow the direction in email to reset your password.");
-	}
+    {
+        $request->validate([
+            'email' => 'required|string|email',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return $this->sendError("We can't find any account registered with the email address you have entered.");
+        }
+
+        $passwordReset = PasswordReset::updateOrCreate(
+            ['email' => $user->email],
+            [
+                'email' => $user->email,
+                'token' => Str::random(60),
+            ]
+        );
+
+        if ($user && $passwordReset) {
+            $resetLink = url('/password/reset/' . $passwordReset->token);
+
+            $user->notify(
+                new W2bCustomerResetPassword($passwordReset->token)
+            );
+
+            return $this->sendResponse(['reset_link' => $resetLink], "An email has been sent to your email address. Follow the directions in the email to reset your password.");
+        }
+
+        return $this->sendError("Something went wrong. Please try again later.");
+    }
 
 	public function editProfile(Request $request, $id)
 	{

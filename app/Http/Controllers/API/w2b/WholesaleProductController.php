@@ -102,6 +102,7 @@ class WholesaleProductController extends Controller
         ->get();
 
         $products = $p2->merge($p1)->paginate(24);
+        // $dataArray = array_values($products->items());
 
         return $this->sendResponse(['Category_products' => $products], 'Category_product_list.');
     }
