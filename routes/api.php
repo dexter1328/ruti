@@ -312,6 +312,7 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor-api'], function
 
     Route::get('admin_coupons', 'API\w2b\WholesaleProductController@adminCoupon');
     Route::get('admin_coupon/{id}', 'API\w2b\WholesaleProductController@showCoupon');
+    Route::post('user-apply-coupon', 'API\w2b\WholesaleProductController@applyCoupon');
     Route::post('c_newsletter', 'API\w2b\WholesaleProductController@newsletter');
 
 
