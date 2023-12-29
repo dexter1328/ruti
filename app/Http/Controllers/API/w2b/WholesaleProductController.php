@@ -560,7 +560,8 @@ class WholesaleProductController extends Controller
     public function postCheckout(Request $request)
     {
         // dd($request->all());
-        $user = $request->user_id;
+        $user = User::where('id', $request->user_id)->first();
+
 
         if (!$user) {
             // Validation rules for guest users
