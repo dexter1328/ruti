@@ -90,13 +90,13 @@ class WholesaleProductController extends Controller
         $p1 = W2bCategory::join('w2b_products', 'w2b_categories.category1', '=', 'w2b_products.w2b_category_1')
             ->select('w2b_products.*')
             ->where('w2b_products.w2b_category_1', $cate)
-            ->distinct()
+            ->groupBy('w2b_products.title')
             ->paginate(24);
 
         $p2 = W2bCategory::join('products', 'w2b_categories.category1', '=', 'products.w2b_category_1')
             ->select('products.*')
             ->where('products.w2b_category_1', $cate)
-            ->distinct()
+            ->groupBy('products.title')
             ->paginate(24);
 
         $products = $p2->union($p1);
@@ -431,9 +431,9 @@ class WholesaleProductController extends Controller
         }
 
         $query = $request->input('query');
-        $p1 = DB::table('w2b_products')->where('title', 'like', "%$query%")->get();
-        $p2 = DB::table('products')->where('title', 'like', "%$query%")->get();
-        $products = $p2->merge($p1)->paginate(24);
+        $p1 = DB::table('w2b_products')->where('title', 'like', "%$query%")->paginate(24);
+        $p2 = DB::table('products')->where('title', 'like', "%$query%")->paginate(24);
+        $products = $p2->union($p1);
 
 
         return $this->sendResponse(['Search_products' => $products], 'Searched Products fetched successfully.');
@@ -492,10 +492,14 @@ class WholesaleProductController extends Controller
 
     public function trendingProducts()
     {
-        $p1 = DB::table('w2b_products')->inRandomOrder()->limit(5000)->get();
-        $p2 = DB::table('products')->where('status', 'enable')->inRandomOrder()->limit(5000)->get();
-        $trending_products = $p2->merge($p1)->paginate(24);
+        $p1 = W2bProduct::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'original_image_url')
+                    ->inRandomOrder()
+                    ->limit(3000);
+        $p2 = Products::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'original_image_url')
+                    ->inRandomOrder()
+                    ->limit(3000);
 
+        $trending_products = $p2->union($p1)->paginate(24);
         // You can customize the response structure as needed
         return $this->sendResponse(['Trending_products' => $trending_products], 'Trending Products fetched successfully.');
     }
@@ -503,9 +507,13 @@ class WholesaleProductController extends Controller
 
     public function specialProducts(Request $request)
     {
-        $p1 = DB::table('w2b_products')->inRandomOrder()->limit(8000)->get();
-        $p2 = DB::table('products')->where('status', 'enable')->inRandomOrder()->limit(8000)->get();
-        $special_products = $p2->merge($p1)->paginate(24);
+        $p1 = W2bProduct::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'original_image_url')
+                    ->inRandomOrder()
+                    ->limit(8000);
+        $p2 = Products::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'original_image_url')
+                    ->inRandomOrder()
+                    ->limit(8000);
+        $special_products = $p2->union($p1)->paginate(24);
 
         // You can customize the response structure as needed
         return $this->sendResponse(['special_products' => $special_products], 'Special Products fetched successfully.');
@@ -515,12 +523,12 @@ class WholesaleProductController extends Controller
     public function SellerProduct($vendor_id)
     {
         // Check if there are products in the w2b_products table for the given vendor_id
-        $w2b_products = DB::table('w2b_products')->where('vendor_id', $vendor_id)->get();
+        $w2b_products = DB::table('w2b_products')->where('vendor_id', $vendor_id)->paginate(24);
 
         // Use a ternary operator to determine which products to retrieve
         $seller_products = $w2b_products->isEmpty()
             ? DB::table('products')->where('vendor_id', $vendor_id)->paginate(24)
-            : $w2b_products->paginate(24);
+            : $w2b_products;
 
         return $this->sendResponse(['seller_products' => $seller_products], 'Seller Products fetched successfully.');
     }
@@ -552,7 +560,8 @@ class WholesaleProductController extends Controller
     public function postCheckout(Request $request)
     {
         // dd($request->all());
-        $user = $request->user_id;
+        $user = User::where('id', $request->user_id)->first();
+
 
         if (!$user) {
             // Validation rules for guest users
@@ -803,6 +812,40 @@ class WholesaleProductController extends Controller
         }
 
         return response()->json(['coupon' => $coupon]);
+    }
+
+    public function applyCoupon(Request $request)
+    {
+        $couponCode = $request->input('coupon_code');
+
+        // Check the admin_coupons table for the validity of the coupon code
+        $coupon = AdminCoupon::where('code', $couponCode)
+            ->where('start_date', '<=', now())
+            ->where('expire_date', '>=', now())
+            ->where('status', 1)
+            ->first();
+
+        if ($coupon) {
+            // Apply your coupon logic here
+            // For example, you can retrieve the discount value from $coupon->discount
+
+            // Assuming $coupon->discount_type is either 'percent' or 'fixed'
+            $discountType = $coupon->discount_type;
+            $discount = ($discountType == 'percent') ? ($coupon->discount / 100) * $request->total_price : $coupon->discount;
+
+            $response = [
+                'success' => true,
+                'message' => 'Coupon applied successfully!',
+                'discount' => $discount,
+            ];
+        } else {
+            $response = [
+                'success' => false,
+                'message' => 'Invalid coupon code or the coupon is not applicable at this time.',
+            ];
+        }
+
+        return response()->json($response);
     }
 
     public function newsletter(Request $request)
