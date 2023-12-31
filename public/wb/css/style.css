@@ -94,6 +94,17 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     text-transform: capitalize;
 }
+.special-design {
+  padding: 20px 0px;
+  
+}
+.special-design .sps {
+
+  border: 2px solid var(--gray-100);
+  padding: 15px 15px;
+  
+}
+
 
 h1 {
   font-size: 48px;
@@ -4953,6 +4964,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     font-size: 13px;
     color: #858585;
 }
+
 
 /*home two css here*/
 .shipping_two {
@@ -11643,6 +11655,13 @@ shop-product-item .shop-content .progress-bar, .arrivals-add .content .progress-
     flex-wrap: wrap;
     margin-bottom: 10px;
 }
+.newyear {
+  background-image: url(../img/new_homepage/newyear.jpg);
+  color: blue;
+  max-width: 531px;
+  padding: 25px 5px;;
+
+}
 .category-type > ul li {
     font-size: 20px;
     color: #231e1e;
@@ -11742,6 +11761,7 @@ shop-product-item .shop-content .progress-bar, .arrivals-add .content .progress-
     border-right: none;
     border-left: 1px solid #e1e1e1;
 }
+
 .quantity-option {
     display: flex;
     align-items: flex-end;
@@ -13204,7 +13224,7 @@ transition: none !important;
   }
 
   .carousel-slide-1{
-    background-image: url(../img/new_homepage/banner-1.png);
+   
     background-size: cover;
 
   }
@@ -14032,6 +14052,8 @@ transition: none !important;
 }
 .blog-desc{
   color: var(--gray-500);
+  font-size: 18px;
+  text-align: left;
 }
 .blog-link{
   color: var(--primary-color);

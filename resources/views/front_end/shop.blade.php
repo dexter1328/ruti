@@ -133,6 +133,8 @@
     </div>
     <div class="offer-card-image">
       <img src="public/wb/img/new_homepage/laptop-offer.png" alt="">
+      <img src="public/wb/img/new_homepage/newyear.jpg" alt="">
+      
     </div>
   </div>
 </div>
