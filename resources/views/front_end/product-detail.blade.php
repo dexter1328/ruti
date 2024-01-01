@@ -15,6 +15,7 @@
 <!--product details start-->
 <div class="product_details mt-70 mb-70">
     <div class="container-fluid">
+    
         <div class="row">
             <div class="col-lg-5 col-md-5">
                 <div class="product-details-tab" style="max-width: 450px; width: 100%;">
@@ -122,13 +123,14 @@
                                 </li>
                             </ul>
                         </div>
-
+                   
                         <div class="quantity-option">
 
                             <div class="">
                                 <a class="btn btn-secondary-orange" href="{{ route('add.to.cart', $product->sku) }}"  >add to cart</a>
                                 <a class="btn btn-primary-blue" href="{{ route('product-shop') }}" >Back To Shopping</a>
                             </div>
+                        
                         </div>
                         @if (Auth::guard('w2bcustomer')->user())
                        <div class="shop-details-Wishlist">

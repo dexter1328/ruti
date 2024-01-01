@@ -66,7 +66,13 @@
     </div>
 </section>
 <!--shipping area end-->
+<div class="special-design">
 
+      <div class="row">
+                 <div class="col-md-12 sps"><a href=""><img class="img-responsive" src="public/wb/img/new_homepage/green-gradiant.png" alt="webcam"></a></div>
+                    
+</div>
+</div>
 <!--product area start-->
 <div class="product_area treew  mb-64">
     <div class="container">
@@ -127,7 +133,69 @@
             {{ $products->links() }}
         </div>
 
+<div class="special-design">
+
+      <div class="row">
+                 <div class="col-md-4 sps"><a href=""><img class="img-responsive" src="public/wb/img/new_homepage/big-promo.jpg" alt="webcam"></a></div>
+                    <div class="col-md-4 sps"><a href=""><img class="img-responsive" src="public/wb/img/new_homepage/winter.jpg" alt="webcam"></a></div>
+                      <div class="col-md-4 sps"><a href=""><img class="img-responsive" src="public/wb/img/new_homepage/greentree.jpg" alt="webcam"></a></div>
+
+
+</div>
+</div>
+
+        <div class="container">
+            <div class="products">
+                @foreach ($products as $p)
+
+                <div class="product">
+                    <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                        <img src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}"
+                            class="product-img product-img-1">
+                    </a>
+                    <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                        <img src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}"
+                            class="product-img product-img-2">
+                    </a>
+                    <div class="product-info">
+                        <h3 class="product-name">
+                            {{ Str::limit($p->title, 40) }}
+                        </h3>
+                        <h4 class="product-category">
+                            {{$p->w2b_category_1}}
+                        </h4>
+                        <p class="product-price">
+                            ${{number_format((float)$p->retail_price, 2, '.', '')}}
+                        </p>
+                    </div>
+                    <div class="product-actions">
+                        @if(Auth::guard('w2bcustomer')->user())
+                        <a href="{{route('wb-wishlist', $p->sku)}}" title="Add to Wishlist">
+                            <i class="fa fa-solid fa-heart"></i>
+                        </a>
+                        @endif
+                        <a class="button product-button" href="{{ route('add.to.cart1', $p->sku) }}">ADD TO CART</a>
+                    </div>
+
+                    <!-- triggers on hover -->
+
+
+                </div>
+                @endforeach
+
+
+            </div>
+            {{ $products->links() }}
+</div>
+<div class="special-design">
+
+      <div class="row">
+                 <div class="col-md-12 sps"><a href=""><img class="img-responsive" src="public/wb/img/new_homepage/green-gradiant.png" alt="webcam"></a></div>
+                    
+</div>
+</div>
     </div>
+   
 </div>
 </div>
 <!--product area end-->
@@ -146,3 +214,4 @@
 
 
 @section('title', 'Special Offers')
+
