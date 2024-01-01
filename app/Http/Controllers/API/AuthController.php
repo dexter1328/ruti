@@ -2,59 +2,59 @@
 
 namespace App\Http\Controllers\API;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-use Illuminate\Foundation\Auth\ResetsPasswords;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
-use App\Notifications\PasswordResetRequest;
-use App\Notifications\PasswordResetSuccess;
-use App\Traits\AppNotification;
-use App\Http\Controllers\API\BaseController as BaseController;
-use App\UserDevice;
-use App\User;
-use App\Vendor;
-use App\PasswordReset;
-use App\ProductVariants;
-use App\AttributeValue;
-use App\ProductImages;
-use App\Products;
-use App\CustomerInvite;
-use App\RewardPoint;
-use App\CustomerWallet;
-use App\CustomerRewardPoint;
-use App\CustomerEarnRewardPoint;
-use App\Membership;
-use App\MembershipItem;
-use App\MembershipCoupon;
-use App\UserSubscription;
-use App\SubscriptionHistory;
-use App\ErrandRunner;
-use App\GiftReceipt;
-use App\Mail\CustomerSignup;
-use App\Mail\CustomerSubscriptionMail;
-use App\Helpers\LogActivity as Helper;
-use App\Notifications\W2bCustomerResetPassword;
-use App\OrderedProduct;
-use App\ReturnItem;
-use App\WbWishlist;
 use DB;
 use Hash;
-Use Redirect;
-use Validator;
-use Stripe\Stripe;
-use Carbon\Carbon;
+use App\User;
 use Exception;
-use Laravel\Socialite\Facades\Socialite;
+use App\Vendor;
+use App\Products;
+use Carbon\Carbon;
 use Stripe\Charge;
+use Stripe\Stripe;
+use App\Membership;
+use App\ReturnItem;
+use App\UserDevice;
+use App\WbWishlist;
+use App\GiftReceipt;
+use App\RewardPoint;
 use Stripe\Customer;
-use Stripe\Exception\ApiConnectionException;
-use Stripe\Exception\ApiErrorException;
-use Stripe\Exception\AuthenticationException;
+use App\ErrandRunner;
+use App\PasswordReset;
+use App\ProductImages;
+use App\AttributeValue;
+use App\CustomerInvite;
+use App\CustomerWallet;
+use App\MembershipItem;
+use App\OrderedProduct;
+use App\ProductVariants;
+use App\MembershipCoupon;
+use App\UserSubscription;
+use Illuminate\Support\Str;
+use App\CustomerRewardPoint;
+use App\Mail\CustomerSignup;
+use App\SubscriptionHistory;
+use Illuminate\Http\Request;
+use App\Traits\AppNotification;
+use App\CustomerEarnRewardPoint;
 use Stripe\Exception\CardException;
-use Stripe\Exception\InvalidRequestException;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Helpers\LogActivity as Helper;
+use App\Mail\CustomerSubscriptionMail;
+Use Redirect;
+use Stripe\Exception\ApiErrorException;
+use Laravel\Socialite\Facades\Socialite;
 use Stripe\Exception\RateLimitException;
+use Illuminate\Support\Facades\Validator;
+use App\Notifications\PasswordResetRequest;
+use App\Notifications\PasswordResetSuccess;
+use Stripe\Exception\ApiConnectionException;
+use Stripe\Exception\AuthenticationException;
+use Stripe\Exception\InvalidRequestException;
+use App\Notifications\W2bCustomerResetPassword;
+use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use App\Http\Controllers\API\BaseController as BaseController;
 
 class AuthController extends BaseController
 {
@@ -420,39 +420,55 @@ class AuthController extends BaseController
 	// {
 	// 	return view('auth.passwords.reset',compact('token'));
 	// }
-    public function showResetForm(Request $request, $token = null)
-    {
-        return view('w2b_customers.auth.passwords.reset')->with(
-            ['token' => $token, 'email' => $request->email]
-        );
-    }
+    // public function showResetForm(Request $request, $token = null)
+    // {
+    //     return view('w2b_customers.auth.passwords.reset')->with(
+    //         ['token' => $token, 'email' => $request->email]
+    //     );
+    // }
 
 	public function reset(Request $request)
-	{
-		$errors = $request->validate([
-		   	'email'  => 'exists:password_resets,email',
-			'password' => 'required|confirmed',
-			'password_confirmation' => 'required'
-		]);
+    {
+        // Validate the request
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|exists:password_resets,email',
+            'token' => 'required',
+            'password' => 'required|confirmed',
+            'password_confirmation' => 'required',
+        ]);
 
-		$token = $request->token;
-		$users =PasswordReset::where('email',$request->email)
-				->where('token',$request->token)
-				->first();
+        // Check for validation errors
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors(),
+            ], 422);
+        }
 
-		if(!empty($users)){
+        $token = $request->token;
+        $passwordReset = PasswordReset::where('email', $request->email)
+            ->where('token', $request->token)
+            ->first();
 
-			User::where('email',$request->email)
-				->update(array('password'=>bcrypt($request->password)));
+        if (!empty($passwordReset)) {
+            // Update user password
+            User::where('email', $request->email)
+                ->update(['password' => bcrypt($request->password)]);
 
-			PasswordReset::where('email',$request->email)
-				->where('token',$request->token)->delete();
+            // Delete the password reset token
+            $passwordReset->delete();
 
-			return view('auth.passwords.thankyou');
-		}else{
-			return Redirect::back()->withErrors(['token does not match', 'token does not match']);
-		}
-	}
+            return response()->json([
+                'success' => true,
+                'message' => 'Password reset successfully.',
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid token or email.',
+            ], 400);
+        }
+    }
 
 	public function saveUserDevice(Request $request)
 	{

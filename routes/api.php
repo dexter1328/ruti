@@ -26,7 +26,7 @@ Route::middleware('auth:api')->group( function () {
 	Route::post('login', 'API\AuthController@login')->name('customer-login');
 	Route::post('social_login', 'API\AuthController@socialLogin')->name('customer-social-login');
 	Route::post('forgot_password','API\AuthController@ForgotPassword')->name('customer-forgot-password');
-	Route::post('/password/reset/{token}','API\AuthController@showResetForm')->name('customer-rs-password');
+	Route::post('reset_password','API\AuthController@reset');
 	Route::post('save_user_device','API\AuthController@saveUserDevice')->name('customer-save-user-device');
 
 
@@ -182,7 +182,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('vendor/register', 'API\VendorApi\AuthController@register');
 	Route::post('vendor/login', 'API\VendorApi\AuthController@login');
 	Route::post('vendor/forgot_password','API\VendorApi\AuthController@ForgotPassword');
-	Route::post('vendor/password/reset/{token}','API\VendorApi\AuthController@showResetForm');
+	// Route::post('vendor/password/reset/{token}','API\VendorApi\AuthController@showResetForm');
 	Route::post('vendor/save_user_device','API\VendorApi\AuthController@saveUserDevice');
 
 Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor-api'], function() {
@@ -311,7 +311,7 @@ Route::group(['prefix' => 'vendor', 'middleware' => 'auth:vendor-api'], function
 
 
     Route::get('admin_coupons', 'API\w2b\WholesaleProductController@adminCoupon');
-    Route::get('admin_coupon/{id}', 'API\w2b\WholesaleProductController@showCoupon');
+    Route::get('admin_coupon/{code}', 'API\w2b\WholesaleProductController@showCoupon');
     Route::post('user-apply-coupon', 'API\w2b\WholesaleProductController@applyCoupon');
     Route::post('c_newsletter', 'API\w2b\WholesaleProductController@newsletter');
 

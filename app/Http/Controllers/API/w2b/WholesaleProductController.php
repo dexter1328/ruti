@@ -802,9 +802,9 @@ class WholesaleProductController extends Controller
         return response()->json(['coupons' => $coupons]);
     }
 
-    public function showCoupon($id)
+    public function showCoupon($code)
     {
-        $coupon = AdminCoupon::find($id);
+        $coupon = AdminCoupon::where('code', $code)->first();
 
         if (!$coupon) {
             return response()->json(['message' => 'Coupon not found'], 404);
