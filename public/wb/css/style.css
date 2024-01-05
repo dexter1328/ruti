@@ -12787,6 +12787,17 @@ transition: none !important;
     display: none;
   }
 
+  .country-popup li a {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  
+  .language-flag-icon{
+    width: 28px;
+    height: 28px;
+  }
+
   .topbar-country:hover .country-popup{
     display: block;
   }
@@ -13100,6 +13111,21 @@ transition: none !important;
     cursor: pointer;
   }
 
+  .header-cart, .header-wishlist{
+    position: relative;
+  }
+
+  .header-cart-count, .header-wishlist-count{
+    position: absolute;
+    background-color: #d50000;
+    border-radius: 50px;
+    padding: 0px 8px;
+    color: white;
+    font-size: 14px;
+    top: -14px;
+    left: 6px;
+  }
+
   .cart-close-btn{
     cursor: pointer;
   }
@@ -13224,9 +13250,8 @@ transition: none !important;
   }
 
   .carousel-slide-1{
-   
+    background-image: url(../img/new_homepage/banner-1.png);
     background-size: cover;
-
   }
 
   .carousel-slide-2{

@@ -348,9 +348,9 @@
         </a>
         <div class="country-popup">
           <ul>
-            <li><a href="">$USD</a></li>
-            <li><a href="">$CAD</a></li>
-            <li><a href="">€EURO</a></li>
+            <li><a href=""><img class="language-flag-icon" src="{{ asset('public/wb/img/new_homepage/icons/united-states.png') }}" alt=""> USD</a></li>
+            <li><a href=""><img class="language-flag-icon" src="{{ asset('public/wb/img/new_homepage/icons/canada.png') }}" alt=""> CAD</a></li>
+            <li><a href=""><img class="language-flag-icon" src="{{ asset('public/wb/img/new_homepage/icons/france.png') }}" alt="">EURO</a></li>
           </ul>
         </div>
       </div>
@@ -588,11 +588,17 @@
     @endif
     @if (Auth::guard('w2bcustomer')->user())
     <a href="{{route('wb-wishlist-page')}}">
-     <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
+      <div class="header-wishlist">
+        <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
+        <div class="header-wishlist-count">4</div>
+      </div>
     </a>
     @else
     <a href="#" type="button" data-toggle="modal" data-target="#exampleModal28">
+      <div class="header-wishlist">
         <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
+        <div class="header-wishlist-count">4</div>
+      </div>
     </a>
     @endif
 
@@ -600,11 +606,14 @@
     <!-- <a
     href="{{ route('product-cart') }}"
     > -->
+    <div class="header-cart">
       <img
       class="header-icons cart-open-btn"
       src="{{asset('public/wb/img/new_homepage/icons/cart.png')}}"
       alt=""
       >
+      <div class="header-cart-count">4</div>
+    </div>
     <!-- </a> -->
 
     @php $total = 0 @endphp
