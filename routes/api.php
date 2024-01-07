@@ -31,6 +31,7 @@ Route::middleware('auth:api')->group( function () {
 
 
     // User Social register and login
+
     Route::post('/auth/fb', 'API\AuthController@authFacebook')->name('auth.facebook');
     Route::post('/auth/google', 'API\AuthController@authGoogle')->name('auth.google');
     Route::post('/auth/fb/callback', 'API\AuthController@fbCallback')->name('facebook.callback');

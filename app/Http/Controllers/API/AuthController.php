@@ -214,77 +214,46 @@ class AuthController extends BaseController
 
     public function authFacebook()
     {
-        // Return the Facebook login URL as a JSON response
-        $facebookRedirectUrl = Socialite::driver('facebook')->stateless()->redirect()->getTargetUrl();
-        return response()->json(['facebook_login_url' => $facebookRedirectUrl]);
+        return Socialite::driver('facebook')->stateless()->redirect();
     }
 
     public function fbCallback(Request $request)
     {
-        try {
-            $user = Socialite::driver('facebook')->stateless()->user();
-
-            $finduser = User::where('social_id', $user->id)->first();
-
-            if ($finduser) {
-                Auth::guard('w2bcustomer')->login($finduser);
-
-                return response()->json(['message' => 'Logged in successfully']);
-            } else {
-                $newUser = User::updateOrCreate(['email' => $user->email], [
-                    'first_name' => $user->name,
-                    'social_id' => $user->id,
-                    'social_type' => 'facebook',
-                    'password' => bcrypt('123456dummy')
-                ]);
-
-                Auth::guard('w2bcustomer')->login($newUser);
-
-                return response()->json(['message' => 'Registered and logged in successfully']);
-            }
-        } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
+        $user = Socialite::driver('facebook')->stateless()->user();
+        return $this->handleSocialLogin($user);
     }
-
-
 
     public function authGoogle()
     {
-        // Return the google login URL as a JSON response
-        $googleRedirectUrl = Socialite::driver('google')->stateless()->redirect()->getTargetUrl();
-        return response()->json(['google_login_url' => $googleRedirectUrl]);
+        return Socialite::driver('google')->stateless()->redirect();
     }
 
     public function googleCallback(Request $request)
     {
-        try {
-            $user = Socialite::driver('google')->stateless()->user();
-
-            $finduser = User::where('social_id', $user->id)->first();
-
-            if ($finduser) {
-                Auth::guard('w2bcustomer')->login($finduser);
-
-                return response()->json(['message' => 'Logged in successfully']);
-            } else {
-                $newUser = User::updateOrCreate(['email' => $user->email],[
-                    'first_name' => $user->name,
-                    // 'image' => $user1['picture'],
-                    'social_id'=> $user->id,
-                    'social_type'=> 'google',
-                    'password' => encrypt('123456dummy')
-                ]);
-
-                Auth::guard('w2bcustomer')->login($newUser);
-
-                return response()->json(['message' => 'Registered and logged in successfully']);
-            }
-        } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
+        $user = Socialite::driver('google')->stateless()->user();
+        return $this->handleSocialLogin($user);
     }
 
+    protected function handleSocialLogin($socialUser)
+    {
+        $user = User::where('email', $socialUser->email)->first();
+
+        if (!$user) {
+            // If the user does not exist, create a new user
+            $user = User::create([
+                'name' => $socialUser->name,
+                'email' => $socialUser->email,
+                // Add other user details as needed
+            ]);
+        }
+
+        Auth::login($user, true);
+
+        // Generate and return an API token
+        $token = $user->createToken('YourTokenName')->accessToken;
+
+        return response()->json(['token' => $token, 'user' => $user]);
+    }
 
 	public function ForgotPassword(Request $request)
     {

@@ -51,14 +51,14 @@ return [
     'google' => [
         'client_id'     => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect'      => 'https://www.naturecheckout.com/w2bcustomer/auth/google/callback'
+        'redirect'      => env('GOOGLE_REDIRECT_URI'),
         // 'redirect'      => 'http://localhost/work/ruti/w2bcustomer/auth/google/callback'
     ],
 
     'facebook' => [
         'client_id'     => env('FB_CLIENT_ID'),
         'client_secret' => env('FB_CLIENT_SECRET'),
-        'redirect'      => 'https://www.naturecheckout.com/w2bcustomer/auth/fb/callback'
+        'redirect'      => env('FB_REDIRECT_URI'),
         // 'redirect'      => 'http://localhost/work/ruti/w2bcustomer/auth/fb/callback'
     ],
 
