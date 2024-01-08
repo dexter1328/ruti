@@ -119,7 +119,6 @@ class LoginController extends Controller
 
             $user = Socialite::driver('google')->user();
             $user1 = $user->user;
-            dd($user);
             //  dd($user1['picture']);
             // dd('11223');
 

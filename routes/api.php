@@ -31,12 +31,14 @@ Route::middleware('auth:api')->group( function () {
 
 
     // User Social register and login
+    Route::group(['prefix' => 'w2bcustomer'], function () {
 
     Route::post('/auth/fb', 'API\AuthController@authFacebook')->name('auth.facebook');
     Route::post('/auth/google', 'API\AuthController@authGoogle')->name('auth.google');
     Route::post('/auth/fb/callback', 'API\AuthController@fbCallback')->name('facebook.callback');
     Route::post('/auth/google/callback', 'API\AuthController@googleCallback')->name('google.callback');
 
+    });
 
 	Route::post('category_list','API\ShopController@categoryList');
 	Route::post('dashboard','API\ShopController@dashboard');

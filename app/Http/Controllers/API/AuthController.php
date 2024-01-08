@@ -220,7 +220,7 @@ class AuthController extends BaseController
     public function fbCallback(Request $request)
     {
         $user = Socialite::driver('facebook')->stateless()->user();
-        return $this->handleSocialLogin($user);
+        return $this->handleFacebookLogin($user);
     }
 
     public function authGoogle()
@@ -231,19 +231,42 @@ class AuthController extends BaseController
     public function googleCallback(Request $request)
     {
         $user = Socialite::driver('google')->stateless()->user();
-        return $this->handleSocialLogin($user);
+        return $this->handleGoogleLogin($user);
     }
 
-    protected function handleSocialLogin($socialUser)
+    protected function handleGoogleLogin($socialUser)
     {
         $user = User::where('email', $socialUser->email)->first();
 
         if (!$user) {
             // If the user does not exist, create a new user
             $user = User::create([
-                'name' => $socialUser->name,
-                'email' => $socialUser->email,
-                // Add other user details as needed
+                'first_name' => $user->name,
+                'social_id'=> $socialUser->id,
+                'social_type'=> 'google',
+                'password' => encrypt('123456dummy')
+            ]);
+        }
+
+        Auth::login($user, true);
+
+        // Generate and return an API token
+        $token = $user->createToken('YourTokenName')->accessToken;
+
+        return response()->json(['token' => $token, 'user' => $user]);
+    }
+
+    protected function handleFacebookLogin($socialUser)
+    {
+        $user = User::where('email', $socialUser->email)->first();
+
+        if (!$user) {
+            // If the user does not exist, create a new user
+            $user = User::create([
+                'first_name' => $user->name,
+                'social_id'=> $socialUser->id,
+                'social_type'=> 'facebook',
+                'password' => encrypt('123456dummy')
             ]);
         }
 
