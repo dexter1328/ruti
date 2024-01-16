@@ -149,9 +149,11 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <link href="{{ asset('public/wb/css/style.css')}}" rel="stylesheet">
 {{-- <link href="{{ asset('public/wb/css/style2.css')}}" rel="stylesheet"> --}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
 
-
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0"/>
 
 
 <!-- Theme Style -->
@@ -723,7 +725,7 @@
                     <a href="{{url('/')}}" class="nav-item">HOME</a>
                     <!-- <a href="{{url('/trending-products')}}" class="nav-item">TRENDING PRODUCTS</a> -->
                     <a href="{{url('/special-offers')}}" class="nav-item">SPECIAL PRODUCTS</a>
-                    <a href="{{url('/trending-products')}}" class="nav-item">PRODUCTS</a>
+                    <!-- <a href="{{url('/trending-products')}}" class="nav-item">PRODUCTS</a> -->
                 </nav>
             </div>
 
@@ -769,7 +771,29 @@
         </div>
             </div>
 
-
+            <!-- Someone bought a product popup -->
+              <div class="bought-product-popup">
+                <i class="fa fa-solid fa-close bought-product-close-icon"></i>
+                <div class="bought-product-image">
+                  <img src="{{asset('public/wb/img/new_homepage/dummy-prods/card10.jpg')}}" alt="">
+                </div>
+                <div class="bought-product-info">
+                  <div class="bought-product-text">
+                    Someone bought <a>Two Row Purple Crystal Size 18 Aqua Dog Collar</a>
+                  </div>
+                  <div class="bought-product-time">
+                  <div class="slider-product-review">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+                    27 Minutes Ago
+                  </div>
+                </div>
+              </div>
 
             @yield('content')
 

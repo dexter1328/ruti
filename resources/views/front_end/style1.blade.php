@@ -9,13 +9,43 @@
                 display: inline-block;
             }
             div#social-links ul li a {
-                padding: 5px;
-                border: 1px solid #ccc;
-                margin: 1px;
-                font-size: 30px;
-                color: #222;
-                background-color: #ccc;
-            }
+							margin: 1px;
+							font-size: 30px;
+							color: #222;
+							margin-right: 4px;
+						}
+						
+						a .fa-facebook-square{
+								padding: 5px;
+								color: #316FF6;
+								border-radius: 2px;
+							}
+							a .fa-twitter{
+								color: #1877F2;
+								padding: 5px;
+								border-radius: 2px;
+							}
+							a .fa-linkedin{
+								color: #0077b5;
+								padding: 5px;
+								border-radius: 2px;
+							}
+							a .fa-telegram{
+								color: #0088cc;
+								padding: 5px;
+								border-radius: 2px;
+							}
+							a .fa-whatsapp{
+								padding: 5px;
+								color: #25D366;
+								border-radius: 2px;
+							}
+							a .fa-reddit{
+								padding: 5px;
+								color: #FF5700;
+								border-radius: 2px;
+						}
+	
 
             
 /** rating **/
