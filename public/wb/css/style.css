@@ -13560,7 +13560,7 @@ transition: none !important;
     width: 80rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.8rem 2rem;
+    gap: 1rem 2rem;
     padding: 1rem 0;
   }
 
@@ -14012,6 +14012,14 @@ transition: none !important;
     font-weight: 600;
   }
 
+  .products-2 .slider-product-image{
+    width: 285px;
+    height: 300px;
+  }
+
+  .products-2 .slider-product-info{
+    font-size: 13px;
+  }
 
   .featured-products{
     display: flex;
@@ -14695,11 +14703,11 @@ a.footer-address {
   font-size: 14px;
 }
 
-.bought-product-close-icon{
+.bought-product-close-icon, .thank-you-close-icon{
   position: absolute;
   top: 6px;
   right: 6px;
-
+  cursor: pointer;
 }
 
 /* Products slider start */
@@ -14830,6 +14838,18 @@ a.footer-address {
 
 .slider-product-image{
   position: relative;
+  width: 375px;
+  height: 375px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-product-image image{
+  height: 80%;
+  width: 80%;
+  object-fit: contain;
 }
 
 .slider-product-info{
@@ -14921,6 +14941,109 @@ a.footer-address {
   padding: 2px 4px;
 }
 
+
+
+/* Styling thank you popup */
+.thankyou-popup-wrapper{
+  width: 100vw!important;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.thankyou-popup{
+  position: relative;
+  background-color: white;
+  width: 60rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.thank-you-close-icon{
+  color: white;
+  top: 12px;
+  right: 12px;
+}
+
+.thankyou-popup-top{
+  background-color: #022243;
+  padding: 4rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.thankyou-popup-top h2{
+  text-transform:none;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+.thankyou-popup-icons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+}
+
+.thankyou-popup-icon{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  gap: 1rem;
+  color: #d1d8ff;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.thankyou-popup-icon i{
+  font-size: 2rem;
+}
+
+.thankyou-popup-bottom{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 3rem 0 1rem 0;
+  gap: 2rem;
+}
+
+.thankyou-popup-bottom-text{
+  margin-top: auto;
+  text-decoration: italic;
+  opacity: 0.8;
+}
+
+.thankyou-popup-input input{
+  width: 19rem;
+  height: 2.8rem;
+  padding-left:0.5rem ;
+}
+
+.thankyou-popup-input button{
+  height: 2.8rem;
+  outline: none;
+  position: relative;
+  background-color: #003366;
+  color: white;
+  padding: 0 1rem;
+  font-size: 16px;
+  right: 5px;
+}
 
 
 /* Styles for mobile and tablets */
