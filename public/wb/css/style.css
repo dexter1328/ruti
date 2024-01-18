@@ -14785,6 +14785,7 @@ a.footer-address {
   height: 24px;
   width: 100%;
   display: flex;
+  visibility: hidden;
   align-items: center;
 }
 
