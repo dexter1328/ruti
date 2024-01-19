@@ -9,331 +9,858 @@
 
 <div class="landing-slider">
 
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-      <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-      </ol>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <div class="carousel-slide carousel-slide-1">
-            <div class="slide-info">
-              <h2 class="slide-top_heading">
-                <!-- Top Smartwatches -->
-              </h2>
-              <h1 class="slide-main_heading">
-                <!-- Wonderful Performance -->
-              </h1>
-              <p class="slide-description">
-                  <!-- {{ Str::limit($product20->title, 100) }} -->
-              </p>
-              <!-- <button class="button button_buy-now" onclick="window.location='{{ route('product-detail',['slug' => $product20->slug, 'sku' => $product20->sku]) }}'" >
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="carousel-slide carousel-slide-1">
+          <div class="slide-info">
+            <h2 class="slide-top_heading">
+              <!-- Top Smartwatches -->
+            </h2>
+            <h1 class="slide-main_heading">
+              <!-- Wonderful Performance -->
+            </h1>
+            <p class="slide-description">
+              <!-- {{ Str::limit($product20->title, 100) }} -->
+            </p>
+            <!-- <button class="button button_buy-now" onclick="window.location='{{ route('product-detail',['slug' => $product20->slug, 'sku' => $product20->sku]) }}'" >
                 <span class="button-price">{{number_format((float)$product20->retail_price, 2, '.', '')}}$</span>
                 <span class="button-text">BUY NOW</span>
               </button> -->
-            </div>
           </div>
         </div>
-        <div class="carousel-item">
-          <div class="carousel-slide ">
-            <div class="carousel-slide-filter"></div>
-            <div class="carousel-slide carousel-slide-2">
-              <div class="slide-info">
-                <h2 class="slide-top_heading">
-                  Top Gadgets
-                </h2>
-                <h1 class="slide-main_heading">
-                  Most Reliable
-                </h1>
-                <p class="slide-description">
-                    {{ Str::limit($product21->title, 100) }}
-                </p>
-                <button class="button button_buy-now" onclick="window.location='{{ route('product-detail',['slug' => $product21->slug, 'sku' => $product21->sku]) }}'" >
-                    <span class="button-price">{{number_format((float)$product21->retail_price, 2, '.', '')}}$</span>
-                    <span class="button-text">BUY NOW</span>
-                  </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="carousel-slide ">
+      </div>
+      <div class="carousel-item">
+        <div class="carousel-slide ">
           <div class="carousel-slide-filter"></div>
-            <div class="carousel-slide carousel-slide-3">
-              <div class="slide-info">
-                <h2 class="slide-top_heading">
-                  Top Home Accessories
-                </h2>
-                <h1 class="slide-main_heading">
-                  Most Beautiful
-                </h1>
-                <p class="slide-description">
-                    {{ Str::limit($product22->title, 100) }}
-                </p>
-                <button class="button button_buy-now" onclick="window.location='{{ route('product-detail',['slug' => $product22->slug, 'sku' => $product22->sku]) }}'" >
-                    <span class="button-price">{{number_format((float)$product22->retail_price, 2, '.', '')}}$</span>
-                    <span class="button-text">BUY NOW</span>
-                  </button>
-              </div>
+          <div class="carousel-slide carousel-slide-2">
+            <div class="slide-info">
+              <h2 class="slide-top_heading">
+                Top Gadgets
+              </h2>
+              <h1 class="slide-main_heading">
+                Most Reliable
+              </h1>
+              <p class="slide-description">
+                {{ Str::limit($product21->title, 100) }}
+              </p>
+              <button class="button button_buy-now"
+                onclick="window.location='{{ route('product-detail',['slug' => $product21->slug, 'sku' => $product21->sku]) }}'">
+                <span class="button-price">{{number_format((float)$product21->retail_price, 2, '.', '')}}$</span>
+                <span class="button-text">BUY NOW</span>
+              </button>
             </div>
           </div>
         </div>
       </div>
-      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
+      <div class="carousel-item">
+        <div class="carousel-slide ">
+          <div class="carousel-slide-filter"></div>
+          <div class="carousel-slide carousel-slide-3">
+            <div class="slide-info">
+              <h2 class="slide-top_heading">
+                Top Home Accessories
+              </h2>
+              <h1 class="slide-main_heading">
+                Most Beautiful
+              </h1>
+              <p class="slide-description">
+                {{ Str::limit($product22->title, 100) }}
+              </p>
+              <button class="button button_buy-now"
+                onclick="window.location='{{ route('product-detail',['slug' => $product22->slug, 'sku' => $product22->sku]) }}'">
+                <span class="button-price">{{number_format((float)$product22->retail_price, 2, '.', '')}}$</span>
+                <span class="button-text">BUY NOW</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
   </div>
+</div>
 
 <!-- Offer Cards Start -->
 <div id="main">
 
 
-<div class="offer-cards">
-  <div class="offer-card offer-card-1">
-    <div class="offer-card-info">
-      <h2 class="offer-card-top_heading">
-        Top Cameras
-      </h2>
-      <h1 class="offer-card-main_heading">
-        WEBCAMS 2023
-      </h1>
-      <p class="offer-card-description">
-        Get cameras at discounted rated
-      </p>
-      <button class="button button-shop_more" onclick="window.location='{{ route('product-detail',['slug' => $product31->slug, 'sku' => $product31->sku]) }}'">
-        SHOP Now
-      </button>
-    </div>
-    <div class="offer-card-image">
-      <img src="public/wb/img/new_homepage/logitech-cam-offer.png" alt="webcam">
-    </div>
-  </div>
-
-  <div class="offer-card offer-card-2">
-    <div class="offer-card-info">
-      <h2 class="offer-card-top_heading">
-        Laptop Accessories
-      </h2>
-      <h1 class="offer-card-main_heading">
-        Leather Cases
-      </h1>
-      <p class="offer-card-description">
-        Get most beautiful laptop accessories
-      </p>
-      <button class="button button-light button-shop_more" onclick="window.location='{{ route('product-detail',['slug' => $product32->slug, 'sku' => $product32->sku]) }}'">
-        SHOP Now
-      </button>
-    </div>
-    <div class="offer-card-image">
-      <img src="public/wb/img/new_homepage/laptop-offer.png" alt="">
-      <img src="public/wb/img/new_homepage/newyear.jpg" alt="">
-      
-    </div>
-  </div>
-</div>
-<!-- Offer Cards End -->
-
-
-<!-- Product Cards Start -->
-<div class="products-section">
-
-  <div class="products-section-header">
-    <h2 class="products-section-heading section-heading">Products</h2>
-    <div class="products-section-links">
-      <nav>
-        <a href="" class="products-section-link active">NEW</a>
-        <a href="" class="products-section-link">FEATURED</a>
-        <a href="" class="products-section-link">TOP SELLERS</a>
-      </nav>
-      <select class="" name="search-category">
-        <option selected>Default Sorting</option>
-        <option>Sort by popularity</option>
-        <option>Sort by average rating</option>
-        <option>Sort by latest</option>
-        <option>Sort by price: Low to High</option>
-        <option>Sort by price: High to Low</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="products">
-    @foreach ($products33 as $p)
-
-    <div class="product">
-        <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
-            <img src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" class="product-img product-img-1">
-        </a>
-        <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
-            <img src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" class="product-img product-img-2">
-        </a>
-      <div class="product-info">
-        <h3 class="product-name">
-            {{ Str::limit($p->title, 40) }}
-        </h3>
-        <h4 class="product-category">
-            {{$p->w2b_category_1}}
-        </h4>
-        <p class="product-price">
-            ${{number_format((float)$p->retail_price, 2, '.', '')}}
+  <div class="offer-cards">
+    <div class="offer-card offer-card-1">
+      <div class="offer-card-info">
+        <h2 class="offer-card-top_heading">
+          Top Cameras
+        </h2>
+        <h1 class="offer-card-main_heading">
+          WEBCAMS 2023
+        </h1>
+        <p class="offer-card-description">
+          Get cameras at discounted rated
         </p>
+        <button class="button button-shop_more"
+          onclick="window.location='{{ route('product-detail',['slug' => $product31->slug, 'sku' => $product31->sku]) }}'">
+          SHOP Now
+        </button>
       </div>
-       <div class="product-actions">
-        @if(Auth::guard('w2bcustomer')->user())
-        <a href="{{route('wb-wishlist', $p->sku)}}" title="Add to Wishlist">
-            <i class="fa fa-solid fa-heart"></i>
-        </a>
-        @endif
-        <a class="button product-button" href="{{ route('add.to.cart1', $p->sku) }}">ADD TO CART</a>
+      <div class="offer-card-image">
+        <img src="public/wb/img/new_homepage/logitech-cam-offer.png" alt="webcam">
       </div>
-
-      <!-- triggers on hover -->
-
-
     </div>
-    @endforeach
 
+    <div class="offer-card offer-card-2">
+      <div class="offer-card-info">
+        <h2 class="offer-card-top_heading">
+          Laptop Accessories
+        </h2>
+        <h1 class="offer-card-main_heading">
+          Leather Cases
+        </h1>
+        <p class="offer-card-description">
+          Get most beautiful laptop accessories
+        </p>
+        <button class="button button-light button-shop_more"
+          onclick="window.location='{{ route('product-detail',['slug' => $product32->slug, 'sku' => $product32->sku]) }}'">
+          SHOP Now
+        </button>
+      </div>
+      <div class="offer-card-image">
+        <img src="public/wb/img/new_homepage/laptop-offer.png" alt="">
+        <img src="public/wb/img/new_homepage/newyear.jpg" alt="">
+
+      </div>
+    </div>
+  </div>
+  <!-- Offer Cards End -->
+
+
+
+
+  
+        <!-- Products Slider -->
+        <!-- Please add only 10 products -->
+    <div class="slider-container">
+      <div class="slider-wrapper">
+        <button id="prev-slide" class="slide-button material-symbols-rounded">
+          chevron_left
+        </button>
+        <ul class="image-list">
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card1.jpg" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card2.jpg" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card3.jpg" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card4.jpg" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card5.jpg" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card6.jpg" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card7.jpg" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card8.jpg" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card9.jpg" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card10.jpg" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+
+      </ul>
+        <button id="next-slide" class="slide-button material-symbols-rounded">
+          chevron_right
+        </button>
+      </div>
+      <div class="slider-scrollbar">
+        <div class="scrollbar-track">
+          <div class="scrollbar-thumb"></div>
+        </div>
+      </div>
+    </div>
+<!-- Product Slider End -->
+
+
+
+  <!-- Product Cards Start -->
+  <div class="products-section">
+
+    <div class="products-section-header">
+      <h2 class="products-section-heading section-heading">Products</h2>
+      <div class="products-section-links">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="new-tab" data-toggle="tab" href="#new" role="tab" aria-controls="new"
+              aria-selected="true">New</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="featured-tab" data-toggle="tab" href="#featured" role="tab" aria-controls="featured"
+              aria-selected="false">Featured</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="top-tab" data-toggle="tab" href="#top" role="tab" aria-controls="top"
+              aria-selected="false">Top Sellers</a>
+          </li>
+        </ul>
+        <select class="" name="search-category">
+          <option selected>Default Sorting</option>
+          <option>Sort by popularity</option>
+          <option>Sort by average rating</option>
+          <option>Sort by latest</option>
+          <option>Sort by price: Low to High</option>
+          <option>Sort by price: High to Low</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="new" role="tabpanel" aria-labelledby="new-tab">
+        <div class="products">
+          @foreach ($products33 as $p)
+        <!-- Slider product -->
+        <div class="slider-product">
+          <!-- Product Image -->
+          <div class="slider-product-image">
+            <img class="image-item" src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" />
+            <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+            <div class="product-limited-text">Limited Time Offer!</div>
+          </div>
+          <!-- name -->
+          <div class="slider-product-info">
+            {{ Str::limit($p->title, 40) }}
+          <!-- Price -->
+          <div class="slider-product-info2">
+            <div class="slider-product-price">
+              ${{number_format((float)$p->retail_price, 2, '.', '')}} <span class="cutout-price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
+            </div>
+            <div class="percent-off">55% Off</div>
+          </div>
+
+          <!-- Star ratings -->
+          <div class="slider-product-info2">
+            <div class="slider-product-review">
+              <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+              <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+              <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+              <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+              <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+              <div class="review-points">4.5 <span>(342)</span></div>
+            </div>
+            <!-- Cart Icon -->
+            <div class="slider-product-cart">
+              <i class="fa fa-solid fa-shopping-cart"></i>
+            </div>
+          </div>
+          </div>
+        </div>
+        <!-- Slider product end -->
+
+       
+          @endforeach
+        </div>
+        {{ $products33->links() }}
+      </div>
+
+
+      <div class="tab-pane fade" id="featured" role="tabpanel" aria-labelledby="featured-tab">
+        <div class="products">
+            @foreach ($products33 as $p)
+          <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              {{ Str::limit($p->title, 40) }}
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                ${{number_format((float)$p->retail_price, 2, '.', '')}} <span class="cutout-price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+        
+            @endforeach
+          </div>
+        {{ $products33->links() }}
+      </div>
+
+      <div class="tab-pane fade" id="top" role="tabpanel" aria-labelledby="top-tab">
+        <div class="products">
+            @foreach ($products33 as $p)
+          <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              {{ Str::limit($p->title, 40) }}
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                ${{number_format((float)$p->retail_price, 2, '.', '')}} <span class="cutout-price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+        
+            @endforeach
+          </div>
+        {{ $products33->links() }}
+      </div>
+    </div>
 
   </div>
-  {{ $products33->links() }}
 
-</div>
-
-<!-- Product Cards End -->
+  <!-- Product Cards End -->
 
 
-<!-- Banner Cards Start -->
-<div class="banner-cards">
-  <div class="banner-card banner-card-1">
-    <img class="banner-card-img" src="public/wb/img/new_homepage/banner-cards/banner-card-1.png" alt="banner-bg">
-    <h2 class="banner-card-top_heading">
-      High Tech News
-    </h2>
-    <h1 class="banner-card-main_heading">
-      Monster Beats Headphones
-    </h1>
-
-    {{-- <button class="button button-light button-banner">
-      READ MORE
-    </button> --}}
-  </div>
-
-  <div class="banner-cards-group">
-    <div class="banner-card banner-card-2"> <img class="banner-card-img"
-        src="public/wb/img/new_homepage/banner-cards/banner-card-2.png" alt="banner-bg">
+  <!-- Banner Cards Start -->
+  <div class="banner-cards">
+    <div class="banner-card banner-card-1">
+      <img class="banner-card-img" src="public/wb/img/new_homepage/banner-cards/banner-card-1.png" alt="banner-bg">
       <h2 class="banner-card-top_heading">
-        Play The Dream
+        High Tech News
       </h2>
       <h1 class="banner-card-main_heading">
-        Apple iPhone 7
+        Monster Beats Headphones
+      </h1>
+
+      {{-- <button class="button button-light button-banner">
+        READ MORE
+      </button> --}}
+    </div>
+
+    <div class="banner-cards-group">
+      <div class="banner-card banner-card-2"> <img class="banner-card-img"
+          src="public/wb/img/new_homepage/banner-cards/banner-card-2.png" alt="banner-bg">
+        <h2 class="banner-card-top_heading">
+          Play The Dream
+        </h2>
+        <h1 class="banner-card-main_heading">
+          Apple iPhone 7
+          <div>
+            Color Red
+          </div>
+        </h1>
+
+      </div>
+      <div class="banner-card banner-card-3"> <img class="banner-card-img"
+          src="public/wb/img/new_homepage/banner-cards/banner-card-3.png" alt="banner-bg">
+        <h2 class="banner-card-top_heading">
+          Minimalism Design
+        </h2>
+        <h1 class="banner-card-main_heading">
+          Music Makes
+          <div>
+            Feel Better
+          </div>
+        </h1>
+      </div>
+    </div>
+
+    <div class="banner-card banner-card-4"> <img class="banner-card-img"
+        src="public/wb/img/new_homepage/banner-cards/banner-card-4.png" alt="banner-bg">
+      <h2 class="banner-card-top_heading">
+        Health & Fit
+      </h2>
+      <h1 class="banner-card-main_heading">
+        Apple
         <div>
-          Color Red
+          iWatch Nike
+        </div>
+        <div>
+          Edition
         </div>
       </h1>
 
+      {{-- <button class="button button-light button-banner">
+        WATCH DEMO
+      </button> --}}
     </div>
-    <div class="banner-card banner-card-3"> <img class="banner-card-img"
-        src="public/wb/img/new_homepage/banner-cards/banner-card-3.png" alt="banner-bg">
-      <h2 class="banner-card-top_heading">
-        Minimalism Design
+  </div>
+
+  <!-- Banner Cards End -->
+
+
+  <!-- Hot Deals Start -->
+  <div class="hot-deals-wrapper">
+
+    <div class="hot-deals">
+      <h2 class="hot-deals-heading section-heading">
+        Today Hot Deals
       </h2>
-      <h1 class="banner-card-main_heading">
-        Music Makes
-        <div>
-          Feel Better
-        </div>
-      </h1>
-    </div>
-  </div>
-
-  <div class="banner-card banner-card-4"> <img class="banner-card-img"
-      src="public/wb/img/new_homepage/banner-cards/banner-card-4.png" alt="banner-bg">
-    <h2 class="banner-card-top_heading">
-      Health & Fit
-    </h2>
-    <h1 class="banner-card-main_heading">
-      Apple
-      <div>
-        iWatch Nike
-      </div>
-      <div>
-        Edition
-      </div>
-    </h1>
-
-    {{-- <button class="button button-light button-banner">
-      WATCH DEMO
-    </button> --}}
-  </div>
-</div>
-
-<!-- Banner Cards End -->
-
-
-<!-- Hot Deals Start -->
-<div class="hot-deals-wrapper">
-
-  <div class="hot-deals">
-    <h2 class="hot-deals-heading section-heading">
-      Today Hot Deals
-    </h2>
-    <div class="hot-deals-products">
+      <div class="hot-deals-products">
         @foreach ($products34 as $p)
 
-      <div class="hot-deals-product">
-        <div class="product">
-          <div class="product-image">
-            <div class="hot-deals-product_menu">
+        <div class="hot-deals-product">
+          <div class="product">
+            <div class="product-image">
+              <div class="hot-deals-product_menu">
                 @if(Auth::guard('w2bcustomer')->user())
-                    <a href="{{route('wb-wishlist', $p->sku)}}"><img class="product_menu-icons" src="public/wb/img/new_homepage/icons/heart.png" alt=""></a>
+                <a href="{{route('wb-wishlist', $p->sku)}}"><img class="product_menu-icons"
+                    src="public/wb/img/new_homepage/icons/heart.png" alt=""></a>
                 @endif
-              <a href="{{ route('add.to.cart1', $p->sku) }}"> <img class="product_menu-icons" src="public/wb/img/new_homepage/icons/cart.png" alt=""></a>
-            </div>
-            <div class="hot-deals-product-img">
-              <img src="{{$p->original_image_url}}" alt="product-img"
-                class="product-img product-img-1">
-              <img src="{{$p->original_image_url}}" alt="product-img" class="product-img product-img-2">
-            </div>
+                <a href="{{ route('add.to.cart1', $p->sku) }}"> <img class="product_menu-icons"
+                    src="public/wb/img/new_homepage/icons/cart.png" alt=""></a>
+              </div>
+              <div class="hot-deals-product-img">
+                <img src="{{$p->original_image_url}}" alt="product-img" class="product-img product-img-1">
+                <img src="{{$p->original_image_url}}" alt="product-img" class="product-img product-img-2">
+              </div>
 
-            <div class="hot-deals-add_to_cart">
+              <div class="hot-deals-add_to_cart">
                 <a href="{{ route('add.to.cart1', $p->sku) }}">
-                    Add To Cart
+                  Add To Cart
                 </a>
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">
+                <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                  {{ Str::limit($p->title, 40) }}
+                </a>
+              </h3>
+              <h4 class="product-category">
+                {{$p->w2b_category_1}}
+              </h4>
+              <p class="product-price">
+                ${{number_format((float)$p->retail_price, 2, '.', '')}}
+              </p>
             </div>
           </div>
-          <div class="product-info">
-            <h3 class="product-name">
-                <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
-                {{ Str::limit($p->title, 40) }}
-                </a>
-            </h3>
-            <h4 class="product-category">
-                {{$p->w2b_category_1}}
-            </h4>
-            <p class="product-price">
-                ${{number_format((float)$p->retail_price, 2, '.', '')}}
-            </p>
+          <div class="hot-deals-timer">
+            <div class="countdown" class="row h-100 justify-content-center align-items-center"></div>
           </div>
         </div>
-        <div class="hot-deals-timer">
-          <div class="countdown" class="row h-100 justify-content-center align-items-center"></div>
-        </div>
+        @endforeach
+
+
       </div>
-      @endforeach
-
-
+      {{-- <button class="button button-hot_offers">
+        View All Deals
+      </button> --}}
     </div>
-    {{-- <button class="button button-hot_offers">
-      View All Deals
-    </button> --}}
   </div>
-</div>
 
 </div>
 
@@ -359,29 +886,29 @@
 
 <div id="main">
   <!-- Products section - 2 start -->
-<div class="products-section products-section-2">
-  <div class="products-2-side-banners">
-    <div class="side-banner-1">
-      <div class="side-banner-1-filter"></div>
-      <img class="side-banner-img" src="public/wb/img/new_homepage/side-banner-1.png" alt="banner-bg">
-      <h2 class="banner-card-top_heading">
-        High Tech News
-      </h2>
-      <h1 class="banner-card-main_heading side-banner-main_heading">
-        Google Smart Home 2022
-      </h1>
+  <div class="products-section products-section-2">
+    <div class="products-2-side-banners">
+      <div class="side-banner-1">
+        <div class="side-banner-1-filter"></div>
+        <img class="side-banner-img" src="public/wb/img/new_homepage/side-banner-1.png" alt="banner-bg">
+        <h2 class="banner-card-top_heading">
+          High Tech News
+        </h2>
+        <h1 class="banner-card-main_heading side-banner-main_heading">
+          Google Smart Home 2022
+        </h1>
 
-      {{-- <button class="button button-light button-banner">
-        READ MORE
-      </button> --}}
-    </div>
-    <div class="side-banner-2 featured-products-section">
-      <div class="featured-products-heading">
-        Featured Products
+        {{-- <button class="button button-light button-banner">
+          READ MORE
+        </button> --}}
       </div>
-      <div class="featured-products">
-        @foreach ($products35 as $p)
-        <div class="featured-product">
+      <div class="side-banner-2 featured-products-section">
+        <div class="featured-products-heading">
+          Featured Products
+        </div>
+        <div class="featured-products">
+          @foreach ($products35 as $p)
+          <div class="featured-product">
             <img class="featured-product-image" src="{{$p->original_image_url}}" alt="">
             <div class="featured-product-info">
               <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
@@ -392,100 +919,116 @@
               </div>
             </div>
           </div>
-        @endforeach
-
-
-      </div>
-    </div>
-  </div>
-  <div>
-    <div class="products-section-header">
-      <h2 class="products-section-heading section-heading">Top Products</h2>
-      <div class="products-section-links">
-        <nav>
-          <a href="" class="products-section-link active">NEW</a>
-          <a href="" class="products-section-link">FEATURED</a>
-          <a href="" class="products-section-link">TOP SELLERS</a>
-        </nav>
-      </div>
-    </div>
-
-    <div class="products products-2">
-        @foreach ($products36 as $p)
-        <div class="product">
-            <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
-                <img src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" class="product-img product-img-1">
-            </a>
-            <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
-                <img src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" class="product-img product-img-2">
-            </a>
-          <div class="product-info">
-            <h3 class="product-name">
-                {{ Str::limit($p->title, 40) }}
-            </h3>
-            <h4 class="product-category">
-                {{$p->w2b_category_1}}
-            </h4>
-            <p class="product-price">
-                ${{number_format((float)$p->retail_price, 2, '.', '')}}
-            </p>
-          </div>
-           <div class="product-actions">
-            @if(Auth::guard('w2bcustomer')->user())
-            <a href="{{route('wb-wishlist', $p->sku)}}" title="Add to Wishlist">
-                <i class="fa fa-solid fa-heart"></i>
-            </a>
-            @endif
-            <a class="button product-button" href="{{ route('add.to.cart1', $p->sku) }}">ADD TO CART</a>
-          </div>
-
-          <!-- triggers on hover -->
+          @endforeach
 
 
         </div>
-        @endforeach
+      </div>
     </div>
-  </div>
-</div>
-<!-- Products section - 2 end -->
-
-
-<!-- Banner 2 Start -->
-<div class="banner-2">
-  <img class="banner-2-img" src="public/wb/img/new_homepage/ps4-banner-1.png" alt="banner-bg">
-  <h2 class="banner-card-top_heading">
-    GAMING COLLECTION
-  </h2>
-  <h1 class="banner-card-main_heading">
-    Sony Playstation 4
     <div>
-      Dualshok Controller
+      <div class="products-section-header">
+        <h2 class="products-section-heading section-heading">Top Products</h2>
+        <div class="products-section-links">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="new2-tab" data-toggle="tab" href="#new2" role="tab" aria-controls="new2"
+                aria-selected="true">New</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="featured2-tab" data-toggle="tab" href="#featured2" role="tab"
+                aria-controls="featured2" aria-selected="false">Featured</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="top2-tab" data-toggle="tab" href="#top2" role="tab" aria-controls="top2"
+                aria-selected="false">Top Sellers</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="products products-2">
+        @foreach ($products36 as $p)
+        <div class="slider-product">
+          <!-- Product Image -->
+          <div class="slider-product-image">
+            <img class="image-item" src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" />
+            <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+            <div class="product-limited-text">Limited Time Offer!</div>
+          </div>
+          <!-- name -->
+          <div class="slider-product-info">
+            {{ Str::limit($p->title, 40) }}
+          <!-- Price -->
+          <div class="slider-product-info2">
+            <div class="slider-product-price">
+              ${{number_format((float)$p->retail_price, 2, '.', '')}} <span class="cutout-price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
+            </div>
+            <div class="percent-off">55% Off</div>
+          </div>
+
+          <!-- Star ratings -->
+          <div class="slider-product-info2">
+            <div class="slider-product-review">
+              <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+              <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+              <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+              <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+              <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+              <div class="review-points">4.5 <span>(342)</span></div>
+            </div>
+            <!-- Cart Icon -->
+            <div class="slider-product-cart">
+              <i class="fa fa-solid fa-shopping-cart"></i>
+            </div>
+          </div>
+          </div>
+        </div>
+        @endforeach
+      </div>
+
+
+
     </div>
-  </h1>
-
-  <div>
-    <button class="button button_banner-2">
-      Buy Now
-    </button>
-    <span class="banner-2-read_more">
-      <a href="">
-        Read More
-      </a>
-    </span>
   </div>
-</div>
-<!-- Banner 2 End -->
+  <!-- Products section - 2 end -->
+
+
+  <!-- Banner 2 Start -->
+  <div class="banner-2">
+    <img class="banner-2-img" src="public/wb/img/new_homepage/ps4-banner-1.png" alt="banner-bg">
+    <h2 class="banner-card-top_heading">
+      GAMING COLLECTION
+    </h2>
+    <h1 class="banner-card-main_heading">
+      Sony Playstation 4
+      <div>
+        Dualshok Controller
+      </div>
+    </h1>
+
+    <div>
+      <button class="button button_banner-2">
+        Buy Now
+      </button>
+      <span class="banner-2-read_more">
+        <a href="">
+          Read More
+        </a>
+      </span>
+    </div>
+  </div>
+  <!-- Banner 2 End -->
 
 
 
-    <!-- Blogs Start -->
+  <!-- Blogs Start -->
   <div class="blogs-section">
-        <h2 class="hot-deals-heading section-heading">
+    <h2 class="hot-deals-heading section-heading">
       Featured Blogs
     </h2>
 
     <div class="blogs">
-        @foreach ($latest_blogs as $blog)
+      @foreach ($latest_blogs as $blog)
 
       <div class="blog blog-1">
         <div class="blog-head">
@@ -498,28 +1041,28 @@
         </div>
         <div class="blog-data">
           <a href="">
-          <div class="blog-title">
-            {{ Str::limit($blog->title, 40) }}
+            <div class="blog-title">
+              {{ Str::limit($blog->title, 40) }}
             </div>
           </a>
           <div class="blog-info">
             <div class="blog-author">
-            <span>
-            Posted by
-            </span>
-              <div  class="blog-info-author-img">
+              <span>
+                Posted by
+              </span>
+              <div class="blog-info-author-img">
                 <img src="public/wb/img/new_homepage/blog-author.jpg" alt="">
               </div>
             </div>
             <a href="#">
               Joseph Larnyoh
             </a>
-           {{-- <a href="">
-             <i class="fa fa-solid fa-comment"></i>
-           </a>
-           <a href="">
-             <i class="fa fa-solid fa-share"></i>
-           </a> --}}
+            {{-- <a href="">
+              <i class="fa fa-solid fa-comment"></i>
+            </a>
+            <a href="">
+              <i class="fa fa-solid fa-share"></i>
+            </a> --}}
           </div>
           <div class="blog-desc">
             {{ Str::limit($blog->description, 130) }}
@@ -531,7 +1074,7 @@
 
       {{-- <div class="blog blog-1">
         <div class="blog-head">
-            <img class="blog-img" src="{{ asset('public/images/blog/' . $blog->image) }}" alt="">
+          <img class="blog-img" src="{{ asset('public/images/blog/' . $blog->image) }}" alt="">
           <div class="blog-tag">
             <span>
               DESIGN TRENDS, INSPIRATION
@@ -540,31 +1083,32 @@
         </div>
         <div class="blog-data">
           <a href="">
-          <div class="blog-title">
+            <div class="blog-title">
               Collar brings back coffee brewing ritual
             </div>
           </a>
           <div class="blog-info">
             <div class="blog-author">
-            <span>
-            Posted by
-            </span>
-              <div  class="blog-info-author-img">
+              <span>
+                Posted by
+              </span>
+              <div class="blog-info-author-img">
                 <img src="public/wb/img/new_homepage/blog-author.jpg" alt="">
               </div>
             </div>
             <a href="">
               S. Rogers
             </a>
-           <a href="">
-             <i class="fa fa-solid fa-comment"></i>
-           </a>
-           <a href="">
-             <i class="fa fa-solid fa-share"></i>
-           </a>
+            <a href="">
+              <i class="fa fa-solid fa-comment"></i>
+            </a>
+            <a href="">
+              <i class="fa fa-solid fa-share"></i>
+            </a>
           </div>
           <div class="blog-desc">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores sequi quam distinctio velit quam distinctio velit quaerat ratione...
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores sequi quam distinctio velit quam distinctio
+            velit quaerat ratione...
           </div>
           <a href="" class="blog-link">CONTINUE READING</a>
         </div>
@@ -580,31 +1124,32 @@
         </div>
         <div class="blog-data">
           <a href="">
-          <div class="blog-title">
+            <div class="blog-title">
               Collar brings back coffee brewing ritual
             </div>
           </a>
           <div class="blog-info">
             <div class="blog-author">
-            <span>
-            Posted by
-            </span>
-              <div  class="blog-info-author-img">
+              <span>
+                Posted by
+              </span>
+              <div class="blog-info-author-img">
                 <img src="public/wb/img/new_homepage/blog-author.jpg" alt="">
               </div>
             </div>
             <a href="">
               S. Rogers
             </a>
-           <a href="">
-             <i class="fa fa-solid fa-comment"></i>
-           </a>
-           <a href="">
-             <i class="fa fa-solid fa-share"></i>
-           </a>
+            <a href="">
+              <i class="fa fa-solid fa-comment"></i>
+            </a>
+            <a href="">
+              <i class="fa fa-solid fa-share"></i>
+            </a>
           </div>
           <div class="blog-desc">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores sequi quam distinctio velit quam distinctio velit quaerat ratione...
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores sequi quam distinctio velit quam distinctio
+            velit quaerat ratione...
           </div>
           <a href="" class="blog-link">CONTINUE READING</a>
         </div>
@@ -615,10 +1160,10 @@
   </div>
 
 </div>
- <!-- Blogs End -->
 
+<!-- Blogs End -->
 
- <!-- THIS SECTION WILL BE MOVED TO A NEW PAGE 
+<!-- THIS SECTION WILL BE MOVED TO A NEW PAGE 
  <div class="faq-section" id="faq-section">
   <h2>Frequently Asked Questions</h2>
             <div class="faq-item">
@@ -711,50 +1256,123 @@
         <!-- /FAQs -->
 
 
+    <script>
+    // Product image slider script
+    const initSlider = () => {
+    const imageList = document.querySelector(".slider-wrapper .image-list");
+    const slideButtons = document.querySelectorAll(".slider-wrapper .slide-button");
+    const sliderScrollbar = document.querySelector(".slider-container .slider-scrollbar");
+    const scrollbarThumb = sliderScrollbar.querySelector(".scrollbar-thumb");
+    const maxScrollLeft = imageList.scrollWidth - imageList.clientWidth;
+    
+    // Handle scrollbar thumb drag
+    scrollbarThumb.addEventListener("mousedown", (e) => {
+        const startX = e.clientX;
+        const thumbPosition = scrollbarThumb.offsetLeft;
+        const maxThumbPosition = sliderScrollbar.getBoundingClientRect().width - scrollbarThumb.offsetWidth;
+        
+        // Update thumb position on mouse move
+        const handleMouseMove = (e) => {
+            const deltaX = e.clientX - startX;
+            const newThumbPosition = thumbPosition + deltaX;
 
+            // Ensure the scrollbar thumb stays within bounds
+            const boundedPosition = Math.max(0, Math.min(maxThumbPosition, newThumbPosition));
+            const scrollPosition = (boundedPosition / maxThumbPosition) * maxScrollLeft;
+            
+            scrollbarThumb.style.left = `${boundedPosition}px`;
+            imageList.scrollLeft = scrollPosition;
+        }
+
+        // Remove event listeners on mouse up
+        const handleMouseUp = () => {
+            document.removeEventListener("mousemove", handleMouseMove);
+            document.removeEventListener("mouseup", handleMouseUp);
+        }
+
+        // Add event listeners for drag interaction
+        document.addEventListener("mousemove", handleMouseMove);
+        document.addEventListener("mouseup", handleMouseUp);
+    });
+
+    // Slide images according to the slide button clicks
+    slideButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const direction = button.id === "prev-slide" ? -1 : 1;
+            const scrollAmount = imageList.clientWidth * direction;
+            imageList.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        });
+    });
+
+     // Show or hide slide buttons based on scroll position
+    const handleSlideButtons = () => {
+        slideButtons[0].style.display = imageList.scrollLeft <= 0 ? "none" : "flex";
+        slideButtons[1].style.display = imageList.scrollLeft >= maxScrollLeft ? "none" : "flex";
+    }
+
+    // Update scrollbar thumb position based on image scroll
+    const updateScrollThumbPosition = () => {
+        const scrollPosition = imageList.scrollLeft;
+        const thumbPosition = (scrollPosition / maxScrollLeft) * (sliderScrollbar.clientWidth - scrollbarThumb.offsetWidth);
+        scrollbarThumb.style.left = `${thumbPosition}px`;
+    }
+
+    // Call these two functions when image list scrolls
+    imageList.addEventListener("scroll", () => {
+        updateScrollThumbPosition();
+        handleSlideButtons();
+    });
+}
+
+window.addEventListener("resize", initSlider);
+window.addEventListener("load", initSlider);
+    </script>
 
 
 
 <!-- Newsletter Popup start -->
 <div class="newsletter-popup">
-    <div class="newsletter">
-        <div class="newsletter-inner"></div>
-        <h4>HEY YOU, SIGN UP & </h4>
-        <h2>CONNECT TO NATURE CHECKOUT!
-        </h2>
-        <p>Be the first one to know about our Special offers and get 10% <br> Discount Coupon instantly!
-        </p>
-        <i class="fa fa-solid fa-close newsletter-close-icon"></i>
-        <form action="{{ route('sub-newsletter') }}" method="POST" class="newsletter-form">
-        @csrf
-        <input type="text" name="name" placeholder="Name">
-        <input type="email" name="email" placeholder="Email">
-        <button class="button" type="submit">Subscribe</button>
-        <div class="newsletter-footer">
-            <i>
-            By signing up, you agree to our <a href="{{ url('/privacy-policy') }}">Privacy Policy</a>
-            </i>
-            <i>
-            Discount coupon will be emailed to your address.
-            </i>
-        </div>
-        </form>
-    </div>
-    </div>
+  <div class="newsletter">
+    <div class="newsletter-inner"></div>
+    <h4>Connect to Nature Checkout & get </h4>
+    <h2>Get upto 30% Off!
+    </h2>
+    <p>Be the first one to know about our Special offers and get 10% <br> Discount Coupon instantly!
+    </p>
+    <i class="fa fa-solid fa-close newsletter-close-icon"></i>
+    <form action="{{ route('sub-newsletter') }}" method="POST" class="newsletter-form">
+      @csrf
+      <input type="text" name="name" placeholder="Name">
+      <input type="email" name="email" placeholder="Email">
+      <button class="button" type="submit">Subscribe</button>
+      <div class="newsletter-footer">
+        <i>
+          By signing up, you agree to our <a href="{{ url('/privacy-policy') }}">Privacy Policy</a>
+        </i>
+        <i>
+          Discount coupon will be emailed to your address.
+        </i>
+      </div>
+    </form>
+  </div>
+</div>
 
-    <script>
-    $(".newsletter-close-icon").click(()=>{
-        $(".newsletter-popup").css("display", "none")
-    })
+<script>
+  $(".newsletter-close-icon").click(() => {
+    $(".newsletter-popup").css("display", "none")
+  })
 
-    </script>
+</script>
 <!-- Newsletter Popup end -->
 @endsection
 
 @section('title', 'One-Stop E-commerce hub for online selling, in-store buying and self-checkout.')
-@section('description', 'Nature checkout, a free mobile app that provides safe and convenient grocery shopping during post pandemic- Smart grocery app - Free delivery Nature checkout - buy groceries online – grocery stores online services')
-@section('keywords', 'Smart grocery app store near me, Free delivery Nature checkout, Closest store near me Nature checkout, Shop groceries stores online, Mobile app for grocery shopping, Smart in-store shopping app, Get online coupon from Nature checkout, Scan and go mobile app from Nature checkout, Smart way to buy and sell online from Nature checkout, Smart and convenient shopping mobile app from Nature checkout, Best way to sell, Sell online, Online sells, Online seller, E-commerce selling, Ecommerce sells, Sales hub, Where to sell, Sell on instacart, Sell on Etsy, Sell on Amazon, Best place to sell, Where to sell, Best Buy and sell center')
-
-
-
-
+@section('description', 'Nature checkout, a free mobile app that provides safe and convenient grocery shopping during
+post pandemic- Smart grocery app - Free delivery Nature checkout - buy groceries online – grocery stores online
+services')
+@section('keywords', 'Smart grocery app store near me, Free delivery Nature checkout, Closest store near me Nature
+checkout, Shop groceries stores online, Mobile app for grocery shopping, Smart in-store shopping app, Get online coupon
+from Nature checkout, Scan and go mobile app from Nature checkout, Smart way to buy and sell online from Nature
+checkout, Smart and convenient shopping mobile app from Nature checkout, Best way to sell, Sell online, Online sells,
+Online seller, E-commerce selling, Ecommerce sells, Sales hub, Where to sell, Sell on instacart, Sell on Etsy, Sell on
+Amazon, Best place to sell, Where to sell, Best Buy and sell center')

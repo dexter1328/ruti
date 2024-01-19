@@ -149,9 +149,11 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <link href="{{ asset('public/wb/css/style.css')}}" rel="stylesheet">
 {{-- <link href="{{ asset('public/wb/css/style2.css')}}" rel="stylesheet"> --}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
 
-
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0"/>
 
 
 <!-- Theme Style -->
@@ -348,9 +350,9 @@
         </a>
         <div class="country-popup">
           <ul>
-            <li><a href="">$USD</a></li>
-            <li><a href="">$CAD</a></li>
-            <li><a href="">€EURO</a></li>
+            <li><a href=""><img class="language-flag-icon" src="{{ asset('public/wb/img/new_homepage/icons/united-states.png') }}" alt=""> USD</a></li>
+            <li><a href=""><img class="language-flag-icon" src="{{ asset('public/wb/img/new_homepage/icons/canada.png') }}" alt=""> CAD</a></li>
+            <li><a href=""><img class="language-flag-icon" src="{{ asset('public/wb/img/new_homepage/icons/france.png') }}" alt="">EURO</a></li>
           </ul>
         </div>
       </div>
@@ -588,11 +590,17 @@
     @endif
     @if (Auth::guard('w2bcustomer')->user())
     <a href="{{route('wb-wishlist-page')}}">
-     <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
+      <div class="header-wishlist">
+        <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
+        <div class="header-wishlist-count">4</div>
+      </div>
     </a>
     @else
     <a href="#" type="button" data-toggle="modal" data-target="#exampleModal28">
+      <div class="header-wishlist">
         <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
+        <div class="header-wishlist-count">4</div>
+      </div>
     </a>
     @endif
 
@@ -600,11 +608,14 @@
     <!-- <a
     href="{{ route('product-cart') }}"
     > -->
+    <div class="header-cart">
       <img
       class="header-icons cart-open-btn"
       src="{{asset('public/wb/img/new_homepage/icons/cart.png')}}"
       alt=""
       >
+      <div class="header-cart-count">4</div>
+    </div>
     <!-- </a> -->
 
     @php $total = 0 @endphp
@@ -714,7 +725,7 @@
                     <a href="{{url('/')}}" class="nav-item">HOME</a>
                     <!-- <a href="{{url('/trending-products')}}" class="nav-item">TRENDING PRODUCTS</a> -->
                     <a href="{{url('/special-offers')}}" class="nav-item">SPECIAL PRODUCTS</a>
-                    <a href="{{url('/trending-products')}}" class="nav-item">PRODUCTS</a>
+                    <!-- <a href="{{url('/trending-products')}}" class="nav-item">PRODUCTS</a> -->
                 </nav>
             </div>
 
@@ -760,6 +771,63 @@
         </div>
             </div>
 
+            <!-- Someone bought a product popup -->
+              <div class="bought-product-popup">
+                <i class="fa fa-solid fa-close bought-product-close-icon"></i>
+                <div class="bought-product-image">
+                  <img src="{{asset('public/wb/img/new_homepage/dummy-prods/card10.jpg')}}" alt="">
+                </div>
+                <div class="bought-product-info">
+                  <div class="bought-product-text">
+                    Someone bought <a>Two Row Purple Crystal Size 18 Aqua Dog Collar</a>
+                  </div>
+                  <div class="bought-product-time">
+                  <div class="slider-product-review">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+                    27 Minutes Ago
+                  </div>
+                </div>
+              </div>
+
+              <div class="thankyou-popup-wrapper">
+                
+                <div class="thankyou-popup">
+                  <i class="fa fa-solid fa-close thank-you-close-icon"></i>
+                  <div class="thankyou-popup-top">
+                    <h2>Subscribe to marketing messages to get</h2>
+                    <div class="thankyou-popup-icons">
+                      <div class="thankyou-popup-icon">
+                      <i class="fa fa-solid fa-envelope-open"></i>
+                        Exclusive coupons
+                      </div>
+                      <div class="thankyou-popup-icon">
+                      <i class="fa fa-solid fa-bar-chart"></i>
+                        Amazing discount
+                      </div>
+                      <div class="thankyou-popup-icon">
+                      <i class="fa fa-solid fa-gift"></i>
+                        Special Promotions
+                      </div>
+     
+                    </div>
+                  </div>
+                  <div class="thankyou-popup-bottom">
+                    <div class="thankyou-popup-input">
+                      <input placeholder="Enter your phone number" type="text">
+                      <button>Confirm</button>
+                    </div>
+                    <div class="thankyou-popup-bottom-text">
+                    By entering your phone contact, you  have accepted to receive opt-in promotions from Nature Checkout.
+                    </div>
+                  </div>
+                </div>
+              </div>
 
 
             @yield('content')
@@ -781,6 +849,17 @@
 </div>
 <!-- Main end -->
 
+<script>
+  $('.thank-you-close-icon').click(()=>{
+    $('.thankyou-popup-wrapper').css('display', 'none');
+  })
+</script>
+
+<script>
+  $('.bought-product-close-icon').click(()=>{
+    $('.bought-product-popup').css('display', 'none');
+  })
+</script>
 
 <script>
   $('.landing-top-browse').click(()=>{

@@ -14,6 +14,16 @@
 
 <!--product details start-->
 <div class="product_details mt-70 mb-70">
+
+    <div class="product-page-banners">
+      <div class="product-page-banner product-page-banner-1">
+        <img src="{{asset('public/wb/img/new_homepage/misc/product-page-banner-1.jpg')}}" alt="product-page-banner">
+      </div>
+      <div class="product-page-banner product-page-banner-2">
+        <img src="{{asset('public/wb/img/new_homepage/misc/product-page-banner-2.jpg')}}" alt="product-page-banner">
+      </div>
+    </div>
+
     <div class="container-fluid">
     
         <div class="row">
@@ -63,6 +73,7 @@
             <div class="col-lg-7 col-md-7 mt-4 mt-lg-0">
                 <div class="product_d_right">
                         <span class="shop-details-content"><i class="lnr lnr-checkmark-circle"></i>In Stock</span>
+                        <span class="shop-details-content trending-right-now-text"><i class="fa fa-solid fa-fire"></i>Trending right now</span>
                         <h1 ><a href="#" style="font-size: 2rem">{{$product->title}}</a></h1>
                         <div class=" product_ratting">
 
@@ -72,27 +83,35 @@
                                 <span class="current_price">${{number_format((float)$product->retail_price, 2, '.', '')}}</span>
 
                             </div>
-                            <div class="mr-4 d-flex">
-                                <form class="" action="{{ route("vote-best-seller") }}"  method="POST">
-                                    @csrf
-                                    <input type="hidden" name="vendor_id" value="{{$product->vendor_id}}">
-
-                                    <span class="tooltip-container mr-3">
-                                    <button class="btn_vote btn-secondary-orange" type="submit"><img src="{{asset('public/wb/img/icons/profile-user.png')}}" width="25px" height="25px" alt=""></button>
-                                    <div class="tooltip-message">Vote for best seller.</div>
-                                    </span>
-                                </form>
-                                <form class="" action="{{ route("vote-best-product") }}"  method="POST">
-                                    @csrf
-                                    <input type="hidden" name="product_sku" value="{{$product->sku}}">
-
-                                <span class="tooltip-container mx-3">
-                                    <button class="btn_vote btn-primary-blue"  type="submit"><img src="{{asset('public/wb/img/icons/box.png')}}" width="25px" height="25px" alt=""></button>
-                                    <div class="tooltip-message">Vote for best product.</div>
-                                </span>
-                                </form>
-                            </div>
                         </div>
+
+                      <!-- Star ratings -->
+                      <div class="product-reviews-container">
+                        <div class="product-reviews">
+                          <img class="product-review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                          <img class="product-review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                          <img class="product-review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                          <img class="product-review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                          <img class="product-review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                          <div class="review-points">4.5 <span>(342)</span></div>
+                        </div>
+                        @if (Auth::guard('w2bcustomer')->user())
+                       <div class="shop-details-Wishlist">
+                            <ul>
+                                <li><a href="{{route('wb-wishlist', $product->sku)}}"><i class="lnr lnr-heart"></i><p>Add to Wishlist</p></a></li>
+
+                            </ul>
+                        </div>
+                        @else
+                        <div class="shop-details-Wishlist">
+                            <ul>
+                                <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal29"><i class="lnr lnr-heart"></i><p>Add to Wishlist</p></a></li>
+
+                            </ul>
+                        </div>
+                        @endif
+                      </div>
+
                        <div class="category-type">
                             <ul>
                                 <li>
@@ -123,34 +142,43 @@
                                 </li>
                             </ul>
                         </div>
+
+                        
                    
                         <div class="quantity-option">
 
-                            <div class="">
-                                <a class="btn btn-secondary-orange" href="{{ route('add.to.cart', $product->sku) }}"  >add to cart</a>
-                                <a class="btn btn-primary-blue" href="{{ route('product-shop') }}" >Back To Shopping</a>
-                            </div>
+                          <div class="">
+                              <a class="btn btn-secondary-orange" href="{{ route('add.to.cart', $product->sku) }}"  >add to cart</a>
+                              <a class="btn btn-primary-blue" href="{{ route('product-shop') }}" >Back To Shopping</a>
+                          </div>
+
+                          <div class="mr-4 d-flex">
+                              <form class="" action="{{ route("vote-best-seller") }}"  method="POST">
+                                  @csrf
+                                  <input type="hidden" name="vendor_id" value="{{$product->vendor_id}}">
+
+                                  <span class="tooltip-container mr-3">
+                                  <button class="btn_vote btn-secondary-orange" type="submit"><img src="{{asset('public/wb/img/icons/profile-user.png')}}" width="25px" height="25px" alt=""></button>
+                                  <div class="tooltip-message">Vote for best seller.</div>
+                                  </span>
+                              </form>
+                              <form class="" action="{{ route("vote-best-product") }}"  method="POST">
+                                  @csrf
+                                  <input type="hidden" name="product_sku" value="{{$product->sku}}">
+
+                              <span class="tooltip-container">
+                                  <button class="btn_vote btn-primary-blue"  type="submit"><img src="{{asset('public/wb/img/icons/box.png')}}" width="25px" height="25px" alt=""></button>
+                                  <div class="tooltip-message">Vote for best product.</div>
+                              </span>
+                              </form>
+                          </div>
                         
                         </div>
-                        @if (Auth::guard('w2bcustomer')->user())
-                       <div class="shop-details-Wishlist">
-                            <ul>
-                                <li><a href="{{route('wb-wishlist', $product->sku)}}"><i class="lnr lnr-heart"></i><p>Add to Wishlist</p></a></li>
-
-                            </ul>
-                        </div>
-                        @else
-                        <div class="shop-details-Wishlist">
-                            <ul>
-                                <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal29"><i class="lnr lnr-heart"></i><p>Add to Wishlist</p></a></li>
-
-                            </ul>
-                        </div>
-                        @endif
-                        <div class=" product_d_action mt-4">
+                        
+                        <div class="product_d_action mt-4">
                             <h4>Share This Product</h4>
                          </div>
-                        <div class="container mt-4 ">
+                        <div class="container mt-2 ">
                             {!! $shareComponent !!}
                         </div>
                         {{-- <div class="seller_section mt-4">
@@ -180,6 +208,54 @@
                                 <h5 class="seller_name my-auto ml-2">Sell Online</h5>
                             </div>
                         </div> --}}
+
+                        <div class="shipping-details">
+                          <h4><i class="fa fa-solid fa-truck"></i>Shipping</h4>
+                          <div class="shipping-details-boxes">
+                            <div class="shipping-details-box">
+                              <h5>Standard: calculated on all orders</h5>
+                              <div class="shipping-details-info">
+                                Delivery: <span>Jan 19-24, 79.6% are < 11 days</span>
+                              </div>
+                              <div class="shipping-details-info">
+                                Courier Company: <span>USPS, UPS</span>
+                              </div>
+                            </div>
+                            <div class="shipping-details-box">
+                              <h5>Standard: calculated on all orders</h5>
+                              <div class="shipping-details-info">
+                                Delivery: <span>Jan 19-24, 79.6% are < 11 days</span>
+                              </div>
+                              <div class="shipping-details-info">
+                                Courier Company: <span>USPS, UPS</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="shipping-details">
+                          <h4><i class="fa fa-solid fa-truck"></i>Safe & Secure</h4>
+                          <div class="shipping-details-boxes">
+                            <div class="shipping-details-box">
+                              <h5>Standard: calculated on all orders</h5>
+                              <div class="shipping-details-info">
+                                Delivery: <span>Jan 19-24, 79.6% are < 11 days</span>
+                              </div>
+                              <div class="shipping-details-info">
+                                Courier Company: <span>USPS, UPS</span>
+                              </div>
+                            </div>
+                            <div class="shipping-details-box">
+                              <h5>Standard: calculated on all orders</h5>
+                              <div class="shipping-details-info">
+                                Delivery: <span>Jan 19-24, 79.6% are < 11 days</span>
+                              </div>
+                              <div class="shipping-details-info">
+                                Courier Company: <span>USPS, UPS</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -343,6 +419,418 @@
 
 <!--product info end-->
 
+
+<h3 class='sections_coupons_header like_products_heading p-2' >Products You may also like</h3>
+
+<!-- Product Slider -->
+
+        <!-- Products Slider -->
+        <!-- Please add only 10 products -->
+        <div class="slider-container">
+      <div class="slider-wrapper">
+        <button id="prev-slide" class="slide-button material-symbols-rounded">
+          chevron_left
+        </button>
+        <ul class="image-list">
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="{{asset('public/wb/img/new_homepage/dummy-prods/card1.jpg')}}" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item"src="{{asset('public/wb/img/new_homepage/dummy-prods/card2.jpg')}}" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="{{asset('public/wb/img/new_homepage/dummy-prods/card3.jpg')}}" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="{{asset('public/wb/img/new_homepage/dummy-prods/card4.jpg')}}" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="{{asset('public/wb/img/new_homepage/dummy-prods/card5.jpg')}}" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="{{asset('public/wb/img/new_homepage/dummy-prods/card6.jpg')}}" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="{{asset('public/wb/img/new_homepage/dummy-prods/card7.jpg')}}" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="{{asset('public/wb/img/new_homepage/dummy-prods/card8.jpg')}}" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="{{asset('public/wb/img/new_homepage/dummy-prods/card9.jpg')}}" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+        <!-- Slider product -->
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+              <img class="image-item" src="{{asset('public/wb/img/new_homepage/dummy-prods/card10.jpg')}}" alt="img-1" />
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+              Two Row Purple Crystal Size 18 Aqua Dog Collar
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ 48.00 <span class="cutout-price">$ 55.00</span>
+              </div>
+              <div class="percent-off">55% Off</div>
+            </div>
+
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                <div class="review-points">4.5 <span>(342)</span></div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <i class="fa fa-solid fa-shopping-cart"></i>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Slider product end -->
+
+
+        </ul>
+        <button id="next-slide" class="slide-button material-symbols-rounded">
+          chevron_right
+        </button>
+      </div>
+      <div class="slider-scrollbar">
+        <div class="scrollbar-track">
+          <div class="scrollbar-thumb"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Slider End -->
+
+
+
 <!--product area start-->
 <section class="product_area related_products">
     <div class='main_parent_div border col-lg-8 col-sm-12 m-auto px-0'>
@@ -435,6 +923,78 @@
     });
 
 </script>
+
+<script>
+    // Product image slider script
+    const initSlider = () => {
+    const imageList = document.querySelector(".slider-wrapper .image-list");
+    const slideButtons = document.querySelectorAll(".slider-wrapper .slide-button");
+    const sliderScrollbar = document.querySelector(".slider-container .slider-scrollbar");
+    const scrollbarThumb = sliderScrollbar.querySelector(".scrollbar-thumb");
+    const maxScrollLeft = imageList.scrollWidth - imageList.clientWidth;
+    
+    // Handle scrollbar thumb drag
+    scrollbarThumb.addEventListener("mousedown", (e) => {
+        const startX = e.clientX;
+        const thumbPosition = scrollbarThumb.offsetLeft;
+        const maxThumbPosition = sliderScrollbar.getBoundingClientRect().width - scrollbarThumb.offsetWidth;
+        
+        // Update thumb position on mouse move
+        const handleMouseMove = (e) => {
+            const deltaX = e.clientX - startX;
+            const newThumbPosition = thumbPosition + deltaX;
+
+            // Ensure the scrollbar thumb stays within bounds
+            const boundedPosition = Math.max(0, Math.min(maxThumbPosition, newThumbPosition));
+            const scrollPosition = (boundedPosition / maxThumbPosition) * maxScrollLeft;
+            
+            scrollbarThumb.style.left = `${boundedPosition}px`;
+            imageList.scrollLeft = scrollPosition;
+        }
+
+        // Remove event listeners on mouse up
+        const handleMouseUp = () => {
+            document.removeEventListener("mousemove", handleMouseMove);
+            document.removeEventListener("mouseup", handleMouseUp);
+        }
+
+        // Add event listeners for drag interaction
+        document.addEventListener("mousemove", handleMouseMove);
+        document.addEventListener("mouseup", handleMouseUp);
+    });
+
+    // Slide images according to the slide button clicks
+    slideButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const direction = button.id === "prev-slide" ? -1 : 1;
+            const scrollAmount = imageList.clientWidth * direction;
+            imageList.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        });
+    });
+
+     // Show or hide slide buttons based on scroll position
+    const handleSlideButtons = () => {
+        slideButtons[0].style.display = imageList.scrollLeft <= 0 ? "none" : "flex";
+        slideButtons[1].style.display = imageList.scrollLeft >= maxScrollLeft ? "none" : "flex";
+    }
+
+    // Update scrollbar thumb position based on image scroll
+    const updateScrollThumbPosition = () => {
+        const scrollPosition = imageList.scrollLeft;
+        const thumbPosition = (scrollPosition / maxScrollLeft) * (sliderScrollbar.clientWidth - scrollbarThumb.offsetWidth);
+        scrollbarThumb.style.left = `${thumbPosition}px`;
+    }
+
+    // Call these two functions when image list scrolls
+    imageList.addEventListener("scroll", () => {
+        updateScrollThumbPosition();
+        handleSlideButtons();
+    });
+}
+
+window.addEventListener("resize", initSlider);
+window.addEventListener("load", initSlider);
+    </script>
 
 <script>
     $(".cartbtn").click(function (e) {

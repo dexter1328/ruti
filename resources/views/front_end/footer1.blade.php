@@ -89,11 +89,21 @@
              <li><a href="{{route('user-account-page')}}">Track Your Order</a></li>
              <li><a href="{{route('wb-wishlist-page')}}">Wishlist</a></li>
              <li><a href="https://helpdesk.naturecheckout.com" target="_blank">Support</a></li>
+
+             <li><a>        
+              <img class="playstore-icon" src="{{ asset('public/wb/img/new_homepage/footer/playstore-appstore.png') }}" alt="">
+            </a></li>
+
              @else
              <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal25">My Account</a></li>
              <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal26">My Orders</a></li>
              <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal27">Track Your Order</a></li>
              <li><a href="#" type="button" data-toggle="modal" data-target="#exampleModal28">Wishlist</a></li>
+
+             <li><a>        
+              <img class="playstore-icon" src="{{ asset('public/wb/img/new_homepage/footer/playstore-appstore.png') }}" alt="">
+            </a></li>
+
              @endif
              {{-- <li><a href="contact.html">Support</a></li>
              <li><a href="contact.html">Compare</a></li> --}}
@@ -102,6 +112,41 @@
        </div>
      </div>
     </div>
+    
+    <div class="footer-bottom">
+      <div class="footer-security-logos">
+        Security Certifications
+        <div>
+        <img src="{{ asset('public/wb/img/new_homepage/footer/sec-1.png') }}" alt="">
+        <img src="{{ asset('public/wb/img/new_homepage/footer/sec-2.png') }}" alt="">
+        <img src="{{ asset('public/wb/img/new_homepage/footer/sec-3.png') }}" alt="">
+        <img src="{{ asset('public/wb/img/new_homepage/footer/sec-4.png') }}" alt="">
+        <img src="{{ asset('public/wb/img/new_homepage/footer/sec-5.png') }}" alt="">
+        <img src="{{ asset('public/wb/img/new_homepage/footer/sec-6.png') }}" alt="">
+        </div>
+      </div>
+      <div class="footer-payment-logos">
+        We Accept
+        <div>
+        <img src="{{ asset('public/wb/img/new_homepage/footer/american-express.png') }}" alt="">
+        <img src="{{ asset('public/wb/img/new_homepage/footer/discover.jpg') }}" alt="">
+        <img src="{{ asset('public/wb/img/new_homepage/footer/jcb.png') }}" alt="">
+        <img src="{{ asset('public/wb/img/new_homepage/footer/mastercard.jpg') }}" alt="">
+        <img src="{{ asset('public/wb/img/new_homepage/footer/visa.jpg') }}" alt="">
+        <img src="{{ asset('public/wb/img/new_homepage/footer/paypal.png') }}" alt="">
+        <img src="{{ asset('public/wb/img/new_homepage/footer/gpay.png') }}" alt="">
+        <img src="{{ asset('public/wb/img/new_homepage/footer/apple-pay.jpg') }}" alt="">
+      </div>
+    </div>
+    </div>
+    <div class="footer-bottom-text">
+      © 2024 Nature Checkout
+      <a href="" class="footer-bottom-link">Terms of use</a>
+      <a href="" class="footer-bottom-link">Privacy Policy</a>
+      <a href="" class="footer-bottom-link">My Account</a>
+      <a href="" class="footer-bottom-link">Track your order</a>
+    </div>
+
   </div>
   <!-- Footer End -->
 
