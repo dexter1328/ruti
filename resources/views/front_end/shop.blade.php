@@ -147,7 +147,7 @@
 
 
 
-  
+
         <!-- Products Slider -->
         <!-- Please add only 10 products -->
     <div class="slider-container">
@@ -158,16 +158,19 @@
         <ul class="image-list">
 
         <!-- Slider product -->
+        @foreach ($products40 as $p)
           <div class="slider-product">
             <!-- Product Image -->
             <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card1.jpg" alt="img-1" />
+                <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                    <img class="image-item" src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" />
+                </a>
               <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
               <div class="product-limited-text">Limited Time Offer!</div>
             </div>
             <!-- name -->
             <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
+                {{ Str::limit($p->title, 40) }}
             <!-- Price -->
             <div class="slider-product-info2">
               <div class="slider-product-price">
@@ -193,351 +196,9 @@
             </div>
             </div>
           </div>
+
+          @endforeach
           <!-- Slider product end -->
-
-
-        <!-- Slider product -->
-          <div class="slider-product">
-            <!-- Product Image -->
-            <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card2.jpg" alt="img-1" />
-              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-              <div class="product-limited-text">Limited Time Offer!</div>
-            </div>
-            <!-- name -->
-            <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
-            <!-- Price -->
-            <div class="slider-product-info2">
-              <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
-              </div>
-              <div class="percent-off">55% Off</div>
-            </div>
-
-            <!-- Star ratings -->
-            <div class="slider-product-info2">
-              <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
-              </div>
-              <!-- Cart Icon -->
-              <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- Slider product end -->
-
-        <!-- Slider product -->
-          <div class="slider-product">
-            <!-- Product Image -->
-            <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card3.jpg" alt="img-1" />
-              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-              <div class="product-limited-text">Limited Time Offer!</div>
-            </div>
-            <!-- name -->
-            <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
-            <!-- Price -->
-            <div class="slider-product-info2">
-              <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
-              </div>
-              <div class="percent-off">55% Off</div>
-            </div>
-
-            <!-- Star ratings -->
-            <div class="slider-product-info2">
-              <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
-              </div>
-              <!-- Cart Icon -->
-              <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- Slider product end -->
-
-        <!-- Slider product -->
-          <div class="slider-product">
-            <!-- Product Image -->
-            <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card4.jpg" alt="img-1" />
-              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-              <div class="product-limited-text">Limited Time Offer!</div>
-            </div>
-            <!-- name -->
-            <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
-            <!-- Price -->
-            <div class="slider-product-info2">
-              <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
-              </div>
-              <div class="percent-off">55% Off</div>
-            </div>
-
-            <!-- Star ratings -->
-            <div class="slider-product-info2">
-              <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
-              </div>
-              <!-- Cart Icon -->
-              <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- Slider product end -->
-
-        <!-- Slider product -->
-          <div class="slider-product">
-            <!-- Product Image -->
-            <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card5.jpg" alt="img-1" />
-              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-              <div class="product-limited-text">Limited Time Offer!</div>
-            </div>
-            <!-- name -->
-            <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
-            <!-- Price -->
-            <div class="slider-product-info2">
-              <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
-              </div>
-              <div class="percent-off">55% Off</div>
-            </div>
-
-            <!-- Star ratings -->
-            <div class="slider-product-info2">
-              <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
-              </div>
-              <!-- Cart Icon -->
-              <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- Slider product end -->
-
-        <!-- Slider product -->
-          <div class="slider-product">
-            <!-- Product Image -->
-            <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card6.jpg" alt="img-1" />
-              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-              <div class="product-limited-text">Limited Time Offer!</div>
-            </div>
-            <!-- name -->
-            <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
-            <!-- Price -->
-            <div class="slider-product-info2">
-              <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
-              </div>
-              <div class="percent-off">55% Off</div>
-            </div>
-
-            <!-- Star ratings -->
-            <div class="slider-product-info2">
-              <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
-              </div>
-              <!-- Cart Icon -->
-              <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- Slider product end -->
-
-        <!-- Slider product -->
-          <div class="slider-product">
-            <!-- Product Image -->
-            <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card7.jpg" alt="img-1" />
-              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-              <div class="product-limited-text">Limited Time Offer!</div>
-            </div>
-            <!-- name -->
-            <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
-            <!-- Price -->
-            <div class="slider-product-info2">
-              <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
-              </div>
-              <div class="percent-off">55% Off</div>
-            </div>
-
-            <!-- Star ratings -->
-            <div class="slider-product-info2">
-              <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
-              </div>
-              <!-- Cart Icon -->
-              <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- Slider product end -->
-
-        <!-- Slider product -->
-          <div class="slider-product">
-            <!-- Product Image -->
-            <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card8.jpg" alt="img-1" />
-              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-              <div class="product-limited-text">Limited Time Offer!</div>
-            </div>
-            <!-- name -->
-            <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
-            <!-- Price -->
-            <div class="slider-product-info2">
-              <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
-              </div>
-              <div class="percent-off">55% Off</div>
-            </div>
-
-            <!-- Star ratings -->
-            <div class="slider-product-info2">
-              <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
-              </div>
-              <!-- Cart Icon -->
-              <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- Slider product end -->
-
-        <!-- Slider product -->
-          <div class="slider-product">
-            <!-- Product Image -->
-            <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card9.jpg" alt="img-1" />
-              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-              <div class="product-limited-text">Limited Time Offer!</div>
-            </div>
-            <!-- name -->
-            <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
-            <!-- Price -->
-            <div class="slider-product-info2">
-              <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
-              </div>
-              <div class="percent-off">55% Off</div>
-            </div>
-
-            <!-- Star ratings -->
-            <div class="slider-product-info2">
-              <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
-              </div>
-              <!-- Cart Icon -->
-              <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- Slider product end -->
-
-        <!-- Slider product -->
-          <div class="slider-product">
-            <!-- Product Image -->
-            <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card10.jpg" alt="img-1" />
-              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-              <div class="product-limited-text">Limited Time Offer!</div>
-            </div>
-            <!-- name -->
-            <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
-            <!-- Price -->
-            <div class="slider-product-info2">
-              <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
-              </div>
-              <div class="percent-off">55% Off</div>
-            </div>
-
-            <!-- Star ratings -->
-            <div class="slider-product-info2">
-              <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
-              </div>
-              <!-- Cart Icon -->
-              <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- Slider product end -->
-
 
       </ul>
         <button id="next-slide" class="slide-button material-symbols-rounded">
@@ -593,13 +254,17 @@
         <div class="slider-product">
           <!-- Product Image -->
           <div class="slider-product-image">
+            <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
             <img class="image-item" src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" />
+            </a>
             <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
             <div class="product-limited-text">Limited Time Offer!</div>
           </div>
           <!-- name -->
           <div class="slider-product-info">
+            <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
             {{ Str::limit($p->title, 40) }}
+            </a>
           <!-- Price -->
           <div class="slider-product-info2">
             <div class="slider-product-price">
@@ -627,7 +292,7 @@
         </div>
         <!-- Slider product end -->
 
-       
+
           @endforeach
         </div>
         {{ $products33->links() }}
@@ -636,18 +301,22 @@
 
       <div class="tab-pane fade" id="featured" role="tabpanel" aria-labelledby="featured-tab">
         <div class="products">
-            @foreach ($products33 as $p)
+            @foreach ($products33a as $p)
           <!-- Slider product -->
           <div class="slider-product">
             <!-- Product Image -->
             <div class="slider-product-image">
-              <img class="image-item" src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" />
+                <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                    <img class="image-item" src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" />
+                </a>
               <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
               <div class="product-limited-text">Limited Time Offer!</div>
             </div>
             <!-- name -->
             <div class="slider-product-info">
-              {{ Str::limit($p->title, 40) }}
+                <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                    {{ Str::limit($p->title, 40) }}
+                </a>
             <!-- Price -->
             <div class="slider-product-info2">
               <div class="slider-product-price">
@@ -675,7 +344,7 @@
           </div>
           <!-- Slider product end -->
 
-        
+
             @endforeach
           </div>
         {{ $products33->links() }}
@@ -683,12 +352,14 @@
 
       <div class="tab-pane fade" id="top" role="tabpanel" aria-labelledby="top-tab">
         <div class="products">
-            @foreach ($products33 as $p)
+            @foreach ($products33b as $p)
           <!-- Slider product -->
           <div class="slider-product">
             <!-- Product Image -->
             <div class="slider-product-image">
-              <img class="image-item" src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" />
+                <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                    <img class="image-item" src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" />
+                </a>
               <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
               <div class="product-limited-text">Limited Time Offer!</div>
             </div>
@@ -722,7 +393,7 @@
           </div>
           <!-- Slider product end -->
 
-        
+
             @endforeach
           </div>
         {{ $products33->links() }}
@@ -824,8 +495,10 @@
                     src="public/wb/img/new_homepage/icons/cart.png" alt=""></a>
               </div>
               <div class="hot-deals-product-img">
-                <img src="{{$p->original_image_url}}" alt="product-img" class="product-img product-img-1">
-                <img src="{{$p->original_image_url}}" alt="product-img" class="product-img product-img-2">
+                <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                    <img src="{{$p->original_image_url}}" alt="product-img" class="product-img product-img-1">
+                    <img src="{{$p->original_image_url}}" alt="product-img" class="product-img product-img-2">
+                </a>
               </div>
 
               <div class="hot-deals-add_to_cart">
@@ -909,7 +582,9 @@
         <div class="featured-products">
           @foreach ($products35 as $p)
           <div class="featured-product">
-            <img class="featured-product-image" src="{{$p->original_image_url}}" alt="">
+            <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                <img class="featured-product-image" src="{{$p->original_image_url}}" alt="">
+            </a>
             <div class="featured-product-info">
               <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
                 <h3 class="featured-product-title">{{ Str::limit($p->title, 10) }}</h3>
@@ -945,45 +620,144 @@
           </ul>
         </div>
       </div>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="new2" role="tabpanel" aria-labelledby="new2-tab">
+            <div class="products products-2">
+                @foreach ($products36 as $p)
+                <div class="slider-product">
+                <!-- Product Image -->
+                <div class="slider-product-image">
+                    <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                        <img class="image-item" src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" />
+                    </a>
+                    <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+                    <div class="product-limited-text">Limited Time Offer!</div>
+                </div>
+                <!-- name -->
+                <div class="slider-product-info">
+                    <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                        {{ Str::limit($p->title, 40) }}
+                    </a>
+                <!-- Price -->
+                <div class="slider-product-info2">
+                    <div class="slider-product-price">
+                    ${{number_format((float)$p->retail_price, 2, '.', '')}} <span class="cutout-price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
+                    </div>
+                    <div class="percent-off">55% Off</div>
+                </div>
 
-      <div class="products products-2">
-        @foreach ($products36 as $p)
-        <div class="slider-product">
-          <!-- Product Image -->
-          <div class="slider-product-image">
-            <img class="image-item" src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" />
-            <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-            <div class="product-limited-text">Limited Time Offer!</div>
-          </div>
-          <!-- name -->
-          <div class="slider-product-info">
-            {{ Str::limit($p->title, 40) }}
-          <!-- Price -->
-          <div class="slider-product-info2">
-            <div class="slider-product-price">
-              ${{number_format((float)$p->retail_price, 2, '.', '')}} <span class="cutout-price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
+                <!-- Star ratings -->
+                <div class="slider-product-info2">
+                    <div class="slider-product-review">
+                    <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                    <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                    <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                    <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                    <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                    <div class="review-points">4.5 <span>(342)</span></div>
+                    </div>
+                    <!-- Cart Icon -->
+                    <div class="slider-product-cart">
+                    <i class="fa fa-solid fa-shopping-cart"></i>
+                    </div>
+                </div>
+                </div>
+                </div>
+                @endforeach
             </div>
-            <div class="percent-off">55% Off</div>
-          </div>
-
-          <!-- Star ratings -->
-          <div class="slider-product-info2">
-            <div class="slider-product-review">
-              <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
-              <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
-              <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
-              <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
-              <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
-              <div class="review-points">4.5 <span>(342)</span></div>
-            </div>
-            <!-- Cart Icon -->
-            <div class="slider-product-cart">
-              <i class="fa fa-solid fa-shopping-cart"></i>
-            </div>
-          </div>
-          </div>
         </div>
-        @endforeach
+
+        <div class="tab-pane fade" id="featured2" role="tabpanel" aria-labelledby="featured2-tab">
+            <div class="products products-2">
+                @foreach ($products36a as $p)
+                <div class="slider-product">
+                <!-- Product Image -->
+                <div class="slider-product-image">
+                    <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                        <img class="image-item" src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" />
+                    </a>
+                    <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+                    <div class="product-limited-text">Limited Time Offer!</div>
+                </div>
+                <!-- name -->
+                <div class="slider-product-info">
+                    <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                    {{ Str::limit($p->title, 40) }}
+                    </a>
+                <!-- Price -->
+                <div class="slider-product-info2">
+                    <div class="slider-product-price">
+                    ${{number_format((float)$p->retail_price, 2, '.', '')}} <span class="cutout-price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
+                    </div>
+                    <div class="percent-off">55% Off</div>
+                </div>
+
+                <!-- Star ratings -->
+                <div class="slider-product-info2">
+                    <div class="slider-product-review">
+                    <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                    <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                    <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                    <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                    <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                    <div class="review-points">4.5 <span>(342)</span></div>
+                    </div>
+                    <!-- Cart Icon -->
+                    <div class="slider-product-cart">
+                    <i class="fa fa-solid fa-shopping-cart"></i>
+                    </div>
+                </div>
+                </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="top2" role="tabpanel" aria-labelledby="top2-tab">
+            <div class="products products-2">
+                @foreach ($products36b as $p)
+                <div class="slider-product">
+                <!-- Product Image -->
+                <div class="slider-product-image">
+                    <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                    <img class="image-item" src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" />
+                    </a>
+                    <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+                    <div class="product-limited-text">Limited Time Offer!</div>
+                </div>
+                <!-- name -->
+                <div class="slider-product-info">
+                    <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                        {{ Str::limit($p->title, 40) }}
+                    </a>
+                <!-- Price -->
+                <div class="slider-product-info2">
+                    <div class="slider-product-price">
+                    ${{number_format((float)$p->retail_price, 2, '.', '')}} <span class="cutout-price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
+                    </div>
+                    <div class="percent-off">55% Off</div>
+                </div>
+
+                <!-- Star ratings -->
+                <div class="slider-product-info2">
+                    <div class="slider-product-review">
+                    <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                    <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                    <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                    <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                    <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
+                    <div class="review-points">4.5 <span>(342)</span></div>
+                    </div>
+                    <!-- Cart Icon -->
+                    <div class="slider-product-cart">
+                    <i class="fa fa-solid fa-shopping-cart"></i>
+                    </div>
+                </div>
+                </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
       </div>
 
 
@@ -1163,7 +937,7 @@
 
 <!-- Blogs End -->
 
-<!-- THIS SECTION WILL BE MOVED TO A NEW PAGE 
+<!-- THIS SECTION WILL BE MOVED TO A NEW PAGE
  <div class="faq-section" id="faq-section">
   <h2>Frequently Asked Questions</h2>
             <div class="faq-item">
@@ -1264,13 +1038,13 @@
     const sliderScrollbar = document.querySelector(".slider-container .slider-scrollbar");
     const scrollbarThumb = sliderScrollbar.querySelector(".scrollbar-thumb");
     const maxScrollLeft = imageList.scrollWidth - imageList.clientWidth;
-    
+
     // Handle scrollbar thumb drag
     scrollbarThumb.addEventListener("mousedown", (e) => {
         const startX = e.clientX;
         const thumbPosition = scrollbarThumb.offsetLeft;
         const maxThumbPosition = sliderScrollbar.getBoundingClientRect().width - scrollbarThumb.offsetWidth;
-        
+
         // Update thumb position on mouse move
         const handleMouseMove = (e) => {
             const deltaX = e.clientX - startX;
@@ -1279,7 +1053,7 @@
             // Ensure the scrollbar thumb stays within bounds
             const boundedPosition = Math.max(0, Math.min(maxThumbPosition, newThumbPosition));
             const scrollPosition = (boundedPosition / maxThumbPosition) * maxScrollLeft;
-            
+
             scrollbarThumb.style.left = `${boundedPosition}px`;
             imageList.scrollLeft = scrollPosition;
         }

@@ -79,7 +79,7 @@ class ShopController extends BaseController
             $category = W2bCategory::where('category1', $request->category_name)->first();
 
             $product = new Products();
-            $product->vendor_id = Auth::guard('vendor')->user()->id;
+            $product->vendor_id = Auth::guard('vendor-api')->user()->id;
             $product->seller_type = 'vendor';
             $product->w2b_category_1 = $category->category1 ?? null;
             $product->title = $request->input('title');
@@ -147,7 +147,7 @@ class ShopController extends BaseController
 
     public function getProducts()
     {
-        $products = Products::where('vendor_id' , Auth::guard('vendor')->user()->id)->where('seller_type', 'vendor')->get();
+        $products = Products::where('vendor_id' , Auth::guard('vendor-api')->user()->id)->where('seller_type', 'vendor')->get();
         return $this->sendResponse($products, 'All products of authenticated vendor Fetched Successfully');
 
     }
@@ -262,7 +262,7 @@ class ShopController extends BaseController
     public function getBrands()
     {
         $brands = Brand::select('name','image','description')
-        ->where('vendor_id', Auth::guard('vendor')->user()->id)->get();
+        ->where('vendor_id', Auth::guard('vendor-api')->user()->id)->get();
 
         return $this->sendResponse($brands, 'Brands of auth vendor Fetched Successfully');
 
@@ -284,8 +284,8 @@ class ShopController extends BaseController
         $data = array(
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'vendor_id' => Auth::guard('vendor')->user()->id,
-            'created_by' => Auth::guard('vendor')->user()->id,
+            'vendor_id' => Auth::guard('vendor-api')->user()->id,
+            'created_by' => Auth::guard('vendor-api')->user()->id,
         );
         if ($files = $request->file('image')){
 
@@ -342,7 +342,7 @@ class ShopController extends BaseController
     {
         $op = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
         ->join('users', 'w2b_orders.user_id', 'users.id')
-        ->where('ordered_products.vendor_id', Auth::guard('vendor')->user()->id)
+        ->where('ordered_products.vendor_id', Auth::guard('vendor-api')->user()->id)
         ->where('w2b_orders.is_paid', 'yes')
         ->where('ordered_products.seller_type', 'vendor')
         ->groupBy('ordered_products.order_id')
@@ -357,20 +357,20 @@ class ShopController extends BaseController
     {
         $od = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
         ->join('users', 'w2b_orders.user_id', 'users.id')
-        ->where('ordered_products.vendor_id', Auth::guard('vendor')->user()->id)
+        ->where('ordered_products.vendor_id', Auth::guard('vendor-api')->user()->id)
         ->where('w2b_orders.order_id', $orderId)
         ->select('ordered_products.*')
         ->get();
 
         $grandTotal = OrderedProduct::where('order_id', $orderId)
-            ->where('vendor_id', Auth::guard('vendor')->user()->id)
+            ->where('vendor_id', Auth::guard('vendor-api')->user()->id)
             ->sum('total_price');
 
         $order1 = OrderedProduct::join('w2b_orders', 'ordered_products.order_id', 'w2b_orders.order_id')
             ->join('users', 'w2b_orders.user_id', 'users.id')
             ->join('states', 'states.id', 'users.state')
             ->join('cities', 'cities.id', 'users.city')
-            ->where('ordered_products.vendor_id', Auth::guard('vendor')->user()->id)
+            ->where('ordered_products.vendor_id', Auth::guard('vendor-api')->user()->id)
             ->where('w2b_orders.order_id', $orderId)
             ->select('ordered_products.order_id','ordered_products.vendor_id',
                 'users.first_name as user_fname', 'users.last_name as user_lname',
