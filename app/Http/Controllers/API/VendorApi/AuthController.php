@@ -149,7 +149,8 @@ class AuthController extends BaseController
                 'status'=>$vendor->status,
                 'tax_id'=>$vendor->tax_id,
                 'image' => ($vendor->image == Null ? asset('public/images/User-Avatar.png') : asset('public/images/vendors/'.$vendor->image)),
-                'business_name' => $vendor->business_name
+                'business_name' => $vendor->business_name,
+                'website_link' => $vendor->website_link
             );
             return $this->sendResponse($success, 'Your account has been created successfully.');
 
@@ -167,6 +168,11 @@ class AuthController extends BaseController
         if (Auth::guard('vendor')->attempt(['email' => $request->email, 'password' => $request->password])) {
             $vendor = Auth::guard('vendor')->user();
 
+            $country = DB::table('countries')->where('id', $vendor->country)->value('name') ?? null;
+            $state = DB::table('states')->where('id', $vendor->state)->value('name') ?? null;
+            $city = DB::table('cities')->where('id', $vendor->city)->value('name') ?? null;
+
+
             $success['token'] = $vendor->createToken('VendorNatureCheckout')->accessToken;
             $success['vendor'] = [
                 'vendor_id' => $vendor->id,
@@ -176,10 +182,14 @@ class AuthController extends BaseController
                 'mobile_number' => $vendor->mobile_number,
                 'address' => $vendor->address,
                 'pincode' => $vendor->pincode,
+                'country' =>  $country,
+                'state'=>$state,
+                'city'=> $city,
                 'status' => $vendor->status,
                 'tax_id' => $vendor->tax_id,
                 'image' => ($vendor->image == null ? asset('public/images/User-Avatar.png') : asset('public/images/vendors/'.$vendor->image)),
                 'business_name' => $vendor->business_name,
+                'website_link' => $vendor->website_link
             ];
 
             return $this->sendResponse($success, 'Login Successful');
@@ -336,7 +346,8 @@ class AuthController extends BaseController
             'business_name' => $vendor->business_name,
             'bank_name' => $vendor->bank_name,
             'bank_routing_number' => $vendor->bank_routing_number,
-            'bank_account_number' => $vendor->bank_account_number
+            'bank_account_number' => $vendor->bank_account_number,
+            'website_link' => $vendor->website_link
         );
 		return $this->sendResponse($success,'Your profile details have been updated successfully');
 	}
