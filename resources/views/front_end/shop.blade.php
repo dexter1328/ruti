@@ -1131,6 +1131,31 @@ window.addEventListener("load", initSlider);
   </div>
 </div>
 
+
+ <!-- Someone bought a product popup -->
+ <div class="bought-product-popup">
+    <i class="fa fa-solid fa-close bought-product-close-icon"></i>
+    <div class="bought-product-image">
+      <img src="{{  $product_s->original_image_url  }}" alt="">
+    </div>
+    <div class="bought-product-info">
+      <div class="bought-product-text">
+        Someone bought <a href="{{ route('product-detail',['slug' => $product_s->slug, 'sku' => $product_s->sku]) }}'">{{ Str::limit($product_s->title, 100) }}</a>
+      </div>
+      <div class="bought-product-time">
+      <div class="slider-product-review">
+    <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+    <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+    <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+    <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+    <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
+    <div class="review-points">4.5 <span>(342)</span></div>
+  </div>
+        27 Minutes Ago
+      </div>
+    </div>
+  </div>
+
 <script>
   $(".newsletter-close-icon").click(() => {
     $(".newsletter-popup").css("display", "none")

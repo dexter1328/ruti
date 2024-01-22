@@ -138,5 +138,40 @@
 
 
 
+<div class="thankyou-popup-wrapper">
+
+    <div class="thankyou-popup">
+      <i class="fa fa-solid fa-close thank-you-close-icon"></i>
+      <div class="thankyou-popup-top">
+        <h2>Subscribe to marketing messages to get</h2>
+        <div class="thankyou-popup-icons">
+          <div class="thankyou-popup-icon">
+          <i class="fa fa-solid fa-envelope-open"></i>
+            Exclusive coupons
+          </div>
+          <div class="thankyou-popup-icon">
+          <i class="fa fa-solid fa-bar-chart"></i>
+            Amazing discount
+          </div>
+          <div class="thankyou-popup-icon">
+          <i class="fa fa-solid fa-gift"></i>
+            Special Promotions
+          </div>
+
+        </div>
+      </div>
+      <div class="thankyou-popup-bottom">
+        <div class="thankyou-popup-input">
+          <input placeholder="Enter your email" type="text">
+          <a class="btn btn-primary" href="{{ url('/') }}">Confirm</a>
+        </div>
+        <div class="thankyou-popup-bottom-text">
+        By entering your phone contact, you  have accepted to receive opt-in promotions from Nature Checkout.
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
 @endsection
