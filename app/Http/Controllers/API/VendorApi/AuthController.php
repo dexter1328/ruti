@@ -182,14 +182,18 @@ class AuthController extends BaseController
                 'mobile_number' => $vendor->mobile_number,
                 'address' => $vendor->address,
                 'pincode' => $vendor->pincode,
-                'country' =>  $country,
-                'state'=>$state,
-                'city'=> $city,
+                'country' =>  $vendor->country,
+                'state'=>$vendor->state,
+                'city'=> $vendor->city,
                 'status' => $vendor->status,
                 'tax_id' => $vendor->tax_id,
                 'image' => ($vendor->image == null ? asset('public/images/User-Avatar.png') : asset('public/images/vendors/'.$vendor->image)),
                 'business_name' => $vendor->business_name,
-                'website_link' => $vendor->website_link
+                'website_link' => $vendor->website_link,
+                'bank_name' => $vendor->bank_name,
+                'bank_routing_number' => $vendor->bank_routing_number,
+                'bank_account_number' => $vendor->bank_account_number,
+                'wallet_amount' => $vendor->wallet_amount
             ];
 
             return $this->sendResponse($success, 'Login Successful');

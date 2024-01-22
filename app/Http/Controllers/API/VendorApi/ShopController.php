@@ -45,7 +45,8 @@ class ShopController extends BaseController
 
     public function createProduct(Request $request)
     {
-
+            // dd($request->all());
+            // dd($request->file('image'));
             $validator = Validator::make($request->all(), [
                 'title' => 'required',
                 'meta_title' => 'required',
@@ -58,7 +59,7 @@ class ShopController extends BaseController
                 'shipping_price' => 'required',
                 'sku' => 'required|unique:products,sku',
                 'stock' => 'required',
-                'image' => 'required|mimes:jpeg,png,jpg|max:2048',
+                'image' => 'required',
             ]);
 
             if ($validator->fails()) {
@@ -88,6 +89,7 @@ class ShopController extends BaseController
             $product->retail_price = $request->input('retail_price');
             $product->sku = $request->input('sku');
             $product->in_stock = 'Y';
+            $product->shipping_price = $request->input('shipping_price');
             $product->stock = $request->input('stock');
             $product->meta_title = $request->input('meta_title');
             $product->meta_description = $request->input('meta_description');
