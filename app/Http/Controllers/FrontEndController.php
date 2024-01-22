@@ -177,33 +177,56 @@ class FrontEndController extends Controller
 
 
     public function shop()
-{
-    $categories1 = W2bCategory::whereIn('id', [1, 6, 9, 12, 20, 23, 29, 69])->get();
-    $latest_blogs = Blog::latest()->take(3)->get();
+    {
 
-    $sold = rand(20, 50);
-    $available = rand(60, 99);
+        $latest_blogs = Blog::latest()->take(3)->get();
+        $categories1 = W2bCategory::whereIn('id', [1, 6, 9,12,20,23,29,69])
+        ->get();
 
-    $product_s = W2bProduct::select('sku', 'title', 'w2b_category_1', 'brand', 'retail_price', 'slug', 'original_image_url')->inRandomOrder()->first();
-    $product31 = W2bProduct::select('sku', 'title', 'w2b_category_1', 'brand', 'retail_price', 'slug', 'original_image_url')->skip(3)->first();
-    $product32 = W2bProduct::select('sku', 'title', 'w2b_category_1', 'brand', 'retail_price', 'slug', 'original_image_url')->skip(10)->first();
+        $sold = rand(20, 50);
+        $available = rand(60, 99);
 
-    $products33 = W2bProduct::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'large_image_url_250x250', 'original_image_url')->inRandomOrder()->limit(2000)->paginate(12);
-    $products33a = W2bProduct::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'large_image_url_250x250', 'original_image_url')->skip(4000)->inRandomOrder()->limit(2000)->paginate(12);
-    $products33b = W2bProduct::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'large_image_url_250x250', 'original_image_url')->skip(5000)->inRandomOrder()->limit(2000)->paginate(12);
+        $product31 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(3)->first();
+        $product_s = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->inRandomOrder()->first();
+        $product32 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(10)->first();
+        $products33 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250','original_image_url')->inRandomOrder()->limit(2000)->paginate(12);
+        $products33a = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250','original_image_url')->skip(4000)->inRandomOrder()->limit(2000)->paginate(12);
+        $products33b = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250','original_image_url')->skip(5000)->inRandomOrder()->limit(2000)->paginate(12);
+        $products34 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250','original_image_url')->inRandomOrder()->limit(3)->get();
+        $products35 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250','original_image_url')->inRandomOrder()->limit(4)->get();
+        $products36 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250','original_image_url')->inRandomOrder()->limit(6)->get();
+        $products36a = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250','original_image_url')->inRandomOrder()->limit(6)->get();
+        $products36b = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250','original_image_url')->inRandomOrder()->limit(6)->get();
 
-    $products34 = W2bProduct::inRandomOrder()->limit(3)->get();
-    $products35 = W2bProduct::inRandomOrder()->limit(4)->get();
-    $products36 = W2bProduct::inRandomOrder()->limit(6)->get();
-    $products36a = W2bProduct::inRandomOrder()->limit(6)->get();
-    $products36b = W2bProduct::inRandomOrder()->limit(6)->get();
 
-    $products40 = W2bProduct::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'large_image_url_250x250', 'original_image_url')->skip(4000)->inRandomOrder()->paginate(10);
+        $products40 = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250','original_image_url')->skip(4000)->inRandomOrder()->paginate(10);
 
-    $products = W2bProduct::inRandomOrder()->limit(3000)->paginate(6);
 
-    return view('front_end.shop', compact('products', 'categories1', 'sold', 'available', 'product31', 'product32', 'products33', 'products34', 'products35', 'products36', 'products40', 'latest_blogs', 'products33a', 'products33b', 'products36a', 'products36b', 'product_s'));
-}
+        // $randomIds = W2bProduct::inRandomOrder()->limit(2000)->pluck('sku')->toArray();
+
+        // $products33 = W2bProduct::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'large_image_url_250x250', 'original_image_url')
+        //     ->whereIn('sku', $randomIds)
+        //     ->paginate(12);
+
+        // $randomIdsFor334 = W2bProduct::inRandomOrder()->limit(3)->pluck('sku')->toArray();
+        // $products34 = W2bProduct::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'large_image_url_250x250', 'original_image_url')
+        //     ->whereIn('sku', $randomIdsFor334)
+        //     ->get();
+
+        // $randomIdsFor35 = W2bProduct::inRandomOrder()->limit(4)->pluck('sku')->toArray();
+        // $products35 = W2bProduct::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'large_image_url_250x250', 'original_image_url')
+        //     ->whereIn('sku', $randomIdsFor35)
+        //     ->get();
+
+        // $randomIdsFor36 = W2bProduct::inRandomOrder()->limit(6)->pluck('sku')->toArray();
+        // $products36 = W2bProduct::select('sku', 'title', 'w2b_category_1', 'retail_price', 'slug', 'large_image_url_250x250', 'original_image_url')
+        //     ->whereIn('sku', $randomIdsFor36)
+        //     ->get();
+
+        $products = W2bProduct::select('sku','title','w2b_category_1','retail_price', 'slug','large_image_url_250x250','original_image_url')->inRandomOrder()->limit(3000)->paginate(6);
+        return view('front_end.shop',compact('products',
+        'categories1','sold','available','product31','product32','products33','products34','products35','products36','products40','latest_blogs','products33a','products33b','products36a','products36b' , 'product_s'));
+    }
 
     public function catName($cate)
     {
@@ -284,16 +307,16 @@ class FrontEndController extends Controller
         ->reddit();
 
         $p1 = DB::table('w2b_products')
-        ->where('sku', $sku)
-        ->first();
+            ->where('sku', $sku)
+            ->first();
 
         if ($p1 == Null) {
+            // Product with the given SKU exists in 'w2b_products' table
             $product = Products::with('vendor')->where('sku', $sku)->first();
-            // dd($product);
-        }
-        else {
+
+        } else {
+            // Product with the given SKU doesn't exist in 'w2b_products' table
             $product = W2bProduct::with('vendor')->where('sku', $sku)->first();
-            // dd($product);
         }
 
 
@@ -305,8 +328,6 @@ class FrontEndController extends Controller
         ->where('w2b_category_1', $product->w2b_category_1)
         ->inRandomOrder()->limit(2000)->get();
         $related_productss = $rps2->merge($rps1)->paginate(10);
-
-
 
         $rp1 = DB::table('w2b_products')
         ->where('w2b_category_1', $product->w2b_category_1)

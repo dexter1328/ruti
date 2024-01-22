@@ -842,7 +842,7 @@
               </div>
             </div>
             <a href="#">
-              Joseph Larnyoh
+              Admin
             </a>
             {{-- <a href="">
               <i class="fa fa-solid fa-comment"></i>
@@ -1124,7 +1124,7 @@ window.addEventListener("load", initSlider);
     <h4>Connect to Nature Checkout & get </h4>
     <h2>Get upto 30% Off!
     </h2>
-    <p>Be the first one to know about our Special offers and get 10% <br> Discount Coupon instantly!
+    <p>Be the first one to know about our Special offers and get upto 30% <br> Discount Coupon instantly!
     </p>
     <i class="fa fa-solid fa-close newsletter-close-icon"></i>
     <form action="{{ route('sub-newsletter') }}" method="POST" class="newsletter-form">
@@ -1147,27 +1147,30 @@ window.addEventListener("load", initSlider);
 
  <!-- Someone bought a product popup -->
  <div class="bought-product-popup">
-    <i class="fa fa-solid fa-close bought-product-close-icon"></i>
-    <div class="bought-product-image">
-      <img src="{{  $product_s->original_image_url  }}" alt="">
-    </div>
-    <div class="bought-product-info">
-      <div class="bought-product-text">
-        Someone bought <a href="{{ route('product-detail',['slug' => $product_s->slug, 'sku' => $product_s->sku]) }}'">{{ Str::limit($product_s->title, 100) }}</a>
-      </div>
-      <div class="bought-product-time">
-      <div class="slider-product-review">
-    <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
-    <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
-    <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
-    <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
-    <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
-    <div class="review-points">4.5 </div>
+    @if($product_s)
+        <div class="bought-product-image">
+            <img src="{{ $product_s->original_image_url }}" alt="">
+        </div>
+        <div class="bought-product-info">
+            <div class="bought-product-text">
+                Someone bought <a href="{{ route('product-detail',['slug' => $product_s->slug, 'sku' => $product_s->sku]) }}">{{ Str::limit($product_s->title, 100) }}</a>
+            </div>
+            <div class="bought-product-time">
+                <div class="slider-product-review">
+                    <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                    <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                    <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                    <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                    <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                    <div class="review-points">4.5 </div>
+                </div>
+                27 Minutes Ago
+            </div>
+        </div>
+    @endif
   </div>
-        27 Minutes Ago
-      </div>
-    </div>
-  </div>
+
+
 
 <script>
   $(".newsletter-close-icon").click(() => {
