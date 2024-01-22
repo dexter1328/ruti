@@ -70,7 +70,7 @@
     <div class="row">
         <div class="col-md-12 sps spec-offer-banner-container">
             <a href=""><img class="spec-offer-banner" src="public/wb/img/new_homepage/banner-5.png" alt="webcam"></a>
-        </div>                  
+        </div>
 </div>
 </div>
 
@@ -89,386 +89,51 @@
         </button>
         <ul class="image-list">
 
-        <!-- Slider product -->
-          <div class="slider-product">
-            <!-- Product Image -->
-            <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card1.jpg" alt="img-1" />
-              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-              <div class="product-limited-text">Limited Time Offer!</div>
-            </div>
-            <!-- name -->
-            <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
-            <!-- Price -->
-            <div class="slider-product-info2">
-              <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
+            @foreach ($productss as $p)
+            <div class="slider-product">
+              <!-- Product Image -->
+              <div class="slider-product-image">
+                  <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                      <img class="image-item" src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" />
+                  </a>
+                <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+                <div class="product-limited-text">Limited Time Offer!</div>
               </div>
-              <div class="percent-off">55% Off</div>
+              <!-- name -->
+              <div class="slider-product-info">
+                  {{ Str::limit($p->title, 40) }}
+              <!-- Price -->
+              <div class="slider-product-info2">
+                <div class="slider-product-price">
+                  $ {{number_format((float)$p->retail_price, 2, '.', '')}} <span class="cutout-price">{{ number_format((float)($p->retail_price + 10), 2, '.', '') }}
+                  </span>
+                </div>
+                <div class="percent-off">Upto 30% Off</div>
+              </div>
+
+              <!-- Star ratings -->
+              <div class="slider-product-info2">
+                <div class="slider-product-review">
+                  <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                  <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                  <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                  <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                  <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                  <div class="review-points">4.5 </div>
+                </div>
+                <!-- Cart Icon -->
+                <div class="slider-product-cart">
+                  <a href="{{ route('add.to.cart', $p->sku) }}">
+                      <i class="fa fa-solid fa-shopping-cart"></i>
+                  </a>
+                </div>
+              </div>
+              </div>
             </div>
 
-            <!-- Star ratings -->
-            <div class="slider-product-info2">
-              <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
-              </div>
-              <!-- Cart Icon -->
-              <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- Slider product end -->
+            @endforeach
+            <!-- Slider product end -->
 
-
-        <!-- Slider product -->
-          <div class="slider-product">
-            <!-- Product Image -->
-            <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card2.jpg" alt="img-1" />
-              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-              <div class="product-limited-text">Limited Time Offer!</div>
-            </div>
-            <!-- name -->
-            <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
-            <!-- Price -->
-            <div class="slider-product-info2">
-              <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
-              </div>
-              <div class="percent-off">55% Off</div>
-            </div>
-
-            <!-- Star ratings -->
-            <div class="slider-product-info2">
-              <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
-              </div>
-              <!-- Cart Icon -->
-              <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- Slider product end -->
-
-        <!-- Slider product -->
-          <div class="slider-product">
-            <!-- Product Image -->
-            <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card3.jpg" alt="img-1" />
-              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-              <div class="product-limited-text">Limited Time Offer!</div>
-            </div>
-            <!-- name -->
-            <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
-            <!-- Price -->
-            <div class="slider-product-info2">
-              <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
-              </div>
-              <div class="percent-off">55% Off</div>
-            </div>
-
-            <!-- Star ratings -->
-            <div class="slider-product-info2">
-              <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
-              </div>
-              <!-- Cart Icon -->
-              <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- Slider product end -->
-
-        <!-- Slider product -->
-          <div class="slider-product">
-            <!-- Product Image -->
-            <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card4.jpg" alt="img-1" />
-              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-              <div class="product-limited-text">Limited Time Offer!</div>
-            </div>
-            <!-- name -->
-            <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
-            <!-- Price -->
-            <div class="slider-product-info2">
-              <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
-              </div>
-              <div class="percent-off">55% Off</div>
-            </div>
-
-            <!-- Star ratings -->
-            <div class="slider-product-info2">
-              <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
-              </div>
-              <!-- Cart Icon -->
-              <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- Slider product end -->
-
-        <!-- Slider product -->
-          <div class="slider-product">
-            <!-- Product Image -->
-            <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card5.jpg" alt="img-1" />
-              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-              <div class="product-limited-text">Limited Time Offer!</div>
-            </div>
-            <!-- name -->
-            <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
-            <!-- Price -->
-            <div class="slider-product-info2">
-              <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
-              </div>
-              <div class="percent-off">55% Off</div>
-            </div>
-
-            <!-- Star ratings -->
-            <div class="slider-product-info2">
-              <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
-              </div>
-              <!-- Cart Icon -->
-              <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- Slider product end -->
-
-        <!-- Slider product -->
-          <div class="slider-product">
-            <!-- Product Image -->
-            <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card6.jpg" alt="img-1" />
-              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-              <div class="product-limited-text">Limited Time Offer!</div>
-            </div>
-            <!-- name -->
-            <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
-            <!-- Price -->
-            <div class="slider-product-info2">
-              <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
-              </div>
-              <div class="percent-off">55% Off</div>
-            </div>
-
-            <!-- Star ratings -->
-            <div class="slider-product-info2">
-              <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
-              </div>
-              <!-- Cart Icon -->
-              <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- Slider product end -->
-
-        <!-- Slider product -->
-          <div class="slider-product">
-            <!-- Product Image -->
-            <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card7.jpg" alt="img-1" />
-              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-              <div class="product-limited-text">Limited Time Offer!</div>
-            </div>
-            <!-- name -->
-            <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
-            <!-- Price -->
-            <div class="slider-product-info2">
-              <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
-              </div>
-              <div class="percent-off">55% Off</div>
-            </div>
-
-            <!-- Star ratings -->
-            <div class="slider-product-info2">
-              <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
-              </div>
-              <!-- Cart Icon -->
-              <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- Slider product end -->
-
-        <!-- Slider product -->
-          <div class="slider-product">
-            <!-- Product Image -->
-            <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card8.jpg" alt="img-1" />
-              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-              <div class="product-limited-text">Limited Time Offer!</div>
-            </div>
-            <!-- name -->
-            <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
-            <!-- Price -->
-            <div class="slider-product-info2">
-              <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
-              </div>
-              <div class="percent-off">55% Off</div>
-            </div>
-
-            <!-- Star ratings -->
-            <div class="slider-product-info2">
-              <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
-              </div>
-              <!-- Cart Icon -->
-              <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- Slider product end -->
-
-        <!-- Slider product -->
-          <div class="slider-product">
-            <!-- Product Image -->
-            <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card9.jpg" alt="img-1" />
-              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-              <div class="product-limited-text">Limited Time Offer!</div>
-            </div>
-            <!-- name -->
-            <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
-            <!-- Price -->
-            <div class="slider-product-info2">
-              <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
-              </div>
-              <div class="percent-off">55% Off</div>
-            </div>
-
-            <!-- Star ratings -->
-            <div class="slider-product-info2">
-              <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
-              </div>
-              <!-- Cart Icon -->
-              <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- Slider product end -->
-
-        <!-- Slider product -->
-          <div class="slider-product">
-            <!-- Product Image -->
-            <div class="slider-product-image">
-              <img class="image-item" src="public/wb/img/new_homepage/dummy-prods/card10.jpg" alt="img-1" />
-              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
-              <div class="product-limited-text">Limited Time Offer!</div>
-            </div>
-            <!-- name -->
-            <div class="slider-product-info">
-              Two Row Purple Crystal Size 18 Aqua Dog Collar
-            <!-- Price -->
-            <div class="slider-product-info2">
-              <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
-              </div>
-              <div class="percent-off">55% Off</div>
-            </div>
-
-            <!-- Star ratings -->
-            <div class="slider-product-info2">
-              <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
-              </div>
-              <!-- Cart Icon -->
-              <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
-              </div>
-            </div>
-            </div>
-          </div>
-          <!-- Slider product end -->
 
 
         </ul>
@@ -567,7 +232,7 @@
 </div>
 
     </div>
-   
+
 </div>
 </div>
 <!--product area end-->
@@ -589,13 +254,13 @@
     const sliderScrollbar = document.querySelector(".slider-container .slider-scrollbar");
     const scrollbarThumb = sliderScrollbar.querySelector(".scrollbar-thumb");
     const maxScrollLeft = imageList.scrollWidth - imageList.clientWidth;
-    
+
     // Handle scrollbar thumb drag
     scrollbarThumb.addEventListener("mousedown", (e) => {
         const startX = e.clientX;
         const thumbPosition = scrollbarThumb.offsetLeft;
         const maxThumbPosition = sliderScrollbar.getBoundingClientRect().width - scrollbarThumb.offsetWidth;
-        
+
         // Update thumb position on mouse move
         const handleMouseMove = (e) => {
             const deltaX = e.clientX - startX;
@@ -604,7 +269,7 @@
             // Ensure the scrollbar thumb stays within bounds
             const boundedPosition = Math.max(0, Math.min(maxThumbPosition, newThumbPosition));
             const scrollPosition = (boundedPosition / maxThumbPosition) * maxScrollLeft;
-            
+
             scrollbarThumb.style.left = `${boundedPosition}px`;
             imageList.scrollLeft = scrollPosition;
         }

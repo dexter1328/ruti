@@ -174,24 +174,27 @@
             <!-- Price -->
             <div class="slider-product-info2">
               <div class="slider-product-price">
-                $ 48.00 <span class="cutout-price">$ 55.00</span>
+                $ {{number_format((float)$p->retail_price, 2, '.', '')}} <span class="cutout-price">{{ number_format((float)($p->retail_price + 10), 2, '.', '') }}
+                </span>
               </div>
-              <div class="percent-off">55% Off</div>
+              <div class="percent-off">Upto 30% Off</div>
             </div>
 
             <!-- Star ratings -->
             <div class="slider-product-info2">
               <div class="slider-product-review">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
+                <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                <div class="review-points">4.5 </div>
               </div>
               <!-- Cart Icon -->
               <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
+                <a href="{{ route('add.to.cart1', $p->sku) }}">
+                    <i class="fa fa-solid fa-shopping-cart"></i>
+                </a>
               </div>
             </div>
             </div>
@@ -270,7 +273,7 @@
             <div class="slider-product-price">
               ${{number_format((float)$p->retail_price, 2, '.', '')}} <span class="cutout-price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
             </div>
-            <div class="percent-off">55% Off</div>
+            <div class="percent-off">Upto 55% Off</div>
           </div>
 
           <!-- Star ratings -->
@@ -281,11 +284,13 @@
               <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
               <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
               <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
-              <div class="review-points">4.5 <span>(342)</span></div>
+              <div class="review-points">4.5 </div>
             </div>
             <!-- Cart Icon -->
             <div class="slider-product-cart">
-              <i class="fa fa-solid fa-shopping-cart"></i>
+                <a href="{{ route('add.to.cart1', $p->sku) }}">
+                    <i class="fa fa-solid fa-shopping-cart"></i>
+                </a>
             </div>
           </div>
           </div>
@@ -322,7 +327,7 @@
               <div class="slider-product-price">
                 ${{number_format((float)$p->retail_price, 2, '.', '')}} <span class="cutout-price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
               </div>
-              <div class="percent-off">55% Off</div>
+              <div class="percent-off">Upto 55% Off</div>
             </div>
 
             <!-- Star ratings -->
@@ -333,11 +338,13 @@
                 <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
                 <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
                 <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
+                <div class="review-points">4.5 </div>
               </div>
               <!-- Cart Icon -->
               <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
+                <a href="{{ route('add.to.cart1', $p->sku) }}">
+                    <i class="fa fa-solid fa-shopping-cart"></i>
+                </a>
               </div>
             </div>
             </div>
@@ -371,7 +378,7 @@
               <div class="slider-product-price">
                 ${{number_format((float)$p->retail_price, 2, '.', '')}} <span class="cutout-price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
               </div>
-              <div class="percent-off">55% Off</div>
+              <div class="percent-off">Upto 55% Off</div>
             </div>
 
             <!-- Star ratings -->
@@ -382,11 +389,13 @@
                 <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
                 <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
                 <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
-                <div class="review-points">4.5 <span>(342)</span></div>
+                <div class="review-points">4.5 </div>
               </div>
               <!-- Cart Icon -->
               <div class="slider-product-cart">
-                <i class="fa fa-solid fa-shopping-cart"></i>
+                <a href="{{ route('add.to.cart1', $p->sku) }}">
+                    <i class="fa fa-solid fa-shopping-cart"></i>
+                </a>
               </div>
             </div>
             </div>
@@ -643,7 +652,7 @@
                     <div class="slider-product-price">
                     ${{number_format((float)$p->retail_price, 2, '.', '')}} <span class="cutout-price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
                     </div>
-                    <div class="percent-off">55% Off</div>
+                    <div class="percent-off">Upto 55% Off</div>
                 </div>
 
                 <!-- Star ratings -->
@@ -654,11 +663,13 @@
                     <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
                     <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
                     <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
-                    <div class="review-points">4.5 <span>(342)</span></div>
+                    <div class="review-points">4.5 </div>
                     </div>
                     <!-- Cart Icon -->
                     <div class="slider-product-cart">
-                    <i class="fa fa-solid fa-shopping-cart"></i>
+                        <a href="{{ route('add.to.cart1', $p->sku) }}">
+                            <i class="fa fa-solid fa-shopping-cart"></i>
+                        </a>
                     </div>
                 </div>
                 </div>
@@ -689,7 +700,7 @@
                     <div class="slider-product-price">
                     ${{number_format((float)$p->retail_price, 2, '.', '')}} <span class="cutout-price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
                     </div>
-                    <div class="percent-off">55% Off</div>
+                    <div class="percent-off">Upto 55% Off</div>
                 </div>
 
                 <!-- Star ratings -->
@@ -700,7 +711,7 @@
                     <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
                     <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
                     <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
-                    <div class="review-points">4.5 <span>(342)</span></div>
+                    <div class="review-points">4.5 </div>
                     </div>
                     <!-- Cart Icon -->
                     <div class="slider-product-cart">
@@ -735,7 +746,7 @@
                     <div class="slider-product-price">
                     ${{number_format((float)$p->retail_price, 2, '.', '')}} <span class="cutout-price">${{number_format((float)$p->retail_price, 2, '.', '')}}</span>
                     </div>
-                    <div class="percent-off">55% Off</div>
+                    <div class="percent-off">Upto 55% Off</div>
                 </div>
 
                 <!-- Star ratings -->
@@ -746,11 +757,13 @@
                     <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
                     <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
                     <img class="review-star" src="{{asset('public/wb/img/new_homepage/icons/star.png')}}" alt="">
-                    <div class="review-points">4.5 <span>(342)</span></div>
+                    <div class="review-points">4.5 </div>
                     </div>
                     <!-- Cart Icon -->
                     <div class="slider-product-cart">
-                    <i class="fa fa-solid fa-shopping-cart"></i>
+                        <a href="{{ route('add.to.cart1', $p->sku) }}">
+                            <i class="fa fa-solid fa-shopping-cart"></i>
+                        </a>
                     </div>
                 </div>
                 </div>
@@ -1027,7 +1040,7 @@
             </div>
         </div>
 
-        <!-- /FAQs -->
+         /FAQs -->
 
 
     <script>
@@ -1144,12 +1157,12 @@ window.addEventListener("load", initSlider);
       </div>
       <div class="bought-product-time">
       <div class="slider-product-review">
-    <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-    <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-    <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-    <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-    <img class="review-star" src="public/wb/img/new_homepage/icons/star.png" alt="">
-    <div class="review-points">4.5 <span>(342)</span></div>
+    <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+    <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+    <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+    <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+    <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+    <div class="review-points">4.5 </div>
   </div>
         27 Minutes Ago
       </div>

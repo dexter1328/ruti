@@ -592,14 +592,7 @@
     <a href="{{route('wb-wishlist-page')}}">
       <div class="header-wishlist">
         <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
-        <div class="header-wishlist-count">4</div>
-      </div>
-    </a>
-    @else
-    <a href="#" type="button" data-toggle="modal" data-target="#exampleModal28">
-      <div class="header-wishlist">
-        <img class="header-icons" src="{{asset('public/wb/img/new_homepage/icons/heart.png')}}" alt="">
-        <div class="header-wishlist-count">4</div>
+        <div class="header-wishlist-count">{{ $wb_wishlist ? $wb_wishlist->count() : 0 }}</div>
       </div>
     </a>
     @endif
@@ -614,7 +607,7 @@
       src="{{asset('public/wb/img/new_homepage/icons/cart.png')}}"
       alt=""
       >
-      <div class="header-cart-count">4</div>
+      <div class="header-cart-count">{{ count((array) session('cart')) }}</div>
     </div>
     <!-- </a> -->
 

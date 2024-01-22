@@ -162,7 +162,7 @@
       </div>
       <div class="thankyou-popup-bottom">
         <div class="thankyou-popup-input">
-          <input placeholder="Enter your email" type="text">
+          <input placeholder="Enter your email" type="text" required>
           <a class="btn btn-primary" href="{{ url('/') }}">Confirm</a>
         </div>
         <div class="thankyou-popup-bottom-text">

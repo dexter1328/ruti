@@ -304,7 +304,7 @@ class FrontEndController extends Controller
         $rps2 = DB::table('products')
         ->where('w2b_category_1', $product->w2b_category_1)
         ->inRandomOrder()->limit(2000)->get();
-        $related_productss = $rps2->merge($rps1)->paginate(8);
+        $related_productss = $rps2->merge($rps1)->paginate(10);
 
 
 
@@ -996,7 +996,11 @@ class FrontEndController extends Controller
         $p2 = DB::table('products')->where('status', 'enable')->inRandomOrder()->limit(2000)->get();
         $products = $p2->merge($p1)->paginate(24);
 
-        return view('front_end.special_offers',compact('products'));
+        $p11 = DB::table('w2b_products')->inRandomOrder()->limit(2000)->get();
+        $p21 = DB::table('products')->where('status', 'enable')->inRandomOrder()->limit(2000)->get();
+        $productss = $p21->merge($p11)->paginate(10);
+
+        return view('front_end.special_offers',compact('products','productss'));
     }
 
     public function paypalPayment(Request $request)
