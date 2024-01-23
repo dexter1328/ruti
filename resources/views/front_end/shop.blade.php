@@ -552,9 +552,9 @@
   // TODO timer of the hot offers can be set from here
   setTimeout(() => {
     $('.countdown').countdown({
-      year: 2023,
-      month: 12,
-      day: 22,
+      year: 2024,
+      month: 2,
+      day: 23,
       hour: 0,
       minute: 0,
       second: 0,
@@ -1151,6 +1151,8 @@ window.addEventListener("load", initSlider);
         <div class="bought-product-image">
             <img src="{{ $product_s->original_image_url }}" alt="">
         </div>
+        <i class="fa fa-solid fa-close bought-close-icon"></i>
+
         <div class="bought-product-info">
             <div class="bought-product-text">
                 Someone bought <a href="{{ route('product-detail',['slug' => $product_s->slug, 'sku' => $product_s->sku]) }}">{{ Str::limit($product_s->title, 100) }}</a>
@@ -1173,9 +1175,28 @@ window.addEventListener("load", initSlider);
 
 
 <script>
+
+  let newsletterPopupShown = localStorage.getItem('newsletterShown');
+
+  if(!newsletterPopupShown){
+    $(".newsletter-popup").css("display", "flex");
+  }
+  
   $(".newsletter-close-icon").click(() => {
     $(".newsletter-popup").css("display", "none")
+    localStorage.setItem('newsletterShown', true);
   })
+
+  $(".bought-close-icon").click(() => {
+    $(".bought-product-popup").css("display", "none")
+  })
+  
+  setInterval(() => {
+    $(".bought-product-popup").css("display", "flex")
+    setTimeout(()=>{
+      $(".bought-product-popup").css("display", "none")
+    }, 5*1000)
+  }, 13*1000);
 
 </script>
 <!-- Newsletter Popup end -->
