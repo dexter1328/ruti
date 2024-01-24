@@ -12832,6 +12832,7 @@ transition: none !important;
     flex-direction: column;
     color: var(--black);
     max-width: 100vw;
+    overflow: hidden;
   }
 
   #main > div{
@@ -13865,7 +13866,7 @@ transition: none !important;
   .hot-deals-products{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
   }
 
   .hot-deals-product .product{
@@ -14507,7 +14508,7 @@ a.footer-address {
   top: 0;
   left: 0;
   z-index: 2000;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
 }
@@ -14665,7 +14666,7 @@ a.footer-address {
   position: fixed;
   bottom: 3rem;
   right: 2rem;
-  display: flex;
+  display: none;
   width: 375px!important;
   font-size: 16px;
   z-index: 1000;
@@ -14677,6 +14678,14 @@ a.footer-address {
   overflow: hidden;
   position: relative;
   width: 40%;
+}
+
+.bought-close-icon{
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 
 .bought-product-image img{
@@ -15095,6 +15104,7 @@ a.footer-address {
 
   .blogs, .products {
     width: 100%;
+    justify-content: center;
   }
 
   #main > div {
@@ -15104,6 +15114,14 @@ a.footer-address {
 
   .banner-cards{
     justify-content: center;
+  }
+
+  .hot-deals-products{
+    flex-wrap: wrap;
+  }
+
+  .banner-2-img{
+    display: none;
   }
 }
 
@@ -15187,6 +15205,21 @@ a.footer-address {
   .blog-img{
     width: 100%;
     height: 50%;
+  }
+
+  .footer-bottom{
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .footer-info{
+    display: none;
+  }
+
+  .footer-menus{
+    gap: 3rem;
   }
 
 }
@@ -15288,5 +15321,9 @@ a.footer-address {
 
   .carousel-slide{
     padding: 2rem auto;
+  }
+
+  .footer-menus{
+    gap: 2rem;
   }
 }
