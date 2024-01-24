@@ -164,6 +164,7 @@ Route::get('/trending-products', 'FrontEndController@trendingProducts')->name('t
 Route::get('/special-offers', 'FrontEndController@specialOffers')->name('special-offers');
 Route::get('/test-cart-mail', 'FrontEndController@notPaidMail')->name('test.cart.mail');
 Route::post('/sub-newsletter', 'FrontEndController@subNewsletter')->name('sub-newsletter');
+Route::get('/faqs', 'FrontEndController@faqs')->name('shop-faqs');
 
 
 

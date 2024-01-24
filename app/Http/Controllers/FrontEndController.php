@@ -1140,4 +1140,9 @@ class FrontEndController extends Controller
 
         return redirect()->back();
     }
+
+    public function faqs()
+    {
+        return view('front_end.faq');
+    }
 }
