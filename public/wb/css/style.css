@@ -14594,21 +14594,34 @@ a.footer-address {
 .faq-section {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.7rem;
   padding: 2rem;
+  width: 60rem !important;
+  text-align: center;
 }
 
 .faq-section h2{
   font-size: 2rem;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--primary-color);
+}
+.faq-item {
+  border-bottom: 1px solid #01010355;
+  padding-bottom: 0.8rem;
 }
 
-.faq-item h2{
+.faq-item h2 span{
   font-size: 1.4rem;
-  color: var(--primary-color);
+}
+
+.faq-item h2 {
+  color: #222222aa;
+  font-size: 1.2rem;
 }
 
 .faq-item p{
   font-size: 1rem;
+  opacity: 0.8;
 }
 
 
@@ -14779,8 +14792,8 @@ a.footer-address {
 }
 
 .slider-wrapper .image-list .image-item {
-  width: 325px;
-  height: 350px;
+  width: 220px;
+  height: 294px;
   object-fit: cover;
   max-width: none;
   transition: 0.2s all;
@@ -14856,6 +14869,11 @@ a.footer-address {
   justify-content: center;
 }
 
+.slider-container .slider-product-image{
+  width: auto;
+  height: auto;
+}
+
 .slider-product-image image{
   height: 80%;
   width: 80%;
@@ -14879,6 +14897,10 @@ a.footer-address {
   font-weight: 600;
 }
 
+.slider-container .slider-product-price{
+  font-size: 19px;
+}
+
 .cutout-price{
   font-size: 14px;
   opacity: 0.7;
@@ -14894,7 +14916,7 @@ a.footer-address {
 .percent-off{
   border: 1px solid #daa520;
   color: #daa520;
-  font-size: 12px;
+  font-size: 10px;
   padding: 2px;
   font-weight: 600;
   border-radius: 3px;
@@ -15069,8 +15091,8 @@ a.footer-address {
   }
 
   .slider-wrapper .image-list .image-item {
-    width: 280px;
-    height: 380px;
+    width: 200px;
+    height: 275px;
   }
 
   .slider-scrollbar .scrollbar-thumb {
@@ -15122,6 +15144,10 @@ a.footer-address {
 
   .banner-2-img{
     display: none;
+  }
+
+  .banner-card-4 {
+    width: 58rem;
   }
 }
 
@@ -15186,6 +15212,16 @@ a.footer-address {
   .footer-menus{
     gap: 1rem;
   }
+}
+
+@media (max-width: 1080px){
+  .banner-card-1 {
+    width: 32rem;
+  }
+  .banner-card-4 {
+    width: 32rem;
+  }
+
 }
 
 

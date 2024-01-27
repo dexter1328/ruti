@@ -211,21 +211,15 @@
                           <h4><i class="fa fa-solid fa-truck"></i>Safe & Secure</h4>
                           <div class="shipping-details-boxes">
                             <div class="shipping-details-box">
-                              <h5>Standard: calculated on all orders</h5>
+                              <h5>Customer Service</h5>
                               <div class="shipping-details-info">
-                                Delivery: <span>Jan 19-24, 79.6% are < 11 days</span>
-                              </div>
-                              <div class="shipping-details-info">
-                                Courier Company: <span>USPS, UPS</span>
+                                The support center has answers to questions you may have. You can also contact customer service in the support center if you can't find what you're looking for. 
                               </div>
                             </div>
                             <div class="shipping-details-box">
-                              <h5>Standard: calculated on all orders</h5>
+                              <h5>Sustainability</h5>
                               <div class="shipping-details-info">
-                                Delivery: <span>Jan 19-24, 79.6% are < 11 days</span>
-                              </div>
-                              <div class="shipping-details-info">
-                                Courier Company: <span>USPS, UPS</span>
+                                As part of our ongoing commitment to environmental sustainability, Temu has partnered with Trees for the Future to plant trees across Africa to create a positive impact on the environment, air, and local communities. 
                               </div>
                             </div>
                           </div>
