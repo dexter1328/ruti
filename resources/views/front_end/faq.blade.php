@@ -5,7 +5,7 @@
  <div class="faq-section" id="faq-section">
   <h2>Frequently Asked Questions</h2>
             <div class="faq-item">
-                <h2>How do I place an order?</h2>
+                <h2><span>Q.</span> How do I place an order?</h2>
                 <p>
                     Ordering from Nature Checkout is easy! Simply browse our
                     products, click on the item you want, choose your
@@ -16,7 +16,7 @@
             </div>
 
             <div class="faq-item">
-                <h2>What payment methods do you accept?</h2>
+                <h2><span>Q.</span> What payment methods do you accept?</h2>
                 <p>
                     We accept major credit and debit cards, including Visa,
                     Mastercard, American Express, and Discover. Additionally, we
@@ -25,7 +25,7 @@
             </div>
 
             <div class="faq-item">
-                <h2>How long will the delivery take?</h2>
+                <h2><span>Q.</span> How long will the delivery take?</h2>
                 <p>
                     The delivery time depends on your location and the shipping
                     method you choose during the checkout process. Our standard
@@ -36,7 +36,7 @@
             </div>
 
             <div class="faq-item">
-                <h2>What is your return policy?</h2>
+                <h2><span>Q.</span> What is your return policy?</h2>
                 <p>
                     If you're not completely satisfied with your purchase, we
                     offer a 30-day return policy. Please review our
@@ -46,7 +46,7 @@
             </div>
 
             <div class="faq-item">
-                <h2>Do you ship internationally?</h2>
+                <h2><span>Q.</span> Do you ship internationally?</h2>
                 <p>
                     Yes, we ship our products worldwide. Please note that
                     shipping times and fees may vary depending on your location.
@@ -56,7 +56,7 @@
             </div>
 
             <div class="faq-item">
-                <h2>How can I track my order?</h2>
+                <h2><span>Q.</span> How can I track my order?</h2>
                 <p>
                     To track your order, log in to your Nature Checkout account
                     and navigate to the "Order History" section. There, you can
@@ -66,7 +66,7 @@
 
             <div class="faq-item">
                 <h2>
-                    What if I have a question about a product or need
+                    <span>Q.</span> What if I have a question about a product or need
                     assistance?
                 </h2>
                 <p>
@@ -79,7 +79,7 @@
 
             <div class="faq-item">
                 <h2>
-                    How can I stay updated with Nature Checkout's latest
+                    <span>Q.</span> How can I stay updated with Nature Checkout's latest
                     products and promotions?
                 </h2>
                 <p>

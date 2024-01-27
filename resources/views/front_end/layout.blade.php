@@ -489,7 +489,7 @@
     <a target="_blank" href="https://helpdesk.naturecheckout.com">Support</a>
     </div> --}}
     <div class="d-flex align-items-center ps-2">
-        <a href="{{ route('shop-faqs') }}">FAQS</a>
+        <a href="{{ route('shop-faqs') }}">FAQ</a>
     </div>
   </div>
 </div>

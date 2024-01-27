@@ -1164,7 +1164,8 @@ window.addEventListener("load", initSlider);
                     <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
                     <div class="review-points">4.5 </div>
                 </div>
-                27 Minutes Ago
+                <span class="bought-product-time-mins">27 </span>
+                Minutes Ago
             </div>
         </div>
     @endif
@@ -1191,6 +1192,7 @@ window.addEventListener("load", initSlider);
   
   setInterval(() => {
     $(".bought-product-popup").css("display", "flex")
+    $(".bought-product-time-mins").text(Math.floor(Math.random()*59))
     setTimeout(()=>{
       $(".bought-product-popup").css("display", "none")
     }, 5*1000)
