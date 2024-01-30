@@ -3,23 +3,24 @@
 namespace App\Http\Controllers;
 
 use View;
+use App\Blog;
 use App\User;
 use App\PageMeta;
+use App\Products;
 use App\W2bOrder;
 use Carbon\Carbon;
 use Stripe\Charge;
 use Stripe\Stripe;
 use App\ReturnItem;
 use App\UserDevice;
+
 use App\W2bProduct;
 use App\WbWishlist;
-
 use App\GiftReceipt;
 use App\W2bCategory;
 use Stripe\Customer;
 use App\CustomerWallet;
 use App\OrderedProduct;
-use App\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Stripe\Exception\CardException;
@@ -56,6 +57,9 @@ class W2bCustomerController extends Controller
         View::share('product20', $product20);
         View::share('product21', $product21);
         View::share('product22', $product22);
+
+        $latest_blogs2 = Blog::latest()->take(3)->get();
+        View::share('latest_blogs2', $latest_blogs2);
 
         $wb_wishlist = null;
 
