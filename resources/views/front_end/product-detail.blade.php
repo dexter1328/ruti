@@ -175,6 +175,12 @@
 
                         </div>
 
+                        <div class="">
+                            <strong>
+                            Satisfaction guaranteed
+                            </strong>
+                          or your money back – we offer a hassle-free return policy for all our products.
+                        </div>
                         <div class="product_d_action mt-4">
                             <h4>Share This Product</h4>
                          </div>
@@ -189,16 +195,16 @@
                             <div class="shipping-details-box">
                               <h5>Standard: calculated on all orders</h5>
                               <div class="shipping-details-info">
-                                Delivery: <span>Jan 19-24, 79.6% are < 11 days</span>
+                                Delivery: <span>Feb 5 - Apr 24, 79.6% are < 11 days</span>
                               </div>
                               <div class="shipping-details-info">
                                 Courier Company: <span>USPS, UPS</span>
                               </div>
                             </div>
                             <div class="shipping-details-box">
-                              <h5>Standard: calculated on all orders</h5>
+                              <h5>Express: calculated on all orders</h5>
                               <div class="shipping-details-info">
-                                Delivery: <span>Jan 19-24, 79.6% are < 11 days</span>
+                                Delivery: <span>Feb 5 - Mar 24, 79.6% are < 11 days</span>
                               </div>
                               <div class="shipping-details-info">
                                 Courier Company: <span>USPS, UPS</span>
@@ -224,6 +230,7 @@
                             </div>
                           </div>
                         </div>
+
                 </div>
             </div>
         </div>

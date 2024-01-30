@@ -123,7 +123,7 @@
 }
 </style>
 
-<link rel="icon" href="{{asset('public/wb/img/logo/favicon.ico')}}" type="image/x-icon">
+<link rel="icon" href="{{asset('public/wb/img/logo/favicon.png')}}" type="image/x-icon">
 
 <!---Font Icon-->
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -437,7 +437,9 @@
     <div class="find-store_store">
       <div class="store-info">
         <div class="store-info-logo">
+          
           <img src="public/wb/img/new_homepage/logo/logo.png" alt="">
+          
         </div>
         <p>
           Joseph
@@ -504,7 +506,9 @@
     <i class="fa fa-solid fa-bars"></i>
   </div>
   <div class="header-logo">
-    <img class="logo" src="public/wb/img/new_homepage/logo/logo.png" alt="">
+    <a href="https://www.naturecheckout.com">
+      <img class="logo" src="public/wb/img/new_homepage/logo/logo.png" alt="">
+    </a>
   </div>
 
     <div class="search-container">

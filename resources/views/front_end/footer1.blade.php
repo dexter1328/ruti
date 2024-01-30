@@ -68,7 +68,7 @@
        </nav>
        </div>
        <div class="footer-menu">
-       <h2 class="footer-heading">TOP CATEGORIES</h2>
+       <h2 class="footer-heading categories">TOP CATEGORIES</h2>
        <nav>
          @foreach ($categories2 as $cat)
          <ul>
