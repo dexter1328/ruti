@@ -118,26 +118,75 @@
                     </div>
                 </div>
             </div>
-            <div class='main_parent_div border col-lg-8 col-sm-12 m-auto px-0'>
+            <div class='main_parent_div border col-lg-8 col-sm-12 m-auto px-4'>
                 <h3 class='sections_coupons_header like_products_heading p-2' >Products You may like</h3>
-                <div class='p-3 d-flex products_inner'>
-                    @foreach ($suggested_products as $p)
+        <!-- Products Slider -->
+        <!-- Please add only 10 products -->
+        <div class="slider-container">
+      <div class="slider-wrapper">
+        <button id="prev-slide" class="slide-button material-symbols-rounded">
+          chevron_left
+        </button>
+        <ul class="image-list">
 
-                    <div class='more_products ml-2 py-2 px-4 d-flex flex-column'>
-                        <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
-                        <img src="{{$p->original_image_url}}" class='more_products_img'  alt="{{ Str::limit($p->title, 35) }}">
-                        </a>
-                        <div class='products_title'>
-                            <h5><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">{{ Str::limit($p->title, 20) }}</a></h5>
-                        </div>
-                        <div class='products_title mt-auto'>
-                            <h5 class="text-center"><a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}" class="btn btn-danger btn-sm" style="border-radius:5px; font-size:12px; padding:10px 20px;">Select</a></h5>
-                        </div>
-                    </div>
-                    @endforeach
+        <!-- Slider product -->
+        @foreach ($suggested_products as $p)
+          <div class="slider-product">
+            <!-- Product Image -->
+            <div class="slider-product-image">
+                <a href="{{ route('product-detail',['slug' => $p->slug, 'sku' => $p->sku]) }}">
+                    <img class="image-item" src="{{$p->original_image_url}}" alt="{{ Str::limit($p->title, 35) }}" />
+                </a>
+              <div class="instock-text"><i class="fa fa-solid fa-check"></i> In Stock</div>
+              <div class="product-limited-text">Limited Time Offer!</div>
+            </div>
+            <!-- name -->
+            <div class="slider-product-info">
+                {{ Str::limit($p->title, 40) }}
+            <!-- Price -->
+            <div class="slider-product-info2">
+              <div class="slider-product-price">
+                $ {{number_format((float)$p->retail_price, 2, '.', '')}} <span class="cutout-price">{{ number_format((float)($p->retail_price + 10), 2, '.', '') }}
+                </span>
+              </div>
+              <div class="percent-off">Upto 30% Off</div>
+            </div>
 
+            <!-- Star ratings -->
+            <div class="slider-product-info2">
+              <div class="slider-product-review">
+                <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                <img class="review-star" src="{{ asset('public/wb/img/new_homepage/icons/star.png') }}" alt="">
+                <div class="review-points">4.5 </div>
+              </div>
+              <!-- Cart Icon -->
+              <div class="slider-product-cart">
+                <a href="{{ route('add.to.cart1', $p->sku) }}">
+                    <i class="fa fa-solid fa-shopping-cart"></i>
+                </a>
+              </div>
+            </div>
+            </div>
+          </div>
 
-                </div>
+          @endforeach
+          <!-- Slider product end -->
+
+      </ul>
+        <button id="next-slide" class="slide-button material-symbols-rounded">
+          chevron_right
+        </button>
+      </div>
+      <div class="slider-scrollbar">
+        <div class="scrollbar-track">
+          <div class="scrollbar-thumb"></div>
+        </div>
+      </div>
+    </div>
+<!-- Product Slider End -->
             </div>
     </div>
 
@@ -192,6 +241,78 @@
         }, 3000);
 
     });
+
+
+    // Product image slider script
+    const initSlider = () => {
+    const imageList = document.querySelector(".slider-wrapper .image-list");
+    const slideButtons = document.querySelectorAll(".slider-wrapper .slide-button");
+    const sliderScrollbar = document.querySelector(".slider-container .slider-scrollbar");
+    const scrollbarThumb = sliderScrollbar.querySelector(".scrollbar-thumb");
+    const maxScrollLeft = imageList.scrollWidth - imageList.clientWidth;
+
+    // Handle scrollbar thumb drag
+    scrollbarThumb.addEventListener("mousedown", (e) => {
+        const startX = e.clientX;
+        const thumbPosition = scrollbarThumb.offsetLeft;
+        const maxThumbPosition = sliderScrollbar.getBoundingClientRect().width - scrollbarThumb.offsetWidth;
+
+        // Update thumb position on mouse move
+        const handleMouseMove = (e) => {
+            const deltaX = e.clientX - startX;
+            const newThumbPosition = thumbPosition + deltaX;
+
+            // Ensure the scrollbar thumb stays within bounds
+            const boundedPosition = Math.max(0, Math.min(maxThumbPosition, newThumbPosition));
+            const scrollPosition = (boundedPosition / maxThumbPosition) * maxScrollLeft;
+
+            scrollbarThumb.style.left = `${boundedPosition}px`;
+            imageList.scrollLeft = scrollPosition;
+        }
+
+        // Remove event listeners on mouse up
+        const handleMouseUp = () => {
+            document.removeEventListener("mousemove", handleMouseMove);
+            document.removeEventListener("mouseup", handleMouseUp);
+        }
+
+        // Add event listeners for drag interaction
+        document.addEventListener("mousemove", handleMouseMove);
+        document.addEventListener("mouseup", handleMouseUp);
+    });
+
+    // Slide images according to the slide button clicks
+    slideButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const direction = button.id === "prev-slide" ? -1 : 1;
+            const scrollAmount = imageList.clientWidth * direction;
+            imageList.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        });
+    });
+
+     // Show or hide slide buttons based on scroll position
+    const handleSlideButtons = () => {
+        slideButtons[0].style.display = imageList.scrollLeft <= 0 ? "none" : "flex";
+        slideButtons[1].style.display = imageList.scrollLeft >= maxScrollLeft ? "none" : "flex";
+    }
+
+    // Update scrollbar thumb position based on image scroll
+    const updateScrollThumbPosition = () => {
+        const scrollPosition = imageList.scrollLeft;
+        const thumbPosition = (scrollPosition / maxScrollLeft) * (sliderScrollbar.clientWidth - scrollbarThumb.offsetWidth);
+        scrollbarThumb.style.left = `${thumbPosition}px`;
+    }
+
+    // Call these two functions when image list scrolls
+    imageList.addEventListener("scroll", () => {
+        updateScrollThumbPosition();
+        handleSlideButtons();
+    });
+}
+
+window.addEventListener("resize", initSlider);
+window.addEventListener("load", initSlider);
+
 
 </script>
 

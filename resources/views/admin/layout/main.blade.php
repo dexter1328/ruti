@@ -26,7 +26,7 @@
 
 		<title>{{ config('app.name', 'Nature Checkout') }}</title>
 		<!--favicon-->
-        <link rel="icon" href="{{asset('public/wb/img/logo/favicon.ico')}}" type="image/x-icon">
+        <link rel="icon" href="{{asset('public/wb/img/logo/favicon.png')}}" type="image/x-icon">
 		<!-- Vector CSS -->
 		<link href="{{ asset('public/plugins/vectormap/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet"/>
 		<!-- simplebar CSS-->
