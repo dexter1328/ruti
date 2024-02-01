@@ -15084,6 +15084,26 @@ a.footer-address {
 }
 
 
+.trending-products .product{
+  width: 14rem;
+}
+
+.buyer-options{
+  margin-top: 3rem;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.buyer-option{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+}
+
 /* Styles for mobile and tablets */
 @media only screen and (max-width: 1023px) {
   .slider-wrapper .slide-button {

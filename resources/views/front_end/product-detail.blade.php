@@ -69,6 +69,21 @@
                         </ul>
                     </div>
                 </div>
+                <div class="mr-4 d-flex buyer-options">
+                              <form class="buyer-option" action="{{ route("vote-best-seller") }}"  method="POST">
+                                  @csrf
+                                  <input type="hidden" name="vendor_id" value="{{$product->vendor_id}}">
+
+                                  <button class="btn_vote btn-secondary-orange" type="submit"><img src="{{asset('public/wb/img/icons/profile-user.png')}}" width="25px" height="25px" alt=""></button>
+                                  <div class="buyer-option-text">Vote best seller</div>
+                              </form>
+                              <form class="buyer-option" action="{{ route("vote-best-product") }}"  method="POST">
+                                  @csrf
+                                  <input type="hidden" name="product_sku" value="{{$product->sku}}">
+                                  <button class="btn_vote btn-primary-blue"  type="submit"><img src="{{asset('public/wb/img/icons/box.png')}}" width="25px" height="25px" alt=""></button>
+                                  <div class="buyer-option-text">Vote best product</div>
+                              </form>
+                          </div>
             </div>
             <div class="col-lg-7 col-md-7 mt-4 mt-lg-0">
                 <div class="product_d_right">
@@ -152,27 +167,6 @@
                               <a class="btn btn-primary-blue" href="{{ route('product-shop') }}" >Back To Shopping</a>
                           </div>
 
-                          <div class="mr-4 d-flex">
-                              <form class="" action="{{ route("vote-best-seller") }}"  method="POST">
-                                  @csrf
-                                  <input type="hidden" name="vendor_id" value="{{$product->vendor_id}}">
-
-                                  <span class="tooltip-container mr-3">
-                                  <button class="btn_vote btn-secondary-orange" type="submit"><img src="{{asset('public/wb/img/icons/profile-user.png')}}" width="25px" height="25px" alt=""></button>
-                                  <div class="tooltip-message">Vote for best seller.</div>
-                                  </span>
-                              </form>
-                              <form class="" action="{{ route("vote-best-product") }}"  method="POST">
-                                  @csrf
-                                  <input type="hidden" name="product_sku" value="{{$product->sku}}">
-
-                              <span class="tooltip-container">
-                                  <button class="btn_vote btn-primary-blue"  type="submit"><img src="{{asset('public/wb/img/icons/box.png')}}" width="25px" height="25px" alt=""></button>
-                                  <div class="tooltip-message">Vote for best product.</div>
-                              </span>
-                              </form>
-                          </div>
-
                         </div>
 
                         <div class="">
@@ -195,7 +189,7 @@
                             <div class="shipping-details-box">
                               <h5>Standard: calculated on all orders</h5>
                               <div class="shipping-details-info">
-                                Delivery: <span>Feb 5 - Apr 24, 79.6% are < 11 days</span>
+                                Delivery: <span> <span class="standard-delivery-dates">Feb 5 - Apr 24</span>, 79.6% are < 11 days</span>
                               </div>
                               <div class="shipping-details-info">
                                 Courier Company: <span>USPS, UPS</span>
@@ -204,7 +198,7 @@
                             <div class="shipping-details-box">
                               <h5>Express: calculated on all orders</h5>
                               <div class="shipping-details-info">
-                                Delivery: <span>Feb 5 - Mar 24, 79.6% are < 11 days</span>
+                                Delivery: <span> <span class="express-delivery-dates">Feb 5 - Mar 24</span>, 79.6% are < 5 days</span>
                               </div>
                               <div class="shipping-details-info">
                                 Courier Company: <span>USPS, UPS</span>
@@ -538,6 +532,39 @@
         }, 3000);
 
     });
+
+</script>
+
+<script>
+    function getCurrentMonthName() {
+        const months = [
+            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+        ];
+
+        const currentDate = new Date();
+        const currentMonthIndex = currentDate.getMonth();
+        const currentMonthName = months[currentMonthIndex];
+
+        return currentMonthName;
+    }
+    let currentDate = new Date();
+    let standardMaxDay = new Date();
+    let expressMaxDay = new Date();
+
+    currentDate.setDate(currentDate.getDate() + 6);
+    standardMaxDay.setDate(standardMaxDay.getDate() + 17);
+    expressMaxDay.setDate(expressMaxDay.getDate() + 11);
+
+    const standardDeliveryText = `
+        ${getCurrentMonthName(currentDate.getMonth())} ${currentDate.getDate()} -  ${getCurrentMonthName(standardMaxDay.getMonth())} ${standardMaxDay.getDate()}
+    `;
+    const expressDeliveryText = `
+        ${getCurrentMonthName(currentDate.getMonth())} ${currentDate.getDate()} -  ${getCurrentMonthName(expressMaxDay.getMonth())} ${expressMaxDay.getDate()}
+    `;
+    $('.standard-delivery-dates').text(standardDeliveryText);
+    $('.express-delivery-dates').text(expressDeliveryText);
+
 
 </script>
 

@@ -82,7 +82,7 @@
                 </div>
             </div>
         </div>
-        <div class="products">
+        <div class="products trending-products">
             @foreach ($products as $p)
 
             <div class="product">
