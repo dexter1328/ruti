@@ -161,6 +161,7 @@ Route::get('/blog', 'FrontEndController@blog')->name('nature-blog');
 Route::get('/blog-detail/{id}', 'FrontEndController@blogDetail')->name('nature-blog-detail');
 Route::get('/supplier/read-first', 'FrontEndController@readFirstSupplier');
 Route::get('/trending-products', 'FrontEndController@trendingProducts')->name('trending-products');
+Route::get('/new-arrivals', 'FrontEndController@newArrival')->name('new-arrivals');
 Route::get('/special-offers', 'FrontEndController@specialOffers')->name('special-offers');
 Route::get('/test-cart-mail', 'FrontEndController@notPaidMail')->name('test.cart.mail');
 Route::post('/sub-newsletter', 'FrontEndController@subNewsletter')->name('sub-newsletter');

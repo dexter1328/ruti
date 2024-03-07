@@ -6,6 +6,7 @@ use DB;
 use View;
 use Config;
 use Session;
+use App\Blog;
 use App\User;
 use App\Brand;
 use App\Sales;
@@ -26,8 +27,8 @@ use App\VendorStore;
 use App\W2bCategory;
 use App\SupplierRole;
 use App\EmailTemplate;
-use App\StoreSubscription;
 
+use App\StoreSubscription;
 use App\Mail\VendorSuccess;
 use Illuminate\Http\Request;
 use App\Mail\SupplierSuccess;
@@ -59,12 +60,9 @@ class CommonController extends Controller
         $categories_new = W2bCategory::where('parent_id', 0)->take(12)->get();
         View::share('categories_new', $categories_new);
 
-        $product20 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(60)->first();
-        $product21 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(3)->first();
-        $product22 = W2bProduct::select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url')->skip(150)->first();
-        View::share('product20', $product20);
-        View::share('product21', $product21);
-        View::share('product22', $product22);
+
+        $latest_blogs2 = Blog::latest()->take(3)->get();
+        View::share('latest_blogs2', $latest_blogs2);
 
 
 	}

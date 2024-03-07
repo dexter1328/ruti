@@ -31,6 +31,8 @@ use App\W2bCategory;
 use PayPal\Api\Item;
 use Stripe\Customer;
 use PayPal\Api\Payer;
+use App\Utils\RsaUtil;
+use GuzzleHttp\Client;
 use PayPal\Api\Amount;
 use App\OrderedProduct;
 use PayPal\Api\Payment;
@@ -39,6 +41,7 @@ use App\Jobs\RutiMailJob;
 use App\Mail\WbOrderMail;
 use App\Jobs\OrderMailJob;
 use App\Mail\CartOrderMail;
+use App\Mail\WelcomeCoupon;
 use PayPal\Api\Transaction;
 use PayPal\Rest\ApiContext;
 use App\Jobs\SellerOrderJob;
@@ -46,14 +49,16 @@ use Illuminate\Http\Request;
 use PayPal\Api\RedirectUrls;
 use App\Mail\SellerOrderMail;
 use App\Mail\WbRutiOrderMail;
-use App\Mail\WelcomeCoupon;
 use PayPal\Api\PaymentExecution;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use PayPal\Auth\OAuthTokenCredential;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Redirect;
+
+use GuzzleHttp\Exception\RequestException;
 use Stevebauman\Location\Facades\Location;
 use PayPal\Exception\PPConnectionException;
 
@@ -62,9 +67,23 @@ class FrontEndController extends Controller
     private $_api_context;
     private $stripe_secret;
     private $stripe_key;
+    protected $headers;
 
-	public function __construct()
-	{
+    public function __construct()
+    {
+        $rsaUtil = new RsaUtil();
+        $appKey = RsaUtil::appKey;
+        $signType = 'rsa2';
+        $timestamp = $rsaUtil->getMillisecond();
+        $sign = $rsaUtil->getSign($appKey, RsaUtil::privateKey, $timestamp);
+
+        $this->headers = [
+            'Content-type' => 'application/json',
+            'appKey' => $appKey,
+            'signType' => $signType,
+            'timestamp' => $timestamp,
+            'sign' => $sign,
+        ];
 
 		$page_meta = PageMeta::pluck('meta_value', 'meta_key')->all();
 		View::share('page_meta', $page_meta);
@@ -250,27 +269,103 @@ class FrontEndController extends Controller
 
         return view('front_end.cat_products', compact('products','cat_name'));
     }
+
+    // public function autocomplete(Request $request)
+    // {
+    //     $p1 = DB::table('w2b_products')->select('title')
+    //     ->where('title', 'like', "%{$request->term}%")
+    //     ->pluck('title');
+    //     $p2 = DB::table('products')->select('title')
+    //     ->where('title', 'like', "%{$request->term}%")
+    //     ->pluck('title');
+
+    //     return $p2->merge($p1);
+
+    // }
+
+    // public function shopSearch(Request $request)
+    // {
+
+    //     $query = $request->input('query');
+    //     $category = $request->input('search-category');
+
+    //     $queryBuilder1 = DB::table('w2b_products')
+    //         ->select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url') // Add other columns as needed
+    //         ->where('title', 'like', "%$query%");
+
+    //     $queryBuilder2 = DB::table('products')
+    //         ->select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url') // Add other columns as needed
+    //         ->where('title', 'like', "%$query%");
+
+    //     // Check if a category is selected
+    //     if ($category) {
+    //         $queryBuilder1->orWhere('w2b_category_1', $category);
+    //         $queryBuilder2->orWhere('w2b_category_1', $category);
+    //     }
+
+    //     $products = $queryBuilder2->union($queryBuilder1)->paginate(24);
+
+    //     // Check if a category is selected for display purposes
+    //     $selectedCategory = $category ? $category : 'All Categories';
+
+    //     return view('front_end.search-products', compact('products', 'selectedCategory'));
+    // }
+
+
     public function autocomplete(Request $request)
     {
         $p1 = DB::table('w2b_products')->select('title')
         ->where('title', 'like', "%{$request->term}%")
         ->pluck('title');
-        $p2 = DB::table('products')->select('title')
-        ->where('title', 'like', "%{$request->term}%")
-        ->pluck('title');
+        // $p2 = DB::table('products')->select('title')
+        // ->where('title', 'like', "%{$request->term}%")
+        // ->pluck('title');
 
-        return $p2->merge($p1);
+
+        $query = $request->term;
+        $client = new Client();
+        $p3 = "https://openapi.doba.com/api/goods/doba/spu/list?keyword=$query";
+        $response = $client->request('GET', $p3, [
+            'headers' => $this->headers,
+        ]);
+
+        $productResponse = json_decode($response->getBody(), true);
+        $productData = $productResponse['businessData']['data']['goodsList'];
+
+        $titles = collect($productData)->pluck('title');
+
+
+
+        return $titles->merge($p1);
+                // return $p1;
     }
 
     public function shopSearch(Request $request)
     {
+
+        $query = $request->input('query');
+        $client = new Client();
+        $p3 = "https://openapi.doba.com/api/goods/doba/spu/list?keyword=$query";
+        $response = $client->request('GET', $p3, [
+            'headers' => $this->headers,
+        ]);
+
+        $productResponse = json_decode($response->getBody(), true);
+        $productData = $productResponse['businessData']['data']['goodsList'];
+
+        $dobap = collect($productData);
+
+
+        // dd($titles);
+
+
         $query = $request->input('query');
         $category = $request->input('search-category');
 
         $queryBuilder1 = DB::table('w2b_products')
             ->select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url') // Add other columns as needed
             ->where('title', 'like', "%$query%");
-
+        // dd($queryBuilder1);
         $queryBuilder2 = DB::table('products')
             ->select('sku','title','w2b_category_1','brand','retail_price', 'slug','original_image_url') // Add other columns as needed
             ->where('title', 'like', "%$query%");
@@ -281,12 +376,12 @@ class FrontEndController extends Controller
             $queryBuilder2->orWhere('w2b_category_1', $category);
         }
 
-        $products = $queryBuilder2->union($queryBuilder1)->paginate(24);
+        $products = $queryBuilder2->union($queryBuilder1)->paginate(12);
 
         // Check if a category is selected for display purposes
         $selectedCategory = $category ? $category : 'All Categories';
 
-        return view('front_end.search-products', compact('products', 'selectedCategory'));
+        return view('front_end.search-products', compact('products', 'selectedCategory','dobap'));
     }
 
 
@@ -1008,6 +1103,51 @@ class FrontEndController extends Controller
         $products = $p2->merge($p1)->paginate(24);
 
         return view('front_end.trending_products',compact('products'));
+    }
+
+
+    public function newArrival(Request $request)
+    {
+        $catIds = ['BovRVPJymYDO', 'rEqHbnYtsPDQ', 'rsVMvcojyPbw','riqKbocWNJDZ','AnDbvgoDFcVY','AcvdbgJfYPVN','ZjbtDvoRFcVl','TzVHDqcQaPbO','BpvWbAPOIcqo','BIDHVAPidJbn','AMqQVfPBoYDH','ApDjvTYfcJVh']; // Add more category IDs as needed
+        shuffle($catIds); // Shuffle the array of category IDs
+        $selectedCatId = array_pop($catIds); // Select one ID at a time from the shuffled array
+        $pageSize = 24; // Number of products per page
+        $page = $request->query('page', 1);
+
+        $client = new Client();
+        $products_url = "https://openapi.doba.com/api/goods/doba/spu/list?catId=$selectedCatId&pageNumber=$page&pageSize=$pageSize&shipFrom=US&shipTo=US";
+
+        try {
+            $productResponse = $client->request('GET', $products_url, [
+                'headers' => $this->headers,
+            ]);
+
+            $statusCode = $productResponse->getStatusCode();
+            if ($statusCode == 200) {
+                $responseData = $productResponse->getBody()->getContents();
+                $responseData = json_decode($responseData, true);
+
+                $products = $responseData['businessData']['data'];
+                $totalProducts = $responseData['businessData']['data']['totalQuantity'];
+
+                // Calculate total pages
+                $totalPages = ceil($totalProducts / $pageSize);
+
+                return view('front_end.new_arrival', [
+                    'productData' => [
+                        'currentPage' => $page,
+                        'totalPages' => $totalPages,
+                    ],
+                    'products' => $products,
+                ]);
+            } else {
+                // Handle unsuccessful response
+                return response()->json(['error' => 'Unable to fetch product detail'], $statusCode);
+            }
+        } catch (RequestException $e) {
+            // Handle request exception
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     public function specialOffers()

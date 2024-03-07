@@ -722,6 +722,7 @@
                     <a href="{{url('/')}}" class="nav-item">HOME</a>
                     <!-- <a href="{{url('/trending-products')}}" class="nav-item">TRENDING PRODUCTS</a> -->
                     <a href="{{url('/special-offers')}}" class="nav-item">SPECIAL PRODUCTS</a>
+                    <a href="{{url('/new-arrivals')}}" class="nav-item">NEW ARRIVALS</a>
                     <!-- <a href="{{url('/trending-products')}}" class="nav-item">PRODUCTS</a> -->
                 </nav>
             </div>
