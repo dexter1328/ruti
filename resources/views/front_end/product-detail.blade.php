@@ -219,7 +219,7 @@
                             <div class="shipping-details-box">
                               <h5>Sustainability</h5>
                               <div class="shipping-details-info">
-                                As part of our ongoing commitment to environmental sustainability, Temu has partnered with Trees for the Future to plant trees across Africa to create a positive impact on the environment, air, and local communities. 
+                                As part of our ongoing commitment to environmental sustainability, Nature Checkout has partnered with Trees for the Future to plant trees across Africa to create a positive impact on the environment, air, and local communities. 
                               </div>
                             </div>
                           </div>
