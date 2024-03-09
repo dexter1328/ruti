@@ -85,10 +85,10 @@
         <div class="products trending-products">
             @foreach($products['goodsList'] as $p)
             <div class="product">
-                <a href="https://naturecheckout.com/product-detail/{{ $p['spuId'] }}">
+                <a href="https://shop.naturecheckout.com/product-detail/{{ $p['spuId'] }}">
                     <img src="{{ $p['pictureUrl'] }}" alt="{{ Str::limit($p['title'], 35) }}" class="product-img product-img-1">
                 </a>
-                <a href="https://naturecheckout.com/product-detail/{{ $p['spuId'] }}">
+                <a href="https://shop.naturecheckout.com/product-detail/{{ $p['spuId'] }}">
                     <img src="{{ $p['pictureUrl'] }}" alt="{{ Str::limit($p['title'], 35) }}" class="product-img product-img-2">
                 </a>
                 <div class="product-info">
@@ -103,7 +103,7 @@
                     </p>
                 </div>
                 <div class="product-actions">
-                    <a class="button product-button" href="https://naturecheckout.com/product-detail/{{ $p['spuId'] }}">ADD TO CART</a>
+                    <a class="button product-button" href="https://shop.naturecheckout.com/product-detail/{{ $p['spuId'] }}">ADD TO CART</a>
                 </div>
             </div>
         @endforeach
